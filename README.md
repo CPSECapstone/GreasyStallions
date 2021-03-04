@@ -1,8 +1,8 @@
 # How to run Greasy Stallions Flipt(ed)
-## 1. clone this repo
-## 2. make sure you have npm, expo, and react-native installed (npm install ______)
-## 3. run 'npm install' from the root directory to create the build
-## 4. run 'npm start' ... this will run the expo server and give instructions to open the app preview in web, iOS, or Android
+- clone this repo
+- make sure you have npm, expo, and react-native installed (npm install ______)
+- run 'npm install' from the root directory to create the build
+- run 'npm start' ... this will run the expo server and give instructions to open the app preview in web, iOS, or Android
 
 
 
