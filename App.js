@@ -60,7 +60,7 @@ const FliptedComponent = () => {
   return (
     <View style = {styles.section}>
       <Text style={styles.starshipName}>Hello</Text>
-      <Text style={styles.starshipName}> {data} </Text> 
+      <Text style={styles.starshipName}>FliptEd</Text> 
     </View>
   );
   //issue is that data is null
