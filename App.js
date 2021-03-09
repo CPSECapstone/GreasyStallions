@@ -2,12 +2,18 @@ import React, { useState } from 'react';
 import { Button, Text, View, SafeAreaView, ActivityIndicator, StyleSheet } from 'react-native';
 import { ApolloProvider, useQuery, gql} from '@apollo/client';
 import { Picker } from '@react-native-picker/picker';
+import { StatusBar } from 'expo-status-bar';
+import AppNavigation from './navigation';
+import config from './aws-exports';
+import Amplify from '@aws-amplify/core';
 
 import { apolloClient } from './apollo';
 import { apolloClientFlipted} from './apollo-flipted';
 
+Amplify.configure(config);
 
 // Imperial I-class Star Destroyer
+/*
 const defaultStarshipId = 'c3RhcnNoaXBzOjM=';
 
 const LIST_USERS = gql`
@@ -60,7 +66,7 @@ const FliptedComponent = () => {
   return (
     <View style = {styles.section}>
       <Text style={styles.starshipName}>Hello</Text>
-      <Text style={styles.starshipName}>FliptEd</Text> 
+      <Text style={styles.starshipName}>Greasy Stallions!</Text> 
     </View>
   );
   //issue is that data is null
@@ -186,3 +192,19 @@ export default function App() {
     </ApolloProvider>
   );
 }
+*/
+
+export default function App() {
+  return (
+    <View style={styles.container}>
+      <AppNavigation />
+      <StatusBar style="auto" />
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
