@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-  View, StyleSheet, Text,
+  View, StyleSheet, Text, ScrollView, SafeAreaView,
 } from 'react-native';
 import Auth from '@aws-amplify/auth';
 import Button from '../../components/Button';
@@ -11,9 +11,15 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     paddingTop: 50,
   },
+  content: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '75%'
+  }
 });
 
 export default function SignUp({ navigation }) {
@@ -55,42 +61,44 @@ export default function SignUp({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Input
-        value={name}
-        placeholder="Name"
-        onChange={(text) => onChangeName(text)}
-        autoFocus
-      />
-      <Input
-        value={email}
-        placeholder="email@example.com"
-        onChange={(text) => onChangeEmail(text)}
-        autoCapitalize="none"
-        autoCompleteType="email"
-        keyboardType="email-address"
-      />
-      <Input
-        value={password}
-        placeholder="password"
-        onChange={(text) => onChangePassword(text)}
-        secureTextEntry
-        autoCompleteType="password"
-      />
-      <Input
-        value={repeatPassword}
-        placeholder="Repeat password"
-        onChange={(text) => onChangeRepeatPassword(text)}
-        secureTextEntry
-        autoCompleteType="password"
-      />
-      <Button
-        onPress={() => signUp()}
-      >
-        Sign Up
-      </Button>
-      <Text>
-        {invalidMessage}
-      </Text>
+      <View style={styles.content}>
+        <Input
+          value={name}
+          placeholder="Name"
+          onChange={(text) => onChangeName(text)}
+          autoFocus
+        />
+        <Input
+          value={email}
+          placeholder="email@example.com"
+          onChange={(text) => onChangeEmail(text)}
+          autoCapitalize="none"
+          autoCompleteType="email"
+          keyboardType="email-address"
+        />
+        <Input
+          value={password}
+          placeholder="password"
+          onChange={(text) => onChangePassword(text)}
+          secureTextEntry
+          autoCompleteType="password"
+        />
+        <Input
+          value={repeatPassword}
+          placeholder="Repeat password"
+          onChange={(text) => onChangeRepeatPassword(text)}
+          secureTextEntry
+          autoCompleteType="password"
+        />
+        <Button
+          onPress={() => signUp()}
+        >
+          Sign Up
+        </Button>
+        <Text>
+          {invalidMessage}
+        </Text>
+      </View>
     </View>
   );
 }
