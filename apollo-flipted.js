@@ -27,6 +27,7 @@ const httpLink = new HttpLink({
 });
 
 export const apolloClientFlipted = new ApolloClient({
+  uri: 'https://jikothj7j7.execute-api.us-east-1.amazonaws.com/dev/graphql',
   cache: new InMemoryCache(),
   link: httpLink,
   // link: asyncAuthLink.concat(httpLink),

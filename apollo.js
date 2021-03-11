@@ -1,3 +1,6 @@
+//This file was for the starship apollo server, ours is in apollo-flipted
+
+
 import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client';
 // import { setContext } from '@apollo/link-context';
 
