@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Text, View, SafeAreaView, ActivityIndicator, StyleSheet, FlatList } from 'react-native';
+import { ScrollView, Button, Text, View, SafeAreaView, ActivityIndicator, StyleSheet, FlatList } from 'react-native';
 import { ApolloProvider, useQuery, gql} from '@apollo/client';
 import { Picker } from '@react-native-picker/picker';
 import { StatusBar } from 'expo-status-bar';
@@ -14,27 +14,47 @@ Amplify.configure(config);
 
 const LIST_USERS = gql
 `
-    query listusers{getUsers{fname lname}}
+    query{getUsers{fname lname}}
 `;
-
+/*
 const FliptedComponent = () => {
   const {data, error, loading} = useQuery(LIST_USERS);
   console.log(data);
-  //const users = data.getUsers;
+  //console.log(Object.keys(data));
+  //const user1 = data.getUsers
+  //const user1name = 'yo';
   if (error) { console.log('Error fetching users', error); }
 
+
+  let students = [];
+  if(data){
+  data.getUsers.forEach( usr =>{
+    students.push(<Text style={styles.label}> {usr.fname + " " + usr.lname}</Text>)
+  });
+  }
+  
   return (
-    <View style = {styles.section}>
-      <Text style={styles.starshipName}>Hello</Text> 
+    <View style = {styles.container}>
+      {students}
     </View>
   );
-}
 
+}*/
+/*
 export default function App() {
   return (
     <ApolloProvider client={apolloClientFlipted}>
       <FliptedComponent />
     </ApolloProvider>
+  );
+}*/
+// this is for the sign in stuff remove ^
+export default function App() {
+  return (
+    <View style={styles.container}>
+      <AppNavigation />
+      <StatusBar style="auto" />
+    </View>
   );
 }
 
@@ -48,7 +68,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    paddingHorizontal: 50,
+    paddingHorizontal: 0,
   },
   label: {
     marginBottom: 2,
@@ -166,14 +186,6 @@ function StarshipDetails({ starship }) {
   )
 }
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <AppNavigation />
-      <StatusBar style="auto" />
-    </View>
-  );
-}
 */
 /*
 
