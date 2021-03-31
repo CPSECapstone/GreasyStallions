@@ -65,12 +65,14 @@ const CrsFliptedComponent = ({navigation}) => {
   console.log(data)
   console.log(navigation)
   var goToClassPage = () => {
-    navigation.navigate('ClassPage' )
+    navigation.navigate('ClassPage')
   }
 
   if(data){
     data.getCourses.forEach( crs => {
-      let toPush = <ListGroup.Item onClick={goToClassPage}>{crs.name}</ListGroup.Item>
+      let toPush = <ListGroup.Item onClick={() => {navigation.navigate('ClassPage', {
+        className: crs.name
+      })}}>{crs.name}</ListGroup.Item>
       courses.push(toPush)
     });
   }

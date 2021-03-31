@@ -2,9 +2,10 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import {ListGroup, Button, Col, Row} from 'react-bootstrap'
 
-let ClassPage = function({ navigation }){
+let ClassPage = function({ route, navigation }){
 
-   let names = ["beep", "boop", "bop"];
+   const { className } = route.params;
+   let names = ["Day 1 Quiz", "Other", "Other"];
    let quizzes = [];
 
    let selectOption = () => {
@@ -22,7 +23,7 @@ let ClassPage = function({ navigation }){
 
    return (
       <View>
-         <h2>Hellow</h2>
+         <h2>{className}</h2>
          <ListGroup>
             {quizzes}
          </ListGroup>
