@@ -5,10 +5,11 @@ import {ListGroup, Col, Row, Form, Button, FormLabel, FormControl, ListGroupItem
 let QuizPage = function({ navigation }){
    const [ques1, setQues1] = React.useState(null);
    const [ques2, setQues2] = React.useState(null);
+   const [ques3, setQues3] = React.useState(null);
+   const [ques4, setQues4] = React.useState(null);
 
    let out = "You scored a ";
    let score = 0;
-   let answers = ["Helsinki", "Athens", "Stockholm", "Oslo", "Copenhagen"]
    const radios = [
       {name : 'Helsinki', value: 'Helsinki'},
       {name : 'Athens', value: 'Athens'},
@@ -16,7 +17,6 @@ let QuizPage = function({ navigation }){
       {name : 'Oslo', value: 'Oslo'},
       {name : 'Copenhagen', value: 'Copenhagen'},
    ]
-   let options = [];
 
    function submitClicked() {
       if (ques1 == "Stockholm") {
@@ -25,23 +25,19 @@ let QuizPage = function({ navigation }){
       if (ques2 == "Helsinki") {
          score = score + 5;
       }
+      if (ques3 == "Copenhagen") {
+         score = score + 5;
+      }
+      if (ques4 == "Oslo") {
+         score = score + 5;
+      }
       out = out + score.toString();
-      out = out + "/10!!";
+      out = out + "/20!!";
       alert(out);
+      out = "You scored a ";
+      score = 0;
    }
 
-   answers.forEach(txt => {
-      options.push(<ListGroup.Item>
-         <Form.Check
-          type="radio"
-          label={txt}
-          name={txt}
-          id={txt}/>
-         {/* <h2>{txt}</h2> */}
-      </ListGroup.Item>);
-   });
-
-   
    return (
       <View>
          <Form>
@@ -78,6 +74,44 @@ let QuizPage = function({ navigation }){
                            value={radio.value}
                            checked={ques2 === radio.value}
                            onChange ={(e) => setQues2(e.currentTarget.value)}
+                        >
+                           {radio.name}
+                        </ToggleButton>
+                     ))}
+                  </ButtonGroup>
+            </Form.Group>
+            <Form.Group controlId="Q3">
+               <FormLabel>3) What is the capital of Denmark?</FormLabel>
+                  <br />
+                  <ButtonGroup toggle>
+                     {radios.map((radio, idx) => (
+                        <ToggleButton
+                           key={idx}
+                           type="radio"
+                           variant="outline-dark"
+                           name="radio"
+                           value={radio.value}
+                           checked={ques3 === radio.value}
+                           onChange ={(e) => setQues3(e.currentTarget.value)}
+                        >
+                           {radio.name}
+                        </ToggleButton>
+                     ))}
+                  </ButtonGroup>
+            </Form.Group>
+            <Form.Group controlId="Q4">
+               <FormLabel>4) What is the capital of Norway?</FormLabel>
+                  <br />
+                  <ButtonGroup toggle>
+                     {radios.map((radio, idx) => (
+                        <ToggleButton
+                           key={idx}
+                           type="radio"
+                           variant="outline-dark"
+                           name="radio"
+                           value={radio.value}
+                           checked={ques4 === radio.value}
+                           onChange ={(e) => setQues4(e.currentTarget.value)}
                         >
                            {radio.name}
                         </ToggleButton>
