@@ -6,6 +6,7 @@ import { StatusBar } from 'expo-status-bar';
 import AppNavigation from './navigation';
 import config from './aws-exports';
 import Amplify from '@aws-amplify/core';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { apolloClient } from './apollo';
 import { apolloClientFlipted} from './apollo-flipted';

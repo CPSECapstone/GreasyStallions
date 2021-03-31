@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Button from '../components/Button';
+import {ListGroup, Col, Row} from 'react-bootstrap'
 
 import { apolloClientFlipted} from '../apollo-flipted';
 import { ApolloProvider, useQuery, gql} from '@apollo/client';
@@ -55,24 +56,31 @@ const UsrFliptedComponent = () => {
   );
 }
 
-const CrsFliptedComponent = () => {
+const CrsFliptedComponent = ({navigation}) => {
   const {data, error, loading} = useQuery(LIST_COURSES);
+  
   if (error) { console.log('Error fetching users', error); }
 
   let courses = [];
   console.log(data)
+  console.log(navigation)
+  var goToClassPage = () => {
+    navigation.navigate('ClassPage' )
+  }
 
   if(data){
-    data.getCourses.forEach( crs =>{
-          courses.push(<Text style={styles.starshipName}> {crs.name}</Text>)
+    data.getCourses.forEach( crs => {
+      let toPush = <ListGroup.Item onClick={goToClassPage}>{crs.name}</ListGroup.Item>
+      courses.push(toPush)
     });
   }
 
   return (
     <View style = {styles.section}>
-      <Text style = {styles.text}>{"COURSES:"}</Text>
-      {courses}
-
+      <h2>{"COURSES:"}</h2>
+      <ListGroup>
+        {courses}
+      </ListGroup>
     </View>
   );
 }
@@ -99,12 +107,14 @@ const TskFliptedComponent = () => {
 }
 
 
-export default function Home({ signOut }) {
+export default function Home({ navigation, signOut }) {
   return (
+    
     <View style={styles.header}>
+      {console.log(navigation)}
       <ApolloProvider client={apolloClientFlipted}>
         <UsrFliptedComponent />
-        <CrsFliptedComponent />
+        <CrsFliptedComponent navigation={navigation}/>
         <TskFliptedComponent />
       </ApolloProvider>
       <Text style={{paddingTop: 100, textAlign: 'left',fontSize: 20,fontStyle: 'bold'}}>You are now authenticated</Text>
