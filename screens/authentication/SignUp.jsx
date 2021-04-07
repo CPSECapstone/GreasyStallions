@@ -4,7 +4,7 @@ import {
 } from 'react-native';
 import Auth from '@aws-amplify/auth';
 import Input from '../../components/Input';
-import {ListGroup, Col, Row, Form, Button, FormLabel, FormControl, ListGroupItem, ButtonGroup, ToggleButton, ToggleButtonGroup} from 'react-bootstrap';
+import {Container, Col, Row, Form, Button, FormLabel, FormControl, ListGroupItem, ButtonGroup, ToggleButton, ToggleButtonGroup} from 'react-bootstrap';
 
 const styles = StyleSheet.create({
   container: {
@@ -27,6 +27,7 @@ export default function SignUp({ navigation }) {
   const [email, onChangeEmail] = useState('');
   const [password, onChangePassword] = useState('');
   const [repeatPassword, onChangeRepeatPassword] = useState('');
+  //const [userType, onChangeUserType] = usestate('');
 
   const [invalidMessage, setInvalidMessage] = useState(null);
 
@@ -60,55 +61,72 @@ export default function SignUp({ navigation }) {
   };
 
   return (
-    <Form>
-      <Form.Row>
-        <Form.Group as={Col} controlId="formFirstName">
-          <Form.Label>First Name</Form.Label>
-          <Form.Control placeholder = "First Name" 
-            value={name} 
-            onChange={(text) => onChangeName(text)}
-          />
-        </Form.Group>
-        <Form.Group as={Col} controlId="formLastName" >
-          <Form.Label>Last Name</Form.Label>
-          <Form.Control placeholder = "Last Name"/>
-        </Form.Group>
-      </Form.Row>
-      <Form.Group controlId="formEmail">
-        <Form.Label>Email address</Form.Label>
-        <Form.Control 
-          value={email} 
-          type="email" 
-          placeholder="Enter email" 
-          onChange={(text) => onChangeEmail(text)} 
-        />
-      </Form.Group>
-      <Form.Row>
-        <Form.Group as={Col} controlId="formPassword">
-          <Form.Label>Password</Form.Label>
+    <Container fluid="md">
+      <Form>
+        <Form.Row>
+          <Form.Group as={Col} controlId="formFirstName">
+            <Form.Label>First Name</Form.Label>
+            <Form.Control placeholder = "First Name" 
+              value={name} 
+              onChange={(text) => onChangeName(text)}
+            />
+          </Form.Group>
+          <Form.Group as={Col} controlId="formLastName" >
+            <Form.Label>Last Name</Form.Label>
+            <Form.Control placeholder = "Last Name"/>
+          </Form.Group>
+          <Form.Group as={Col} controlId="formTorS">
+            <Form.Label>Role</Form.Label>
+            <Form.Control
+              as="select"
+              id="teacherorstudent"
+              custom
+            >
+              <option value="0">Student</option>
+              <option value="1">Teacher</option>  
+            </Form.Control>
+          </Form.Group>
+        </Form.Row>
+        <Form.Group controlId="formEmail">
+          <Form.Label>Email address</Form.Label>
           <Form.Control 
-            value={password} 
-            type="password" 
-            palceholder="Password" 
-            onChange={(text) => onChangePassword(text)} 
-            aria-describedby="passwordHelpBlock"  
+            value={email} 
+            type="email" 
+            placeholder="Enter email" 
+            onChange={(text) => onChangeEmail(text)} 
           />
         </Form.Group>
-        <Form.Group as={Col} controlId="formRepeatPassword">
-          <Form.Label>Confirm</Form.Label>
-          <Form.Control 
-            value={repeatPassword}
-            type="password"
-            palceholder="Password" 
-            onChange={(text) => onChangeRepeatPassword(text)} 
-          />
-        </Form.Group>
-      </Form.Row>
-      <Form.Text id="passwordHelpBlock" muted>
-        Use between 6-20 characters with a mix of letters, numbers and symbols
-      </Form.Text>
-      <Button type="submit" onPress={() => signUp()}>Submit</Button>
-    </Form>
+        <Form.Row>
+          <Form.Group as={Col} controlId="formPassword">
+            <Form.Label>Password</Form.Label>
+            <Form.Control 
+              value={password} 
+              type="password" 
+              palceholder="Password" 
+              onChange={(text) => onChangePassword(text)} 
+              aria-describedby="passwordHelpBlock"  
+            />
+          </Form.Group>
+          <Form.Group as={Col} controlId="formRepeatPassword">
+            <Form.Label>Confirm</Form.Label>
+            <Form.Control 
+              value={repeatPassword}
+              type="password"
+              palceholder="Password" 
+              onChange={(text) => onChangeRepeatPassword(text)} 
+            />
+          </Form.Group>
+        </Form.Row>
+        <Form.Text id="passwordHelpBlock" muted>
+          Use between 6-20 characters with a mix of letters, numbers and symbols
+        </Form.Text>
+        <Button 
+          type="submit" 
+          onPress={() => signUp()}
+          variant="outline-dark"
+        >Submit</Button>
+      </Form>
+    </Container>
   );
 
   // return (
