@@ -1,13 +1,13 @@
 import React from 'react';
 import { View } from 'react-native';
-import { Form, FormLabel, Col, Row } from 'react-bootstrap';
+import { Form, FormLabel } from 'react-bootstrap';
 
 let QuizResults = function({ route, navigation }) {
 
     const { quiz, answers } = route.params;
     let i = 0;
 
-    let colorCheck = (option, correct) => {
+    let buttonColor = (option, correct) => {
         if (option === correct) {
             return "btn btn-outline-success";
         } else {
@@ -36,7 +36,7 @@ let QuizResults = function({ route, navigation }) {
                         {question.options.map((prompt, jdx) => (
                             <button
                                 type="button"
-                                class={colorCheck(prompt, question.answer)}
+                                class={buttonColor(prompt, question.answer)}
                                 disabled
                             >
                                 {prompt}

@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import { Form, Button, FormLabel, ButtonGroup, ToggleButton } from 'react-bootstrap';
 import QuizModal from './QuizModal.jsx';
 
-let QuizPage = function({ navigation }){
+let QuizPage = function({ navigation }) {
 
    const quiz = [
       {
