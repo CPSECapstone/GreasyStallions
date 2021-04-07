@@ -46,10 +46,8 @@ let QuizPage = function({ navigation }){
          }
       }
 
-      if(type === "-") {
-         if (currNum != 0) {
-            setCurrNum(currNum - 1);
-         }
+      if (type === "-" && currNum != 0) {
+         setCurrNum(currNum - 1);
       }
    }
 
