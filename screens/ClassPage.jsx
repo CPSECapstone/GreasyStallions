@@ -55,18 +55,7 @@ let ClassPage = function({ route, navigation }){
       }
       setShowGoalModal(false);
    }
-<<<<<<< HEAD
-   
-=======
 
-
-   names.forEach(name => {
-      quizzes.push(<ListGroup.Item onClick={selectOption}>
-         {name}
-      </ListGroup.Item>);
-   });
-
->>>>>>> added list header and goals update now
    goals.forEach(goal => {
       let component = 
       <ListGroup.Item>
