@@ -1,13 +1,9 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import {ListGroup, Button, Col, Row} from 'react-bootstrap'
-<<<<<<< HEAD
 import YoutubePlayer from 'react-native-youtube-iframe';
-=======
 import CreateGoalModal from '../components/CreateGoalModal'
 import {useSelector} from 'react-redux';
->>>>>>> 38da3259f00b7c436bf892d74e1b33cedca37b06
-
 let ClassPage = function({ route, navigation }){
    const [showGoalModal, setShowGoalModal] = useState(false);
    const [goalCmp, setGoalCmp] = useState([]);
@@ -22,10 +18,9 @@ let ClassPage = function({ route, navigation }){
       navigation.navigate('QuizPage');
    };
 
-<<<<<<< HEAD
    // for the video quiz page
    let selectOption2 = () => {
-      navigation.navigate('QuizEmbed');
+      navigation.navigate('Quiz');
    };
 
    quizzes.push(<ListGroup.Item onClick={selectOption1}>
@@ -35,7 +30,19 @@ let ClassPage = function({ route, navigation }){
    quizzes.push(<ListGroup.Item onClick={selectOption2}>
       <h3>{names[1]}</h3>
    </ListGroup.Item>);
-=======
+
+   quizzes.push(<ListGroup.Item onClick={selectOption1}>
+      <h3>{names[2]}</h3>
+   </ListGroup.Item>);
+
+/*
+   names.forEach(name => {
+      quizzes.push(<ListGroup.Item onClick={selectOption1}>
+         <h3>{name}</h3>
+      </ListGroup.Item>);
+   });
+*/
+
    let openGoalModal = () => {
       setShowGoalModal(true);
    };
@@ -49,23 +56,7 @@ let ClassPage = function({ route, navigation }){
       }
       setShowGoalModal(false);
    }
-
->>>>>>> 38da3259f00b7c436bf892d74e1b33cedca37b06
-
-   quizzes.push(<ListGroup.Item onClick={selectOption1}>
-      <h3>{names[2]}</h3>
-   </ListGroup.Item>);
-
-/*
-   names.forEach(name => {
-      quizzes.push(<ListGroup.Item onClick={selectOption1}>
-         <h3>{name}</h3>
-      </ListGroup.Item>);
-   });
-<<<<<<< HEAD
-*/
-=======
-
+   
    goals.forEach(goal => {
       let component = 
       <ListGroup.Item>
@@ -83,10 +74,6 @@ let ClassPage = function({ route, navigation }){
    console.log("rerun");
    console.log(goals)
    // setGoalCmp(goalComponents);
-
-
->>>>>>> 38da3259f00b7c436bf892d74e1b33cedca37b06
-   
 
    return (
       <View>
