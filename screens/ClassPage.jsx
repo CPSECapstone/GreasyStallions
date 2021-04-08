@@ -6,10 +6,10 @@ import CreateGoalModal from '../components/CreateGoalModal'
 let ClassPage = function({ route, navigation }){
    const [showGoalModal, setShowGoalModal] = useState(false);
    const [goalCmp, setGoalCmp] = useState([]);
+   const [goals, setGoal] = useState([{assgn:"Day 1 Quiz", time:"Tomorrow"}]);
    const { className } = route.params;
    let names = ["Day 1 Quiz", "Day 2 Video", "Other"];
    let quizzes = [];
-   let goals = [{assgn:"Day 1 Quiz", time:"Tomorrow"}];
    let goalComponents = [];
 
    // OG quiz page
@@ -50,12 +50,23 @@ let ClassPage = function({ route, navigation }){
       if (res){
          console.log("res")
          console.log(res)
-         goals.push({assgn: res.assgn, time: res.time})
+         setGoal(goals.concat([{assgn: res.assgn, time: res.time}]))
          console.log(goals)
       }
       setShowGoalModal(false);
    }
+<<<<<<< HEAD
    
+=======
+
+
+   names.forEach(name => {
+      quizzes.push(<ListGroup.Item onClick={selectOption}>
+         {name}
+      </ListGroup.Item>);
+   });
+
+>>>>>>> added list header and goals update now
    goals.forEach(goal => {
       let component = 
       <ListGroup.Item>
@@ -82,6 +93,16 @@ let ClassPage = function({ route, navigation }){
          </ListGroup>
          <h2>Goals:</h2>
          <ListGroup>
+            <ListGroup.Item>
+               <Row>
+                  <Col sm={6}>
+                     <h4>Assignment:</h4>
+                  </Col>
+                  <Col sm={6}>
+                     <h4>To Do By:</h4>
+                  </Col>
+               </Row>
+            </ListGroup.Item>
             {goalComponents}
          </ListGroup>
          <Button onClick={openGoalModal}>
