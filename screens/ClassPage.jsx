@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import {ListGroup, Button, Col, Row} from 'react-bootstrap'
-import YoutubePlayer from 'react-native-youtube-iframe';
 import CreateGoalModal from '../components/CreateGoalModal'
-import {useSelector} from 'react-redux';
+
 let ClassPage = function({ route, navigation }){
    const [showGoalModal, setShowGoalModal] = useState(false);
    const [goalCmp, setGoalCmp] = useState([]);
@@ -20,7 +19,7 @@ let ClassPage = function({ route, navigation }){
 
    // for the video quiz page
    let selectOption2 = () => {
-      navigation.navigate('Quiz');
+      navigation.navigate('QuizVideo');
    };
 
    quizzes.push(<ListGroup.Item onClick={selectOption1}>
