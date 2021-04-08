@@ -16,8 +16,12 @@
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-40.0.1.tar.gz",
     "react-native-web": "~0.13.12",
+    "react-native-webview": "^11.3.2",
+    "react-native-youtube-iframe": "^2.0.1",
+    "react-redux": "^7.2.3",
     "react-router": "^5.1.2",
-    "react-router-bootstrap": "0.25.0"
+    "react-router-bootstrap": "0.25.0",
+    "redux": "^4.0.5"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0"
