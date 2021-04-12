@@ -1,0 +1,11 @@
+{
+  "auth": {
+    "gsdev6c0aa3d9": {
+      "service": "Cognito",
+      "serviceType": "imported",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false
+    }
+  }
+}
