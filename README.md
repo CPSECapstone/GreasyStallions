@@ -29,4 +29,22 @@
 - The file also contains an option (with commented code) to pass an authorization token to the API.
 - [Apollo Client Docs](https://www.apollographql.com/docs/react/v3.0-beta/)
 
+## Style guide
+#### Spacing
+- tabs 4 spaces
+- put spaces around = sign in assignments
+  - ex. let x = 1;
+- put spaces around operators
+  - ex. x = 1 + 1;
+- make lines < 90 chars
+- indent extended from > 90 char lines by 1 space
+
+#### Variable names
+- make meaningful variable names
+- for multiword variable names use camelCasing
+- be consistent with abreveations in variable names
+
+#### Others
+- don't leave debugging console.logs in main branch code
+
 
