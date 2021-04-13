@@ -32,8 +32,10 @@ let ClassPage = function({ route, navigation}){
       }]
    const [goals, setGoals] = useState(sampleGoal);
    const { className } = route.params;
+  
+   let names = ["Day 1 Quiz", "Day 2 Video", "Sample Task"];
    let goalCmp;
-   let names = ["Day 1 Quiz", "Day 2 Video", "Other"];
+
    let quizzes = [];
 
    // OG quiz page
@@ -46,6 +48,10 @@ let ClassPage = function({ route, navigation}){
       navigation.navigate('QuizVideo');
    };
 
+   let selectOption3 = () => {
+      navigation.navigate('TaskPage')
+   };
+
    quizzes.push(<ListGroup.Item onClick={selectOption1}>
       <h3>{names[0]}</h3>
    </ListGroup.Item>);
@@ -54,7 +60,7 @@ let ClassPage = function({ route, navigation}){
       <h3>{names[1]}</h3>
    </ListGroup.Item>);
 
-   quizzes.push(<ListGroup.Item onClick={selectOption1}>
+   quizzes.push(<ListGroup.Item onClick={selectOption3}>
       <h3>{names[2]}</h3>
    </ListGroup.Item>);
 
