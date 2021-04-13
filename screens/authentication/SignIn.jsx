@@ -6,6 +6,8 @@ import {
 import Auth from '@aws-amplify/auth';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
+import Styles from '../../styles/styles';
+
 
 const styles = StyleSheet.create({
   container: {
@@ -14,6 +16,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-start',
     paddingTop: 100,
+    display: true
   },
 });
 
@@ -59,6 +62,7 @@ export default function SignIn({ navigation, signIn: signInCb }) {
         autoCapitalize="none"
         autoFocus
         keyboardType="email-address"
+        testID='login-input'
       />
       <Input
         value={password}
@@ -66,16 +70,25 @@ export default function SignIn({ navigation, signIn: signInCb }) {
         onChange={(text) => onChangePassword(text)}
         secureTextEntry
         autoCompleteType="password"
+        testID='password-input'
       />
+      
+      <View>
       <Button
+        testID='signin-button'
         onPress={() => signIn()}
       >
         Sign In
       </Button>
+      </View>
+
       <Text>{errorMessage}</Text>
+
+      <View>
       <Button onPress={() => navigation.navigate('ForgetPassword')}>
         Forget Password
       </Button>
+      </View>
     </View>
   );
 }

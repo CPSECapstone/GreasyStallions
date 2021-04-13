@@ -47,7 +47,9 @@ const Welcome = ({ navigation }) => (
           Welcome to Flipt(Ed)!
         </Text>
         <View>
-          <Button onPress={() => navigation.navigate('SignIn')}>
+          <Button 
+          testID='signin-button'
+          onPress={() => navigation.navigate('SignIn')}>
             Sign In
           </Button>
         </View>

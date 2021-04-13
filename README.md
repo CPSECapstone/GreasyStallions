@@ -1,4 +1,13 @@
-# Apollo GraphQL Example
+# How to run Greasy Stallions Flipt(ed)
+- clone this repo
+- make sure you have npm, expo, and react-native installed (npm install ______)
+- run 'npm install' from the root directory to create the build
+- run 'npm start' ... this will run the expo server and give instructions to open the app preview in web, iOS, or Android
+
+
+
+# How to set up the Backend
+## Apollo GraphQL Example
 
 <p>
   <!-- iOS -->
@@ -19,3 +28,5 @@
 - The Apollo configuration lies in the `apollo.js` file.
 - The file also contains an option (with commented code) to pass an authorization token to the API.
 - [Apollo Client Docs](https://www.apollographql.com/docs/react/v3.0-beta/)
+
+
