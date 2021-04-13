@@ -4,20 +4,33 @@ import {ListGroup, Button, Col, Row, Card, Accordion} from 'react-bootstrap'
 import CreateGoalModal from '../components/CreateGoalModal'
 import GoalList from './Goals/GoalList'
 
-let ClassPage = function({ route, navigation }){
+let ClassPage = function({ route, navigation}){
    const sampleGoal = [
       {
          id: 0,
          name: "Read 10 Books", 
-         num: 10, 
-         subComplete:4, 
+         numToComplete: 10, 
+         subCompleted:4, 
          due: "2021-04-06", 
-         subGoals: [{
+         subGoals: [
+         {
             title: "book1",
+            complete: true
+         },
+         {
+            title: "book2",
             complete: false
-         }]
+         },
+         {
+            title: "book3",
+            complete: false
+         },
+         {
+            title: "book4",
+            complete: false
+         },]
       }]
-   const [goals, setGoal] = useState(sampleGoal);
+   const [goals, setGoals] = useState(sampleGoal);
    const { className } = route.params;
    let goalCmp;
    let names = ["Day 1 Quiz", "Day 2 Video", "Other"];
@@ -54,10 +67,12 @@ let ClassPage = function({ route, navigation }){
             {quizzes}
          </ListGroup>
          <GoalList 
-          goals={goals}/>
+          goals={goals}
+          setGoals={setGoals}
+          navigation={navigation}/>
          <Button 
           onClick={() => 
-           navigation.navigate('CreateGoalPage', {})}>
+          navigation.navigate('CreateGoalPage', {goals: goals, setGoals: setGoals})}>
             Create Goal
          </Button>
       </View>

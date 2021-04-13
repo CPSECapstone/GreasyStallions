@@ -4,17 +4,43 @@ import {ListGroup, Button,
 import React, { useState, useEffect } from 'react';
 
 
-let GoalList = ({goals, setGoals, completeGoal }) => {
+let GoalList = ({goals, setGoals, completeGoal, navigation}) => {
 
    let goalComponents = [];
 
-   let completeGoal = (ev) => {
-      
+   let completeSubGoal = (ev) => {
+      let newGoals = [...goals];
+      let goalIdx = ev.target.id.split(" ")[0]
+      let subGoalIdx = ev.target.id.split(" ")[1]
+      newGoals[goalIdx].subGoals[subGoalIdx].complete = 
+       !newGoals[goalIdx].subGoals[subGoalIdx].complete
+      newGoals[goalIdx].subCompleted = 
+       newGoals[goalIdx].subGoals[subGoalIdx].complete ? 
+       newGoals[goalIdx].subCompleted + 1:
+       newGoals[goalIdx].subCompleted - 1;
+      setGoals(newGoals)
    }
+
+   let editGoal = (idx) =>{
+      let props = {
+         name: goals[idx].name,
+         due: goals[idx].due,
+         subGoalsIn: goals[idx].subGoals,
+         numToComplete: goals[idx].numToComplete,
+         idx: idx,
+         setGoals: setGoals,
+         goals: goals,
+      }
+      navigation.navigate('CreateGoalPage', props)
+
+   }
+
+
    
-   goals.forEach(goal => {
+   goals.forEach((goal,idx) => {
       let subGoalCmps = [];
-      goal.subGoals.forEach((subGoal) => {
+      
+      goal.subGoals.forEach((subGoal, subIdx) => {
          let subGoalCmp = 
             <ListGroup.Item>
                <Row>
@@ -24,11 +50,12 @@ let GoalList = ({goals, setGoals, completeGoal }) => {
                   </Col>
                   <Col sm={2}>
                      <Form>
-                        <Form.Group controlId="completeSubTask">
+                        <Form.Group controlId={idx + " " + subIdx}>
                            <Form.Check 
                             type="checkbox" 
                             label="Complete" 
-                            onChange={completeGoal}
+                            onChange={completeSubGoal}
+                            defaltChecked={subGoal.complete}
                             />
                         </Form.Group>
                      </Form>
@@ -37,8 +64,7 @@ let GoalList = ({goals, setGoals, completeGoal }) => {
             </ListGroup.Item>
          subGoalCmps.push(subGoalCmp);
       });
-      let progress = goal.subComplete / goal.num * 100;
-      console.log(progress)
+      let progress = goal.subCompleted / goal.numToComplete * 100;
       let component = 
          <ListGroup.Item>
             <Accordion defaultActiveKey="0">
@@ -56,13 +82,22 @@ let GoalList = ({goals, setGoals, completeGoal }) => {
                         <Col sm={3}>
                            {goal.name}
                         </Col>
-
                         <Col sm={4}>
                            <ProgressBar now={progress} label={`${progress}%`} />
                         </Col>
                         <Col sm={2}>
-                           edit
+                           <Button 
+                            onClick={() => editGoal(idx)}>
+                              Edit
+                           </Button>
                         </Col>
+                     </Row>
+                     <Row>
+                        <Col sm={2}></Col>
+                        <Col sm={3}>
+                           {"due by: " + goal.due}
+                        </Col>
+                        <Col sm={7}></Col>
                      </Row>
                   </Card.Header>
                   <Accordion.Collapse eventKey="0">
@@ -82,7 +117,6 @@ let GoalList = ({goals, setGoals, completeGoal }) => {
       
       <div>
          <h2>Goals:</h2>
-         {console.log(goals)}
          <ListGroup>
             {goalComponents}
          </ListGroup>

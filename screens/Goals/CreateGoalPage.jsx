@@ -3,9 +3,9 @@ import { View, Text, StyleSheet } from 'react-native';
 import {ListGroup, Form, Button, Col, Row} from 'react-bootstrap'
 import './CreateGoalPage.css';
 let CreateGoalPage = ({route, navigation}) => {
-   const { name, date, subGoalsIn, num, subComplete } = route.params
+   const { name, due, subGoalsIn, numToComplete, subComplete, idx, setGoals, goals } = route.params
    const [goalName, setGoalName] = useState(name ? name : "")
-   const [dueDate, setDueDate] = useState(date ? date : "")
+   const [dueDate, setDueDate] = useState(due ? due : "")
    const [subGoals, setSubGoals] = useState(subGoalsIn ? subGoalsIn : [])
 
    let subGoalCmps = []
@@ -24,19 +24,25 @@ let CreateGoalPage = ({route, navigation}) => {
       let goalWords = goalName.split(' ');
       let num = goalWords.find(word => !isNaN(parseInt(word)))
       let numIdx = goalWords.indexOf(num);
-      console.log(numIdx)
-      console.log(goalWords)
-      if(num){
+      if (num) {
          let finalGoal = {
             name: goalName,
             due: dueDate,
-            num: parseInt(num),
+            numToComplete: parseInt(num),
             units: goalWords[numIdx + 1],
-            subComplete: subComplete ? subComplete : 0,
-            subGoals: subGoals
+            subCompleted: goals[idx] && !isNaN(goals[idx].subCompleted) ? goals[idx].subCompleted : 0,
+            subGoals: subGoals,
          }
+         console.log(idx)
          console.log(finalGoal)
-         navigation.navigate('ClassPage', {newGoal: finalGoal})
+         let tempGoal = [...goals]
+         if (!isNaN(idx)) {
+            tempGoal[idx] = finalGoal
+         } else {
+            tempGoal = tempGoal.concat([finalGoal])
+         }
+         setGoals(tempGoal)
+         navigation.navigate('ClassPage', {newGoal: finalGoal, idx})
       } else {
          console.log("Bad")
       }
@@ -77,8 +83,7 @@ let CreateGoalPage = ({route, navigation}) => {
 
    return(
       <View className={"center"}>
-         {console.log(subGoalCmps)}
-         <h2>Make Goal</h2>
+         <h2>{isNaN(idx)? "Make Goal" : "Edit Goal"}</h2>
          <Form>
             <Form.Group controlId="goal">
                <Form.Label>Title</Form.Label>
