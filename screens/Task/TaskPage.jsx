@@ -1,48 +1,73 @@
 import { Form, Button, FormLabel, ButtonGroup, ToggleButton } from 'react-bootstrap';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View } from 'react-native';
-import QuizTask from './QuizTask'
-import VideoTask from '.VideoTask'
+import QuizTask from './QuizTask';
+import VideoTask from './VideoTask';
+
 
 let TaskPage = ({ navigation }) =>{
-   const [showQuiz, setShowQuiz] = useState(false);
-   const [showVideo, setShowVideo] = useState(false);
+    const [showQuiz, setShowQuiz] = React.useState(false);
+    const [showVideo, setShowVideo] = React.useState(false);
+    const [taskNum, setTaskNum] = React.useState(0);
 
-   const acvitity = [
-      {
-         num: 1,
-         task_type: "video"
-         text:"What is the capital of Sweden?",
-         options: ["Helsinki", "Athens", "Stockholm", "Oslo", "Copenhagen"],
-         answer: "Stockholm"
-      },
-      {
-         num: 2,
-         task_type: "quiz"
-         text:"What is the capital of Finland?",
-         options: ["Helsinki", "Athens", "Stockholm", "Oslo", "Copenhagen"],
-         answer: "Helsinki"
-      },
-      {
-         num: 3,
-         task_type: "hybrid"
-         text:"What is the capital of Denmark?",
-         options: ["Helsinki", "Athens", "Stockholm", "Oslo", "Copenhagen"],
-         answer: "Copenhagen"
-      },
-      {
-         num: 4,
-         text:"What is the capital of Norway?",
-         options: ["Helsinki", "Athens", "Stockholm", "Oslo", "Copenhagen"],
-         answer: "Oslo"
-      }
-   ];
+    let genTask;
 
-   return (
-      <View>
-         <QuizTask
-          show={showQuiz}/>
-         <VideoTask/>
-      </View>
-   )
+    let changeTaskNum = (type) => {
+        if (type === "+") {
+            if  (taskNum < task.length - 1) {
+               setTaskNum(taskNum + 1);
+            }
+         }
+   
+         if (type === "-" && taskNum != 0) {
+            setTaskNum(taskNum - 1);
+         }
+    }
+    
+    const task = [
+        {
+            task_title: "Video for chapter 1",
+            task_num: 1,
+            task_type: "video",
+            task_video: "https://www.youtube.com/embed/TUZ_T_Rfios"
+        },
+        {
+            task_title: "Follow up questions for video",
+            task_num: 2,
+            task_type: "quiz",
+            task_questions: ["ques 1", " test 2", "test 3 question"],
+            task_options: [["option 1", "option 2"], ["option 1", "option 2", "option 3"],
+            ["option 1", "option 2", "option 3", "option 4"]],
+            task_answers: ["option 2", "option 3", "option 4"]
+        }
+    ];
+
+
+    if (task[taskNum].task_type == "video") {
+        genTask = <VideoTask id={task[taskNum].task_video}/>
+    } else if  (task[taskNum].task_type == "quiz") {
+        genTask = <QuizTask questions={task[taskNum].task_questions}
+         options={task[taskNum].task_options}
+         answers={task[taskNum].answers}/>
+    } 
+
+    return (
+        <View>
+            <h2>{task[taskNum].task_num + "/" + task.length + ": " + task[taskNum].task_title}</h2>
+            {console.log("Type of task: " + genTask)}
+            {genTask}
+            <ButtonGroup size="lg" classname="navbuts">
+                <Button variant="primary" onClick={() => changeTaskNum("-")}>Prev</Button>
+                {(taskNum === (task.length - 1)) ? 
+                <Button  variant="primary" onClick={() => changeTaskNum("+")}>
+                    Submit
+                </Button> : 
+                <Button variant="primary" onClick={() => changeTaskNum("+")}>
+                    Next
+                </Button>}
+            </ButtonGroup>
+        </View>
+    )
 }
+
+export default TaskPage;
