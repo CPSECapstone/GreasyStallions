@@ -1,6 +1,6 @@
 describe ('Login Screen', function () {
     it("Assets Load", function () {
-        //cy.exec('npm run web', { failOnNonZeroExit: false }).then((result) => { })
+        cy.exec('npm run web', { failOnNonZeroExit: false }).then((result) => { })
         cy.visit('http://localhost:19006/')
         cy.contains(/Sign Up/i)
         cy.contains(/Sign In/i)
@@ -12,10 +12,11 @@ describe ('Login Screen', function () {
     })
 
     it("Login", function () {
-        cy.get('[data-testid="login-input"]').type('abhishurawka22@gmail.com')
-        cy.get('[data-testid="password-input"]').type('Irock22399*')
-        //cy.contains(/Sign In/).click()
-        //cy.get('[data-testid="signin-button"]').click()
+        cy.get('[data-testid="login-input"]').type('test@test.com')
+        cy.get('[data-testid="password-input"]').type('Test123*')
+        cy.contains(/Sign In/).click({force: true})
         //cy.contains(/Home/)
+        //cy.get('[disabled]').click({force: true})
+        //cy.get('[data-testid="signin-button"]').click()
     })
 })
