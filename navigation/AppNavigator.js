@@ -4,6 +4,7 @@ import Home from '../screens/Home';
 import ClassPage from '../screens/ClassPage';
 import QuizPage from '../screens/Quiz/QuizPage';
 import QuizVideo from '../screens/Quiz/QuizVideo';
+import QuizWebpage from '../screens/Quiz/QuizWebpage';
 import SignUpScreen from '../screens/authentication/SignUp';
 import QuizResults from '../screens/Quiz/QuizResults';
 
@@ -16,6 +17,7 @@ export default function App({ signOut }) {
       <AppStack.Screen name="ClassPage" component={ClassPage}/>
       <AppStack.Screen name="QuizPage" component={QuizPage}/>
       <AppStack.Screen name="QuizVideo" component={QuizVideo}/>
+      <AppStack.Screen name="QuizWebpage" component={QuizWebpage}/>
       <AppStack.Screen name="SignUp" component={SignUpScreen} />
       <AppStack.Screen name="QuizResults" component={QuizResults} />
     </AppStack.Navigator>
