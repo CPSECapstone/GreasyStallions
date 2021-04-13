@@ -1,6 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
-import { Form, Button, FormLabel, ButtonGroup, ToggleButton, Container } from 'react-bootstrap';
+import { Form, Button, FormLabel } from 'react-bootstrap';
 
 
 /*
@@ -25,21 +25,21 @@ let QuizTask = function({ questions, options, answers }) {
                <Form.Group controlId="question">
                   <FormLabel>{question}</FormLabel>
                </Form.Group>
-               <Form.Group controlId="answers">
-                  <ButtonGroup toggle>
-                     {options[idx].map((option) => (
-                        <ToggleButton
-                         value={option}
+               <fieldset>
+                  <Form.Group controlId="answers">
+                     <Form.Label as="legend"/>
+                     {options[idx].map((option, index) => (
+                        <Form.Check
                          type="radio"
-                         variant="outline-dark"
-                         name="radio"
+                         name="formradio"
+                         id={index}
+                         label={option}
+                         value={option}
                          onChange={(e) => updateAnswers(idx, e)}
-                        >
-                           {option}
-                        </ToggleButton>
+                        />
                      ))}
-                  </ButtonGroup>
-               </Form.Group>
+                  </Form.Group>
+               </fieldset>
             </Form>
          ))}
          <Button variant="success">Check Answers</Button>
