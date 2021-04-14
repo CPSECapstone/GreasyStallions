@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import Button from '../components/Button';
+import Button from '../../components/Button';
 import {ListGroup, Col, Row} from 'react-bootstrap'
 
-import { apolloClientFlipted} from '../apollo-flipted';
+import { apolloClientFlipted} from '../../apollo-flipted';
 import { ApolloProvider, useQuery, gql} from '@apollo/client';
 
 const styles = StyleSheet.create({
@@ -37,7 +37,7 @@ const LIST_TASKS = gql
 `
    query{getTasks{name description}}
 `;
-const UsrFliptedComponent = () => {
+/* const UsrFliptedComponent = () => {
   const {data, error, loading} = useQuery(LIST_USERS);
   if (error) { console.log('Error fetching users', error); }
   let students = [];
@@ -54,7 +54,7 @@ const UsrFliptedComponent = () => {
       {students}
     </View>
   );
-}
+} */
 
 const CrsFliptedComponent = ({navigation}) => {
   const {data, error, loading} = useQuery(LIST_COURSES);
@@ -79,7 +79,7 @@ const CrsFliptedComponent = ({navigation}) => {
 
   return (
     <View style = {styles.section}>
-      <h2>{"COURSES:"}</h2>
+      <h2>{"MY COURSES:"}</h2>
       <ListGroup>
         {courses}
       </ListGroup>
@@ -109,24 +109,24 @@ const TskFliptedComponent = () => {
 }
 
 
-export default function Home({ navigation, signOut }) {
+export default function InstructorHome({ navigation, signOut }) {
   return (
     
     <View style={styles.header}>
       {console.log(navigation)}
       <ApolloProvider client={apolloClientFlipted}>
-        <UsrFliptedComponent />
+        {/* <UsrFliptedComponent /> */}
         <CrsFliptedComponent navigation={navigation}/>
         <TskFliptedComponent />
       </ApolloProvider>
       <Text style={{paddingTop: 100, textAlign: 'left',fontSize: 20,fontStyle: 'bold'}}>You are now authenticated</Text>
       <Button style={{width:100,backgroundColor:'#99004d',marginTop:20,}}
-              onPress={() => navigation.navigate('Welcome')}>
-                <Text style={{width: "15%",marginLeft:0,alignSelf:'center'}}>Go to Welcome Screen</Text>
+              onPress={() => navigation.navigate('SignUp')}>
+                <Text style={{width: "15%",marginLeft:0,alignSelf:'center'}}>Sign Out</Text>
       </Button>
-      
+
       <Button style={{width:100,backgroundColor:'#99004d',marginTop:20,}}
-              onPress={() => navigation.navigate('InstructorHome')}>
+              onPress={() => navigation.navigate('Home')}>
                 <Text style={{width: "15%",marginLeft:0,alignSelf:'center'}}>Instructor View</Text>
       </Button>
     </View>
