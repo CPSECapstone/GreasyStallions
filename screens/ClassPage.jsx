@@ -32,14 +32,10 @@ let ClassPage = function({ route, navigation}){
       }]
    const [goals, setGoals] = useState(sampleGoal);
    const { className } = route.params;
-<<<<<<< HEAD
    let names = ["Day 1 Quiz", "Day 2 Video", "Day 3 Article"];
-=======
-  
-   let names = ["Day 1 Quiz", "Day 2 Video", "Sample Task"];
+
    let goalCmp;
 
->>>>>>> 39c4f99dea74c9978b3d290563749cf2e643473f
    let quizzes = [];
 
    // OG quiz page
@@ -52,14 +48,9 @@ let ClassPage = function({ route, navigation}){
       navigation.navigate('QuizVideo');
    };
 
-<<<<<<< HEAD
-   // for the webview quiz page
-   let selectOption3 = () => {
-      navigation.navigate('QuizWebpage');
-=======
+   // for the multipe pages quiz view
    let selectOption3 = () => {
       navigation.navigate('TaskPage')
->>>>>>> 39c4f99dea74c9978b3d290563749cf2e643473f
    };
 
    quizzes.push(<ListGroup.Item onClick={selectOption1}>
@@ -83,12 +74,12 @@ let ClassPage = function({ route, navigation}){
             {quizzes}
          </ListGroup>
          <GoalList 
-          goals={goals}
-          setGoals={setGoals}
-          navigation={navigation}/>
+            goals={goals}
+            setGoals={setGoals}
+            navigation={navigation}/>
          <Button 
-          onClick={() => 
-          navigation.navigate('CreateGoalPage', {goals: goals, setGoals: setGoals})}>
+            onClick={() => 
+            navigation.navigate('CreateGoalPage', {goals: goals, setGoals: setGoals})}>
             Create Goal
          </Button>
       </View>

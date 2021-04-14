@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { View } from 'react-native';
 import QuizTask from './QuizTask';
 import VideoTask from './VideoTask';
+import WebpageTask from './WebpageTask';
 
 
 let TaskPage = ({ navigation }) =>{
@@ -39,6 +40,12 @@ let TaskPage = ({ navigation }) =>{
             task_options: [["option 1", "option 2"], ["option 1", "option 2", "option 3"],
             ["option 1", "option 2", "option 3", "option 4"]],
             task_answers: ["option 2", "option 3", "option 4"]
+        },
+        {
+            task_title: "Read the following Article",
+            task_num: 3,
+            task_type: "webpage",
+            task_webpage: "https://en.wikipedia.org/wiki/Earth"
         }
     ];
 
@@ -49,12 +56,14 @@ let TaskPage = ({ navigation }) =>{
         genTask = <QuizTask questions={task[taskNum].task_questions}
          options={task[taskNum].task_options}
          answers={task[taskNum].answers}/>
-    } 
+    } else if (task[taskNum].task_type == "webpage") {
+        genTask = <WebpageTask webpageUrl={task[taskNum].task_webpage}/>
+    }
+
 
     return (
         <View>
-            <h2>{task[taskNum].task_num + "/" + task.length + ": " + task[taskNum].task_title}</h2>
-            {console.log("Type of task: " + genTask)}
+            <h2>{task[taskNum].task_num + "/" + task.length + ": " + task[taskNum].       task_title}</h2>
             {genTask}
             <ButtonGroup size="lg" classname="navbuts">
                 <Button variant="primary" onClick={() => changeTaskNum("-")}>Prev</Button>
