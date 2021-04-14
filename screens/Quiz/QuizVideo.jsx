@@ -54,6 +54,7 @@ let QuizVideo = function({ navigation }){
                      {radios.map((radio, idx) => (
                         <ToggleButton
                            key={idx}
+                           //testID='test'
                            type="radio"
                            variant="outline-dark"
                            name="radio"
@@ -123,7 +124,7 @@ let QuizVideo = function({ navigation }){
                      ))}
                   </ButtonGroup>
             </Form.Group>
-            <Button as="input" type="button" Value="Submit" onClick={submitClicked}/>
+            <Button testID="test" as="input" type="button" Value="Submit" onClick={submitClicked}/>
          </Form>
       </ScrollView>
    );
