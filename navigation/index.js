@@ -4,7 +4,6 @@ import {
 } from 'react-native';
 import Auth from '@aws-amplify/auth';
 import { NavigationContainer } from '@react-navigation/native';
-import AuthNavigator from './AuthNavigator';
 import AppNavigator from './AppNavigator';
 
 const styles = StyleSheet.create({
@@ -69,7 +68,7 @@ class AuthLoadingScreen extends React.Component {
         </View>
       );
     } else if (!userToken) {
-      view = <AuthNavigator signIn={this.signIn} />;
+      view = <AppNavigator signIn={this.signIn} />;
     } else {
       view = <AppNavigator signOut={this.signOut} />;
     }
