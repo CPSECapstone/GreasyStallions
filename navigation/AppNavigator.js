@@ -7,6 +7,9 @@ import QuizVideo from '../screens/Quiz/QuizVideo';
 import QuizWebpage from '../screens/Quiz/QuizWebpage';
 import SignUpScreen from '../screens/authentication/SignUp';
 import QuizResults from '../screens/Quiz/QuizResults';
+import CreateGoalPage from '../screens/Goals/CreateGoalPage';
+import TaskPage from '../screens/Task/TaskPage';
+
 
 const AppStack = createStackNavigator();
 
@@ -20,6 +23,9 @@ export default function App({ signOut }) {
       <AppStack.Screen name="QuizWebpage" component={QuizWebpage}/>
       <AppStack.Screen name="SignUp" component={SignUpScreen} />
       <AppStack.Screen name="QuizResults" component={QuizResults} />
+      <AppStack.Screen name="TaskPage" component={TaskPage}/>
+      <AppStack.Screen name="CreateGoalPage" component={CreateGoalPage}/>
+
     </AppStack.Navigator>
   );
 }

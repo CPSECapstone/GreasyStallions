@@ -1,16 +1,46 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import {ListGroup, Button, Col, Row} from 'react-bootstrap'
+import {ListGroup, Button, Col, Row, Card, Accordion} from 'react-bootstrap'
 import CreateGoalModal from '../components/CreateGoalModal'
+import GoalList from './Goals/GoalList'
 
-let ClassPage = function({ route, navigation }){
-   const [showGoalModal, setShowGoalModal] = useState(false);
-   const [goalCmp, setGoalCmp] = useState([]);
-   const [goals, setGoal] = useState([{assgn:"Day 1 Quiz", time:"Tomorrow"}]);
+let ClassPage = function({ route, navigation}){
+   const sampleGoal = [
+      {
+         id: 0,
+         name: "Read 10 Books", 
+         numToComplete: 10, 
+         subCompleted:4, 
+         due: "2021-04-06", 
+         subGoals: [
+         {
+            title: "book1",
+            complete: true
+         },
+         {
+            title: "book2",
+            complete: false
+         },
+         {
+            title: "book3",
+            complete: false
+         },
+         {
+            title: "book4",
+            complete: false
+         },]
+      }]
+   const [goals, setGoals] = useState(sampleGoal);
    const { className } = route.params;
+<<<<<<< HEAD
    let names = ["Day 1 Quiz", "Day 2 Video", "Day 3 Article"];
+=======
+  
+   let names = ["Day 1 Quiz", "Day 2 Video", "Sample Task"];
+   let goalCmp;
+
+>>>>>>> 39c4f99dea74c9978b3d290563749cf2e643473f
    let quizzes = [];
-   let goalComponents = [];
 
    // OG quiz page
    let selectOption1 = () => {
@@ -22,9 +52,14 @@ let ClassPage = function({ route, navigation }){
       navigation.navigate('QuizVideo');
    };
 
+<<<<<<< HEAD
    // for the webview quiz page
    let selectOption3 = () => {
       navigation.navigate('QuizWebpage');
+=======
+   let selectOption3 = () => {
+      navigation.navigate('TaskPage')
+>>>>>>> 39c4f99dea74c9978b3d290563749cf2e643473f
    };
 
    quizzes.push(<ListGroup.Item onClick={selectOption1}>
@@ -39,45 +74,7 @@ let ClassPage = function({ route, navigation }){
       <h3>{names[2]}</h3>
    </ListGroup.Item>);
 
-/*
-   names.forEach(name => {
-      quizzes.push(<ListGroup.Item onClick={selectOption1}>
-         <h3>{name}</h3>
-      </ListGroup.Item>);
-   });
-*/
 
-   let openGoalModal = () => {
-      setShowGoalModal(true);
-   };
-
-   let closeGoalModal = (res) => {
-      if (res){
-         console.log("res")
-         console.log(res)
-         setGoal(goals.concat([{assgn: res.assgn, time: res.time}]))
-         console.log(goals)
-      }
-      setShowGoalModal(false);
-   }
-
-   goals.forEach(goal => {
-      let component = 
-      <ListGroup.Item>
-         <Row>
-            <Col sm={6}>
-               {goal.assgn}
-            </Col>
-            <Col sm={6}>
-               {goal.time}
-            </Col>
-         </Row>
-      </ListGroup.Item>
-      goalComponents.push(component)
-   });
-   console.log("rerun");
-   console.log(goals)
-   // setGoalCmp(goalComponents);
 
    return (
       <View>
@@ -85,28 +82,15 @@ let ClassPage = function({ route, navigation }){
          <ListGroup>
             {quizzes}
          </ListGroup>
-         <h2>Goals:</h2>
-         <ListGroup>
-            <ListGroup.Item>
-               <Row>
-                  <Col sm={6}>
-                     <h4>Assignment:</h4>
-                  </Col>
-                  <Col sm={6}>
-                     <h4>To Do By:</h4>
-                  </Col>
-               </Row>
-            </ListGroup.Item>
-            {goalComponents}
-         </ListGroup>
-         <Button onClick={openGoalModal}>
+         <GoalList 
+          goals={goals}
+          setGoals={setGoals}
+          navigation={navigation}/>
+         <Button 
+          onClick={() => 
+          navigation.navigate('CreateGoalPage', {goals: goals, setGoals: setGoals})}>
             Create Goal
          </Button>
-         <CreateGoalModal 
-            show={showGoalModal}
-            assignments={names}
-            onDismiss={closeGoalModal}
-            />
       </View>
    );
 }
