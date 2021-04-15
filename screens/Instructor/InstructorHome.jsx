@@ -5,7 +5,7 @@ import {ListGroup, Col, Row} from 'react-bootstrap'
 
 import { apolloClientFlipted} from '../../apollo-flipted';
 import { ApolloProvider, useQuery, gql} from '@apollo/client';
-import { TestWatcher } from 'jest';
+// import { TestWatcher } from 'jest';
 
 const styles = StyleSheet.create({
   header: {
@@ -99,9 +99,9 @@ const StudentGridComponent = () => {
 //currently using the same tasks as on the student page
 const TskFliptedComponent = () => {
   const {data, error, loading} = useQuery(LIST_TASKS);
-  test('getting data from backend', () => {
+  /* test('getting data from backend', () => {
     expect.toBeDefined(data);
-  });
+  }); */
   if (error) { console.log('Error fetching users', error); }
 
   let tasks = [];
