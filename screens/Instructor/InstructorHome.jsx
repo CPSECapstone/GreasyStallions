@@ -23,12 +23,6 @@ const styles = StyleSheet.create({
   }
 });
 
-
-const LIST_USERS = gql
-`
-   query{getUsers{fname lname}}
-`;
-
 const LIST_COURSES = gql
 `
    query{getCourses{name desc}}
@@ -37,24 +31,6 @@ const LIST_TASKS = gql
 `
    query{getTasks{name description}}
 `;
-/* const UsrFliptedComponent = () => {
-  const {data, error, loading} = useQuery(LIST_USERS);
-  if (error) { console.log('Error fetching users', error); }
-  let students = [];
-  console.log(data)
-
-  if(data){
-    data.getUsers.forEach( usr =>{
-      students.push(<Text style={styles.starshipName}> {usr.fname + " " + usr.lname}</Text>)
-    });
-  }
-  return (
-    <View style = {styles.section}>
-      <Text style = {styles.text}>{"USERS:"}</Text>
-      {students}
-    </View>
-  );
-} */
 
 const CrsFliptedComponent = ({navigation}) => {
   const {data, error, loading} = useQuery(LIST_COURSES);
@@ -68,25 +44,58 @@ const CrsFliptedComponent = ({navigation}) => {
     navigation.navigate('ClassPage')
   }
 
-  if(data){
+  // waiting for instructor database query
+  /* if(data){
     data.getCourses.forEach( crs => {
       let toPush = <ListGroup.Item onClick={() => {navigation.navigate('ClassPage', {
         className: crs.name
       })}}>{crs.name}</ListGroup.Item>
       courses.push(toPush)
     });
-  }
+  } */
+
+  // hard coded Sections of an Instructor's classes
+  let newcourses = [
+  <ListGroup.Item onClick={() => {navigation.navigate('ClassPage', {
+    className: "Biology"
+  })}}>{"Biology Section 1"}</ListGroup.Item>,
+  <ListGroup.Item onClick={() => {navigation.navigate('ClassPage', {
+    className: "Biology"
+  })}}>{"Biology Section 2"}</ListGroup.Item>
+  ]
 
   return (
     <View style = {styles.section}>
       <h2>{"MY COURSES:"}</h2>
       <ListGroup>
-        {courses}
+        {newcourses}
       </ListGroup>
     </View>
   );
 }
 
+const StudentGridComponent = () => {
+  const {data, error, loading} = useQuery(LIST_TASKS);
+  if (error) { console.log('Error fetching students', error); }
+
+  let tasks = [];
+  console.log(data)
+
+  if(data){
+    data.getTasks.forEach( tsk =>{
+      tasks.push(<Text style={styles.starshipName}> {tsk.name + " " + tsk.description}</Text>)
+    });
+  }
+
+  return (
+    <View style = {styles.section}>
+      <Text style = {styles.text}>{"TASKS:"}</Text>
+      {tasks}
+    </View>
+  );
+}
+
+//currently using the same tasks as on the student page
 const TskFliptedComponent = () => {
   const {data, error, loading} = useQuery(LIST_TASKS);
   if (error) { console.log('Error fetching users', error); }
@@ -127,7 +136,7 @@ export default function InstructorHome({ navigation, signOut }) {
 
       <Button style={{width:100,backgroundColor:'#99004d',marginTop:20,}}
               onPress={() => navigation.navigate('Home')}>
-                <Text style={{width: "15%",marginLeft:0,alignSelf:'center'}}>Instructor View</Text>
+                <Text style={{width: "15%",marginLeft:0,alignSelf:'center'}}>Student View</Text>
       </Button>
     </View>
   )
