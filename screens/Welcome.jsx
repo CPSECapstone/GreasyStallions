@@ -4,10 +4,27 @@ import { Button, StyleSheet,  Linking, Platform, Text, View } from 'react-native
 import BackgroundImage from '../components/BackgroundImage';
 import { ApolloProvider, useQuery, gql} from '@apollo/client';
 import Amplify, { Auth, Hub } from 'aws-amplify';
+import { apolloClientFlipted} from '../apollo-flipted';
 
 
+const USER_ROLE = gql
+`
+query {getUser{
+	role
+  }}
+`;
 
-const LIST_USERS = gql
+const UserInfo = () => {
+	const {data, error, loading} = useQuery(USER_ROLE);
+	if (error) { console.log('Error fetching user', error); }
+	
+	return (
+	  <View style = {styles.section}>
+		<Text style = {styles.text}>{"Email:"}</Text>
+		<Text>Role: {JSON.stringify(data)}</Text>
+	  </View>
+	);
+  }
 
 async function urlOpener(url, redirectUrl) {
     const { type, url: newUrl } = await WebBrowser.openAuthSessionAsync(
@@ -37,10 +54,6 @@ Amplify.configure({
 	}
   });
 
-const Separator = () => (
-	<View style={styles.separator} />
-  );
-
 function Welcome({navigation}) {
     const [user, setUser] = useState(null);
 
@@ -69,6 +82,8 @@ function Welcome({navigation}) {
             .catch(() => console.log('Not signed in'));
     }
 
+		//need to export the token to access it in apollo-flipted 
+	
 	console.log('Right here');
 	Auth.currentSession().then(res=>{
 		let accessToken = res.getAccessToken()
@@ -77,7 +92,12 @@ function Welcome({navigation}) {
 		console.log(`myAccessToken: ${JSON.stringify(accessToken)}`)
 		console.log(`myJwt: ${jwt}`)
 	  })
+
 	
+	  //used to create spacing on the front end, will be changed when styling is updated
+	  const Separator = () => (
+		<View style={styles.separator} />
+	  );
 
     return (
         <View>
@@ -86,13 +106,17 @@ function Welcome({navigation}) {
             (
 			<View>
 				<Separator/>
+				<ApolloProvider client={apolloClientFlipted}>
+					<UserInfo/>
+				</ApolloProvider>
+				<Separator/>
 				<Button title = {"Hello " + JSON.stringify(user.attributes.name)}/>
 				<Separator/>
 				<Button title= "Go to Dashboard" onPress={() => navigation.navigate('Home')} color = 'green' />
 				<Separator/>
 				<Button title="Sign Out" onPress={() => Auth.signOut()} color = 'red'/>
 			</View>) 
-            : (<Button title="Federated Sign In" onPress={() => Auth.federatedSignIn()} />)
+            : (<Button title="Sign In" onPress={() => Auth.federatedSignIn()} />)
             }
             
         </View>
