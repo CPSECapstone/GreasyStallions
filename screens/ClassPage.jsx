@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import {ListGroup, Button, Col, Row, Card, Accordion} from 'react-bootstrap'
-import CreateGoalModal from '../components/CreateGoalModal'
 import GoalList from './Goals/GoalList'
 
 let ClassPage = function({ route, navigation}){
@@ -15,7 +14,7 @@ let ClassPage = function({ route, navigation}){
          subGoals: [
          {
             title: "book1",
-            complete: true
+            complete: false
          },
          {
             title: "book2",

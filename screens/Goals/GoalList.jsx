@@ -21,7 +21,7 @@ let GoalList = ({goals, setGoals, completeGoal, navigation}) => {
       setGoals(newGoals)
    }
 
-   let editGoal = (idx) =>{
+   let editGoal = (idx) => {
       let props = {
          name: goals[idx].name,
          due: goals[idx].due,
@@ -55,7 +55,7 @@ let GoalList = ({goals, setGoals, completeGoal, navigation}) => {
                             type="checkbox" 
                             label="Complete" 
                             onChange={completeSubGoal}
-                            defaltChecked={subGoal.complete}
+                            defaultChecked={subGoal.complete}
                             />
                         </Form.Group>
                      </Form>
