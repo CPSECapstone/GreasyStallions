@@ -9,11 +9,14 @@
     "@react-navigation/stack": "^5.14.3",
     "aws-amplify": "^3.3.26",
     "bootstrap": "^4.6.0",
-    "cypress": "^7.1.0",
+    "check-more-types": "^2.24.0",
+    "cypress-localstorage-commands": "^1.4.3",
     "expo": "~40.0.0",
     "expo-status-bar": "^1.0.3",
     "expo-web-browser": "^9.0.0",
     "graphql": "^15.0.0",
+    "is-path-inside": "^3.0.3",
+    "ramda": "^0.27.1",
     "react": "16.13.1",
     "react-bootstrap": "^1.5.1",
     "react-dom": "16.13.1",
@@ -26,10 +29,12 @@
     "react-redux": "^7.2.3",
     "react-router": "^5.1.2",
     "react-router-bootstrap": "0.25.0",
-    "redux": "^4.0.5"
+    "redux": "^4.0.5",
+    "untildify": "^4.0.0"
   },
   "devDependencies": {
-    "@babel/core": "~7.9.0"
+    "@babel/core": "~7.9.0",
+    "cypress": "^7.1.0"
   },
   "scripts": {
     "start": "expo start",
