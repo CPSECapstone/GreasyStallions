@@ -5,5 +5,5 @@ import findNumIndex from '../screens/Goals/CreateGoalPage';
 
 test('findNumIndex test', () => {
   const idx = findNumIndex("make 10 pies");
-  expect(idx).toEqual(2);
+  expect(idx).toEqual(1);
 });
