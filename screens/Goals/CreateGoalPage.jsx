@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import {ListGroup, Form, Button, Col, Row} from 'react-bootstrap'
 import './CreateGoalPage.css';
@@ -20,10 +20,14 @@ let CreateGoalPage = ({route, navigation}) => {
       setSubGoals(newSubGoals);
    }
 
-   let submit = () => {
-      let goalWords = goalName.split(' ');
+   let findNumIdx = (goalN) =>{
+      let goalWords = goalN.split(' ');
       let num = goalWords.find(word => !isNaN(parseInt(word)))
-      let numIdx = goalWords.indexOf(num);
+      return goalWords.indexOf(num);
+   }
+
+   let submit = () => {
+      let numIdx = findNumIdx(goalN);
       if (num) {
          let finalGoal = {
             name: goalName,
@@ -128,4 +132,7 @@ let CreateGoalPage = ({route, navigation}) => {
    )
 }
 
+let findNumIndex = CreateGoalPage.findNumIdx;
+
 export default CreateGoalPage;
+export default findNumIndex

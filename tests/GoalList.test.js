@@ -1,9 +1,9 @@
 // __tests__/Intro-test.js
 import React from 'react';
 import renderer from 'react-test-renderer';
-import ClassPage from '../screens/ClassPage';
+import findNumIndex from '../screens/Goals/CreateGoalPage';
 
-test('renders correctly', () => {
-  const tree = renderer.create(<ClassPage />).toJSON();
-  expect(tree).toMatchSnapshot();
+test('findNumIndex test', () => {
+  const idx = findNumIndex("make 10 pies");
+  expect(idx).toEqual(2);
 });
