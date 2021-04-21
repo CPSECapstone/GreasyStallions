@@ -77,7 +77,7 @@ web-build/
 .DS_Store
 
 aws-exports.js
-cypress.env.js
+cypress.env.json
 #amplify
 amplify/\#current-cloud-backend
 amplify/.config/local-*

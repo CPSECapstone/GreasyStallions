@@ -34,6 +34,7 @@
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",
+    "@cypress/code-coverage": "^3.9.4",
     "cypress": "^7.1.0"
   },
   "scripts": {
