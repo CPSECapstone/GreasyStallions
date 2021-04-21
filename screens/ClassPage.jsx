@@ -9,8 +9,7 @@ let ClassPage = function({ route, navigation}){
       {
          id: 0,
          name: "Read 10 Books", 
-         numToComplete: 10, 
-         subCompleted:4, 
+         subCompleted: 1, 
          due: "2021-04-06", 
          subGoals: [
          {
@@ -29,12 +28,18 @@ let ClassPage = function({ route, navigation}){
             title: "book4",
             complete: false
          },]
+      },
+      {
+         id: 1,
+         name: "Make a friend",
+         complete: false,
+         due: "2021-04-06",
       }]
    const [goals, setGoals] = useState(sampleGoal);
+   const [goalProgress, setGoalProgress] = useState(0);
    const { className } = route.params;
   
    let names = ["Day 1 Quiz", "Day 2 Video", "Sample Task"];
-   let goalCmp;
 
    let quizzes = [];
 
@@ -75,10 +80,16 @@ let ClassPage = function({ route, navigation}){
          <GoalList 
           goals={goals}
           setGoals={setGoals}
+          goalProgress={goalProgress}
+          setGoalProgress={setGoalProgress}
           navigation={navigation}/>
          <Button 
           onClick={() => 
-          navigation.navigate('CreateGoalPage', {goals: goals, setGoals: setGoals})}>
+          navigation.navigate('CreateGoalPage', 
+          {
+            goals: goals, 
+            setGoals: setGoals
+          })}>
             Create Goal
          </Button>
       </View>
