@@ -8,7 +8,6 @@ import YoutubePlayer from 'react-native-youtube-iframe';
 
 let VideoTask = function({ id }) {
 
-   console.log(id);
    return (
       <div class="embed-responsive embed-responsive-16by9">
          <iframe width="1280" height="720" class="embed-responsive-item" 
