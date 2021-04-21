@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, ScrollView, Text, StyleSheet } from 'react-native';
 import {ListGroup, Col, Row, Form, Button, FormLabel, FormControl, ListGroupItem, ButtonGroup, ToggleButton, ToggleButtonGroup} from 'react-bootstrap'
+import YoutubePlayer from 'react-native-youtube-iframe';
 
-let QuizPage = function({ navigation }){
+let QuizVideo = function({ navigation }){
    const [ques1, setQues1] = React.useState(null);
    const [ques2, setQues2] = React.useState(null);
    const [ques3, setQues3] = React.useState(null);
@@ -39,9 +40,13 @@ let QuizPage = function({ navigation }){
    }
 
    return (
-      <View>
+      <ScrollView>
          <Form>
-            <h2>Quiz #1 Don't fail</h2>
+            <h2>Quiz #2 Watch this</h2>
+            <YoutubePlayer 
+            height={650}
+            play={true} 
+            videoId={'dQw4w9WgXcQ'} />
             <Form.Group controlId="Q1">
                <FormLabel>1) What is the capital of Sweden?</FormLabel>
                   <br />
@@ -120,8 +125,8 @@ let QuizPage = function({ navigation }){
             </Form.Group>
             <Button as="input" type="button" Value="Submit" onClick={submitClicked}/>
          </Form>
-      </View>
+      </ScrollView>
    );
 }
 
-export default QuizPage;
+export default QuizVideo;
