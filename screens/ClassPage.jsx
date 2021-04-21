@@ -38,12 +38,18 @@ let ClassPage = function({ route, navigation}){
    const [goals, setGoals] = useState(sampleGoal);
    const [goalProgress, setGoalProgress] = useState(0);
    const { className } = route.params;
+<<<<<<< HEAD
+   let names = ["Day 1 Quiz", "Day 2 Video", "Day 3 Article"];
+
+   let goalCmp;
+=======
   
    let names = ["Day 1 Quiz", "Day 2 Video", "Sample Task"];
+>>>>>>> 70a351fdbb42fdacf4bf2584a5e54f9972680b6b
 
    let quizzes = [];
 
-   // OG quiz page
+   // OG quiz on a single page
    let selectOption1 = () => {
       navigation.navigate('QuizPage');
    };
@@ -53,6 +59,7 @@ let ClassPage = function({ route, navigation}){
       navigation.navigate('QuizVideo');
    };
 
+   // for the multiple pages quiz view
    let selectOption3 = () => {
       navigation.navigate('TaskPage')
    };
@@ -69,8 +76,6 @@ let ClassPage = function({ route, navigation}){
       <h3>{names[2]}</h3>
    </ListGroup.Item>);
 
-
-
    return (
       <View>
          <h2>{className}</h2>
@@ -78,6 +83,14 @@ let ClassPage = function({ route, navigation}){
             {quizzes}
          </ListGroup>
          <GoalList 
+<<<<<<< HEAD
+            goals={goals}
+            setGoals={setGoals}
+            navigation={navigation}/>
+         <Button 
+            onClick={() => 
+            navigation.navigate('CreateGoalPage', {goals: goals, setGoals: setGoals})}>
+=======
           goals={goals}
           setGoals={setGoals}
           goalProgress={goalProgress}
@@ -90,6 +103,7 @@ let ClassPage = function({ route, navigation}){
             goals: goals, 
             setGoals: setGoals
           })}>
+>>>>>>> 70a351fdbb42fdacf4bf2584a5e54f9972680b6b
             Create Goal
          </Button>
       </View>
