@@ -1,9 +1,12 @@
 import React from 'react';
 import {WebView} from 'react-native-web-webview';
 
+/*
+   displays a webpage in-page based on webpageUrl
+*/
+
 let WebpageTask = function({ webpageUrl }) {
 
-   console.log(webpageUrl)
    return (
       <WebView
          source={{ uri: webpageUrl }}

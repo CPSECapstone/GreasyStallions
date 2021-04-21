@@ -44,7 +44,8 @@ let QuizVideo = function({ navigation }){
          <Form>
             <h2>Quiz #2 Watch this</h2>
             <YoutubePlayer 
-            height={650}
+            height={600}
+            width={800}
             play={true} 
             videoId={'dQw4w9WgXcQ'} />
             <Form.Group controlId="Q1">

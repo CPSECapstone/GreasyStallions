@@ -2,6 +2,10 @@ import React from 'react';
 import { iframe } from 'react-bootstrap';
 import YoutubePlayer from 'react-native-youtube-iframe';
 
+/*
+   task page that displays a youtube video based on the link's id
+*/
+
 let VideoTask = function({ id }) {
 
    console.log(id);
