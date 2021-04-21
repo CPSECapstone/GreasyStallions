@@ -21,31 +21,42 @@ let CreateGoalPage = ({route, navigation}) => {
    }
 
    let submit = () => {
-      let goalWords = goalName.split(' ');
-      let num = goalWords.find(word => !isNaN(parseInt(word)))
-      let numIdx = goalWords.indexOf(num);
-      if (num) {
-         let finalGoal = {
-            name: goalName,
-            due: dueDate,
-            numToComplete: parseInt(num),
-            units: goalWords[numIdx + 1],
-            subCompleted: goals[idx] && !isNaN(goals[idx].subCompleted) ? goals[idx].subCompleted : 0,
-            subGoals: subGoals,
-         }
+      let finalGoal = {
+         name: goalName,
+         due: dueDate,
+      };
+      let tempGoal = [...goals];
+
+      if (subGoals.length) {
+         finalGoal.subCompleted = goals[idx] && 
+          !isNaN(goals[idx].subCompleted) ? 
+          goals[idx].subCompleted : 0;
+         finalGoal.subGoals = subGoals
          console.log(idx)
          console.log(finalGoal)
-         let tempGoal = [...goals]
-         if (!isNaN(idx)) {
-            tempGoal[idx] = finalGoal
-         } else {
-            tempGoal = tempGoal.concat([finalGoal])
-         }
-         setGoals(tempGoal)
-         navigation.navigate('ClassPage', {newGoal: finalGoal, idx})
+         
       } else {
-         console.log("Bad")
+         finalGoal.complete = goals[idx] &&
+          goals[idx].complete ? 
+          goals[idx].complete : false;
       }
+      if (!isNaN(idx)) {
+         tempGoal[idx] = finalGoal;
+      } else {
+         tempGoal = tempGoal.concat([finalGoal]);
+      }
+      setGoals(tempGoal);
+      navigation.navigate('ClassPage', {newGoal: finalGoal, idx});
+   }
+
+   let goalValid = () => {
+      return goalName.length && dueDate.length;
+   };
+
+   let deleteSubGoal = (ev) => {
+      let subGoalsTemp = [...subGoals];
+      subGoalsTemp.splice(ev.target.id, 1)
+      setSubGoals(subGoalsTemp)
    }
 
 
@@ -67,7 +78,9 @@ let CreateGoalPage = ({route, navigation}) => {
                      onChange={handleChange} />
                   </Col>
                   <Col sm={2}>
-                     <Button variant="primary">
+                     <Button 
+                      variant="primary"
+                      onClick={deleteSubGoal}>
                         Delete
                      </Button>
                   </Col>
@@ -120,7 +133,8 @@ let CreateGoalPage = ({route, navigation}) => {
             <Button 
              variant="primary" 
              type="submit"
-             onClick={submit}>
+             onClick={submit}
+             disabled={!goalValid()}>
                Submit
             </Button>
          </Form>
