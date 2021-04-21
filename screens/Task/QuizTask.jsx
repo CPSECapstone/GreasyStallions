@@ -21,7 +21,6 @@ let QuizTask = function({ questions, options, answers }) {
       <div>
          {questions.map((question, idx) => (
             <Form>
-               {console.log(selectedAns)}
                <Form.Group controlId="question">
                   <FormLabel>{question}</FormLabel>
                </Form.Group>
