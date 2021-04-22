@@ -4,17 +4,7 @@ import { ApolloProvider, useQuery, gql} from '@apollo/client';
 import { Picker } from '@react-native-picker/picker';
 import { StatusBar } from 'expo-status-bar';
 import AppNavigation from './navigation';
-//import config from './aws-exports';
-import Amplify from '@aws-amplify/core';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-import { apolloClient } from './apollo';
-import { apolloClientFlipted} from './apollo-flipted';
-
-const LIST_USERS = gql
-`
-    query{getUsers{fname lname}}
-`;
 
 export default function App() {
   return (

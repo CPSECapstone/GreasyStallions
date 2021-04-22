@@ -2,26 +2,40 @@ import React, { useEffect, useState } from 'react';
 import { Button, StyleSheet,  Linking, Platform, Text, View } from 'react-native';
 //import Button from '../components/Button';
 import BackgroundImage from '../components/BackgroundImage';
-import { ApolloProvider, useQuery, gql} from '@apollo/client';
+import { useLazyQuery, ApolloProvider, useQuery, gql} from '@apollo/client';
 import Amplify, { Auth, Hub } from 'aws-amplify';
 import { apolloClientFlipted} from '../apollo-flipted';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 
 const USER_ROLE = gql
 `
-query {getUser{
+{getUser{
 	role
+	email
   }}
 `;
 
+
+
+var redirect = '';
 const UserInfo = () => {
 	const {data, error, loading} = useQuery(USER_ROLE);
 	if (error) { console.log('Error fetching user', error); }
-	
+	let role = '';
+	let email = '';
+	if(data){
+		console.log(data.getUser.role);
+		email = data.getUser.email;
+		role = data.getUser.role;
+		redirect = data.getUser.role;
+	}
+
 	return (
 	  <View style = {styles.section}>
-		<Text style = {styles.text}>{"Email:"}</Text>
-		<Text>Role: {JSON.stringify(data)}</Text>
+		<Text style = {styles.text}>Email: {email}</Text>
+		<Text>Role: {role}</Text>
 	  </View>
 	);
   }
@@ -82,26 +96,32 @@ function Welcome({navigation}) {
             .catch(() => console.log('Not signed in'));
     }
 
-		//need to export the token to access it in apollo-flipted 
-	
-	console.log('Right here');
+	//function to access local storage setting
+	const storeData = async (value) => {
+		try {
+		  await AsyncStorage.setItem('jwt_token', value)
+		} catch (e) {
+		  // saving error
+		}
+	  }
+
 	Auth.currentSession().then(res=>{
 		let accessToken = res.getAccessToken()
 		let jwt = accessToken.getJwtToken()
-		//You can print them to see the full objects
-		console.log(`myAccessToken: ${JSON.stringify(accessToken)}`)
-		console.log(`myJwt: ${jwt}`)
+		storeData(jwt);
 	  })
 
 	
+
+
 	  //used to create spacing on the front end, will be changed when styling is updated
 	  const Separator = () => (
 		<View style={styles.separator} />
 	  );
 
+		//note that user here is the Cognito user, not our Table user
     return (
         <View>
-            <Text>User: {user ? JSON.stringify(user.attributes) : 'None'}</Text>
             {user ? 
             (
 			<View>
@@ -110,13 +130,19 @@ function Welcome({navigation}) {
 					<UserInfo/>
 				</ApolloProvider>
 				<Separator/>
-				<Button title = {"Hello " + JSON.stringify(user.attributes.name)}/>
+				<Button title = {"Hello " + JSON.stringify(user.attributes.email)}/>
 				<Separator/>
-				<Button title= "Go to Dashboard" onPress={() => navigation.navigate('Home')} color = 'green' />
+				<Button title= "Go to Dashboard" onPress={() => {
+					console.log("USER ROLE");
+					console.log(JSON.stringify(user.attributes));
+					if(redirect == "STUDENT"){navigation.navigate('Home')}
+					if(redirect == "INSTRUCTOR"){navigation.navigate('InstructorHome')}
+					}
+						} color = 'green' />
 				<Separator/>
-				<Button title="Sign Out" onPress={() => Auth.signOut()} color = 'red'/>
+				<Button title="Sign Out" onPress={() => {Auth.signOut()}} color = 'red'/>
 			</View>) 
-            : (<Button title="Sign In" onPress={() => Auth.federatedSignIn()} />)
+            : (<Button title="Sign In" onPress={() => {Auth.federatedSignIn()}} />)
             }
             
         </View>

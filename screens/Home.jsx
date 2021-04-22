@@ -37,6 +37,34 @@ const LIST_TASKS = gql
 `
    query{getTasks{name description}}
 `;
+
+const USER_ROLE = gql
+`
+{getUser{
+	role
+	email
+  }}
+`;
+
+const UserInfo = () => {
+    const {data, error, loading} = useQuery(USER_ROLE);
+    if (error) { console.log('Error fetching user', error); }
+    let role = '';
+    let email = '';
+    if(data){
+      email = data.getUser.email;
+      role = data.getUser.role;
+    }
+
+    return (
+      <View style = {styles.section}>
+      <Text style = {styles.text}> Welcome Student!</Text>
+      <Text >Email: {email}</Text>
+      </View>
+    );
+  }
+
+
 const UsrFliptedComponent = () => {
   const {data, error, loading} = useQuery(LIST_USERS);
   if (error) { console.log('Error fetching users', error); }
@@ -62,6 +90,7 @@ const CrsFliptedComponent = ({navigation}) => {
   if (error) { console.log('Error fetching users', error); }
 
   let courses = [];
+  console.log("CRS FLIPTED DATA");
   console.log(data)
   console.log(navigation)
   var goToClassPage = () => {
@@ -115,6 +144,7 @@ export default function Home({ navigation, signOut }) {
     <View style={styles.header}>
       {console.log(navigation)}
       <ApolloProvider client={apolloClientFlipted}>
+        <UserInfo></UserInfo>
         <UsrFliptedComponent />
         <CrsFliptedComponent navigation={navigation}/>
         <TskFliptedComponent />
@@ -122,13 +152,9 @@ export default function Home({ navigation, signOut }) {
       <Text style={{paddingTop: 100, textAlign: 'left',fontSize: 20,fontStyle: 'bold'}}>You are now authenticated</Text>
       <Button style={{width:100,backgroundColor:'#99004d',marginTop:20,}}
               onPress={() => navigation.navigate('Welcome')}>
-                <Text style={{width: "15%",marginLeft:0,alignSelf:'center'}}>Go to Welcome Screen</Text>
+                <Text style={{width: "15%",marginLeft:0,alignSelf:'center'}}>View Profile</Text>
       </Button>
-      
-      <Button style={{width:100,backgroundColor:'#99004d',marginTop:20,}}
-              onPress={() => navigation.navigate('InstructorHome')}>
-                <Text style={{width: "15%",marginLeft:0,alignSelf:'center'}}>Instructor View</Text>
-      </Button>
+
     </View>
   )
 }
