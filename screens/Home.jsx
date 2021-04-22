@@ -129,6 +129,10 @@ export default function Home({ navigation, signOut }) {
               onPress={() => navigation.navigate('InstructorHome')}>
                 <Text style={{width: "15%",marginLeft:0,alignSelf:'center'}}>Instructor View</Text>
       </Button>
+      {/* <Button
+      onPress={() => navigation.navigate('Profile')}>
+        <Text style={{width: "15%",marginLeft:0,alignSelf:'center'}}>Profile</Text>
+      </Button> */}
     </View>
   )
 }
