@@ -109,6 +109,10 @@ let GoalList = ({ goals, setGoals, completeGoal,
    }
    
    let makeGoalNoSubs = (goal, editGoal, idx) => {
+<<<<<<< HEAD
+=======
+      console.log(goal)
+>>>>>>> e67fd363653fe488f17ba36ea22361b58ed48b21
       return (
       <ListGroup.Item>
          <Row>
