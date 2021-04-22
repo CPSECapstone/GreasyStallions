@@ -141,7 +141,7 @@ const UserInfo = () => {
 export default function InstructorHome({ navigation, signOut }) {
   return (
     <View style={styles.header}>
-      {console.log(navigation)}
+      {}
       <ApolloProvider client={apolloClientFlipted}>
         {/* <UsrFliptedComponent /> */}
         <UserInfo></UserInfo>

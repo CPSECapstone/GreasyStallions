@@ -20,13 +20,12 @@ const USER_ROLE = gql
 
 
 var redirect = '';
+var role = '';
+var email = '';
 const UserInfo = () => {
 	const {data, error, loading} = useQuery(USER_ROLE);
 	if (error) { console.log('Error fetching user', error); }
-	let role = '';
-	let email = '';
 	if(data){
-		console.log(data.getUser.role);
 		email = data.getUser.email;
 		role = data.getUser.role;
 		redirect = data.getUser.role;
@@ -130,11 +129,9 @@ function Welcome({navigation}) {
 					<UserInfo/>
 				</ApolloProvider>
 				<Separator/>
-				<Button title = {"Hello " + JSON.stringify(user.attributes.email)}/>
+				<Button title = {"Hello " + JSON.stringify(user.attributes.email)} color = 'black'/>
 				<Separator/>
 				<Button title= "Go to Dashboard" onPress={() => {
-					console.log("USER ROLE");
-					console.log(JSON.stringify(user.attributes));
 					if(redirect == "STUDENT"){navigation.navigate('Home')}
 					if(redirect == "INSTRUCTOR"){navigation.navigate('InstructorHome')}
 					}
