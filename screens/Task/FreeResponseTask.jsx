@@ -1,20 +1,27 @@
 import React from 'react';
-import {TextInput, Text, View} from 'react-native';
+import Form from 'react-bootstrap/Form';
+
 
 /*
    free response quiz task
 */
 
+let freeResponseAnswer = "";
+
 let FreeResponseTask = function({ freeResponseQuestion }) {
 
    return (
-      <Text>
-         {freeResponseQuestion}
-         {"\n"}
-         Type your answer below:
-         <TextInput/>
-      </Text>
+      <Form>
+         <Form.Group controlId="formBasicEmail">
+         <Form.Label> {freeResponseQuestion} </Form.Label>
+         <Form.Control placeholder="Type your response here..." />
+         </Form.Group>
+      </Form>
    );
 }
+
+
+
+
 
 export default FreeResponseTask;

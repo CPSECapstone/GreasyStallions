@@ -38,9 +38,8 @@ let ClassPage = function({ route, navigation}){
    const [goals, setGoals] = useState(sampleGoal);
    const [goalProgress, setGoalProgress] = useState(0);
    const { className } = route.params;
+   
    let names = ["Day 1 Quiz", "Day 2 Video", "Day 3 Article"];
-
-   let goalCmp;
 
    let quizzes = [];
 
