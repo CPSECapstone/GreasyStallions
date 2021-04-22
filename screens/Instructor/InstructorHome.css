@@ -1,0 +1,32 @@
+.flex-container{
+  width: 80%;
+}
+
+.circle{
+  position: absolute;
+  height: 90%;
+  width: 90%;
+  /* background-color: antiquewhite; */
+  /* background-color: rgb(255, 140, 106); */
+  border: 2px solid rgb(36, 136, 250);
+  border-radius: 50%;
+  -moz-border-radius:50%;
+  -webkit-border-radius:50%;
+  display: inline-block;
+  text-align: center;
+  padding: 10%;
+  margin-top: -95%;
+  margin-left: 5%;
+}
+
+.piechart {
+  display: inline-block;
+  position: relative;
+  margin: 25px;
+  width: 12%;
+  padding-top: 12%;
+  border-radius: 50%;
+  /* background-image: conic-gradient(
+      rgb(252, 52, 52) 70deg, 
+      rgb(100, 226, 41) 0 235deg); */
+}

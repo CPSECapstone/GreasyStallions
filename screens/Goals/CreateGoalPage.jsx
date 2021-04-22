@@ -32,11 +32,8 @@ let CreateGoalPage = ({route, navigation}) => {
           !isNaN(goals[idx].subCompleted) ? 
           goals[idx].subCompleted : 0;
          finalGoal.subGoals = subGoals
-<<<<<<< HEAD
-=======
-         console.log(idx)
-         console.log(finalGoal)
->>>>>>> e67fd363653fe488f17ba36ea22361b58ed48b21
+         //console.log(idx)
+         //console.log(finalGoal)
          
       } else {
          finalGoal.complete = goals[idx] &&
