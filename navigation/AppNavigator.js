@@ -1,5 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
+import { View, Text, Button, Image } from 'react-native';
 import Home from '../screens/Home';
 import InstructorHome from '../screens/Instructor/InstructorHome';
 import ClassPage from '../screens/ClassPage';
@@ -9,14 +10,27 @@ import QuizResults from '../screens/Quiz/QuizResults';
 import Welcome from '../screens/Welcome';
 import CreateGoalPage from '../screens/Goals/CreateGoalPage';
 import TaskPage from '../screens/Task/TaskPage';
+import Amplify, { Auth, Hub } from 'aws-amplify';
+
 
 const AppStack = createStackNavigator();
 
 export default function App({ signOut }) {
   return (
-    <AppStack.Navigator>
+    <AppStack.Navigator
+    screenOptions={{
+      //headerShown:false,
+      //headerTitle: "Hello " + JSON.stringify(user.attributes.name),
+      //headerTitle: props => <LogoTitle {...props} />,
+      //headerCenter: () => (<Button title="Home" onPress={() => Auth.signOut()} color = 'red'/>),
+      headerRight: () => (
+        <Button title="Sign Out" onPress={() => Auth.signOut()} color = 'red'/>
+      ),
+    }}
+    >
       <AppStack.Screen name="Welcome" component={Welcome} signOut={signOut}/>
-      <AppStack.Screen name="Home" component={Home} signOut={signOut}/>
+      <AppStack.Screen name="Home" component={Home} signOut={signOut}
+      />
       <AppStack.Screen name="InstructorHome" component={InstructorHome} signOut={signOut}/>
       <AppStack.Screen name="ClassPage" component={ClassPage}/>
       <AppStack.Screen name="QuizPage" component={QuizPage}/>
