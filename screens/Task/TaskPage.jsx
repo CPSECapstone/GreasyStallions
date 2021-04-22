@@ -3,12 +3,7 @@ import React, { useEffect } from 'react';
 import { View } from 'react-native';
 import QuizTask from './QuizTask';
 import VideoTask from './VideoTask';
-<<<<<<< HEAD
-import WebpageTask from './WebpageTask';
-import FreeResponseTask from './FreeResponseTask';
-=======
 import RubricModal from './RubricModal';
->>>>>>> 70a351fdbb42fdacf4bf2584a5e54f9972680b6b
 
 
 let TaskPage = ({ navigation }) =>{
@@ -52,18 +47,6 @@ let TaskPage = ({ navigation }) =>{
             task_options: [["option 1", "option 2"], ["option 1", "option 2", "option 3"],
             ["option 1", "option 2", "option 3", "option 4"]],
             task_answers: ["option 2", "option 3", "option 4"]
-        },
-        {
-            task_title: "Read the following article",
-            task_num: 3,
-            task_type: "webpage",
-            task_webpage: "https://en.wikipedia.org/wiki/Earth"
-        },
-        {
-            task_title: "Read and respond to the following question",
-            task_num: 4,
-            task_type: "free response",
-            task_question: "Please describe the meaning of life below:"
         }
     ];
 
@@ -82,18 +65,6 @@ let TaskPage = ({ navigation }) =>{
         genTask = <QuizTask questions={task[taskNum].task_questions}
          options={task[taskNum].task_options}
          answers={task[taskNum].answers}/>
-<<<<<<< HEAD
-    } else if (task[taskNum].task_type == "webpage") {
-        genTask = <WebpageTask webpageUrl={task[taskNum].task_webpage}/>
-    } else if (task[taskNum].task_type == "free response") {
-        genTask = <FreeResponseTask freeResponseQuestion={task[taskNum].task_question}/>
-    }
-
-
-    return (
-        <View>
-            <h2>{task[taskNum].task_num + "/" + task.length + ": " + task[taskNum].       task_title}</h2>
-=======
     }
 
     return (
@@ -101,7 +72,6 @@ let TaskPage = ({ navigation }) =>{
             <Pagination>{pageItems}</Pagination>
             <Button variant="primary" onClick={() => setShowRubric(true)}>Rubric</Button>
             <h2>{task[taskNum].task_num + "/" + task.length + ": " + task[taskNum].  task_title}</h2>
->>>>>>> 70a351fdbb42fdacf4bf2584a5e54f9972680b6b
             {genTask}
             <ButtonGroup size="lg" classname="navbuts">
                 <Button variant="primary" onClick={() => changeTaskNum("-")}>Prev</Button>
