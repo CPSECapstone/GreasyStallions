@@ -4,13 +4,16 @@ import { ApolloProvider, useQuery, gql} from '@apollo/client';
 import { Picker } from '@react-native-picker/picker';
 import { StatusBar } from 'expo-status-bar';
 import AppNavigation from './navigation';
-//import config from './aws-exports';
-import Amplify from '@aws-amplify/core';
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import config from './aws-exports';
 
+/*
+commenting to fix mobile testing error
+import Amplify from '@aws-amplify/core';
 import { apolloClient } from './apollo';
 import { apolloClientFlipted} from './apollo-flipted';
+*/
 
+import 'bootstrap/dist/css/bootstrap.min.css';
 //Amplify.configure(config);
 
 const LIST_USERS = gql
