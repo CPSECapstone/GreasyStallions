@@ -32,8 +32,7 @@
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",
-    "jest": "^26.6.3",
-    "sonarqube-scanner": "^2.8.0"
+    "jest": "^26.6.3"
   },
   "scripts": {
     "start": "expo start",
