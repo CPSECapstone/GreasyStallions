@@ -15,6 +15,6 @@ let VideoTask = function({ id }) {
           src={id} allowFullScreen autoplay></iframe>
       </div>
    );
- }
+}
 
- export default VideoTask;
+export default VideoTask;

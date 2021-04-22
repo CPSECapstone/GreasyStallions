@@ -3,6 +3,8 @@ import React from 'react';
 import { View } from 'react-native';
 import QuizTask from './QuizTask';
 import VideoTask from './VideoTask';
+import WebpageTask from './WebpageTask';
+import FreeResponseTask from './FreeResponseTask';
 import RubricModal from './RubricModal';
 import TextPageTask from './TextPageTask';
 
@@ -59,6 +61,18 @@ let TaskPage = ({ navigation }) => {
             task_options: [["option 1", "option 2"], ["option 1", "option 2", "option 3"],
             ["option 1", "option 2", "option 3", "option 4"]],
             task_answers: ["option 2", "option 3", "option 4"]
+        },
+        {
+            task_title: "Read the following article",
+            task_num: 3,
+            task_type: "webpage",
+            task_webpage: "https://en.wikipedia.org/wiki/Earth"
+        },
+        {
+            task_title: "Read and respond to the following question",
+            task_num: 4,
+            task_type: "free response",
+            task_question: "Please describe the meaning of life below:"
         }
     ];
 
@@ -97,6 +111,10 @@ let TaskPage = ({ navigation }) => {
          answers={task[taskNum].answers}/>
     } else if (task[taskNum].task_type === "text") {
         genTask = <TextPageTask text={task[taskNum].task_text}/>
+    } else if (task[taskNum].task_type == "webpage") {
+        genTask = <WebpageTask webpageUrl={task[taskNum].task_webpage}/>
+    } else if (task[taskNum].task_type == "free response") {
+        genTask = <FreeResponseTask freeResponseQuestion={task[taskNum].task_question}/>
     }
 
     return (
