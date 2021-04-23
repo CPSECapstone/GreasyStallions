@@ -5,6 +5,11 @@ import React from 'react';
  * the gereral url 
  */
 
+/**
+ * Displayes a youtube video, note: the link must be for the emebeded format not 
+ * the gereral url 
+ */
+
 let VideoTask = function({ id }) {
 
    return (
