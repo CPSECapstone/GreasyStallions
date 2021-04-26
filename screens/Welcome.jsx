@@ -90,7 +90,7 @@ function Welcome({navigation}) {
 				<Separator/>
 				<Button title= "Go to Dashboard" onPress={() => navigation.navigate('Home')} color = 'green' />
 				<Separator/>
-				<Button title="Sign Out" onPress={() => Auth.signOut()} color = 'red'/>
+				{/* <Button title="Sign Out" onPress={() => Auth.signOut()} color = 'red'/> */}
 			</View>) 
             : (<Button title="Federated Sign In" onPress={() => Auth.federatedSignIn()} />)
             }

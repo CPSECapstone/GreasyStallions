@@ -1,19 +1,22 @@
 import React from 'react';
-import {TextInput, Text, View} from 'react-native';
+import Form from 'react-bootstrap/Form';
 
 /*
-   free response quiz task
+   Free response question task page.
+   Still need to save the answer after submission.
 */
+
+let freeResponseAnswer = "";
 
 let FreeResponseTask = function({ freeResponseQuestion }) {
 
    return (
-      <Text>
-         {freeResponseQuestion}
-         {"\n"}
-         Type your answer below:
-         <TextInput/>
-      </Text>
+      <Form>
+         <Form.Group controlId="freeResponseTextArea">
+            <Form.Label> {freeResponseQuestion} </Form.Label>
+            <Form.Control as="textarea" rows={6} placeholder="Type your response here..." />
+         </Form.Group>
+      </Form>
    );
 }
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal } from 'react-bootstrap';
+import { Col, Modal, Row } from 'react-bootstrap';
 
 /*
  A modal that is always available to students so that they can see that task 
@@ -15,8 +15,14 @@ let RubricModal = function({show, close, points, title, count, info}) {
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <h1>{title}</h1>
-                <h2>{"Problems: " + count + " Total Points: " + points}</h2>
+                <Row>
+                    <Col sm="5">
+                        <h1>{title}</h1>
+                    </Col>
+                    <Col sm="7">
+                        <h2>{"Problems: " + count + " Total Points: " + points}</h2>
+                    </Col>
+                </Row>
                 <p>{info}</p>
             </Modal.Body>
         </Modal>
