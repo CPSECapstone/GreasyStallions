@@ -32,7 +32,9 @@ const LIST_USERS = gql
 
 const LIST_COURSES = gql
 `
-   query{getCourses{name desc}}
+  query{courses{
+    name instructor description
+  }}
 `;
 const LIST_TASKS = gql
 `
@@ -61,45 +63,25 @@ const UserInfo = () => {
     return (
       <View style = {styles.section}>
       <Text style = {styles.text}> Welcome Student!</Text>
+      <Text style = {styles.text}> Email: {email}</Text>
       </View>
     );
   }
 
 
-const UsrFliptedComponent = () => {
-  const {data, error, loading} = useQuery(LIST_USERS);
-  if (error) { console.log('Error fetching users', error); }
-  let students = [];
-  console.log(data)
-
-  if(data){
-    data.getUsers.forEach( usr =>{
-      students.push(<Text style={styles.starshipName}> {usr.fname + " " + usr.lname}</Text>)
-    });
-  }
-  return (
-    <View style = {styles.section}>
-      <Text style = {styles.text}>{"USERS:"}</Text>
-      {students}
-    </View>
-  );
-}
 
 const CrsFliptedComponent = ({navigation}) => {
   const {data, error, loading} = useQuery(LIST_COURSES);
   
-  if (error) { console.log('Error fetching users', error); }
+  if (error) { console.log('Error fetching courses', error); }
 
   let courses = [];
-  console.log("CRS FLIPTED DATA");
-  console.log(data)
-  console.log(navigation)
   var goToClassPage = () => {
     navigation.navigate('ClassPage')
   }
 
   if(data){
-    data.getCourses.forEach( crs => {
+    data.courses.forEach( crs => {
       let toPush = <ListGroup.Item onClick={() => {navigation.navigate('ClassPage', {
         className: crs.name
       })}}>{crs.name}</ListGroup.Item>
@@ -109,7 +91,7 @@ const CrsFliptedComponent = ({navigation}) => {
 
   return (
     <View style = {styles.section}>
-      <h2>{"COURSES:"}</h2>
+      <h2>{"Courses:"}</h2>
       <ListGroup>
         {courses}
       </ListGroup>
@@ -130,10 +112,13 @@ const TskFliptedComponent = () => {
     });
   }
 
+  //tasks is empty right now because there is no query for them yet
   return (
     <View style = {styles.section}>
-      <Text style = {styles.text}>{"TASKS:"}</Text>
-      {tasks}
+      <h2>{"Tasks:"}</h2>
+      <ListGroup>
+        {tasks}
+      </ListGroup>
     </View>
   );
 }
@@ -146,7 +131,6 @@ export default function Home({ navigation, signOut }) {
       {console.log(navigation)}
       <ApolloProvider client={apolloClientFlipted}>
         <UserInfo></UserInfo>
-        <UsrFliptedComponent />
         <CrsFliptedComponent navigation={navigation}/>
         <TskFliptedComponent />
       </ApolloProvider>
