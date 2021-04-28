@@ -48,7 +48,7 @@ const USER_ROLE = gql
 `;
 
 const UserInfo = () => {
-  //not really accurate because this page is using the old Apollo Client
+  //not really accurate because this page is using the old Apollo Client/queries
     const {data, error, loading} = useQuery(USER_ROLE);
     if (error) { console.log('Error fetching user', error); }
     let role = '';
@@ -150,11 +150,6 @@ export default function Home({ navigation, signOut }) {
         <CrsFliptedComponent navigation={navigation}/>
         <TskFliptedComponent />
       </ApolloProvider>
-      <Text style={{paddingTop: 100, textAlign: 'left',fontSize: 20,fontStyle: 'bold'}}>You are now authenticated</Text>
-      <Button color = 'red' style={{width:100,backgroundColor:'#99004d',marginTop:20,}}
-              onPress={() => Auth.signOut()}>
-                <Text style={{width: "15%",marginLeft:0,alignSelf:'center'}}>Sign Out</Text>
-      </Button>
     </View>
   )
 }

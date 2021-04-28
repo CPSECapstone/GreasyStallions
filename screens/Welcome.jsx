@@ -17,28 +17,6 @@ const USER_ROLE = gql
   }}
 `;
 
-
-/*
-var redirect = '';
-var role = '';
-var email = '';
-const UserInfo = () => {
-	const {data, error, loading} = useQuery(USER_ROLE);
-	if (error) { console.log('Error fetching user', error); }
-	if(data){
-		email = data.getUser.email;
-		role = data.getUser.role;
-		redirect = data.getUser.role;
-	}
-
-	return (
-	  <View style = {styles.section}>
-		<Text style = {styles.text}>Email: {email}</Text>
-		<Text>Role: {role}</Text>
-	  </View>
-	);
-  }
-*/
 async function urlOpener(url, redirectUrl) {
     const { type, url: newUrl } = await WebBrowser.openAuthSessionAsync(
         url,
@@ -74,16 +52,9 @@ function Welcome({navigation}) {
 	}
     return (
         <View>
-           <Text>Loading...</Text>
-		   <Text>Email: {email}</Text>
-		   <Text>role: {role}</Text>
-		   <Button title = 'Sign Out' color = 'red'
-              onPress={() => Auth.signOut()}>
-      		</Button>
         </View>
         
     );
-	//navigation.navigate('Home');
 
 }
 

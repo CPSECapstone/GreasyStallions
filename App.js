@@ -6,7 +6,6 @@ import { StatusBar } from 'expo-status-bar';
 import AppNavigation from './navigation';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Amplify, { Auth, Hub } from 'aws-amplify';
-import { apolloClientFlipted } from './apollo';
 import makeApolloClient from './apollo';
 
 
@@ -56,20 +55,10 @@ export default function App() {
           .catch(() => console.log('Not signed in'));
   }
 
-	//function to access local storage setting
-	const storeData = async (value) => {
-		try {
-		  await AsyncStorage.setItem('jwt_token', value)
-		} catch (e) {
-		  // saving error
-		}
-	  }
-
   const [token, setToken]= React.useState();
 	Auth.currentSession().then(res=>{
 		let accessToken = res.getAccessToken()
 		let jwt = accessToken.getJwtToken()
-		storeData(jwt);
     setToken(jwt);
 	  })
     console.log(token);
