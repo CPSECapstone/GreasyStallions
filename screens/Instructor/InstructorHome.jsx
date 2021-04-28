@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Button from '../../components/Button';
 import {ListGroup, Col, Row} from 'react-bootstrap'
 
 import { apolloClientFlipted} from '../../apollo-flipted';
 import { ApolloProvider, useQuery, gql} from '@apollo/client';
+import GoalListTeacher from '../Goals/GoalListTeacher';
 import "./InstructorHome.css";
-// import { TestWatcher } from 'jest';
 
 const styles = StyleSheet.create({
   header: {
@@ -38,26 +38,13 @@ const CrsFliptedComponent = ({navigation}) => {
   const {data, error, loading} = useQuery(LIST_COURSES);
   
   if (error) { console.log('Error fetching users', error); }
-
-  let courses = [];
-  console.log(data)
-  console.log(navigation)
   var goToClassPage = () => {
     navigation.navigate('ClassPage')
   }
 
-  // waiting for instructor database query
-  /* if(data){
-    data.getCourses.forEach( crs => {
-      let toPush = <ListGroup.Item onClick={() => {navigation.navigate('ClassPage', {
-        className: crs.name
-      })}}>{crs.name}</ListGroup.Item>
-      courses.push(toPush)
-    });
-  } */
 
   // hard coded Sections of an Instructor's classes
-  let newcourses = [
+  let courses = [
   <ListGroup.Item onClick={() => {navigation.navigate('ClassPage', {
     className: "Biology"
   })}}>{"Biology Section 1"}</ListGroup.Item>,
@@ -70,7 +57,7 @@ const CrsFliptedComponent = ({navigation}) => {
     <View style = {styles.section}>
       <h2>{"MY COURSES:"}</h2>
       <ListGroup>
-        {newcourses}
+        {courses}
       </ListGroup>
     </View>
   );
@@ -158,7 +145,6 @@ const StudentGridComponent = () => {
 
   let studentgrid = [];
 
-  console.log(data)
 
   if(data){
     // fill in database call for dependency injection or production
@@ -210,13 +196,10 @@ let pieChartHelper = (progress) =>{
 //currently using the same tasks as on the student page
 const TskFliptedComponent = () => {
   const {data, error, loading} = useQuery(LIST_TASKS);
-  /* test('getting data from backend', () => {
-    expect.toBeDefined(data);
-  }); */
-  if (error) { console.log('Error fetching users', error); }
-
+  
   let tasks = [];
-  console.log(data)
+
+  if (error) { console.log('Error fetching users', error); }
 
   if(data){
     data.getTasks.forEach( tsk =>{
@@ -234,24 +217,96 @@ const TskFliptedComponent = () => {
 
 
 export default function InstructorHome({ navigation, signOut }) {
+  const sampleStudentGoals = [
+    {
+      student_name: "Jimmy",
+      goals: [{
+        id: 0,
+        name: "Read 10 Books", 
+        subCompleted: 1, 
+        due: "2021-04-06", 
+        subGoals: [
+        {
+            title: "book1",
+            complete: true
+        },
+        {
+            title: "book2",
+            complete: false
+        },
+        {
+            title: "book3",
+            complete: false
+        },
+        {
+            title: "book4",
+            complete: false
+        },]
+      },
+      {
+        id: 1,
+        name: "Make a friend",
+        complete: false,
+        due: "2021-04-06",
+      }]
+    },
+    {
+      student_name: "Susan",
+      goals: [{
+        id: 0,
+        name: "Read 10 Books", 
+        subCompleted: 1, 
+        due: "2021-04-06", 
+        subGoals: [
+        {
+            title: "book1",
+            complete: true
+        },
+        {
+            title: "book2",
+            complete: false
+        },
+        {
+            title: "book3",
+            complete: false
+        },
+        {
+            title: "book4",
+            complete: false
+        },]
+      },
+      {
+        id: 1,
+        name: "Make a friend",
+        complete: false,
+        due: "2021-04-06",
+      }]
+    }
+  ];
+
+  const [studentGoals, setStudentGoals] = useState(sampleStudentGoals);
+
   return (
     
     <View style={styles.header}>
-      {console.log(navigation)}
       <ApolloProvider client={apolloClientFlipted}>
         <CrsFliptedComponent navigation={navigation}/>
         <StudentGridComponent />
         <TskFliptedComponent />
       </ApolloProvider>
+      <GoalListTeacher
+       studentGoals={studentGoals}
+       setStudentGoals={setStudentGoals}
+       navigation={navigation}/>
       <Text style={{paddingTop: 100, textAlign: 'left',fontSize: 20,fontStyle: 'bold'}}>You are now authenticated</Text>
       <Button style={{width:100,backgroundColor:'#99004d',marginTop:20,}}
-              onPress={() => navigation.navigate('SignUp')}>
-                <Text style={{width: "15%",marginLeft:0,alignSelf:'center'}}>Sign Out</Text>
+       onPress={() => navigation.navigate('SignUp')}>
+        <Text style={{width: "15%",marginLeft:0,alignSelf:'center'}}>Sign Out</Text>
       </Button>
 
       <Button style={{width:100,backgroundColor:'#99004d',marginTop:20,}}
-              onPress={() => navigation.navigate('Home')}>
-                <Text style={{width: "15%",marginLeft:0,alignSelf:'center'}}>Student View</Text>
+       onPress={() => navigation.navigate('Home')}>
+        <Text style={{width: "15%",marginLeft:0,alignSelf:'center'}}>Student View</Text>
       </Button>
     </View>
   )

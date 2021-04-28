@@ -1,14 +1,16 @@
 import {ListGroup, Button, 
    Col, Row, Card, Accordion, 
    ProgressBar, Form} from 'react-bootstrap'
-import React from 'react';
+import React , { useState } from 'react';
+import OverallGoalProgressBar from './GoalProgressBar'
 
 
-let GoalList = ({ goals, setGoals, completeGoal, 
- navigation, goalProgress, setGoalProgress }) => {
+let GoalListStudent = ({ goals, setGoals, 
+ navigation, goalProgress, setGoalProgress, teacher,
+ completeSubGoalTeacher,  completeGoalCheckTeacher, studentIdx}) => {
+
 
    let goalComponents = [];
-   let goalProgressPercentage = goalProgress / goals.length * 100;
 
    let completeGoalCheck = (ev, idx) => {
       let newGoals = [...goals];
@@ -20,6 +22,7 @@ let GoalList = ({ goals, setGoals, completeGoal,
       newGoals[goalIdx].complete = !prevGoalCompleteVal
       setGoalProgress(prevGoalCompleteVal ? 
        goalProgress - 1 : goalProgress + 1)
+      
       setGoals(newGoals)
    }
 
@@ -50,17 +53,17 @@ let GoalList = ({ goals, setGoals, completeGoal,
          name: goals[idx].name,
          due: goals[idx].due,
          subGoalsIn: goals[idx].subGoals,
-         numToComplete: goals[idx].numToComplete,
          idx: idx,
          setGoals: setGoals,
          goals: goals,
+         teacher: teacher
       }
       navigation.navigate('CreateGoalPage', props)
    }
 
    let makeGoalWithSubs = (goal, editGoal, idx, subGoalCmps) => {
       let progress = goal.subCompleted / goal.subGoals.length * 100;
-      return <ListGroup.Item>
+      return <ListGroup.Item key={idx + " goal"}>
          <Accordion defaultActiveKey="0">
             <Card>
                <Card.Header>
@@ -110,7 +113,7 @@ let GoalList = ({ goals, setGoals, completeGoal,
    
    let makeGoalNoSubs = (goal, editGoal, idx) => {
       return (
-      <ListGroup.Item>
+      <ListGroup.Item key={idx + " goal"}>
          <Row>
             <Col sm={2}>
             </Col>
@@ -118,11 +121,13 @@ let GoalList = ({ goals, setGoals, completeGoal,
                {goal.name}
             </Col>
             <Col sm={4}>
-               <Form.Group controlId={idx}>
+               <Form.Group 
+                controlId={idx + (teacher ? " " + studentIdx : "")}>
                   <Form.Check 
                    type="checkbox" 
                    label="Complete" 
-                   onChange={completeGoalCheck}
+                   onChange={completeGoalCheckTeacher 
+                    ? completeGoalCheckTeacher : completeGoalCheck}
                    defaultChecked={goal.complete}
                    />
                </Form.Group>
@@ -151,7 +156,7 @@ let GoalList = ({ goals, setGoals, completeGoal,
       if(goal.subGoals)
          goal.subGoals.forEach((subGoal, subIdx) => {
             let subGoalCmp = 
-               <ListGroup.Item>
+               <ListGroup.Item key={idx + " " + subIdx + " subGoal"}>
                   <Row>
                      <Col sm={2}></Col>
                      <Col sm={8}>
@@ -159,12 +164,15 @@ let GoalList = ({ goals, setGoals, completeGoal,
                      </Col>
                      <Col sm={2}>
                         <Form>
-                           <Form.Group controlId={idx + " " + subIdx}>
+                           <Form.Group 
+                            controlId={idx + " " + subIdx + 
+                            (teacher ? " " + studentIdx : "")}>
                               <Form.Check 
-                              type="checkbox" 
-                              label="Complete" 
-                              onChange={completeSubGoal}
-                              defaultChecked={subGoal.complete}
+                               type="checkbox" 
+                               label="Complete" 
+                               onChange={completeSubGoalTeacher ?
+                                completeSubGoalTeacher : completeSubGoal}
+                               defaultChecked={subGoal.complete}
                               />
                            </Form.Group>
                         </Form>
@@ -180,26 +188,18 @@ let GoalList = ({ goals, setGoals, completeGoal,
       goalComponents.push(component)
    });
 
-   console.log(goalProgressPercentage)
-   console.log(goalProgress)
 
    return (
       <div>
-         <h2>Goals:</h2>
+         {teacher ? null : <h2>Goals:</h2>}
          <ListGroup>
-            <ListGroup.Item>
-               <Row>
-                  <Col sm={5}>
-                     <h3>
-                        Overall Goal Progress
-                     </h3>
-                  </Col>
-                  <Col sm={7}>
-                     <ProgressBar now={goalProgressPercentage} 
-                      label={`${Number((goalProgressPercentage).toFixed(2))}%`} />
-                  </Col>
-               </Row>
-            </ListGroup.Item>
+            {teacher ? null : 
+            <ListGroup.Item key={-1}>
+               <OverallGoalProgressBar
+                goalProgress={goalProgress}
+                goalsLength={goals.length}
+                showBar={!teacher}/>
+             </ListGroup.Item>}
             {goalComponents}
          </ListGroup>
       </div>
@@ -209,4 +209,4 @@ let GoalList = ({ goals, setGoals, completeGoal,
 
 
 
-export default GoalList;
+export default GoalListStudent;
