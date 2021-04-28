@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { useRef, useState } from 'react';
+import { View } from 'react-native';
 import {ListGroup, Form, Button, Col, Row} from 'react-bootstrap'
 import './CreateGoalPage.css';
 let CreateGoalPage = ({route, navigation}) => {
-   const { name, due, subGoalsIn, numToComplete, subComplete, idx, setGoals, goals } = route.params
+   const { name, due, subGoalsIn, idx, setGoals, goals, teacher } = route.params
    const [goalName, setGoalName] = useState(name ? name : "")
    const [dueDate, setDueDate] = useState(due ? due : "")
    const [subGoals, setSubGoals] = useState(subGoalsIn ? subGoalsIn : [])
@@ -21,38 +21,50 @@ let CreateGoalPage = ({route, navigation}) => {
    }
 
    let submit = () => {
-      let goalWords = goalName.split(' ');
-      let num = goalWords.find(word => !isNaN(parseInt(word)))
-      let numIdx = goalWords.indexOf(num);
-      if (num) {
-         let finalGoal = {
-            name: goalName,
-            due: dueDate,
-            numToComplete: parseInt(num),
-            units: goalWords[numIdx + 1],
-            subCompleted: goals[idx] && !isNaN(goals[idx].subCompleted) ? goals[idx].subCompleted : 0,
-            subGoals: subGoals,
-         }
-         console.log(idx)
-         console.log(finalGoal)
-         let tempGoal = [...goals]
-         if (!isNaN(idx)) {
-            tempGoal[idx] = finalGoal
-         } else {
-            tempGoal = tempGoal.concat([finalGoal])
-         }
-         setGoals(tempGoal)
-         navigation.navigate('ClassPage', {newGoal: finalGoal, idx})
+      let finalGoal = {
+         name: goalName,
+         due: dueDate,
+      };
+      let tempGoal = [...goals];
+
+      if (subGoals.length) {
+         finalGoal.subCompleted = goals[idx] && 
+          !isNaN(goals[idx].subCompleted) ? 
+          goals[idx].subCompleted : 0;
+         finalGoal.subGoals = subGoals
+         
       } else {
-         console.log("Bad")
+         finalGoal.complete = goals[idx] &&
+          goals[idx].complete ? 
+          goals[idx].complete : false;
       }
+      if (!isNaN(idx)) {
+         tempGoal[idx] = finalGoal;
+      } else {
+         tempGoal = tempGoal.concat([finalGoal]);
+      }
+      setGoals(tempGoal);
+      navigation.navigate(teacher ? 'InstructorHome' : 'ClassPage');
+   }
+
+   let goalValid = () => {
+      return goalName.length && dueDate.length;
+   };
+
+   let deleteSubGoal = (ev) => {
+      let subGoalsTemp = [...subGoals];
+      console.log(ev.currentTarget)
+      console.log(ev)
+      subGoalsTemp.splice(ev.currentTarget.id, 1)
+      setSubGoals(subGoalsTemp)
    }
 
 
 
    subGoals.forEach((goal, idx) => {
+
       let subGoalCmp = 
-         <ListGroup.Item>
+         <ListGroup.Item key={idx}>
             <Form.Group controlId={idx}>
                <Row>
                   <Col sm={1}>
@@ -60,14 +72,16 @@ let CreateGoalPage = ({route, navigation}) => {
                   </Col>
                   <Col sm={9}>
                      <Form.Control
-                     id={idx}
                      value={goal.title} 
                      type="text" 
                      placeholder="Subgoal Title"
                      onChange={handleChange} />
                   </Col>
                   <Col sm={2}>
-                     <Button variant="primary">
+                     <Button 
+                      id={idx}
+                      variant="primary"
+                      onClick={deleteSubGoal}>
                         Delete
                      </Button>
                   </Col>
@@ -120,7 +134,8 @@ let CreateGoalPage = ({route, navigation}) => {
             <Button 
              variant="primary" 
              type="submit"
-             onClick={submit}>
+             onClick={submit}
+             disabled={!goalValid()}>
                Submit
             </Button>
          </Form>

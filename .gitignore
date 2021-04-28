@@ -2,6 +2,8 @@
 #
 .DS_Store
 
+*package-lock.json
+
 # Xcode
 #
 build/
@@ -21,6 +23,7 @@ DerivedData
 *.ipa
 *.xcuserstate
 project.xcworkspace
+
 
 # Android/IntelliJ
 #

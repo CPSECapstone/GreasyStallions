@@ -155,7 +155,6 @@ export default function Home({ navigation, signOut }) {
               onPress={() => Auth.signOut()}>
                 <Text style={{width: "15%",marginLeft:0,alignSelf:'center'}}>Sign Out</Text>
       </Button>
-
     </View>
   )
 }
