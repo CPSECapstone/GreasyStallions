@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Button from '../../components/Button';
 import {ListGroup, Col, Row} from 'react-bootstrap'
-
-import { apolloClientFlipted} from '../../apollo-flipted';
+import Amplify, { Auth, Hub } from 'aws-amplify';
+import { apolloClientFlipted} from '../../apollo';
 import { ApolloProvider, useQuery, gql} from '@apollo/client';
 import GoalListTeacher from '../Goals/GoalListTeacher';
 import "./InstructorHome.css";
@@ -33,6 +33,8 @@ const LIST_TASKS = gql
 `
    query{getTasks{name description}}
 `;
+
+
 
 const CrsFliptedComponent = ({navigation}) => {
   const {data, error, loading} = useQuery(LIST_COURSES);
@@ -215,6 +217,36 @@ const TskFliptedComponent = () => {
   );
 }
 
+const USER_ROLE = gql
+`
+{getUser{
+	role
+	email
+  }}
+`;
+
+const UserInfo = () => {
+    const {data, error, loading} = useQuery(USER_ROLE);
+    if (error) { console.log('Error fetching user', error); }
+    let role = '';
+    let email = '';
+    if(data){
+      email = data.getUser.email;
+      role = data.getUser.role;
+    }
+
+    if(role && email){
+    return (
+      <View style = {styles.section}>
+      <Text>Welcome</Text>
+      <Text style = {styles.text}>Email: {email}</Text>
+      <Text>Role: {role}</Text>
+      </View>
+    );}
+    else{
+      return null;
+    }
+  }
 
 export default function InstructorHome({ navigation, signOut }) {
   const sampleStudentGoals = [
@@ -287,7 +319,6 @@ export default function InstructorHome({ navigation, signOut }) {
   const [studentGoals, setStudentGoals] = useState(sampleStudentGoals);
 
   return (
-    
     <View style={styles.header}>
       <ApolloProvider client={apolloClientFlipted}>
         <CrsFliptedComponent navigation={navigation}/>
