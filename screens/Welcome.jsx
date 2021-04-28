@@ -4,7 +4,7 @@ import { Button, StyleSheet,  Linking, Platform, Text, View } from 'react-native
 import BackgroundImage from '../components/BackgroundImage';
 import { useLazyQuery, ApolloProvider, useQuery, gql} from '@apollo/client';
 import Amplify, { Auth, Hub } from 'aws-amplify';
-import { apolloClientFlipted} from '../apollo-flipted';
+import { apolloClientFlipted} from '../apollo';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
@@ -18,7 +18,7 @@ const USER_ROLE = gql
 `;
 
 
-
+/*
 var redirect = '';
 var role = '';
 var email = '';
@@ -38,7 +38,7 @@ const UserInfo = () => {
 	  </View>
 	);
   }
-
+*/
 async function urlOpener(url, redirectUrl) {
     const { type, url: newUrl } = await WebBrowser.openAuthSessionAsync(
         url,
@@ -51,100 +51,40 @@ async function urlOpener(url, redirectUrl) {
     }
 }
 
-Amplify.configure({
-	Auth: {
-		identityPoolId: 'us-east-1:07057d76-612a-4045-8522-f38a759cf216',
-		region: 'us-east-1',
-		userPoolId: 'us-east-1_POfbbYTKF',
-		userPoolWebClientId: '24sdf1brebo58s89ja0b63c51d',
-		oauth: {
-		  domain: 'flipted-ios-test.auth.us-east-1.amazoncognito.com',
-		  scope: ['phone', 'email', 'profile', 'openid', 'aws.cognito.signin.user.admin'],
-		  redirectSignIn: 'http://localhost:19006/',
-		  redirectSignOut: 'http://localhost:19006/',
-		  responseType: 'token'
-		}
-	}
-  });
+
 
 function Welcome({navigation}) {
-    const [user, setUser] = useState(null);
-
-    useEffect(() => {
-        Hub.listen('auth', ({ payload: { event, data } }) => {
-            switch (event) {
-                case 'signIn':
-                    getUser().then((userData) => setUser(userData));
-                    break;
-                case 'signOut':
-                    setUser(null);
-                    break;
-                case 'signIn_failure':
-                case 'cognitoHostedUI_failure':
-                    console.log('Sign in failure', data);
-                    break;
-            }
-        });
-
-        getUser().then((userData) => setUser(userData));
-    }, []);
-
-    function getUser() {
-        return Auth.currentAuthenticatedUser()
-            .then((userData) => userData)
-            .catch(() => console.log('Not signed in'));
-    }
-
-	//function to access local storage setting
-	const storeData = async (value) => {
-		try {
-		  await AsyncStorage.setItem('jwt_token', value)
-		} catch (e) {
-		  // saving error
-		}
-	  }
-
-	Auth.currentSession().then(res=>{
-		let accessToken = res.getAccessToken()
-		let jwt = accessToken.getJwtToken()
-		storeData(jwt);
-	  })
-
+	var redirect = '';
+	var role = '';
+	var email = '';
+	const {data, error, loading} = useQuery(USER_ROLE);
+	if (error) { console.log('Error fetching user', error); }
+	if(data){
+		email = data.getUser.email;
+		role = data.getUser.role;
+		redirect = data.getUser.role;
+	};
+	console.log(role);
 	
-
-
-	  //used to create spacing on the front end, will be changed when styling is updated
-	  const Separator = () => (
-		<View style={styles.separator} />
-	  );
-
-		//note that user here is the Cognito user, not our Table user
+	if(role == 'INSTRUCTOR'){
+		navigation.navigate('InstructorHome');
+	}
+	else if(role == 'STUDENT'){
+    	navigation.navigate('Home');
+	}
     return (
         <View>
-            {user ? 
-            (
-			<View>
-				<Separator/>
-				<ApolloProvider client={apolloClientFlipted}>
-					<UserInfo/>
-				</ApolloProvider>
-				<Separator/>
-				<Button title = {"Hello " + JSON.stringify(user.attributes.email)} color = 'black'/>
-				<Separator/>
-				<Button title= "Go to Dashboard" onPress={() => {
-					if(redirect == "STUDENT"){navigation.navigate('Home')}
-					if(redirect == "INSTRUCTOR"){navigation.navigate('InstructorHome')}
-					}
-						} color = 'green' />
-				<Separator/>
-				<Button title="Sign Out" onPress={() => {Auth.signOut()}} color = 'red'/>
-			</View>) 
-            : (<Button title="Sign In" onPress={() => {Auth.federatedSignIn()}} />)
-            }
-            
+           <Text>Loading...</Text>
+		   <Text>Email: {email}</Text>
+		   <Text>role: {role}</Text>
+		   <Button title = 'Sign Out' color = 'red'
+              onPress={() => Auth.signOut()}>
+      		</Button>
         </View>
         
     );
+	//navigation.navigate('Home');
+
 }
 
 

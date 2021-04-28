@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import Button from '../../components/Button';
 import {ListGroup, Col, Row} from 'react-bootstrap'
 import Amplify, { Auth, Hub } from 'aws-amplify';
-import { apolloClientFlipted} from '../../apollo-flipted';
+import { apolloClientFlipted} from '../../apollo';
 import { ApolloProvider, useQuery, gql} from '@apollo/client';
 
 const styles = StyleSheet.create({
@@ -136,6 +136,9 @@ const UserInfo = () => {
       <Text>Role: {role}</Text>
       </View>
     );}
+    else{
+      return null;
+    }
   }
 
 export default function InstructorHome({ navigation, signOut }) {
@@ -150,8 +153,8 @@ export default function InstructorHome({ navigation, signOut }) {
       </ApolloProvider>
       <Text style={{paddingTop: 100, textAlign: 'left',fontSize: 20,fontStyle: 'bold'}}>You are authenticated</Text>
       <Button style={{width:100,backgroundColor:'#99004d',marginTop:20,}}
-              onPress={() => navigation.navigate('Welcome')}>
-                <Text style={{width: "15%",marginLeft:0,alignSelf:'center'}}>Profile</Text>
+              onPress={() => Auth.signOut()}>
+                <Text style={{width: "15%",marginLeft:0,alignSelf:'center'}}>Sign Out</Text>
       </Button>
     </View>
   )

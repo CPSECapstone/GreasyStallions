@@ -2,8 +2,9 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Button from '../components/Button';
 import {ListGroup, Col, Row} from 'react-bootstrap'
+import Amplify, { Auth, Hub } from 'aws-amplify';
 
-import { apolloClientFlipted} from '../apollo-flipted';
+import { apolloClientFlipted} from '../apollo';
 import { ApolloProvider, useQuery, gql} from '@apollo/client';
 
 const styles = StyleSheet.create({
@@ -47,6 +48,7 @@ const USER_ROLE = gql
 `;
 
 const UserInfo = () => {
+  //not really accurate because this page is using the old Apollo Client
     const {data, error, loading} = useQuery(USER_ROLE);
     if (error) { console.log('Error fetching user', error); }
     let role = '';
@@ -59,7 +61,6 @@ const UserInfo = () => {
     return (
       <View style = {styles.section}>
       <Text style = {styles.text}> Welcome Student!</Text>
-      <Text >Email: {email}</Text>
       </View>
     );
   }
@@ -150,9 +151,9 @@ export default function Home({ navigation, signOut }) {
         <TskFliptedComponent />
       </ApolloProvider>
       <Text style={{paddingTop: 100, textAlign: 'left',fontSize: 20,fontStyle: 'bold'}}>You are now authenticated</Text>
-      <Button style={{width:100,backgroundColor:'#99004d',marginTop:20,}}
-              onPress={() => navigation.navigate('Welcome')}>
-                <Text style={{width: "15%",marginLeft:0,alignSelf:'center'}}>View Profile</Text>
+      <Button color = 'red' style={{width:100,backgroundColor:'#99004d',marginTop:20,}}
+              onPress={() => Auth.signOut()}>
+                <Text style={{width: "15%",marginLeft:0,alignSelf:'center'}}>Sign Out</Text>
       </Button>
 
     </View>
