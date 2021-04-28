@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import Button from '../components/Button';
-import {ListGroup, Col, Row} from 'react-bootstrap'
+
+import {ListGroup, Button, Col, Row} from 'react-bootstrap'
 import Amplify, { Auth, Hub } from 'aws-amplify';
 
 import { apolloClientFlipted} from '../apollo';
@@ -95,8 +95,8 @@ const CrsFliptedComponent = ({navigation}) => {
   console.log(data)
   console.log(navigation)
   var goToClassPage = () => {
-    navigation.navigate('ClassPage')
-  }
+    navigation.navigate('ClassPage', {className: "Test Class"})
+  };
 
   if(data){
     data.getCourses.forEach( crs => {
@@ -113,6 +113,7 @@ const CrsFliptedComponent = ({navigation}) => {
       <ListGroup>
         {courses}
       </ListGroup>
+      <Button onClick={goToClassPage}>Task tester</Button>
     </View>
   );
 }

@@ -7,6 +7,8 @@ import WebpageTask from './WebpageTask';
 import FreeResponseTask from './FreeResponseTask';
 import RubricModal from './RubricModal';
 import TextPageTask from './TextPageTask';
+import { ApolloProvider, useQuery, gql} from '@apollo/client';
+import ImageTask from './ImageTask';
 
 /**
  * The general task page that will hold all components that define a task
@@ -17,6 +19,39 @@ import TextPageTask from './TextPageTask';
 let TaskPage = ({ navigation }) => {
     const [currPage, setCurrPage] = React.useState(0);
     const [showRubricModal, setShowRubricModal] = React.useState(false);
+
+    const pulledTask = gql
+    `
+    query {
+        task(taskId: "90e0c730e56"){
+          name
+          id
+          points
+          parentMissionId
+          pages{
+            blocks{
+              title
+              ... on TextBlock{
+                contents
+              }
+              ... on ImageBlock{
+                imageUrl
+              }
+              ... on QuizBlock{
+                title
+                blockId
+                questions {
+                  description
+                }
+                }
+            }
+          }
+        }
+      }
+    `;
+
+    const {data, error, loading} = useQuery(pulledTask);
+    console.log(data);
 
     let currComponents = [];
     let showRubric = false; // whether or not rubric button is active
@@ -47,7 +82,11 @@ let TaskPage = ({ navigation }) => {
                          " are much more common than ionic bonds."
                     },
                     {
-                        title: null,
+                        title: "Sick pic",
+                        imageUrl: "https://fastly.kastatic.org/ka-perseus-images/60f5834b8b3234e6482e0f201cca84c3a4271b63.png"
+                    },
+                    {
+                        title: "ski trick",
                         videoUrl: "https://www.youtube.com/embed/TUZ_T_Rfios"
                     }
                 ]
@@ -92,6 +131,7 @@ let TaskPage = ({ navigation }) => {
 
     // finds the type of component it is and returns the correct one filled out
     let typeFinder = (component) => {
+        console.log("type: " + component);
         if (component.contents != null) {
             return <TextPageTask title={component.title}
              text={component.contents} />
@@ -104,9 +144,11 @@ let TaskPage = ({ navigation }) => {
              options={component.options}
              answers={component.answers} />
         } else if (component.webpage != null) {
-            <WebpageTask webpageUrl={component.webpage} />
+            return <WebpageTask webpageUrl={component.webpage} />
         } else if (component.FRQuestion != null) {
-            <FreeResponseTask freeResponseQuestion={component.FRQuestion} />
+            return <FreeResponseTask freeResponseQuestion={component.FRQuestion} />
+        } else if (component.imageUrl != null) {
+            return  <ImageTask pth={component.imageUrl} title={component.title}/> 
         }
     }
 
@@ -153,6 +195,7 @@ let TaskPage = ({ navigation }) => {
             <Pagination>{navBarItems}</Pagination>
             {fillComponents()}
             {console.log("len: " + currComponents.length)}
+            {console.log(currComponents)}
             {currComponents.map((comp) => {
                 return (
                     <div>
