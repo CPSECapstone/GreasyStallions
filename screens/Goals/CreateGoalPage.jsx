@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { useRef, useState } from 'react';
+import { View } from 'react-native';
 import {ListGroup, Form, Button, Col, Row} from 'react-bootstrap'
 import './CreateGoalPage.css';
 let CreateGoalPage = ({route, navigation}) => {
-   const { name, due, subGoalsIn, numToComplete, subComplete, idx, setGoals, goals } = route.params
+   const { name, due, subGoalsIn, idx, setGoals, goals, teacher } = route.params
    const [goalName, setGoalName] = useState(name ? name : "")
    const [dueDate, setDueDate] = useState(due ? due : "")
    const [subGoals, setSubGoals] = useState(subGoalsIn ? subGoalsIn : [])
@@ -44,7 +44,7 @@ let CreateGoalPage = ({route, navigation}) => {
          tempGoal = tempGoal.concat([finalGoal]);
       }
       setGoals(tempGoal);
-      navigation.navigate('ClassPage', {newGoal: finalGoal, idx});
+      navigation.navigate(teacher ? 'InstructorHome' : 'ClassPage');
    }
 
    let goalValid = () => {
@@ -53,15 +53,18 @@ let CreateGoalPage = ({route, navigation}) => {
 
    let deleteSubGoal = (ev) => {
       let subGoalsTemp = [...subGoals];
-      subGoalsTemp.splice(ev.target.id, 1)
+      console.log(ev.currentTarget)
+      console.log(ev)
+      subGoalsTemp.splice(ev.currentTarget.id, 1)
       setSubGoals(subGoalsTemp)
    }
 
 
 
    subGoals.forEach((goal, idx) => {
+
       let subGoalCmp = 
-         <ListGroup.Item>
+         <ListGroup.Item key={idx}>
             <Form.Group controlId={idx}>
                <Row>
                   <Col sm={1}>
@@ -69,7 +72,6 @@ let CreateGoalPage = ({route, navigation}) => {
                   </Col>
                   <Col sm={9}>
                      <Form.Control
-                     id={idx}
                      value={goal.title} 
                      type="text" 
                      placeholder="Subgoal Title"
@@ -77,6 +79,7 @@ let CreateGoalPage = ({route, navigation}) => {
                   </Col>
                   <Col sm={2}>
                      <Button 
+                      id={idx}
                       variant="primary"
                       onClick={deleteSubGoal}>
                         Delete
