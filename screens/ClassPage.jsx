@@ -43,7 +43,7 @@ let ClassPage = function({ route, navigation}){
 
    let quizzes = [];
 
-   // OG quiz page
+   // OG quiz on a single page
    let selectOption1 = () => {
       navigation.navigate('QuizPage');
    };
@@ -53,6 +53,7 @@ let ClassPage = function({ route, navigation}){
       navigation.navigate('QuizVideo');
    };
 
+   // for the multiple pages quiz view
    let selectOption3 = () => {
       navigation.navigate('TaskPage')
    };
@@ -68,8 +69,6 @@ let ClassPage = function({ route, navigation}){
    quizzes.push(<ListGroup.Item onClick={selectOption3}>
       <h3>{names[2]}</h3>
    </ListGroup.Item>);
-
-
 
    return (
       <View>

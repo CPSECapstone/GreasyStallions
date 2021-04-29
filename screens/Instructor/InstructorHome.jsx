@@ -5,8 +5,9 @@ import {ListGroup, Col, Row} from 'react-bootstrap'
 import Amplify, { Auth, Hub } from 'aws-amplify';
 import { apolloClientFlipted} from '../../apollo';
 import { ApolloProvider, useQuery, gql} from '@apollo/client';
+import StudentGridComponent from "./StudentGrid.jsx";
 import GoalListTeacher from '../Goals/GoalListTeacher';
-import "./InstructorHome.css";
+// import { TestWatcher } from 'jest';
 
 const styles = StyleSheet.create({
   header: {
@@ -63,136 +64,6 @@ const CrsFliptedComponent = ({navigation}) => {
       </ListGroup>
     </View>
   );
-}
-
-const StudentGridComponent = () => {
-  const {data, error, loading} = useQuery(LIST_TASKS);
-  if (error) { console.log('Error fetching students', error); }
-
-  // 3 options for task_progress are in progress (yellow circle), idle (red), and mastered (green)
-  let hardcodedstudents = [
-    {
-      student_name : "Jimmy",
-      student_mission_progress : "50",
-      student_current_task : "Task 2",
-      task_progress : "idle"
-    },
-    {
-      student_name : "Susan",
-      student_mission_progress : "60",
-      student_current_task : "Task 3",
-      task_progress : "mastered"
-    },
-    {
-      student_name : "George",
-      student_mission_progress : "65",
-      student_current_task : "Task 4",
-      task_progress : "in-progress"
-    },
-    {
-      student_name : "Sarah",
-      student_mission_progress : "40",
-      student_current_task : "Task 3",
-      task_progress : "idle"
-    },
-    {
-      student_name : "Jeff",
-      student_mission_progress : "82",
-      student_current_task : "Task 6",
-      task_progress : "mastered"
-    },
-    {
-      student_name : "Dave",
-      student_mission_progress : "71",
-      student_current_task : "Task 8",
-      task_progress : "mastered"
-    },
-    {
-      student_name : "Jimmy",
-      student_mission_progress : "50",
-      student_current_task : "Task 2",
-      task_progress : "idle"
-    },
-    {
-      student_name : "Susan",
-      student_mission_progress : "60",
-      student_current_task : "Task 3",
-      task_progress : "mastered"
-    },
-    {
-      student_name : "George",
-      student_mission_progress : "65",
-      student_current_task : "Task 4",
-      task_progress : "in-progress"
-    },
-    {
-      student_name : "Sarah",
-      student_mission_progress : "40",
-      student_current_task : "Task 3",
-      task_progress : "idle"
-    },
-    {
-      student_name : "Jeff",
-      student_mission_progress : "82",
-      student_current_task : "Task 6",
-      task_progress : "mastered"
-    },
-    {
-      student_name : "Dave",
-      student_mission_progress : "71",
-      student_current_task : "Task 8",
-      task_progress : "mastered"
-    }
-  ];
-
-  let studentgrid = [];
-
-
-  if(data){
-    // fill in database call for dependency injection or production
-  }
-
-
-  // hard coded testing
-  hardcodedstudents.forEach(student =>{
-    studentgrid.push(student)
-  })
-
-  studentgrid.forEach(student => {
-    if (student.task_progress === "idle"){
-      student.task_progress = "rgb(255, 140, 106)"
-    }
-    else if(student.task_progress === "in-progress"){
-      student.task_progress = "rgb(255, 247, 130)"
-    }
-    else if(student.task_progress === "mastered"){
-      student.task_progress = "rgb(148, 245, 124)"
-    }
-  })
-
-  return (
-    <View style = {styles.section}>
-      <Text style = {styles.text}>{"TASKS:"}</Text>
-      <div class="flex-container">
-        {studentgrid.map(student => (
-          <div className={"piechart"} style={{
-            backgroundImage: pieChartHelper(student.student_mission_progress)
-          }}>
-            <div className={"circle"} style={{backgroundColor:student.task_progress,}}>
-              <div>{<Text> {student.student_name}</Text>}</div>
-              Current Task:
-              <div>{student.student_current_task}</div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </View>
-  );
-}
-
-let pieChartHelper = (progress) =>{
-  let newprogress = 360 - (progress * 0.01 * 360);
-  return "conic-gradient(rgb(252, 52, 52)"+newprogress+"deg, rgb(100, 226, 41) 0 0)";
 }
 
 //currently using the same tasks as on the student page
@@ -316,15 +187,130 @@ export default function InstructorHome({ navigation, signOut }) {
     }
   ];
 
+  const samplestudents = [
+    {
+      student_name : "Jimmy",
+      student_mission_progress : "50",
+      student_current_task : "Task 2",
+      task_progress : "1"
+    },
+    {
+      student_name : "Susan",
+      student_mission_progress : "60",
+      student_current_task : "Task 3",
+      task_progress : "3"
+    },
+    {
+      student_name : "George",
+      student_mission_progress : "65",
+      student_current_task : "Task 4",
+      task_progress : "2"
+    },
+    {
+      student_name : "Sarah",
+      student_mission_progress : "40",
+      student_current_task : "Task 3",
+      task_progress : "1"
+    },
+    {
+      student_name : "Jeff",
+      student_mission_progress : "82",
+      student_current_task : "Task 6",
+      task_progress : "3"
+    },
+    {
+      student_name : "Dave",
+      student_mission_progress : "71",
+      student_current_task : "Task 8",
+      task_progress : "3"
+    },
+    {
+      student_name : "Adam",
+      student_mission_progress : "54",
+      student_current_task : "Task 2",
+      task_progress : "2"
+    },
+    {
+      student_name : "Raven",
+      student_mission_progress : "56",
+      student_current_task : "Task 3",
+      task_progress : "2"
+    },
+    {
+      student_name : "Steven",
+      student_mission_progress : "80",
+      student_current_task : "Task 4",
+      task_progress : "2"
+    },
+    {
+      student_name : "Dylan",
+      student_mission_progress : "43",
+      student_current_task : "Task 3",
+      task_progress : "2"
+    },
+    {
+      student_name : "Hannah",
+      student_mission_progress : "88",
+      student_current_task : "Task 6",
+      task_progress : "3"
+    },
+    {
+      student_name : "Abby",
+      student_mission_progress : "77",
+      student_current_task : "Task 8",
+      task_progress : "3"
+    },
+    {
+      student_name : "Jacob",
+      student_mission_progress : "15",
+      student_current_task : "Task 1",
+      task_progress : "2"
+    },
+    {
+      student_name : "William",
+      student_mission_progress : "64",
+      student_current_task : "Task 3",
+      task_progress : "3"
+    },
+    {
+      student_name : "Leo",
+      student_mission_progress : "81",
+      student_current_task : "Task 4",
+      task_progress : "3"
+    },
+    {
+      student_name : "Jack",
+      student_mission_progress : "20",
+      student_current_task : "Task 3",
+      task_progress : "1"
+    },
+    {
+      student_name : "Chris",
+      student_mission_progress : "48",
+      student_current_task : "Task 6",
+      task_progress : "3"
+    },
+    {
+      student_name : "Pablo",
+      student_mission_progress : "72",
+      student_current_task : "Task 5",
+      task_progress : "3"
+    }
+  ];
+
   const [studentGoals, setStudentGoals] = useState(sampleStudentGoals);
+  const [students, setStudents] = useState(samplestudents);
 
   return (
     <View style={styles.header}>
       <ApolloProvider client={apolloClientFlipted}>
         <CrsFliptedComponent navigation={navigation}/>
-        <StudentGridComponent />
         <TskFliptedComponent />
       </ApolloProvider>
+      <StudentGridComponent
+      students={students}
+      setStudents={setStudents}
+      navigation={navigation}/>
       <GoalListTeacher
        studentGoals={studentGoals}
        setStudentGoals={setStudentGoals}

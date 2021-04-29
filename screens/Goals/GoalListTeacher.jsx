@@ -8,7 +8,7 @@ let GoalListTeacher = ({navigation, studentGoals,
    let studentGoalComponents = [];
 
    let completeGoalCheckTeacher = (ev, idx) => {
-      let newGoals = [...studentGoals];
+      let newGoals = [...studentGoals]; // copies into new array
       let goalIdx = ev && ev.target.id.split(" ")[0];
       let studentIdx = ev.target.id.split(" ")[1];
       if (!goalIdx) {

@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {Component} from 'react';
+import {WebView} from 'react-native-web-webview';
 import { View, ScrollView, Text, StyleSheet } from 'react-native';
 import {ListGroup, Col, Row, Form, Button, FormLabel, FormControl, ListGroupItem, ButtonGroup, ToggleButton, ToggleButtonGroup} from 'react-bootstrap'
-import YoutubePlayer from 'react-native-youtube-iframe';
 
-let QuizVideo = function({ navigation }){
+let QuizWebpage = function({ navigation }){
    const [ques1, setQues1] = React.useState(null);
    const [ques2, setQues2] = React.useState(null);
    const [ques3, setQues3] = React.useState(null);
@@ -42,12 +42,11 @@ let QuizVideo = function({ navigation }){
    return (
       <ScrollView>
          <Form>
-            <h2>Quiz #2 Watch this</h2>
-            <YoutubePlayer 
-            height={600}
-            width={800}
-            play={true} 
-            videoId={'dQw4w9WgXcQ'} />
+            <h2>Quiz #3 Read this</h2>
+            <WebView
+               source={{ uri: 'https://en.wikipedia.org/wiki/Earth' }}
+               style={{ marginTop: 40 }} 
+            />
             <Form.Group controlId="Q1">
                <FormLabel>1) What is the capital of Sweden?</FormLabel>
                   <br />
@@ -130,4 +129,4 @@ let QuizVideo = function({ navigation }){
    );
 }
 
-export default QuizVideo;
+export default QuizWebpage;
