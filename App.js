@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, Button, Text, View, SafeAreaView, ActivityIndicator, StyleSheet, FlatList } from 'react-native';
+import {  ScrollView,  Text, View, SafeAreaView, ActivityIndicator, StyleSheet, FlatList } from 'react-native';
 import { ApolloProvider, useQuery, gql} from '@apollo/client';
 import { Picker } from '@react-native-picker/picker';
 import { StatusBar } from 'expo-status-bar';
@@ -7,7 +7,10 @@ import AppNavigation from './navigation';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Amplify, { Auth, Hub } from 'aws-amplify';
 import makeApolloClient from './apollo';
-
+import {Modal, Button, Image, Container, ListGroup, Form,  Col, Row} from 'react-bootstrap';
+import flipted_icon from './assets/flipted_icon.jpg';
+import flipted_logo from './assets/flipted_logo.jpg';
+import {QuestionCircle} from 'react-bootstrap-icons';
 
 
 Amplify.configure({
@@ -25,6 +28,42 @@ Amplify.configure({
 		}
 	}
   });
+
+function InfoModal() {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  return (
+    <>
+      <Button variant="primary" onClick={handleShow}>
+        Launch static backdrop modal
+      </Button>
+
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Modal title</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          I will not close if you click outside me. Don't even try to press
+          escape key.
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary">Understood</Button>
+        </Modal.Footer>
+      </Modal>
+    </>
+  );
+}
 
 export default function App() {
 
@@ -66,6 +105,10 @@ export default function App() {
     
     const client = makeApolloClient(token);    
 
+    //for info modal
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     if(user){return(
       <ApolloProvider client = {client}>
@@ -75,9 +118,37 @@ export default function App() {
           </View>
           </ApolloProvider>)
     }
-    else if(!user){return(<View>
-        <Button title="Sign In" onPress={() => {Auth.federatedSignIn()}} />
-        </View>)
+    else if(!user){return(
+      <View style = {styles.loadingContainer}>
+        <Image src={flipted_icon} rounded fluid />
+        <Image src={flipted_logo} rounded fluid />
+        <Button style={{width: 250, marginTop: 16, backgroundColor: '#3467EC', color:"white"}} 
+          variant="primary" 
+          size = "lg" 
+          onClick = { () => Auth.federatedSignIn()}>
+          Get Started
+        </Button>
+        <QuestionCircle style={{marginTop: 36}} 
+          color="#3467EC" 
+          size={36}
+          onClick={handleShow}>
+          </QuestionCircle>
+        <Modal show={show} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Welcome to Flipted!</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>Welcome to FliptEd Alpha Version. Press "Get started"
+            to continue to the Authentication page, where you can Sign Up or Log In.
+            You will then be redirected to your dashboard depending on your account type.
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="primary" onClick={handleClose}>
+              Got it!
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </View>
+      )
     }
     else return( null);
     
@@ -86,8 +157,22 @@ export default function App() {
 const styles = StyleSheet.create({
   loadingContainer: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'top',
     alignItems: 'center',
+    marginTop: 50
+  },
+  container2: {
+    width: 300,
+    flex: 1,
+    justifyContent: 'top',
+    marginTop: 75,
+    alignItems: 'center'
+  },
+  helpButton: {
+    flex: 1,
+    justifyContent: 'top',
+    alignSelf: 'middle',
+    marginTop: 16
   },
   container: {
     flex: 1,

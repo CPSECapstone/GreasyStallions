@@ -95,7 +95,6 @@ const CrsFliptedComponent = ({navigation}) => {
       <ListGroup>
         {courses}
       </ListGroup>
-      <Button onClick={goToClassPage}>Task tester</Button>
     </View>
   );
 }
@@ -130,11 +129,8 @@ export default function Home({ navigation, signOut }) {
     
     <View style={styles.header}>
       {console.log(navigation)}
-      <ApolloProvider client={apolloClientFlipted}>
         <UserInfo></UserInfo>
         <CrsFliptedComponent navigation={navigation}/>
-        <TskFliptedComponent />
-      </ApolloProvider>
     </View>
   )
 }
