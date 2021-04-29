@@ -1,16 +1,47 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import {ListGroup, Button, Col, Row} from 'react-bootstrap'
+import {ListGroup, Button, Col, Row, Card, Accordion} from 'react-bootstrap'
 import CreateGoalModal from '../components/CreateGoalModal'
+import GoalListStudent from './Goals/GoalListStudent'
 
-let ClassPage = function({ route, navigation }){
-   const [showGoalModal, setShowGoalModal] = useState(false);
-   const [goalCmp, setGoalCmp] = useState([]);
-   const [goals, setGoal] = useState([{assgn:"Day 1 Quiz", time:"Tomorrow"}]);
+let ClassPage = function({ route, navigation}){
+   const sampleGoal = [
+      {
+         id: 0,
+         name: "Read 10 Books", 
+         subCompleted: 1, 
+         due: "2021-04-06", 
+         subGoals: [
+         {
+            title: "book1",
+            complete: true
+         },
+         {
+            title: "book2",
+            complete: false
+         },
+         {
+            title: "book3",
+            complete: false
+         },
+         {
+            title: "book4",
+            complete: false
+         },]
+      },
+      {
+         id: 1,
+         name: "Make a friend",
+         complete: false,
+         due: "2021-04-06",
+      }]
+   const [goals, setGoals] = useState(sampleGoal);
+   const [goalProgress, setGoalProgress] = useState(0);
    const { className } = route.params;
-   let names = ["Day 1 Quiz", "Day 2 Video", "Other"];
+  
+   let names = ["Day 1 Quiz", "Day 2 Video", "Sample Task"];
+
    let quizzes = [];
-   let goalComponents = [];
 
    // OG quiz page
    let selectOption1 = () => {
@@ -22,6 +53,10 @@ let ClassPage = function({ route, navigation }){
       navigation.navigate('QuizVideo');
    };
 
+   let selectOption3 = () => {
+      navigation.navigate('TaskPage')
+   };
+
    quizzes.push(<ListGroup.Item onClick={selectOption1}>
       <h3>{names[0]}</h3>
    </ListGroup.Item>);
@@ -30,49 +65,11 @@ let ClassPage = function({ route, navigation }){
       <h3>{names[1]}</h3>
    </ListGroup.Item>);
 
-   quizzes.push(<ListGroup.Item onClick={selectOption1}>
+   quizzes.push(<ListGroup.Item onClick={selectOption3}>
       <h3>{names[2]}</h3>
    </ListGroup.Item>);
 
-/*
-   names.forEach(name => {
-      quizzes.push(<ListGroup.Item onClick={selectOption1}>
-         <h3>{name}</h3>
-      </ListGroup.Item>);
-   });
-*/
 
-   let openGoalModal = () => {
-      setShowGoalModal(true);
-   };
-
-   let closeGoalModal = (res) => {
-      if (res){
-         console.log("res")
-         console.log(res)
-         setGoal(goals.concat([{assgn: res.assgn, time: res.time}]))
-         console.log(goals)
-      }
-      setShowGoalModal(false);
-   }
-
-   goals.forEach(goal => {
-      let component = 
-      <ListGroup.Item>
-         <Row>
-            <Col sm={6}>
-               {goal.assgn}
-            </Col>
-            <Col sm={6}>
-               {goal.time}
-            </Col>
-         </Row>
-      </ListGroup.Item>
-      goalComponents.push(component)
-   });
-   console.log("rerun");
-   console.log(goals)
-   // setGoalCmp(goalComponents);
 
    return (
       <View>
@@ -80,28 +77,22 @@ let ClassPage = function({ route, navigation }){
          <ListGroup>
             {quizzes}
          </ListGroup>
-         <h2>Goals:</h2>
-         <ListGroup>
-            <ListGroup.Item>
-               <Row>
-                  <Col sm={6}>
-                     <h4>Assignment:</h4>
-                  </Col>
-                  <Col sm={6}>
-                     <h4>To Do By:</h4>
-                  </Col>
-               </Row>
-            </ListGroup.Item>
-            {goalComponents}
-         </ListGroup>
-         <Button onClick={openGoalModal}>
+         <GoalListStudent 
+          goals={goals}
+          setGoals={setGoals}
+          teacher={false}
+          goalProgress={goalProgress}
+          setGoalProgress={setGoalProgress}
+          navigation={navigation}/>
+         <Button 
+          onClick={() => 
+          navigation.navigate('CreateGoalPage', 
+          {
+            goals: goals, 
+            setGoals: setGoals
+          })}>
             Create Goal
          </Button>
-         <CreateGoalModal 
-            show={showGoalModal}
-            assignments={names}
-            onDismiss={closeGoalModal}
-            />
       </View>
    );
 }

@@ -12,7 +12,12 @@
       "enablexcodeintegration": true
     },
     "auth": {
+<<<<<<< HEAD
       "enablecaseinsensitivity": true
+=======
+      "enablecaseinsensitivity": true,
+      "useinclusiveterminology": true
+>>>>>>> f8b73ec022cb4f1830a0de3cafd102d1eca18eb2
     },
     "codegen": {
       "useappsyncmodelgenplugin": true,
