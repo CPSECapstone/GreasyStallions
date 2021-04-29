@@ -2,6 +2,8 @@
 #
 .DS_Store
 
+*package-lock.json
+
 # Xcode
 #
 build/
@@ -22,6 +24,7 @@ DerivedData
 *.xcuserstate
 project.xcworkspace
 package-lock.json
+cypress.env.json
 
 # Android/IntelliJ
 #

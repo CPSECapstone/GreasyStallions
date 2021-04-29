@@ -5,10 +5,13 @@ import React from 'react';
  * May be edited later to allow for formatted text files or input
  */
 
-let TextPageTask = function({ text }) {
+let TextPageTask = function({ title, text }) {
     
     return (
-        <h5>{text}</h5>
+        <div>
+            <h2>{title}</h2>
+            <h5>{text}</h5>
+        </div>
     );
 }
 

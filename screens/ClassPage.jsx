@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import {ListGroup, Button, Col, Row, Card, Accordion} from 'react-bootstrap'
 import CreateGoalModal from '../components/CreateGoalModal'
-import GoalList from './Goals/GoalList'
+import GoalListStudent from './Goals/GoalListStudent'
 
 let ClassPage = function({ route, navigation }){
    const sampleGoal = [
@@ -38,9 +38,8 @@ let ClassPage = function({ route, navigation }){
    const [goals, setGoals] = useState(sampleGoal);
    const [goalProgress, setGoalProgress] = useState(0);
    const { className } = route.params;
-   console.log(className)
    
-   let names = ["Day 1 Quiz", "Day 2 Video", "Day 3 Article"];
+   let names = ["Day 1 Quiz", "Day 2 Video", "Sample Task"];
 
    let quizzes = [];
 
@@ -87,9 +86,10 @@ let ClassPage = function({ route, navigation }){
                View All Missions
             </Button>
          </div>
-         <GoalList 
+         <GoalListStudent 
           goals={goals}
           setGoals={setGoals}
+          teacher={false}
           goalProgress={goalProgress}
           setGoalProgress={setGoalProgress}
           navigation={navigation}/>

@@ -23,6 +23,14 @@
 - Install with `yarn` or `npm install`.
 - Run `expo start` to try it out.
 
+## How to Create an Account:
+
+- contact efukumot@calpoly.edu to get an account created to test our platform
+
+## How to Submit a Bug:
+
+- If you find a bug/defect in our site please submit them here: https://forms.gle/dxDULg4aRNaNJ2Pe9 
+
 ## 📝 Notes
 
 - The Apollo configuration lies in the `apollo.js` file.
