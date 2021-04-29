@@ -4,33 +4,6 @@ import { ApolloProvider, useQuery, gql} from '@apollo/client';
 import { Picker } from '@react-native-picker/picker';
 import { StatusBar } from 'expo-status-bar';
 import AppNavigation from './navigation';
-<<<<<<< HEAD
-// import config from './aws-exports';
-
-/*
-commenting to fix mobile testing error
-import Amplify from '@aws-amplify/core';
-import { apolloClient } from './apollo';
-import { apolloClientFlipted} from './apollo-flipted';
-*/
-
-import 'bootstrap/dist/css/bootstrap.min.css';
-//Amplify.configure(config);
-
-const LIST_USERS = gql
-`
-    query{getUsers{fname lname}}
-`;
-/*
-const FliptedComponent = () => {
-  const {data, error, loading} = useQuery(LIST_USERS);
-  console.log(data);
-  //console.log(Object.keys(data));
-  //const user1 = data.getUsers
-  //const user1name = 'yo';
-  if (error) { console.log('Error fetching users', error); }
-
-=======
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Amplify, { Auth, Hub } from 'aws-amplify';
 import makeApolloClient from './apollo';
@@ -54,7 +27,6 @@ Amplify.configure({
   });
 
 export default function App() {
->>>>>>> 914922dbbc103b539e3ca39b9bebb5158ce79e26
 
   const [user, setUser] = useState(null);
 
