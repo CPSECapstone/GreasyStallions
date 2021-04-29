@@ -17,7 +17,7 @@ import Amplify, { Auth, Hub } from 'aws-amplify';
 
 const AppStack = createStackNavigator();
 
-export default function App({ signOut }) {
+export default function App() {
   return (
     <AppStack.Navigator
     screenOptions={{
@@ -30,12 +30,14 @@ export default function App({ signOut }) {
       ),
     }}
     >
-      <AppStack.Screen name="Welcome" component={Welcome} signOut={signOut}
+      <AppStack.Screen name="Welcome" component={Welcome}
       options={{
         headerShown:false
       }}/>
-      <AppStack.Screen name="Home" component={Home} signOut={signOut}/>
-      <AppStack.Screen name="InstructorHome" component={InstructorHome} signOut={signOut}/>
+      <AppStack.Screen name="Home" component={Home}
+      options={{headerLeft:null}}/>
+      <AppStack.Screen name="InstructorHome" component={InstructorHome} 
+      options={{headerLeft:null}}/>
       <AppStack.Screen name="ClassPage" component={ClassPage}/>
       <AppStack.Screen name="QuizPage" component={QuizPage}/>
       <AppStack.Screen name="QuizVideo" component={QuizVideo}/>
