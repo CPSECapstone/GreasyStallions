@@ -38,12 +38,8 @@
     "optimism": "^0.15.0",
     "popper.js": "^1.16.1",
     "react": "16.13.1",
-<<<<<<< HEAD
-    "react-bootstrap": "^1.5.2",
-=======
     "react-bootstrap": "^1.5.1",
     "react-bootstrap-icons": "^1.4.0",
->>>>>>> 14bb97359fddb6bf7ad0a53ab37969ca6ae7ae07
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-40.0.1.tar.gz",
     "react-native-normalize": "^1.0.1",
