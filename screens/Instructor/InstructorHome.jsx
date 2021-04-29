@@ -315,16 +315,6 @@ export default function InstructorHome({ navigation, signOut }) {
        studentGoals={studentGoals}
        setStudentGoals={setStudentGoals}
        navigation={navigation}/>
-      <Text style={{paddingTop: 100, textAlign: 'left',fontSize: 20,fontStyle: 'bold'}}>You are now authenticated</Text>
-      <Button style={{width:100,backgroundColor:'#99004d',marginTop:20,}}
-       onPress={() => navigation.navigate('SignUp')}>
-        <Text style={{width: "15%",marginLeft:0,alignSelf:'center'}}>Sign Out</Text>
-      </Button>
-
-      <Button style={{width:100,backgroundColor:'#99004d',marginTop:20,}}
-       onPress={() => navigation.navigate('Home')}>
-        <Text style={{width: "15%",marginLeft:0,alignSelf:'center'}}>Student View</Text>
-      </Button>
     </View>
   )
 }
