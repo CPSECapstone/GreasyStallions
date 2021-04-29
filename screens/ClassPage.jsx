@@ -4,7 +4,7 @@ import {ListGroup, Button, Col, Row, Card, Accordion} from 'react-bootstrap'
 import CreateGoalModal from '../components/CreateGoalModal'
 import GoalList from './Goals/GoalList'
 
-let ClassPage = function({ route, navigation}){
+let ClassPage = function({ route, navigation }){
    const sampleGoal = [
       {
          id: 0,
@@ -38,6 +38,7 @@ let ClassPage = function({ route, navigation}){
    const [goals, setGoals] = useState(sampleGoal);
    const [goalProgress, setGoalProgress] = useState(0);
    const { className } = route.params;
+   console.log(className)
    
    let names = ["Day 1 Quiz", "Day 2 Video", "Day 3 Article"];
 
@@ -76,21 +77,33 @@ let ClassPage = function({ route, navigation}){
          <ListGroup>
             {quizzes}
          </ListGroup>
+         <div className="my-2 text-left">
+            <Button variant="primary" size="sm"
+            onClick={() => 
+               navigation.navigate('MissionPage',
+               {
+                  quizzes
+               })}>
+               View All Missions
+            </Button>
+         </div>
          <GoalList 
           goals={goals}
           setGoals={setGoals}
           goalProgress={goalProgress}
           setGoalProgress={setGoalProgress}
           navigation={navigation}/>
-         <Button 
-          onClick={() => 
-          navigation.navigate('CreateGoalPage', 
-          {
-            goals: goals, 
-            setGoals: setGoals
-          })}>
-            Create Goal
-         </Button>
+         <div className="my-2 text-center">
+            <Button variant="primary" size="lg"
+            onClick={() => 
+              navigation.navigate('CreateGoalPage', 
+              {
+                  goals: goals, 
+                  setGoals: setGoals
+              })}>
+               Create Goal
+            </Button>
+         </div>
       </View>
    );
 }

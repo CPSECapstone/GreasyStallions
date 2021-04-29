@@ -13,6 +13,7 @@ import CreateGoalPage from '../screens/Goals/CreateGoalPage';
 import TaskPage from '../screens/Task/TaskPage';
 import FreeResponseTask from '../screens/Task/FreeResponseTask';
 import Profile from '../screens/Drawer/Profile';
+import MissionPage from '../screens/Mission/MissionPage';
 import Amplify, { Auth, Hub } from 'aws-amplify';
 
 
@@ -46,6 +47,7 @@ export default function App({ signOut }) {
       <AppStack.Screen name="CreateGoalPage" component={CreateGoalPage}/>
       <AppStack.Screen name="FreeResponseTask" component={FreeResponseTask}/>
       <AppStack.Screen name="Profile" component={Profile}/>
+      <AppStack.Screen name="MissionPage" component={MissionPage}/>
     </AppStack.Navigator>
   );
 }
