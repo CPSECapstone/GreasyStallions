@@ -39,22 +39,13 @@ let ClassPage = function({ route, navigation }){
    const [goalProgress, setGoalProgress] = useState(0);
    const { className } = route.params;
    
-   let names = ["Day 1 Quiz", "Day 2 Video", "Sample Task"];
+   let names = ["Sample Task"];
 
    let quizzes = [];
 
-   // OG quiz on a single page
-   let selectOption1 = () => {
-      navigation.navigate('QuizPage');
-   };
-
-   // for the video quiz page
-   let selectOption2 = () => {
-      navigation.navigate('QuizVideo');
-   };
 
    // for the multiple pages quiz view
-   let selectOption3 = () => {
+   let selectOption1 = () => {
       navigation.navigate('TaskPage')
    };
 
@@ -62,13 +53,6 @@ let ClassPage = function({ route, navigation }){
       <h3>{names[0]}</h3>
    </ListGroup.Item>);
 
-   quizzes.push(<ListGroup.Item onClick={selectOption2}>
-      <h3>{names[1]}</h3>
-   </ListGroup.Item>);
-
-   quizzes.push(<ListGroup.Item onClick={selectOption3}>
-      <h3>{names[2]}</h3>
-   </ListGroup.Item>);
 
    return (
       <View>
