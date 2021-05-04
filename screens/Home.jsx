@@ -95,6 +95,7 @@ const CrsFliptedComponent = ({navigation}) => {
       <ListGroup>
         {courses}
       </ListGroup>
+      <Button title="ClassPage" onClick={() => navigation.navigate('ClassPage', 'Health')} />
     </View>
   );
 }
