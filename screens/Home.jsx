@@ -21,9 +21,18 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontStyle: 'bold',
     paddingTop: 20
+  },
+  buttons: {
+    width: 100,
+    backgroundColor: '#99004d',
+    marginTop: 20
+  },
+  buttonText: {
+    width: "15%",
+    marginLeft: 0,
+    alignSelf: 'center'
   }
 });
-
 
 const LIST_USERS = gql
 `
@@ -127,7 +136,6 @@ const TskFliptedComponent = () => {
 
 export default function Home({ navigation, signOut }) {
   return (
-    
     <View style={styles.header}>
       {console.log(navigation)}
         <UserInfo></UserInfo>
@@ -136,3 +144,22 @@ export default function Home({ navigation, signOut }) {
   )
 }
 
+/*
+<TskFliptedComponent />
+      </ApolloProvider>
+      <Text style={{paddingTop: 100, textAlign: 'left',fontSize: 20,fontStyle: 'bold'}}>You are now authenticated</Text>
+      <div className="my-2 text-center">
+        <Button variant="primary" size="lg"
+                onPress={() => navigation.navigate('Welcome')}>
+                  <Text style={styles.buttonText}>Go to Welcome Screen</Text>
+        </Button>
+        <Button variant="secondary" size="sm"
+                onPress={() => navigation.navigate('InstructorHome')}>
+                  <Text style={styles.buttonText}>Instructor View</Text>
+        </Button>
+      </div>
+//      { <Button
+//      onPress={() => navigation.navigate('Profile')}>
+//        <Text style={{width: "15%",marginLeft:0,alignSelf:'center'}}>Profile</Text>
+//      </Button> }
+*/
