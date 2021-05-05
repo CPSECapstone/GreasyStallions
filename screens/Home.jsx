@@ -1,9 +1,10 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import Button from '../components/Button';
-import {ListGroup, Col, Row} from 'react-bootstrap'
 
-import { apolloClientFlipted} from '../apollo-flipted';
+import {ListGroup, Button, Col, Row} from 'react-bootstrap'
+import Amplify, { Auth, Hub } from 'aws-amplify';
+
+import { apolloClientFlipted} from '../apollo';
 import { ApolloProvider, useQuery, gql} from '@apollo/client';
 
 const styles = StyleSheet.create({
@@ -20,9 +21,18 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontStyle: 'bold',
     paddingTop: 20
+  },
+  buttons: {
+    width: 100,
+    backgroundColor: '#99004d',
+    marginTop: 20
+  },
+  buttonText: {
+    width: "15%",
+    marginLeft: 0,
+    alignSelf: 'center'
   }
 });
-
 
 const LIST_USERS = gql
 `
@@ -31,45 +41,56 @@ const LIST_USERS = gql
 
 const LIST_COURSES = gql
 `
-   query{getCourses{name desc}}
+  query{courses{
+    name instructor description
+  }}
 `;
 const LIST_TASKS = gql
 `
    query{getTasks{name description}}
 `;
-const UsrFliptedComponent = () => {
-  const {data, error, loading} = useQuery(LIST_USERS);
-  if (error) { console.log('Error fetching users', error); }
-  let students = [];
-  console.log(data)
 
-  if(data){
-    data.getUsers.forEach( usr =>{
-      students.push(<Text style={styles.starshipName}> {usr.fname + " " + usr.lname}</Text>)
-    });
+const USER_ROLE = gql
+`
+{getUser{
+	role
+	email
+  }}
+`;
+
+const UserInfo = () => {
+  //not really accurate because this page is using the old Apollo Client/queries
+    const {data, error, loading} = useQuery(USER_ROLE);
+    if (error) { console.log('Error fetching user', error); }
+    let role = '';
+    let email = '';
+    if(data){
+      email = data.getUser.email;
+      role = data.getUser.role;
+    }
+
+    return (
+      <View style = {styles.section}>
+      <Text style = {styles.text}> Welcome Student!</Text>
+      <Text style = {styles.text}> Email: {email}</Text>
+      </View>
+    );
   }
-  return (
-    <View style = {styles.section}>
-      <Text style = {styles.text}>{"USERS:"}</Text>
-      {students}
-    </View>
-  );
-}
+
+
 
 const CrsFliptedComponent = ({navigation}) => {
   const {data, error, loading} = useQuery(LIST_COURSES);
   
-  if (error) { console.log('Error fetching users', error); }
+  if (error) { console.log('Error fetching courses', error); }
 
   let courses = [];
-  console.log(data)
-  console.log(navigation)
   var goToClassPage = () => {
-    navigation.navigate('ClassPage')
-  }
+    navigation.navigate('ClassPage', {className: "Test Class"})
+  };
 
   if(data){
-    data.getCourses.forEach( crs => {
+    data.courses.forEach( crs => {
       let toPush = <ListGroup.Item onClick={() => {navigation.navigate('ClassPage', {
         className: crs.name
       })}}>{crs.name}</ListGroup.Item>
@@ -79,10 +100,11 @@ const CrsFliptedComponent = ({navigation}) => {
 
   return (
     <View style = {styles.section}>
-      <h2>{"COURSES:"}</h2>
+      <h2>{"Courses:"}</h2>
       <ListGroup>
         {courses}
       </ListGroup>
+      <Button title="ClassPage" onClick={() => navigation.navigate('ClassPage', 'Health')} />
     </View>
   );
 }
@@ -100,10 +122,13 @@ const TskFliptedComponent = () => {
     });
   }
 
+  //tasks is empty right now because there is no query for them yet
   return (
     <View style = {styles.section}>
-      <Text style = {styles.text}>{"TASKS:"}</Text>
-      {tasks}
+      <h2>{"Tasks:"}</h2>
+      <ListGroup>
+        {tasks}
+      </ListGroup>
     </View>
   );
 }
@@ -111,25 +136,30 @@ const TskFliptedComponent = () => {
 
 export default function Home({ navigation, signOut }) {
   return (
-    
     <View style={styles.header}>
       {console.log(navigation)}
-      <ApolloProvider client={apolloClientFlipted}>
-        <UsrFliptedComponent />
+        <UserInfo></UserInfo>
         <CrsFliptedComponent navigation={navigation}/>
-        <TskFliptedComponent />
-      </ApolloProvider>
-      <Text style={{paddingTop: 100, textAlign: 'left',fontSize: 20,fontStyle: 'bold'}}>You are now authenticated</Text>
-      <Button style={{width:100,backgroundColor:'#99004d',marginTop:20,}}
-              onPress={() => navigation.navigate('Welcome')}>
-                <Text style={{width: "15%",marginLeft:0,alignSelf:'center'}}>Go to Welcome Screen</Text>
-      </Button>
-      
-      <Button style={{width:100,backgroundColor:'#99004d',marginTop:20,}}
-              onPress={() => navigation.navigate('InstructorHome')}>
-                <Text style={{width: "15%",marginLeft:0,alignSelf:'center'}}>Instructor View</Text>
-      </Button>
     </View>
   )
 }
 
+/*
+<TskFliptedComponent />
+      </ApolloProvider>
+      <Text style={{paddingTop: 100, textAlign: 'left',fontSize: 20,fontStyle: 'bold'}}>You are now authenticated</Text>
+      <div className="my-2 text-center">
+        <Button variant="primary" size="lg"
+                onPress={() => navigation.navigate('Welcome')}>
+                  <Text style={styles.buttonText}>Go to Welcome Screen</Text>
+        </Button>
+        <Button variant="secondary" size="sm"
+                onPress={() => navigation.navigate('InstructorHome')}>
+                  <Text style={styles.buttonText}>Instructor View</Text>
+        </Button>
+      </div>
+//      { <Button
+//      onPress={() => navigation.navigate('Profile')}>
+//        <Text style={{width: "15%",marginLeft:0,alignSelf:'center'}}>Profile</Text>
+//      </Button> }
+*/

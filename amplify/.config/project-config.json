@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
+  "projectName": "gsdev",
+=======
   "projectName": "GreasyStallions",
+>>>>>>> f8b73ec022cb4f1830a0de3cafd102d1eca18eb2
   "version": "3.1",
   "frontend": "javascript",
   "javascript": {

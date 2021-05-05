@@ -1,16 +1,21 @@
 import React from 'react';
-import { iframe } from 'react-bootstrap';
-import YoutubePlayer from 'react-native-youtube-iframe';
 
-let VideoTask = function({ id }) {
+/**
+ * Displays a youtube video, note: the link must be for the embedded format not 
+ * the general url 
+ */
 
-   console.log(id);
+let VideoTask = function({ id, title }) {
+
    return (
-      <div class="embed-responsive embed-responsive-16by9">
-         <iframe width="1280" height="720" class="embed-responsive-item" 
-          src={id} allowFullScreen autoplay></iframe>
+      <div>
+         <h2>{title}</h2>
+         <div class="embed-responsive embed-responsive-16by9">
+            <iframe width="1024" height="576" class="embed-responsive-item" 
+            src={id} allowFullScreen autoplay></iframe>
+         </div>
       </div>
    );
- }
+}
 
- export default VideoTask;
+export default VideoTask;

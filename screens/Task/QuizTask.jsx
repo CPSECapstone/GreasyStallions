@@ -7,7 +7,7 @@ import { Form, Button, FormLabel } from 'react-bootstrap';
    Quiz format for showing all questions on a single screen with submit button and validation
 */
 
-let QuizTask = function({ questions, options, answers }) {
+let QuizTask = function({ title, questions, options, answers }) {
 
    const [selectedAns, setSelectedAns] = React.useState([]);
 
@@ -19,6 +19,7 @@ let QuizTask = function({ questions, options, answers }) {
 
    return (
       <div>
+         <h2>{title}</h2>
          {questions.map((question, idx) => (
             <Form>
                <Form.Group controlId="question">
