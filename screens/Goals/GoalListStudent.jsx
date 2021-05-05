@@ -1,14 +1,50 @@
-import {ListGroup, Button, 
-   Col, Row, Card, Accordion, 
-   ProgressBar, Form} from 'react-bootstrap'
 import React , { useState } from 'react';
+import Checkbox from '@material-ui/core/Checkbox';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import Divider from '@material-ui/core/Divider';
+import Collapse from '@material-ui/core/Collapse';
+import Icon from '@material-ui/core/Icon';
+import IconButton from '@material-ui/core/IconButton';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import EditIcon from '@material-ui/icons/Edit';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
+import { ProgressBar, Colors } from 'react-native-paper';
+import GoalSubListStudent from './GoalSubListStudent';
 import OverallGoalProgressBar from './GoalProgressBar'
+import { makeStyles } from '@material-ui/core/styles';
+import  './GoalListStudent.css'
+
+const useStyles = makeStyles({
+   goalWithSubsName: {
+      flex: '0 0 auto',
+      padding:'0 10px 0 10px' 
+   },
+   goalWithSubsDue: {
+      flex: '1 0 auto',
+      padding:'0 10px 0 10px' 
+   },
+   goalWithSubsProgressBar: {
+      flex: '1 1 auto',
+      padding:'0 10px 0 10px' 
+   },
+   goalWithSubsProgressBarIcon: {
+      flex: 'auto',
+   },
+   goalListRoot:{
+      'background-color': 'white',
+   }
+ });
 
 
 let GoalListStudent = ({ goals, setGoals, 
  navigation, goalProgress, setGoalProgress, teacher,
  completeSubGoalTeacher,  completeGoalCheckTeacher, studentIdx}) => {
-
+   const [goalOpenList, setGoalOpenList] = useState(new Array(goals.length).fill(false));
+   const classes = useStyles();
 
    let goalComponents = [];
 
@@ -62,91 +98,84 @@ let GoalListStudent = ({ goals, setGoals,
    }
 
    let makeGoalWithSubs = (goal, editGoal, idx, subGoalCmps) => {
-      let progress = goal.subCompleted / goal.subGoals.length * 100;
-      return <ListGroup.Item key={idx + " goal"}>
-         <Accordion defaultActiveKey="0">
-            <Card>
-               <Card.Header>
-                  <Row>
-                     <Col sm={2}>
-                        <Accordion.Toggle
-                           as={Button}
-                           variant="link"
-                           eventKey="0">
-                           expand
-                        </Accordion.Toggle>
-                     </Col>
-                     <Col sm={3}>
-                        {goal.name}
-                     </Col>
-                     <Col sm={4}>
-                        <ProgressBar 
-                         now={progress} 
-                         label={`${Number((progress).toFixed(2))}%`} />
-                     </Col>
-                     <Col sm={2}>
-                        <Button
-                         onClick={() => editGoal(idx)}>
-                           Edit
-                        </Button>
-                     </Col>
-                  </Row>
-                  <Row>
-                     <Col sm={2}></Col>
-                     <Col sm={3}>
-                        {"due by: " + goal.due}
-                     </Col>
-                     <Col sm={7}></Col>
-                  </Row>
-               </Card.Header>
-               <Accordion.Collapse eventKey="0">
-                  <Card.Body>
-                     <ListGroup>
-                        {subGoalCmps}
-                     </ListGroup>
-                  </Card.Body>
-               </Accordion.Collapse>
-            </Card>
-         </Accordion>
-      </ListGroup.Item>;
+      let progress = goal.subCompleted / goal.subGoals.length;
+      let subGoalCmp = [];
+      let toggleGoalOpenList = () => {
+         let tempGoalOpenList = [...goalOpenList];
+         tempGoalOpenList[idx] = !tempGoalOpenList[idx];
+         setGoalOpenList(tempGoalOpenList);
+      }
+
+      subGoalCmp.push(
+         <ListItem key={idx + " goal"} button onClick={toggleGoalOpenList}>
+            <ListItemText 
+             primary={goal.name}
+             className={classes.goalWithSubsName}/>
+            <ListItemText 
+             primary={"due by: " + goal.due}
+             className={classes.goalWithSubsDue}/>
+            <ListItemIcon className={classes.goalWithSubsProgressBar}>
+               <Icon className={classes.goalWithSubsProgressBarIcon}>
+                  <ProgressBar progress={progress} color={Colors.red800} />
+               </Icon>
+            </ListItemIcon>
+            {!goalOpenList[idx] ? <ExpandLess /> : <ExpandMore />}
+            <ListItemSecondaryAction>
+               <IconButton 
+                edge="end" 
+                aria-label="edit"
+                onClick={() => editGoal(idx)}>
+                  <EditIcon />
+               </IconButton>
+            </ListItemSecondaryAction>
+         </ListItem>)
+      subGoalCmp.push(
+         <Collapse in={goalOpenList[idx]} timeout="auto" unmountOnExit>
+            <List>
+               {subGoalCmps}
+            </List>
+         </Collapse>)
+      return subGoalCmp;
    }
    
    let makeGoalNoSubs = (goal, editGoal, idx) => {
       return (
-      <ListGroup.Item key={idx + " goal"}>
-         <Row>
-            <Col sm={2}>
-            </Col>
-            <Col sm={3}>
-               {goal.name}
-            </Col>
-            <Col sm={4}>
-               <Form.Group 
-                controlId={idx + (teacher ? " " + studentIdx : "")}>
-                  <Form.Check 
-                   type="checkbox" 
-                   label="Complete" 
-                   onChange={completeGoalCheckTeacher 
-                    ? completeGoalCheckTeacher : completeGoalCheck}
-                   defaultChecked={goal.complete}
-                   />
-               </Form.Group>
-            </Col>
-            <Col sm={2}>
-               <Button
-                  onClick={() => editGoal(idx)}>
-                  Edit
-               </Button>
-            </Col>
-         </Row>
-         <Row>
-            <Col sm={2}></Col>
-            <Col sm={3}>
-               {"due by: " + goal.due}
-            </Col>
-            <Col sm={7}></Col>
-         </Row>
-      </ListGroup.Item>)
+      <ListItem key={idx + " goal"} button>
+         <ListItemText className={classes.goalWithSubsName}>
+            {goal.name}
+         </ListItemText>
+         <ListItemText className={classes.goalWithSubsDue}>
+            {"due by: " + goal.due}
+         </ListItemText>
+         <ListItemIcon>
+            <Checkbox
+            edge="start"
+            color="primary"
+            onChange={completeGoalCheckTeacher 
+               ? completeGoalCheckTeacher : completeGoalCheck}
+            checked={goal.complete}
+            id={idx + (teacher ? " " + studentIdx : "")}
+            />
+         </ListItemIcon>
+         <ListItemSecondaryAction>
+               <IconButton 
+                edge="end" 
+                aria-label="edit"
+                onClick={() => editGoal(idx)}>
+                  <EditIcon />
+               </IconButton>
+            </ListItemSecondaryAction>
+      </ListItem>)
+   }
+   if(!teacher){
+      goalComponents.push(
+       <ListItem key={-1}>
+         <OverallGoalProgressBar
+          goalProgress={goalProgress}
+          goalsLength={goals.length}
+          showBar={!teacher}/>
+        </ListItem>)
+      goalComponents.push(<Divider light />);
    }
 
 
@@ -155,53 +184,32 @@ let GoalListStudent = ({ goals, setGoals,
       let subGoalCmps = [];
       if(goal.subGoals)
          goal.subGoals.forEach((subGoal, subIdx) => {
-            let subGoalCmp = 
-               <ListGroup.Item key={idx + " " + subIdx + " subGoal"}>
-                  <Row>
-                     <Col sm={2}></Col>
-                     <Col sm={8}>
-                        {subGoal.title}
-                     </Col>
-                     <Col sm={2}>
-                        <Form>
-                           <Form.Group 
-                            controlId={idx + " " + subIdx + 
-                            (teacher ? " " + studentIdx : "")}>
-                              <Form.Check 
-                               type="checkbox" 
-                               label="Complete" 
-                               onChange={completeSubGoalTeacher ?
-                                completeSubGoalTeacher : completeSubGoal}
-                               defaultChecked={subGoal.complete}
-                              />
-                           </Form.Group>
-                        </Form>
-                     </Col>
-                  </Row>
-               </ListGroup.Item>
+            let subGoalCmp = (<GoalSubListStudent
+             subGoal={subGoal}
+             completeSubGoal={completeSubGoal}
+             completeSubGoalTeacher={completeSubGoalTeacher}
+             idx={idx}
+             subIdx={subIdx}
+             teacher={teacher}
+             studentIdx={studentIdx}/>);
             subGoalCmps.push(subGoalCmp);
+            subGoalCmps.push(<Divider light />);
       });
       
       let component = goal.subGoals ? 
          makeGoalWithSubs(goal, editGoal, idx, subGoalCmps) :
          makeGoalNoSubs(goal, editGoal, idx);
       goalComponents.push(component)
+      goalComponents.push(<Divider light />);
    });
 
 
    return (
       <div>
          {teacher ? null : <h2>Goals:</h2>}
-         <ListGroup>
-            {teacher ? null : 
-            <ListGroup.Item key={-1}>
-               <OverallGoalProgressBar
-                goalProgress={goalProgress}
-                goalsLength={goals.length}
-                showBar={!teacher}/>
-             </ListGroup.Item>}
+         <List className={classes.goalListRoot}>
             {goalComponents}
-         </ListGroup>
+         </List>
       </div>
    );
 }

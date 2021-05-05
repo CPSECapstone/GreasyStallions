@@ -104,6 +104,10 @@ const CrsFliptedComponent = ({navigation}) => {
       <ListGroup>
         {courses}
       </ListGroup>
+      <Button
+       onClick={() =>{navigation.navigate('ClassPage', {className:"TestClass"})}}>
+        Courses
+      </Button>
     </View>
   );
 }
@@ -113,7 +117,6 @@ const TskFliptedComponent = () => {
   if (error) { console.log('Error fetching users', error); }
 
   let tasks = [];
-  console.log(data)
 
   if(data){
     data.getTasks.forEach( tsk =>{
@@ -136,29 +139,8 @@ const TskFliptedComponent = () => {
 export default function Home({ navigation, signOut }) {
   return (
     <View style={styles.header}>
-      {console.log(navigation)}
         <UserInfo></UserInfo>
         <CrsFliptedComponent navigation={navigation}/>
     </View>
   )
 }
-
-/*
-<TskFliptedComponent />
-      </ApolloProvider>
-      <Text style={{paddingTop: 100, textAlign: 'left',fontSize: 20,fontStyle: 'bold'}}>You are now authenticated</Text>
-      <div className="my-2 text-center">
-        <Button variant="primary" size="lg"
-                onPress={() => navigation.navigate('Welcome')}>
-                  <Text style={styles.buttonText}>Go to Welcome Screen</Text>
-        </Button>
-        <Button variant="secondary" size="sm"
-                onPress={() => navigation.navigate('InstructorHome')}>
-                  <Text style={styles.buttonText}>Instructor View</Text>
-        </Button>
-      </div>
-//      { <Button
-//      onPress={() => navigation.navigate('Profile')}>
-//        <Text style={{width: "15%",marginLeft:0,alignSelf:'center'}}>Profile</Text>
-//      </Button> }
-*/
