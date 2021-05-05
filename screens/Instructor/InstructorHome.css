@@ -2,31 +2,30 @@
     width: 80%;
   }
   
-  .circle{
+  .student {
+    display: inline-block;
+    position: relative;
+    margin: 1%;
+    width: 12%;
+  }
+
+  .info {
     position: absolute;
     height: 90%;
     width: 90%;
-    /* background-color: antiquewhite; */
-    /* background-color: rgb(255, 140, 106); */
-    border: 2px solid rgb(36, 136, 250);
-    border-radius: 50%;
-    -moz-border-radius:50%;
-    -webkit-border-radius:50%;
-    display: inline-block;
+    display: block;
+    top: 15%;
     text-align: center;
-    padding: 10%;
-    margin-top: -95%;
-    margin-left: 5%;
   }
-  
-  .piechart {
-    display: inline-block;
-    position: relative;
-    margin: 25px;
+
+  .bubblegridfilter {
+    width: 10%;
+  }
+
+  .status-circle {
     width: 12%;
-    padding-top: 12%;
+    height: 12%;
     border-radius: 50%;
-    /* background-image: conic-gradient(
-        rgb(252, 52, 52) 70deg, 
-        rgb(100, 226, 41) 0 235deg); */
+    position: absolute;
+    right: 1%;
   }

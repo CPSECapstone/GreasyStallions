@@ -1,14 +1,11 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import Button from '../../components/Button';
-import {Dropdown, dropdown} from 'react-bootstrap'
-import {ListGroup, Col, Row} from 'react-bootstrap'
-/* 
-import { apolloClientFlipted} from '../../apollo-flipted';
-import { ApolloProvider, useQuery, gql} from '@apollo/client'; */
 import "./InstructorHome.css";
-import { render } from 'react-native-testing-library';
-// import { TestWatcher } from 'jest';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const styles = StyleSheet.create({
     header: {
@@ -27,22 +24,11 @@ const styles = StyleSheet.create({
     }
   });
 
-  let studentgrid = [];
+  let StudentGridComponent = ({students, setStudents, navigation}) => {
 
-let StudentGridComponent = ({students, setStudents, navigation}) => {
-//   const {data, error, loading} = useQuery(LIST_TASKS);
-//   if (error) { console.log('Error fetching students', error); }
-
-  // 3 options for task_progress are in progress (yellow circle), idle (red), and mastered (green)
-
-
-  //let studentgrid = [];
-
-//   console.log(data)
-
-  /* if(data){
-    // fill in database call for dependency injection or production
-  } */
+  const [bubbleGridSelect, setSelect] = React.useState('');
+  let studentsInfo = new Map()
+  
 
   let sortProgressLH = (students) => {
     return students.sort(function(s1, s2){return s1.student_mission_progress - s2.student_mission_progress});
@@ -81,57 +67,77 @@ let StudentGridComponent = ({students, setStudents, navigation}) => {
   }
 
 
-  // hard coded testing
   students.forEach(student =>{
-    studentgrid.push(student)
+    let statusColor;
+    if (student.task_progress === "offline"){
+      statusColor = "rgb(170, 177, 186)"
+    }
+    if (student.task_progress === "online-idle"){
+      statusColor = "rgb(242, 201, 76)"
+    }
+    if (student.task_progress === "online-working"){
+      statusColor = "rgb(48, 204, 48)"
+    }
+    studentsInfo.set(student, {status: statusColor})
   })
 
-  studentgrid.forEach(student => {
-    if (student.task_progress === "1"){
-      student.task_progress = "rgb(255, 140, 106)"
+  let bubbleFilterOptions = new Map();
+  bubbleFilterOptions.set(1, "Mission Progress Low - High")
+  bubbleFilterOptions.set(2, "Mission Progress High - Low")
+  bubbleFilterOptions.set(3, "Alphabetical")
+  bubbleFilterOptions.set(4, "Online Status")
+
+  let handleChange = (event) => {
+    setSelect(event.target.value)
+    if(event.target.value === 1){
+      MissionProgressLHSort();
     }
-    else if(student.task_progress === "2"){
-      student.task_progress = "rgb(255, 247, 130)"
+    else if(event.target.value === 2){
+      MissionProgressHLSort();
     }
-    else if(student.task_progress === "3"){
-      student.task_progress = "rgb(148, 245, 124)"
+    else if(event.target.value === 3){
+      AlphabeticalSort();
     }
-  })
+    else if(event.target.value === 4){
+      ActivitySort();
+    }
+  };
 
   return (
     <View style = {styles.section}>
       <Text style = {styles.text}>{"STUDENTS:"}</Text>
-      <Dropdown>
-            <Dropdown.Toggle id="dropdown-basic">
-            FILTER
-        </Dropdown.Toggle>
-        <Dropdown.Menu>
-        <Dropdown.Item onClick={MissionProgressLHSort}>Mission Progress Low - High</Dropdown.Item>
-        <Dropdown.Item onClick={MissionProgressHLSort}>Mission Progress High - Low</Dropdown.Item>
-        <Dropdown.Item onClick={AlphabeticalSort}>Alphabetical</Dropdown.Item>
-        <Dropdown.Item onClick={ActivitySort}>Activity</Dropdown.Item>
-        </Dropdown.Menu>
-      </Dropdown>
+      <FormControl className="bubblegridfilter">
+        <InputLabel id="demo-simple-select-label">FILTER</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={bubbleGridSelect}
+          onChange={handleChange}>
+          <MenuItem value={1}>{bubbleFilterOptions.get(1)}</MenuItem>
+          <MenuItem value={2}>{bubbleFilterOptions.get(2)}</MenuItem>
+          <MenuItem value={3}>{bubbleFilterOptions.get(3)}</MenuItem>
+          <MenuItem value={4}>{bubbleFilterOptions.get(4)}</MenuItem>
+        </Select>
+      </FormControl>
       <div class="flex-container">
         {students.map(student => (
-          <div className={"piechart"} style={{
-            backgroundImage: pieChartHelper(student.student_mission_progress)
-          }}>
-            <div className={"circle"} style={{backgroundColor:student.task_progress,}}>
-              <div>{<Text> {student.student_name}</Text>}</div>
-              Current Task:
-              <div>{student.student_current_task}</div>
-            </div>
+          <div class="student">
+            <div class="status-circle" style={{backgroundColor: studentsInfo.get(student).status}}></div>
+            <CircularProgress 
+            variant="determinate" 
+            size="95%"
+            thickness="3"
+            value={student.student_mission_progress} />
+            <div class={"info"}>
+              <div><Text> {student.student_name}</Text></div>
+              <div><Text>Current Task:</Text></div>
+              <div><Text>{student.student_current_task}</Text></div>
+              </div>
           </div>
         ))}
       </div>
     </View>
   );
-}
-
-let pieChartHelper = (progress) =>{
-  let newprogress = 360 - (progress * 0.01 * 360);
-  return "conic-gradient(rgb(252, 52, 52)"+newprogress+"deg, rgb(100, 226, 41) 0 0)";
 }
 
 
