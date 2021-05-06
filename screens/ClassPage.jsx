@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import CreateGoalModal from '../components/CreateGoalModal'
-import GoalListStudent from './Goals/GoalListStudent'
 import { ApolloProvider, useQuery, gql} from '@apollo/client';
 import {Typography, Grid, Box, Paper, List, ListItem, ListItemText,  Button} from '@material-ui/core';
 import randomColor from 'randomcolor';
 
 
 let ClassPage = function({ route, navigation }){
-   const { className } = route.params;
+   const { className, teacher } = route.params;
    const COURSE_CONTENT = gql 
    `
 	query {
@@ -56,12 +54,12 @@ let ClassPage = function({ route, navigation }){
 
 	//later: put missions and tasks into separate functions
 	//get and style Missions
-    const {data, error, loading} = useQuery(COURSE_CONTENT);
-	console.log(data);
+   const {data, error, loading} = useQuery(COURSE_CONTENT);
 	if (error) { console.log('Error fetching courses', error); }
 	let missions = [];
 	let description = '';
 	let instructor = '';
+   let userType = teacher ? "teacher" : "student";
 	if(data){
 		data.courseContent.missions.forEach( mission => {
 		let toPush = 
@@ -113,6 +111,12 @@ let ClassPage = function({ route, navigation }){
 		<Grid style={{padding:16, marginTop: 32, marginLeft: 32}}container direction="row" justify="left" alignItems="center">
           {tasks}
         </Grid>
+      <Button 
+       color="primary"
+       variant="contained"
+       onClick={() => {navigation.navigate('GoalPage', {user: userType})}}>
+         Goal Page
+      </Button>
       </View>
    );
 }
