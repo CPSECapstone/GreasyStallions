@@ -20,7 +20,8 @@ const useStyles = makeStyles({
 
 let GoalListTeacher = ({navigation, studentGoals, 
  setStudentGoals}) => {
-   const [studentOpenList, setStudentOpenList] = useState(new Array(studentGoals.length).fill(false));
+   const [studentOpenList, setStudentOpenList] = 
+    useState(new Array(studentGoals.length).fill(false));
    const classes = useStyles();
    let studentGoalComponents = [];
 
