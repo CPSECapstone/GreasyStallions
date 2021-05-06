@@ -1,4 +1,5 @@
-import { Button, Col, ButtonGroup, Pagination, Row, ListGroup, Navbar, Nav } from 'react-bootstrap';
+import { Button, Grid, Paper } from '@material-ui/core';
+import { Pagination } from '@material-ui/lab';
 import React from 'react';
 import { View } from 'react-native';
 import QuizTask from './QuizTask';
@@ -9,6 +10,8 @@ import RubricModal from './RubricModal';
 import TextPageTask from './TextPageTask';
 import { ApolloProvider, useQuery, gql} from '@apollo/client';
 import ImageTask from './ImageTask';
+import './TaskPage.css';
+import { separateOperations } from 'graphql';
 
 /**
  * The general task page that will hold all components that define a task
@@ -17,8 +20,22 @@ import ImageTask from './ImageTask';
  */
 
 let TaskPage = ({ navigation }) => {
-    const [currPage, setCurrPage] = React.useState(0);
-    const [showRubricModal, setShowRubricModal] = React.useState(false);
+    const [currPage, setCurrPage] = React.useState(1);
+    const [open , setOpen] = React.useState(false);
+    let compCount = 0;
+
+    // handle changes in the pagination
+    const handleChange = (event, value) => {
+        setCurrPage(value);
+    };
+    // handle opening of rubric
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+    // handle closing of rubric
+    const handleClose = () => {
+        setOpen(false);
+    };
 
     const pulledTask = gql
     `
@@ -51,7 +68,7 @@ let TaskPage = ({ navigation }) => {
     `;
 
     const {data, error, loading} = useQuery(pulledTask);
-    console.log(data);
+    // console.log(data);
 
     let currComponents = [];
     let showRubric = false; // whether or not rubric button is active
@@ -124,14 +141,14 @@ let TaskPage = ({ navigation }) => {
 
     // fill the components array with the components that are currently being displayed
     let fillComponents = () => {
-        for (let i=0; i<newTask.pages[currPage].blocks.length;i++) {
-            currComponents.push(typeFinder(newTask.pages[currPage].blocks[i]));
+        for (let i=0; i<newTask.pages[currPage - 1].blocks.length;i++) {
+            currComponents.push(typeFinder(newTask.pages[currPage - 1].blocks[i]));
         }
     }
 
     // finds the type of component it is and returns the correct one filled out
     let typeFinder = (component) => {
-        console.log("type: " + component);
+        // console.log("type: " + component);
         if (component.contents != null) {
             return <TextPageTask title={component.title}
              text={component.contents} />
@@ -165,47 +182,28 @@ let TaskPage = ({ navigation }) => {
         }
     }
 
-    // fill out the nav bar for the task
-    navBarItems.push(<Pagination.Prev onClick={() => setCurrPage(currPage - 1)}/>)
-    for (let number = 0; number < newTask.pages.length; number++) {
-        navBarItems.push(
-            <Pagination.Item key={number} onClick={() => setCurrPage(number)}>
-                {number + 1}
-            </Pagination.Item>
-        )
-    }
-    navBarItems.push(<Pagination.Next onClick={() => setCurrPage(currPage + 1)}/>)
-
     return (
         <View>
             {findRubric()}
-            <Navbar bg="light" fixed="bottom">
-                <Navbar.Brand>Flipt.ED</Navbar.Brand>
-                <Navbar.Collapse className="justify-content-end">
-                    <Nav>
-                        <Nav.Link onClick={() => setShowRubricModal(true)}>Rubric</Nav.Link>
-                    </Nav>
-                </Navbar.Collapse>
-            </Navbar>
-            <Row>
-                <Col sm="4"/>
-                <Col sm="4"><h1 style={{textAlign: "center"}}>{newTask.name}</h1></Col>
-                <Col sm="4"/>
-            </Row>
-            <Pagination>{navBarItems}</Pagination>
+            <h1 style={{textAlign: "center"}}>{newTask.name}</h1>
+            <Grid container justify="center">
+                <Pagination variant="outlined" count={newTask.pages.length} color="primary"
+                page={currPage} onChange={handleChange}/>
+            </Grid>
+            <Button variant="contained" onClick={handleClickOpen}>
+                Rubric!
+            </Button>
             {fillComponents()}
-            {console.log("len: " + currComponents.length)}
-            {console.log(currComponents)}
             {currComponents.map((comp) => {
                 return (
-                    <div>
+                    <div class={(compCount++ % 2 === 0) ? "lgDiv" : "dgDiv"}>
                         {comp}
                     </div>
                 )
             })}
             <RubricModal 
-             show={showRubricModal}
-             close={() => setShowRubricModal(false)}
+             open={open}
+             close={handleClose}
              title={rubric.task_title}
              points={rubric.task_points}
              count={rubric.task_count}
