@@ -1,14 +1,12 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import Button from '../../components/Button';
-import {Dropdown, dropdown} from 'react-bootstrap'
-import {ListGroup, Col, Row} from 'react-bootstrap'
-/* 
-import { apolloClientFlipted} from '../../apollo-flipted';
-import { ApolloProvider, useQuery, gql} from '@apollo/client'; */
 import "./InstructorHome.css";
-import { render } from 'react-native-testing-library';
-// import { TestWatcher } from 'jest';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { ApolloProvider, useQuery, gql} from '@apollo/client';
 
 const styles = StyleSheet.create({
     header: {
@@ -27,22 +25,23 @@ const styles = StyleSheet.create({
     }
   });
 
-  let studentgrid = [];
+  const LIST_STUDENTS = gql
+  `
+    query {progressByCourse(course: "Integrated Science") {userName progress {taskId status}}}
+  `;
 
-let StudentGridComponent = ({students, setStudents, navigation}) => {
-//   const {data, error, loading} = useQuery(LIST_TASKS);
-//   if (error) { console.log('Error fetching students', error); }
+  let StudentGridComponent = ({students, setStudents, navigation}) => {
 
-  // 3 options for task_progress are in progress (yellow circle), idle (red), and mastered (green)
+  const [bubbleGridSelect, setSelect] = React.useState('');
+  let studentsInfo = new Map()
 
-
-  //let studentgrid = [];
-
-//   console.log(data)
-
-  /* if(data){
-    // fill in database call for dependency injection or production
-  } */
+  // Query to fetch students for this course
+  const {data, error, loading} = useQuery(LIST_STUDENTS);
+  if (error) { console.log('Error fetching students', error); }
+  if(data){
+    setStudents(data.progressByCourse);
+  }      
+  
 
   let sortProgressLH = (students) => {
     return students.sort(function(s1, s2){return s1.student_mission_progress - s2.student_mission_progress});
@@ -80,58 +79,91 @@ let StudentGridComponent = ({students, setStudents, navigation}) => {
     setStudents(sortActivity(tempStudents))
   }
 
-
-  // hard coded testing
   students.forEach(student =>{
-    studentgrid.push(student)
+    let statusColor = "rgb(48, 204, 48)"; // green, change for database query to empty string
+    let totalTasksInMission = 0;
+    let numTasksComplete = 0;
+    let studentProgress = 0;
+    totalTasksInMission = student.progress.length;
+    student.progress.forEach(task => {
+      if(task.status === true){
+        numTasksComplete++;
+      }
+    })
+    studentProgress = (numTasksComplete / totalTasksInMission) * 100;
+
+    // commented until we have a database call for if students are online
+    /* if (student.task_progress === "offline"){
+      statusColor = "rgb(170, 177, 186)" // grey
+    }
+    if (student.task_progress === "online-idle"){
+      statusColor = "rgb(242, 201, 76)" // yellow
+    }
+    if (student.task_progress === "online-working"){
+      statusColor = "rgb(48, 204, 48)" // green
+    } */
+
+    studentsInfo.set(student, {status: statusColor, mission_progress: studentProgress})
   })
 
-  studentgrid.forEach(student => {
-    if (student.task_progress === "1"){
-      student.task_progress = "rgb(255, 140, 106)"
+  let bubbleFilterOptions = new Map();
+  bubbleFilterOptions.set(1, "Mission Progress Low - High")
+  bubbleFilterOptions.set(2, "Mission Progress High - Low")
+  bubbleFilterOptions.set(3, "Alphabetical")
+  bubbleFilterOptions.set(4, "Online Status")
+
+  let handleChange = (event) => {
+    setSelect(event.target.value)
+    if(event.target.value === 1){
+      MissionProgressLHSort();
     }
-    else if(student.task_progress === "2"){
-      student.task_progress = "rgb(255, 247, 130)"
+    else if(event.target.value === 2){
+      MissionProgressHLSort();
     }
-    else if(student.task_progress === "3"){
-      student.task_progress = "rgb(148, 245, 124)"
+    else if(event.target.value === 3){
+      AlphabeticalSort();
     }
-  })
+    else if(event.target.value === 4){
+      ActivitySort();
+    }
+  };
 
   return (
     <View style = {styles.section}>
       <Text style = {styles.text}>{"STUDENTS:"}</Text>
-      <Dropdown>
-            <Dropdown.Toggle id="dropdown-basic">
-            FILTER
-        </Dropdown.Toggle>
-        <Dropdown.Menu>
-        <Dropdown.Item onClick={MissionProgressLHSort}>Mission Progress Low - High</Dropdown.Item>
-        <Dropdown.Item onClick={MissionProgressHLSort}>Mission Progress High - Low</Dropdown.Item>
-        <Dropdown.Item onClick={AlphabeticalSort}>Alphabetical</Dropdown.Item>
-        <Dropdown.Item onClick={ActivitySort}>Activity</Dropdown.Item>
-        </Dropdown.Menu>
-      </Dropdown>
+      <FormControl className="bubblegridfilter">
+        <InputLabel id="demo-simple-select-label">FILTER</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={bubbleGridSelect}
+          onChange={handleChange}>
+          <MenuItem value={1}>{bubbleFilterOptions.get(1)}</MenuItem>
+          <MenuItem value={2}>{bubbleFilterOptions.get(2)}</MenuItem>
+          <MenuItem value={3}>{bubbleFilterOptions.get(3)}</MenuItem>
+          <MenuItem value={4}>{bubbleFilterOptions.get(4)}</MenuItem>
+        </Select>
+      </FormControl>
       <div class="flex-container">
         {students.map(student => (
-          <div className={"piechart"} style={{
-            backgroundImage: pieChartHelper(student.student_mission_progress)
-          }}>
-            <div className={"circle"} style={{backgroundColor:student.task_progress,}}>
-              <div>{<Text> {student.student_name}</Text>}</div>
-              Current Task:
-              <div>{student.student_current_task}</div>
-            </div>
+          <div class="student">
+            <div class="status-circle" style={{backgroundColor: studentsInfo.get(student).status}}></div>
+            <CircularProgress style={
+              {border: "solid", borderRadius: "50%", borderColor: "rgb(170, 177, 186)", borderWidth: "10px"}}
+            variant="determinate" 
+            size="95%"
+            thickness="3"
+            value={studentsInfo.get(student).mission_progress} />
+            <div class={"info"}>
+              <div><Text> {student.userName}</Text></div>
+              <div><Text>Current Task:</Text></div>
+              {/* <div><Text>{student.student_current_task}</Text></div> */}
+              </div>
           </div>
         ))}
       </div>
     </View>
   );
-}
-
-let pieChartHelper = (progress) =>{
-  let newprogress = 360 - (progress * 0.01 * 360);
-  return "conic-gradient(rgb(252, 52, 52)"+newprogress+"deg, rgb(100, 226, 41) 0 0)";
 }
 
 
