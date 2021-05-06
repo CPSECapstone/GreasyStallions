@@ -1,0 +1,13 @@
+.lgDiv {
+    background-color: whitesmoke;
+    padding: 50px;
+}
+
+.dgDiv {
+    background-color: lightgrey;
+    padding: 50px;
+}
+
+.closeButton {
+    position: 'absolute';
+}

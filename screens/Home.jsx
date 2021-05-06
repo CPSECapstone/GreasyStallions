@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-import {ListGroup, Button, Col, Row} from 'react-bootstrap'
+import {ListGroup, Col, Row} from 'react-bootstrap'
 import Amplify, { Auth, Hub } from 'aws-amplify';
-
+import { Button } from '@material-ui/core';
 import { apolloClientFlipted} from '../apollo';
 import { ApolloProvider, useQuery, gql} from '@apollo/client';
 
@@ -128,6 +128,7 @@ const TskFliptedComponent = () => {
       <ListGroup>
         {tasks}
       </ListGroup>
+      <Button></Button>
     </View>
   );
 }
@@ -139,6 +140,9 @@ export default function Home({ navigation, signOut }) {
       {console.log(navigation)}
         <UserInfo></UserInfo>
         <CrsFliptedComponent navigation={navigation}/>
+        <Button variant="contained"
+         onClick={() => {navigation.navigate('ClassPage', {className: 
+         "Test"})}}>TaskPage</Button>
     </View>
   )
 }
