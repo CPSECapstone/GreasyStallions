@@ -4,7 +4,6 @@ import { ApolloProvider, useQuery, gql} from '@apollo/client';
 import { Picker } from '@react-native-picker/picker';
 import { StatusBar } from 'expo-status-bar';
 import AppNavigation from './navigation';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import Amplify, { Auth, Hub } from 'aws-amplify';
 import makeApolloClient from './apollo';
 import {Dialog, DialogContent, DialogTitle, Grid, Container, Button} from '@material-ui/core';
