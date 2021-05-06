@@ -51,6 +51,7 @@ let CreateGoalPage = ({route, navigation}) => {
    const handleDateChange = (ev) => {
       setDueDate(ev.target.value);
    };
+   let userType = teacher ? "teacher" : "student";
 
    let submit = () => {
       let finalGoal = {
@@ -76,7 +77,7 @@ let CreateGoalPage = ({route, navigation}) => {
          tempGoal = tempGoal.concat([finalGoal]);
       }
       setGoals(tempGoal);
-      navigation.navigate(teacher ? 'InstructorHome' : 'ClassPage');
+      navigation.navigate('GoalPage', {user: userType});
    }
 
    let goalValid = () => {
@@ -125,7 +126,7 @@ let CreateGoalPage = ({route, navigation}) => {
          <form className={classes.container} noValidate>
             <TextField required 
              id="standard-required" 
-             label="Required" 
+             label="Goal Name" 
              defaultValue="Hello World" 
              onChange={handleGoalTitleChange}
              value={goalName}/>

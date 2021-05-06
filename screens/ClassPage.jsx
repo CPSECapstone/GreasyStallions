@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-<<<<<<< HEAD
-=======
-import GoalListStudent from './Goals/GoalListStudent';
->>>>>>> acb9eb726011fae971c5d26c7c53b4b8f9110222
 import { ApolloProvider, useQuery, gql} from '@apollo/client';
 import {Typography, Grid, Box, Paper, List, ListItem, ListItemText,  Button} from '@material-ui/core';
 import randomColor from 'randomcolor';
