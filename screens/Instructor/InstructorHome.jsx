@@ -6,7 +6,7 @@ import StudentGridComponent from "./StudentGrid.jsx";
 import GoalListTeacher from '../Goals/GoalListTeacher';
 import {Typography, Grid, Box, Paper, List, ListItem, ListItemText, Button} from '@material-ui/core';
 import randomColor from 'randomcolor';
-// import { TestWatcher } from 'jest';
+
 
 const LIST_COURSES = gql
 `
@@ -44,7 +44,24 @@ const CrsFliptedComponent = ({navigation}) => {
   if(data){
     data.courseInfos.forEach( crs => {
       let toPush = 
-        <Paper onClick={() => {navigation.navigate('ClassPage', {className: crs.course})}} style={{fontSize:18, fontWeight:'bold', justifyContent:'center', backgroundColor: randomColor(), display: 'flex', alignItems: 'center', width: 200, height: 150}} elevation={3}>
+        <Paper onClick={() => {
+         navigation.navigate('ClassPage', 
+          {
+            className: crs.course,
+            teacher: true
+          })}}
+           style={
+            {
+              fontSize:18, 
+              fontWeight:'bold', 
+              justifyContent:'center', 
+              backgroundColor: randomColor(), 
+              display: 'flex', 
+              alignItems: 'center', 
+              width: 200, 
+              height: 150
+            }} 
+            elevation={3}>
             {crs.course}
         </Paper>
       courses.push(toPush)
@@ -100,76 +117,7 @@ const USER_ROLE = gql
 export default function InstructorHome({ navigation, signOut }) {
 
   let studentProgress = [];
-  const [students, setStudents] = useState(studentProgress);
-
-  const sampleStudentGoals = [
-    {
-      student_name: "Jimmy",
-      goals: [{
-        id: 0,
-        name: "Read 10 Books", 
-        subCompleted: 1, 
-        due: "2021-04-06", 
-        subGoals: [
-        {
-            title: "book1",
-            complete: true
-        },
-        {
-            title: "book2",
-            complete: false
-        },
-        {
-            title: "book3",
-            complete: false
-        },
-        {
-            title: "book4",
-            complete: false
-        },]
-      },
-      {
-        id: 1,
-        name: "Make a friend",
-        complete: false,
-        due: "2021-04-06",
-      }]
-    },
-    {
-      student_name: "Susan",
-      goals: [{
-        id: 0,
-        name: "Read 10 Books", 
-        subCompleted: 1, 
-        due: "2021-04-06", 
-        subGoals: [
-        {
-            title: "book1",
-            complete: true
-        },
-        {
-            title: "book2",
-            complete: false
-        },
-        {
-            title: "book3",
-            complete: false
-        },
-        {
-            title: "book4",
-            complete: false
-        },]
-      },
-      {
-        id: 1,
-        name: "Make a friend",
-        complete: false,
-        due: "2021-04-06",
-      }]
-    }
-  ];
-
-  const [studentGoals, setStudentGoals] = useState(sampleStudentGoals);
+  const [students, setStudents] = useState(studentProgress);  
 
   return (
     <View style={styles.section}>
@@ -181,11 +129,6 @@ export default function InstructorHome({ navigation, signOut }) {
     </View>
   )
 }
-/*
-      <GoalListTeacher
-       studentGoals={studentGoals}
-       setStudentGoals={setStudentGoals}
-       navigation={navigation}/>*/
 
 
 const styles = StyleSheet.create({
