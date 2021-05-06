@@ -169,12 +169,10 @@ let GoalListStudent = ({ goals, setGoals,
    }
    if(!teacher){
       goalComponents.push(
-       <ListItem key={-1}>
          <OverallGoalProgressBar
           goalProgress={goalProgress}
           goalsLength={goals.length}
-          showBar={!teacher}/>
-        </ListItem>)
+          showBar={!teacher}/>)
       goalComponents.push(<Divider light />);
    }
 

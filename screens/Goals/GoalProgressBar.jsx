@@ -5,23 +5,40 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItem from '@material-ui/core/ListItem';
 import Icon from '@material-ui/core/Icon';
 import Box from '@material-ui/core/Box';
+import { makeStyles } from '@material-ui/core/styles';
 import  './GoalListStudent.css'
+
+const useStyles = makeStyles({
+   goalProgressLabel: {
+      flex: '0 0 auto',
+      padding:'0 10px 0 10px' 
+   },
+   goalProgressBar: {
+      flex: '1 1 auto',
+      padding:'0 10px 0 10px' 
+   },
+   goalProgressBarIcon: {
+      flex: 'auto',
+   },
+ });
 
 // Goal Progress Bar for GoalListStudent that hides on teacher view
 let OverallGoalProgressBar = ({goalProgress, goalsLength, showBar}) => {
+   const classes = useStyles();
    let goalProgressVal = goalProgress / goalsLength;
+
    return (
       <div>
          {showBar ?
-            <ListItem container>
-               <ListItemText>
+            <ListItem key={-1} button>
+               <ListItemText className={classes.goalProgressLabel}>
                   {"Overall Goal Progress: " + (Number((parseFloat(goalProgressVal)).toFixed(2)) * 100) + "%"}
                </ListItemText>
-               <ListItemIcon>
-                  <Icon>
-                  <ProgressBar 
-                   progress={goalProgressVal}
-                   color={Colors.red800} />
+               <ListItemIcon className={classes.goalProgressBar}>
+                  <Icon className={classes.goalProgressBarIcon}>
+                     <ProgressBar 
+                      progress={goalProgressVal}
+                      color={Colors.red800}/>
                   </Icon>
                </ListItemIcon>
             </ListItem>
