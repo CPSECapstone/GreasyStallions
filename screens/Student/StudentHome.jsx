@@ -117,9 +117,26 @@ const TskFliptedComponent = () => {
       <ListGroup>
         {tasks}
       </ListGroup>
+      <Button></Button>
     </View>
   );
 }
+
+
+export default function Home({ navigation, signOut }) {
+  return (
+    <View style={styles.header}>
+      {console.log(navigation)}
+        <UserInfo></UserInfo>
+        <CrsFliptedComponent navigation={navigation}/>
+        <Button variant="contained"
+         onClick={() => {navigation.navigate('ClassPage', {className: 
+         "Test"})}}>TaskPage</Button>
+    </View>
+  )
+}
+
+/*
 <TskFliptedComponent />
       </ApolloProvider>
       <Text style={{paddingTop: 100, textAlign: 'left',fontSize: 20,fontStyle: 'bold'}}>You are now authenticated</Text>
