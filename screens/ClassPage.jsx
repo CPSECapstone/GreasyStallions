@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import CreateGoalModal from '../components/CreateGoalModal'
-import GoalListStudent from './Goals/GoalListStudent'
+import GoalListStudent from './Goals/GoalListStudent';
 import { ApolloProvider, useQuery, gql} from '@apollo/client';
 import {Typography, Grid, Box, Paper, List, ListItem, ListItemText,  Button} from '@material-ui/core';
 import randomColor from 'randomcolor';
@@ -45,8 +44,9 @@ let ClassPage = function({ route, navigation }){
 			data.tasksByCourse.forEach( task => {
 			let toPush = 
 			<Paper style={{fontSize:18, fontWeight:'bold', justifyContent:'center', backgroundColor: 'light-grey', 
-				display: 'flex', alignItems: 'center', width: 200, height: 75}} elevation={3}>
-					{task.name}
+			 display: 'flex', alignItems: 'center', width: 200, height: 75}}
+			 elevation={3} onClick={() => navigation.navigate("TaskPage")}>
+				{task.name}
 			</Paper>
 			tasks.push(toPush)
 			});
@@ -110,7 +110,8 @@ let ClassPage = function({ route, navigation }){
             Tasks
           </Box>
         </Typography>
-		<Grid style={{padding:16, marginTop: 32, marginLeft: 32}}container direction="row" justify="left" alignItems="center">
+		<Grid style={{padding:16, marginTop: 32, marginLeft: 32}}container 
+		 direction="row" justify="left" alignItems="center">
           {tasks}
         </Grid>
       </View>
