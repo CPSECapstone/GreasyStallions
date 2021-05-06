@@ -102,7 +102,7 @@ let ClassPage = function({ route, navigation }){
             Missions
           </Box>
         </Typography>
-		 <Grid style={{padding:16, marginTop: 32, marginLeft: 32}}container direction="row" justify="left" alignItems="center">
+		 <Grid style={{padding:16, marginTop: 32, marginLeft: 32}} container direction="row" justify="left" alignItems="center">
           {missions}
         </Grid>
 		<Typography style={{marginLeft:24, marginTop:36}} variant="h4">
