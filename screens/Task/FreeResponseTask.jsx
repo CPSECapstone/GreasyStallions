@@ -1,5 +1,6 @@
+import {  TextField } from '@material-ui/core';
 import React from 'react';
-import Form from 'react-bootstrap/Form';
+
 
 /*
    Free response question task page.
@@ -11,12 +12,14 @@ let freeResponseAnswer = "";
 let FreeResponseTask = function({ freeResponseQuestion }) {
 
    return (
-      <Form>
-         <Form.Group controlId="freeResponseTextArea">
-            <Form.Label> {freeResponseQuestion} </Form.Label>
-            <Form.Control as="textarea" rows={6} placeholder="Type your response here..." />
-         </Form.Group>
-      </Form>
+      <div>
+         <TextField
+          label={freeResponseQuestion}
+          variant="outlined"
+          fullWidth
+          multiline
+          rows={6} />
+      </div>
    );
 }
 
