@@ -25,64 +25,82 @@ const styles = StyleSheet.create({
     }
   });
 
-  const LIST_STUDENTS = gql
+  const GET_MASTERY = gql
   `
-    query {progressByCourse(course: "Integrated Science") {userName progress {taskId status}}}
+  query {
+    progressOverview(course: "Integrated Science") {
+      userProgress {
+        userName
+        progress {
+          taskId
+          status
+        }
+      }
+      courseInfo {
+        courseId
+        course
+        instructor
+        description
+      }
+      missions {
+        id
+        course
+        name
+        description
+      }
+      targets {
+        targetId
+        targetName
+        description
+        subject
+        gradeLevel
+        icon
+        standards
+        course
+        objectives {
+          objectiveId
+          objectiveName
+          description
+          targetId
+          targetName
+          course
+          tasks {
+            id
+            name
+            startAt
+            endAt
+            dueDate
+            course
+            missionId
+            subMissionId
+            objectiveId
+            targetId
+          }
+        }
+      }
+    }
+  }  
   `;
 
-  let StudentGridComponent = ({students, setStudents, navigation}) => {
+  let MasteryOverviewComponent = ({masteryProgress, setMasteryProgress, navigation}) => {
 
-  const [bubbleGridSelect, setSelect] = React.useState('');
-  let studentsInfo = new Map()
+//   const [bubbleGridSelect, setSelect] = React.useState('');
+  let studentsInfo = new Map();
 
   // Query to fetch students for this course
-  const {data, error, loading} = useQuery(LIST_STUDENTS);
-  if (error) { console.log('Error fetching students', error); }
+  const {data, error, loading} = useQuery(GET_MASTERY);
+  if (error) { console.log('Error fetching mastery for students', error); }
   if(data){
-    setStudents(data.progressByCourse);
-    console.log("setting students") 
-  }
-
-  
-
-  let sortProgressLH = (students) => {
-    return students.sort(function(s1, s2){return studentsInfo.get(s1).mission_progress - studentsInfo.get(s1).mission_progress});
-  }
-
-  let sortProgressHL = (students) => {
-    return students.sort(function(s1, s2){return s2.student_mission_progress - s1.student_mission_progress});
-  }
-
-  let sortAlphabetical = (students) => {
-    return students.sort(function(s1, s2){return s1.userName > s2.userName});
-  }
-
-  let sortActivity = (students) => {
-    return students.sort(function(s1, s2){return s1.task_progress < s2.task_progress});
+    console.log(data.progressOverview.courseInfo.course)
+    setMasteryProgress(data);
+    // console.log(masteryProgress)
   }
   
-  let MissionProgressLHSort = () => {
-    let tempStudents = [...students];
-    setStudents(sortProgressLH(tempStudents))
-  }
-
-  let MissionProgressHLSort = () => {
-    let tempStudents = [...students];
-    setStudents(sortProgressHL(tempStudents))
-  }
-
-  let AlphabeticalSort = () => {
-    let tempStudents = [...students];
-    setStudents(sortAlphabetical(tempStudents))
-  }
-
-  let ActivitySort = () => {
-    let tempStudents = [...students];
-    setStudents(sortActivity(tempStudents))
-  }
-
-  students.forEach(student =>{
-    let statusColor = "rgb(48, 204, 48)"; // green, change for database query to empty string
+//   let listStudents = [];
+  let listStudents = masteryProgress.progressOverview
+  console.log(listStudents)
+  /* listStudents.forEach(student =>{
+    //let statusColor = "rgb(48, 204, 48)"; // green, change for database query to empty string
     let totalTasksInMission = 0;
     let numTasksComplete = 0;
     let studentProgress = 0;
@@ -92,7 +110,7 @@ const styles = StyleSheet.create({
         numTasksComplete++;
       }
     })
-    studentProgress = (numTasksComplete / totalTasksInMission) * 100;
+    studentProgress = (numTasksComplete / totalTasksInMission) * 100; */
 
     // commented until we have a database call for if students are online
     /* if (student.task_progress === "offline"){
@@ -103,12 +121,12 @@ const styles = StyleSheet.create({
     }
     if (student.task_progress === "online-working"){
       statusColor = "rgb(48, 204, 48)" // green
-    } */
+    }*/
 
-    studentsInfo.set(student, {status: statusColor, mission_progress: studentProgress})
-  })
+    //studentsInfo.set(student, {mission_progress: studentProgress})
+  //})
 
-  let bubbleFilterOptions = new Map();
+  /* let bubbleFilterOptions = new Map();
   bubbleFilterOptions.set(1, "Mission Progress Low - High")
   bubbleFilterOptions.set(2, "Mission Progress High - Low")
   bubbleFilterOptions.set(3, "Alphabetical")
@@ -128,12 +146,12 @@ const styles = StyleSheet.create({
     else if(event.target.value === 4){
       ActivitySort();
     }
-  };
+  }; */
 
   return (
     <View style = {styles.section}>
       <Text style = {styles.text}>{"STUDENTS:"}</Text>
-      <FormControl className="bubblegridfilter">
+      {/* <FormControl className="bubblegridfilter">
         <InputLabel id="demo-simple-select-label">FILTER</InputLabel>
         <Select
           labelId="demo-simple-select-label"
@@ -145,8 +163,8 @@ const styles = StyleSheet.create({
           <MenuItem value={3}>{bubbleFilterOptions.get(3)}</MenuItem>
           <MenuItem value={4}>{bubbleFilterOptions.get(4)}</MenuItem>
         </Select>
-      </FormControl>
-      <div class="flex-container">
+      </FormControl> */}
+      {/* <div class="flex-container">
         {students.map(student => (
           <div class="student">
             <div class="status-circle" style={{backgroundColor: studentsInfo.get(student).status}}></div>
@@ -159,14 +177,20 @@ const styles = StyleSheet.create({
             <div class={"info"}>
               <div><Text> {student.userName}</Text></div>
               <div><Text>Current Task:</Text></div>
-              {/* <div><Text>{student.student_current_task}</Text></div> */}
               </div>
           </div>
         ))}
-      </div>
+      </div> */}
+      {/* <div class="mastery-view">
+          {students.progressOverview.userProgress.map(student => (
+            <div class="student">
+                <Text>{student.userName}</Text>
+            </div>
+          ))}
+      </div> */}
     </View>
   );
 }
 
 
-export default StudentGridComponent;
+export default MasteryOverviewComponent;
