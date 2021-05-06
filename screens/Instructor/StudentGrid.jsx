@@ -3,6 +3,8 @@ import { View, Text, StyleSheet } from 'react-native';
 import Button from '../../components/Button';
 import {Dropdown, dropdown} from 'react-bootstrap'
 import {ListGroup, Col, Row} from 'react-bootstrap'
+import {Typography,Box} from '@material-ui/core';
+
 /* 
 import { apolloClientFlipted} from '../../apollo-flipted';
 import { ApolloProvider, useQuery, gql} from '@apollo/client'; */
@@ -24,6 +26,10 @@ const styles = StyleSheet.create({
       fontSize: 28,
       fontStyle: 'bold',
       paddingTop: 20
+    },
+    section: {
+      padding:16,
+      justifyContent: 'top'
     }
   });
 
@@ -100,10 +106,14 @@ let StudentGridComponent = ({students, setStudents, navigation}) => {
 
   return (
     <View style = {styles.section}>
-      <Text style = {styles.text}>{"STUDENTS:"}</Text>
-      <Dropdown>
+      <Typography variant="h5">
+          <Box fontWeight="fontWeightBold" m={1}>
+            Students
+          </Box>
+        </Typography>
+      <Dropdown style = {{marginLeft: 16, alignSelf: 'left'}}>
             <Dropdown.Toggle id="dropdown-basic">
-            FILTER
+            Filter
         </Dropdown.Toggle>
         <Dropdown.Menu>
         <Dropdown.Item onClick={MissionProgressLHSort}>Mission Progress Low - High</Dropdown.Item>
