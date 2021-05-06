@@ -1,35 +1,28 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import Button from '../../components/Button';
-import {ListGroup, Col, Row} from 'react-bootstrap'
 import Amplify, { Auth, Hub } from 'aws-amplify';
-import { apolloClientFlipted} from '../../apollo';
 import { ApolloProvider, useQuery, gql} from '@apollo/client';
 import StudentGridComponent from "./StudentGrid.jsx";
 import GoalListTeacher from '../Goals/GoalListTeacher';
+<<<<<<< HEAD
 import MasteryOverviewComponent from './MasteryOverview';
 // import { TestWatcher } from 'jest';
+=======
+import {Typography, Grid, Box, Paper, List, ListItem, ListItemText, Button} from '@material-ui/core';
+import randomColor from 'randomcolor';
+>>>>>>> b14152ea72fddf4cbb8c003be776189c5c466bd7
 
-const styles = StyleSheet.create({
-  header: {
-    marginLeft: 50,
-    flex: 1,
-    width: "100%",
-    justifyContent: 'top',
-    alignItems: 'left',
-    alignSelf: 'center'
-  },
-  text: {
-    textAlign: 'left',
-    fontSize: 28,
-    fontStyle: 'bold',
-    paddingTop: 20
-  }
-});
 
 const LIST_COURSES = gql
 `
-   query{getCourses{name desc}}
+  query GetCourseInfos {
+    courseInfos(instructor: "Mr. Butcher") {
+      courseId
+      course
+      description
+      instructor
+    }
+  }
 `;
 const LIST_TASKS = gql
 `
@@ -46,28 +39,51 @@ query {progressByCourse(course: "Integrated Science") {userName progress {taskId
 const CrsFliptedComponent = ({navigation}) => {
   const {data, error, loading} = useQuery(LIST_COURSES);
   
-  if (error) { console.log('Error fetching users', error); }
+  if (error) { console.log('Error fetching courses', error); }
+
+  let courses = [];
   var goToClassPage = () => {
-    navigation.navigate('ClassPage')
+    navigation.navigate('ClassPage', {className: "Test Class"})
+  };
+
+  if(data){
+    data.courseInfos.forEach( crs => {
+      let toPush = 
+        <Paper onClick={() => {
+         navigation.navigate('ClassPage', 
+          {
+            className: crs.course,
+            teacher: true
+          })}}
+           style={
+            {
+              fontSize:18, 
+              fontWeight:'bold', 
+              justifyContent:'center', 
+              backgroundColor: randomColor(), 
+              display: 'flex', 
+              alignItems: 'center', 
+              width: 200, 
+              height: 150
+            }} 
+            elevation={3}>
+            {crs.course}
+        </Paper>
+      courses.push(toPush)
+    });
   }
-
-
-  // hard coded Sections of an Instructor's classes
-  let courses = [
-  <ListGroup.Item onClick={() => {navigation.navigate('ClassPage', {
-    className: "Biology"
-  })}}>{"Biology Section 1"}</ListGroup.Item>,
-  <ListGroup.Item onClick={() => {navigation.navigate('ClassPage', {
-    className: "Biology"
-  })}}>{"Biology Section 2"}</ListGroup.Item>
-  ]
+  
 
   return (
     <View style = {styles.section}>
-      <h2>{"MY COURSES:"}</h2>
-      <ListGroup>
-        {courses}
-      </ListGroup>
+      <Typography variant="h5">
+          <Box fontWeight="fontWeightBold" m={1}>
+            Courses
+          </Box>
+        </Typography>
+        <Grid container direction="row" justify="space-around" alignItems="center">
+          {courses}
+        </Grid>
     </View>
   );
 }
@@ -102,31 +118,10 @@ const USER_ROLE = gql
   }}
 `;
 
-/* const UserInfo = () => {
-    const {data, error, loading} = useQuery(USER_ROLE);
-    if (error) { console.log('Error fetching user', error); }
-    let role = '';
-    let email = '';
-    if(data){
-      email = data.getUser.email;
-      role = data.getUser.role;
-    }
-
-    if(role && email){
-    return (
-      <View style = {styles.section}>
-      <Text>Welcome</Text>
-      <Text style = {styles.text}>Email: {email}</Text>
-      <Text>Role: {role}</Text>
-      </View>
-    );}
-    else{
-      return null;
-    }
-  } */
 
 export default function InstructorHome({ navigation, signOut }) {
   let studentProgress = [];
+<<<<<<< HEAD
   let mastery = {};
   const [students, setStudents] = useState(studentProgress);
   const [masteryProgress, setMasteryProgress] = useState(mastery);
@@ -210,17 +205,18 @@ export default function InstructorHome({ navigation, signOut }) {
   console.log("Num students: " + students.length) */
 
   const [studentGoals, setStudentGoals] = useState(sampleStudentGoals);
+=======
+  const [students, setStudents] = useState(studentProgress);  
+>>>>>>> b14152ea72fddf4cbb8c003be776189c5c466bd7
 
   return (
-    <View style={styles.header}>
-      <ApolloProvider client={apolloClientFlipted}>
-        <CrsFliptedComponent navigation={navigation}/>
-        <TskFliptedComponent />
-      </ApolloProvider>
+    <View style={styles.section}>
+      <CrsFliptedComponent navigation={navigation}/>
       <StudentGridComponent
       students={students}
       setStudents={setStudents}
       navigation={navigation}/>
+<<<<<<< HEAD
       <MasteryOverviewComponent
       masteryProgress={masteryProgress}
       setMasteryProgress={setMasteryProgress}
@@ -229,7 +225,55 @@ export default function InstructorHome({ navigation, signOut }) {
        studentGoals={studentGoals}
        setStudentGoals={setStudentGoals}
        navigation={navigation}/>
+=======
+>>>>>>> b14152ea72fddf4cbb8c003be776189c5c466bd7
     </View>
   )
 }
+
+
+const styles = StyleSheet.create({
+    header: {
+        marginLeft: 50,
+        flex: 1,
+        width: "100%",
+        justifyContent: 'top',
+        alignItems: 'left',
+        alignSelf: 'center'
+        },
+    text: {
+        textAlign: 'left',
+        fontSize: 28,
+        fontStyle: 'bold',
+        paddingTop: 20
+    },
+    section: {
+        padding:16,
+        justifyContent: 'top'
+    },
+    header: {
+        marginLeft: 50,
+        flex: 1,
+        width: "100%",
+        justifyContent: 'top',
+        alignItems: 'left',
+        alignSelf: 'center'
+    },
+    text: {
+        textAlign: 'left',
+        fontSize: 28,
+        fontStyle: 'bold',
+        paddingTop: 20
+    },
+    buttons: {
+        width: 100,
+        backgroundColor: '#99004d',
+        marginTop: 20
+    },
+        buttonText: {
+        width: "15%",
+        marginLeft: 0,
+        alignSelf: 'center'
+    }
+});
 
