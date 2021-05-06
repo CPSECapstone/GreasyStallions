@@ -22,6 +22,10 @@ const styles = StyleSheet.create({
       fontSize: 28,
       fontStyle: 'bold',
       paddingTop: 20
+    },
+    section: {
+      padding:16,
+      justifyContent: 'top'
     }
   });
 

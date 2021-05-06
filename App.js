@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {  ScrollView,  Text, View, SafeAreaView, ActivityIndicator, StyleSheet, FlatList } from 'react-native';
+import { Image, ScrollView,  Text, View, SafeAreaView, ActivityIndicator, StyleSheet, FlatList } from 'react-native';
 import { ApolloProvider, useQuery, gql} from '@apollo/client';
 import { Picker } from '@react-native-picker/picker';
 import { StatusBar } from 'expo-status-bar';
@@ -7,63 +7,13 @@ import AppNavigation from './navigation';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Amplify, { Auth, Hub } from 'aws-amplify';
 import makeApolloClient from './apollo';
-import {Modal, Button, Image, Container, ListGroup, Form,  Col, Row} from 'react-bootstrap';
-import flipted_icon from './assets/flipted_icon.jpg';
-import flipted_logo from './assets/flipted_logo.jpg';
-import {QuestionCircle} from 'react-bootstrap-icons';
+import {Dialog, DialogContent, DialogTitle, Grid, Container, Button} from '@material-ui/core';
+import HelpIcon from '@material-ui/icons/HelpOutline';
+import fliptedlogo from './assets/fliptedlogo.PNG';
+import fullfliptedlogo from './assets/fullfliptedlogo.PNG';
+import config from './amplify/config';
 
-
-Amplify.configure({
-	Auth: {
-		identityPoolId: 'us-east-1:07057d76-612a-4045-8522-f38a759cf216',
-		region: 'us-east-1',
-		userPoolId: 'us-east-1_POfbbYTKF',
-		userPoolWebClientId: '24sdf1brebo58s89ja0b63c51d',
-		oauth: {
-		  domain: 'flipted-ios-test.auth.us-east-1.amazoncognito.com',
-		  scope: ['phone', 'email', 'profile', 'openid', 'aws.cognito.signin.user.admin'],
-		  redirectSignIn: 'http://localhost:19006/',
-		  redirectSignOut: 'http://localhost:19006/',
-		  responseType: 'token'
-		}
-	}
-  });
-
-function InfoModal() {
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
-  return (
-    <>
-      <Button variant="primary" onClick={handleShow}>
-        Launch static backdrop modal
-      </Button>
-
-      <Modal
-        show={show}
-        onHide={handleClose}
-        backdrop="static"
-        keyboard={false}
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Modal title</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          I will not close if you click outside me. Don't even try to press
-          escape key.
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary">Understood</Button>
-        </Modal.Footer>
-      </Modal>
-    </>
-  );
-}
+Amplify.configure(config);
 
 export default function App() {
 
@@ -102,12 +52,12 @@ export default function App() {
 	  })
 
     
-    const client = makeApolloClient(token);    
+  const client = makeApolloClient(token);    
 
-    //for info modal
-    const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+	const [ShowInfo, setShowInfo] = useState(false);
+	function openDialog() {
+        setShowInfo(true);
+    }
 
     if(user){return(
       <ApolloProvider client = {client}>
@@ -119,45 +69,42 @@ export default function App() {
     }
     else if(!user){return(
       <View style = {styles.loadingContainer}>
-        <Image src={flipted_icon} rounded fluid />
-        <Image src={flipted_logo} rounded fluid />
-        <Button style={{width: 250, marginTop: 16, backgroundColor: '#3467EC', color:"white"}} 
-          variant="primary" 
-          size = "lg" 
-          onClick = { () => Auth.federatedSignIn()}>
-          Get Started
-        </Button>
-        <QuestionCircle style={{marginTop: 36}} 
-          color="#3467EC" 
-          size={36}
-          onClick={handleShow}>
-          </QuestionCircle>
-        <Modal show={show} onHide={handleClose}>
-          <Modal.Header closeButton>
-            <Modal.Title>Welcome to Flipted!</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>Welcome to FliptEd Alpha Version. Press "Get started"
-            to continue to the Authentication page, where you can Sign Up or Log In.
-            You will then be redirected to your dashboard depending on your account type.
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="primary" onClick={handleClose}>
-              Got it!
-            </Button>
-          </Modal.Footer>
-        </Modal>
+        <Grid
+          container
+          direction="column"
+          justify="center"
+          alignItems="center">          
+          <Image style = {{width:100, height:100, marginBottom: 32, marginTop: -100}} source={fliptedlogo}/>
+          <Image style = {{width:400, height:120}} source={fullfliptedlogo}/>
+          <Button style={{width: 250, marginTop: 32, backgroundColor: '#3467EC', color:"white"}} 
+            onClick = { () => Auth.federatedSignIn()}>
+            Get Started
+          </Button>
+          <HelpIcon onClick = { () => openDialog()} style = {{marginTop: 32, color: '#3267EF'}} fontSize = 'large'></HelpIcon>
+          <Dialog open={ShowInfo} >
+			<DialogTitle>Welcome to FliptEd!</DialogTitle>
+            <DialogContent>Select "Get Started" to begin. Sign in with
+				your FliptEd account or create a new one. You will be
+				automatically directed to your dashboard.
+			</DialogContent>
+			<Button style={{marginBottom: 16, alignSelf: 'center', width: 250, marginTop: 32, backgroundColor: '#3467EC', color:"white"}} 
+				onClick = { () => setShowInfo(false)}>
+				Got it!
+			</Button>
+		  </Dialog>
+        </Grid>
       </View>
       )
     }
-    else return( null);
+    else return(null);
     
 }
 
 const styles = StyleSheet.create({
   loadingContainer: {
     flex: 1,
-    justifyContent: 'top',
-    alignItems: 'center',
+    justifyContent: 'center',
+    alignItems: 'top',
     marginTop: 50
   },
   container2: {

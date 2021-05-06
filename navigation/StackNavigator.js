@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import Home from '../screens/Home'; 
+import Home from '../screens/Student/StudentHome'; 
 import InstructorHome from '../screens/Instructor/InstructorHome';
 import ClassPage from '../screens/ClassPage';
 import QuizPage from '../screens/Quiz/QuizPage';
