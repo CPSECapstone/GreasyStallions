@@ -65,9 +65,16 @@ describe("Example test", () => {
     it("Go to Sample Task", () => {
       cy.get(':nth-child(3) > h3').click()
       cy.scrollTo('bottom')
-      cy.get('.embed-responsive-item').click()
       cy.wait(500)
+      cy.get('.embed-responsive-item').click()
       cy.scrollTo('top')
+      cy.get(':nth-child(4) > .page-link').click()
+      cy.scrollTo('center')
+      cy.get(':nth-child(2) > fieldset > .form-group > :nth-child(2) > #answers').click()
+      cy.get(':nth-child(3) > fieldset > .form-group > :nth-child(3)').click('left')
+      cy.get(':nth-child(4) > fieldset > .form-group > :nth-child(4)').click('left')
+      cy.get(':nth-child(5) > :nth-child(1) > .btn')
+      cy.scrollTo('bottom')
       cy.get('.r-display-6koalj > :nth-child(2) > :nth-child(2) > :nth-child(1) > .r-minHeight-2llsf > .r-flexDirection-1d5kdc7 > :nth-child(2) > :nth-child(1) > [style="height: 64px;"] > .r-flex-13awgt0 > .r-justifyContent-1777fci.r-left-1d2f490 > [data-testid=header-back]').click()
     })
 
