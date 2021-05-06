@@ -1,0 +1,10 @@
+.rootList{
+   width: 100%,
+   
+}
+.progressBar{
+   position: auto;
+}
+.subGoalComplete{
+   flex: 0;
+}

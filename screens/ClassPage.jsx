@@ -1,11 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import {ListGroup, Button, Col, Row, Card, Accordion} from 'react-bootstrap'
-import CreateGoalModal from '../components/CreateGoalModal'
+import {ListGroup, /* Button, */ Col, Row, Card, Accordion} from 'react-bootstrap'
+import Button from '@material-ui/core/Button';
 import GoalListStudent from './Goals/GoalListStudent'
 
 let ClassPage = function({ route, navigation }){
    const sampleGoal = [
+      {
+         id: 0,
+         name: "Read 10 Books", 
+         subCompleted: 1, 
+         due: "2021-04-06", 
+         subGoals: [
+         {
+            title: "book1",
+            complete: true
+         },
+         {
+            title: "book2",
+            complete: false
+         },
+         {
+            title: "book3",
+            complete: false
+         },
+         {
+            title: "book4",
+            complete: false
+         },]
+      },
       {
          id: 0,
          name: "Read 10 Books", 
@@ -73,9 +96,9 @@ let ClassPage = function({ route, navigation }){
    return (
       <View>
          <h2>{className}</h2>
-         <ListGroup>
+         {/* <ListGroup>
             {quizzes}
-         </ListGroup>
+         </ListGroup> */}
          <div className="my-2 text-left">
             <Button variant="primary" size="sm"
             onClick={() => 
@@ -94,7 +117,7 @@ let ClassPage = function({ route, navigation }){
           setGoalProgress={setGoalProgress}
           navigation={navigation}/>
          <div className="my-2 text-center">
-            <Button variant="primary" size="lg"
+            <Button color="primary" size="lg" variant="contained"
             onClick={() => 
               navigation.navigate('CreateGoalPage', 
               {
@@ -103,6 +126,7 @@ let ClassPage = function({ route, navigation }){
               })}>
                Create Goal
             </Button>
+            
          </div>
       </View>
    );

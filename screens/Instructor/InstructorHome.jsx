@@ -7,7 +7,6 @@ import { apolloClientFlipted} from '../../apollo';
 import { ApolloProvider, useQuery, gql} from '@apollo/client';
 import StudentGridComponent from "./StudentGrid.jsx";
 import GoalListTeacher from '../Goals/GoalListTeacher';
-// import { TestWatcher } from 'jest';
 
 const styles = StyleSheet.create({
   header: {
@@ -101,28 +100,6 @@ const USER_ROLE = gql
   }}
 `;
 
-/* const UserInfo = () => {
-    const {data, error, loading} = useQuery(USER_ROLE);
-    if (error) { console.log('Error fetching user', error); }
-    let role = '';
-    let email = '';
-    if(data){
-      email = data.getUser.email;
-      role = data.getUser.role;
-    }
-
-    if(role && email){
-    return (
-      <View style = {styles.section}>
-      <Text>Welcome</Text>
-      <Text style = {styles.text}>Email: {email}</Text>
-      <Text>Role: {role}</Text>
-      </View>
-    );}
-    else{
-      return null;
-    }
-  } */
 
 export default function InstructorHome({ navigation, signOut }) {
 
@@ -195,137 +172,6 @@ export default function InstructorHome({ navigation, signOut }) {
       }]
     }
   ];
-
-  /* const {data, error, loading} = useQuery(USER_ROLE);
-    if (error) { console.log('Error fetching user', error); }
-    let role = '';
-    let email = '';
-    if(data){
-      email = data.getUser.email;
-      role = data.getUser.role;
-    } */
-
-    /* const {data, error, loading} = useQuery(LIST_STUDENTS);
-
-
-    if (error) { console.log('Error fetching students', error); }
-    if(data){
-      //console.log("SUCCESS FETCHING STUDENTS")
-      setStudents(data.progressByCourse);
-      console.log(data.progressByCourse[0])
-      //console.log(studentProgress.length)
-    } */
-
-  /* const samplestudents = [
-    {
-      student_name : "Jimmy",
-      student_mission_progress : "0.9",
-      student_current_task : "Task 2",
-      task_progress : "offline"
-    },
-    {
-      student_name : "Susan",
-      student_mission_progress : "60",
-      student_current_task : "Task 3",
-      task_progress : "online-working"
-    },
-    {
-      student_name : "George",
-      student_mission_progress : "65",
-      student_current_task : "Task 4",
-      task_progress : "online-idle"
-    },
-    {
-      student_name : "Sarah",
-      student_mission_progress : "40",
-      student_current_task : "Task 3",
-      task_progress : "offline"
-    },
-    {
-      student_name : "Jeff",
-      student_mission_progress : "82",
-      student_current_task : "Task 6",
-      task_progress : "online-working"
-    },
-    {
-      student_name : "Dave",
-      student_mission_progress : "71",
-      student_current_task : "Task 8",
-      task_progress : "online-working"
-    },
-    {
-      student_name : "Adam",
-      student_mission_progress : "54",
-      student_current_task : "Task 2",
-      task_progress : "online-idle"
-    },
-    {
-      student_name : "Raven",
-      student_mission_progress : "56",
-      student_current_task : "Task 3",
-      task_progress : "online-idle"
-    },
-    {
-      student_name : "Steven",
-      student_mission_progress : "80",
-      student_current_task : "Task 4",
-      task_progress : "online-idle"
-    },
-    {
-      student_name : "Dylan",
-      student_mission_progress : "43",
-      student_current_task : "Task 3",
-      task_progress : "online-idle"
-    },
-    {
-      student_name : "Hannah",
-      student_mission_progress : "88",
-      student_current_task : "Task 6",
-      task_progress : "online-working"
-    },
-    {
-      student_name : "Abby",
-      student_mission_progress : "77",
-      student_current_task : "Task 8",
-      task_progress : "online-working"
-    },
-    {
-      student_name : "Jacob",
-      student_mission_progress : "15",
-      student_current_task : "Task 1",
-      task_progress : "online-idle"
-    },
-    {
-      student_name : "William",
-      student_mission_progress : "64",
-      student_current_task : "Task 3",
-      task_progress : "online-working"
-    },
-    {
-      student_name : "Leo",
-      student_mission_progress : "81",
-      student_current_task : "Task 4",
-      task_progress : "online-working"
-    },
-    {
-      student_name : "Jack",
-      student_mission_progress : "20",
-      student_current_task : "Task 3",
-      task_progress : "offline"
-    },
-    {
-      student_name : "Chris",
-      student_mission_progress : "48",
-      student_current_task : "Task 6",
-      task_progress : "online-working"
-    },
-    {
-      student_name : "Pablo",
-      student_mission_progress : "72",
-      student_current_task : "Task 5",
-      task_progress : "online-working"
-    }
-  ]; */
 
   const [studentGoals, setStudentGoals] = useState(sampleStudentGoals);
 

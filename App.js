@@ -100,7 +100,6 @@ export default function App() {
 		let jwt = accessToken.getJwtToken()
     setToken(jwt);
 	  })
-    console.log(token);
 
     
     const client = makeApolloClient(token);    
