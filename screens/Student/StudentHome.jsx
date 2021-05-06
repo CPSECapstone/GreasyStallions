@@ -103,7 +103,6 @@ const TskFliptedComponent = () => {
   if (error) { console.log('Error fetching users', error); }
 
   let tasks = [];
-  console.log(data)
 
   if(data){
     data.getTasks.forEach( tsk =>{

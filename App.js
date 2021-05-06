@@ -50,8 +50,9 @@ export default function App() {
 		let jwt = accessToken.getJwtToken()
     setToken(jwt);
 	  })
-    console.log(token);
-    const client = makeApolloClient(token);    
+
+    
+  const client = makeApolloClient(token);    
 
 	const [ShowInfo, setShowInfo] = useState(false);
 	function openDialog() {
