@@ -43,7 +43,8 @@ let QuizVideo = function({ navigation }){
       <ScrollView>
          <Form>
             <h2>Quiz #2 Watch this</h2>
-            <YoutubePlayer 
+            <YoutubePlayer
+            testID='YouTube'
             height={600}
             width={800}
             play={true} 
