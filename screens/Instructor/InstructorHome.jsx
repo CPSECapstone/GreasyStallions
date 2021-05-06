@@ -35,6 +35,11 @@ const LIST_TASKS = gql
    query{getTasks{name description}}
 `;
 
+const LIST_STUDENTS = gql
+`
+query {progressByCourse(course: "Integrated Science") {userName progress {taskId status}}}
+`;
+
 
 
 const CrsFliptedComponent = ({navigation}) => {
@@ -96,7 +101,7 @@ const USER_ROLE = gql
   }}
 `;
 
-const UserInfo = () => {
+/* const UserInfo = () => {
     const {data, error, loading} = useQuery(USER_ROLE);
     if (error) { console.log('Error fetching user', error); }
     let role = '';
@@ -117,9 +122,13 @@ const UserInfo = () => {
     else{
       return null;
     }
-  }
+  } */
 
 export default function InstructorHome({ navigation, signOut }) {
+
+  let studentProgress = [];
+  const [students, setStudents] = useState(studentProgress);
+
   const sampleStudentGoals = [
     {
       student_name: "Jimmy",
@@ -187,10 +196,30 @@ export default function InstructorHome({ navigation, signOut }) {
     }
   ];
 
-  const samplestudents = [
+  /* const {data, error, loading} = useQuery(USER_ROLE);
+    if (error) { console.log('Error fetching user', error); }
+    let role = '';
+    let email = '';
+    if(data){
+      email = data.getUser.email;
+      role = data.getUser.role;
+    } */
+
+    /* const {data, error, loading} = useQuery(LIST_STUDENTS);
+
+
+    if (error) { console.log('Error fetching students', error); }
+    if(data){
+      //console.log("SUCCESS FETCHING STUDENTS")
+      setStudents(data.progressByCourse);
+      console.log(data.progressByCourse[0])
+      //console.log(studentProgress.length)
+    } */
+
+  /* const samplestudents = [
     {
       student_name : "Jimmy",
-      student_mission_progress : "50",
+      student_mission_progress : "0.9",
       student_current_task : "Task 2",
       task_progress : "offline"
     },
@@ -296,10 +325,9 @@ export default function InstructorHome({ navigation, signOut }) {
       student_current_task : "Task 5",
       task_progress : "online-working"
     }
-  ];
+  ]; */
 
   const [studentGoals, setStudentGoals] = useState(sampleStudentGoals);
-  const [students, setStudents] = useState(samplestudents);
 
   return (
     <View style={styles.header}>

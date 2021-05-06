@@ -6,7 +6,7 @@
     display: inline-block;
     position: relative;
     margin: 1%;
-    width: 12%;
+    width: 14%;
   }
 
   .info {
@@ -16,6 +16,7 @@
     display: block;
     top: 15%;
     text-align: center;
+    padding-top: 10%;
   }
 
   .bubblegridfilter {

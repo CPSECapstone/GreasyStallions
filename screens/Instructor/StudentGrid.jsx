@@ -6,6 +6,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { ApolloProvider, useQuery, gql} from '@apollo/client';
 
 const styles = StyleSheet.create({
     header: {
@@ -24,10 +25,22 @@ const styles = StyleSheet.create({
     }
   });
 
+  const LIST_STUDENTS = gql
+  `
+    query {progressByCourse(course: "Integrated Science") {userName progress {taskId status}}}
+  `;
+
   let StudentGridComponent = ({students, setStudents, navigation}) => {
 
   const [bubbleGridSelect, setSelect] = React.useState('');
   let studentsInfo = new Map()
+
+  // Query to fetch students for this course
+  const {data, error, loading} = useQuery(LIST_STUDENTS);
+  if (error) { console.log('Error fetching students', error); }
+  if(data){
+    setStudents(data.progressByCourse);
+  }      
   
 
   let sortProgressLH = (students) => {
@@ -66,19 +79,31 @@ const styles = StyleSheet.create({
     setStudents(sortActivity(tempStudents))
   }
 
-
   students.forEach(student =>{
-    let statusColor;
-    if (student.task_progress === "offline"){
-      statusColor = "rgb(170, 177, 186)"
+    let statusColor = "rgb(48, 204, 48)"; // green, change for database query to empty string
+    let totalTasksInMission = 0;
+    let numTasksComplete = 0;
+    let studentProgress = 0;
+    totalTasksInMission = student.progress.length;
+    student.progress.forEach(task => {
+      if(task.status === true){
+        numTasksComplete++;
+      }
+    })
+    studentProgress = (numTasksComplete / totalTasksInMission) * 100;
+
+    // commented until we have a database call for if students are online
+    /* if (student.task_progress === "offline"){
+      statusColor = "rgb(170, 177, 186)" // grey
     }
     if (student.task_progress === "online-idle"){
-      statusColor = "rgb(242, 201, 76)"
+      statusColor = "rgb(242, 201, 76)" // yellow
     }
     if (student.task_progress === "online-working"){
-      statusColor = "rgb(48, 204, 48)"
-    }
-    studentsInfo.set(student, {status: statusColor})
+      statusColor = "rgb(48, 204, 48)" // green
+    } */
+
+    studentsInfo.set(student, {status: statusColor, mission_progress: studentProgress})
   })
 
   let bubbleFilterOptions = new Map();
@@ -123,15 +148,16 @@ const styles = StyleSheet.create({
         {students.map(student => (
           <div class="student">
             <div class="status-circle" style={{backgroundColor: studentsInfo.get(student).status}}></div>
-            <CircularProgress 
+            <CircularProgress style={
+              {border: "solid", borderRadius: "50%", borderColor: "rgb(170, 177, 186)", borderWidth: "10px"}}
             variant="determinate" 
             size="95%"
             thickness="3"
-            value={student.student_mission_progress} />
+            value={studentsInfo.get(student).mission_progress} />
             <div class={"info"}>
-              <div><Text> {student.student_name}</Text></div>
+              <div><Text> {student.userName}</Text></div>
               <div><Text>Current Task:</Text></div>
-              <div><Text>{student.student_current_task}</Text></div>
+              {/* <div><Text>{student.student_current_task}</Text></div> */}
               </div>
           </div>
         ))}
