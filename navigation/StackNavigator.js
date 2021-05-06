@@ -6,6 +6,7 @@ import ClassPage from '../screens/ClassPage';
 import QuizPage from '../screens/Quiz/QuizPage';
 import QuizVideo from '../screens/Quiz/QuizVideo';
 import QuizResults from '../screens/Quiz/QuizResults';
+import GoalPage from '../screens/Goals/GoalPage';
 import Welcome from '../screens/Welcome';
 import CreateGoalPage from '../screens/Goals/CreateGoalPage';
 import TaskPage from '../screens/Task/TaskPage';
@@ -55,6 +56,7 @@ const MainStackNavigator = (props, signOut) => {
       <AppStack.Screen name="CreateGoalPage" component={CreateGoalPage}/>
       <AppStack.Screen name="Profile" component={Profile}/>
       <AppStack.Screen name="MissionPage" component={MissionPage}/>
+      <AppStack.Screen name="GoalPage" component={GoalPage}/>
     </AppStack.Navigator>
     )
 }
