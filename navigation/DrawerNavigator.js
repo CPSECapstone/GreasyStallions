@@ -22,8 +22,8 @@ function Feed({ navigation }) {
       </View>
     );
   }
-  
-  function CustomDrawerContent(props, signOut) {
+
+function CustomDrawerContent(props, signOut) {
     return (
       <DrawerContentScrollView {...props}>
         <DrawerItemList {...props} />
@@ -44,12 +44,19 @@ function Feed({ navigation }) {
         />
       </DrawerContentScrollView>
     );
-  }  
+}
+
+function Settings({ navigation }) {
+	return (
+      navigation.navigate('SettingsPage')
+    );
+  }
 
 const DrawerNavigator = (navigation) => {
   return (
     <Drawer.Navigator drawerContent={props => <CustomDrawerContent {...props} />}>
       <Drawer.Screen name="Home" component={MainStackNavigator} />
+      <Drawer.Screen name="Settings" component={Settings} />
       {/* <Drawer.Screen name="Feed" component={Feed} />
       <Drawer.Screen name="Profile" component={Profile} /> */}
     </Drawer.Navigator>

@@ -101,6 +101,18 @@ const CrsFliptedComponent = ({navigation}) => {
   return (
     <View style = {styles.section}>
       <h2>{"Courses:"}</h2>
+
+      <div className="my-2 text-left">
+        <Button variant="primary" size="sm"
+        onClick={() => 
+            navigation.navigate('ClassPage',
+            {
+              className: "Class Page"
+            })}>
+            Class Page
+        </Button>
+      </div>
+
       <ListGroup>
         {courses}
       </ListGroup>
@@ -136,7 +148,6 @@ const TskFliptedComponent = () => {
 export default function Home({ navigation, signOut }) {
   return (
     <View style={styles.header}>
-      {console.log(navigation)}
         <UserInfo></UserInfo>
         <CrsFliptedComponent navigation={navigation}/>
     </View>

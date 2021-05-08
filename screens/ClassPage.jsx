@@ -3,6 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import {ListGroup, Button, Col, Row, Card, Accordion} from 'react-bootstrap'
 import CreateGoalModal from '../components/CreateGoalModal'
 import GoalListStudent from './Goals/GoalListStudent'
+import './ClassPage.css';
 
 let ClassPage = function({ route, navigation }){
    const sampleGoal = [
@@ -71,7 +72,7 @@ let ClassPage = function({ route, navigation }){
    </ListGroup.Item>);
 
    return (
-      <View>
+      <View className="quiz-list">
          <h2>{className}</h2>
          <ListGroup>
             {quizzes}
@@ -107,5 +108,9 @@ let ClassPage = function({ route, navigation }){
       </View>
    );
 }
+
+/*
+
+*/
 
 export default ClassPage;

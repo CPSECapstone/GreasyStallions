@@ -12,6 +12,7 @@ import TaskPage from '../screens/Task/TaskPage';
 import Profile from '../screens/Drawer/Profile';
 import Icon from 'react-native-vector-icons/Octicons';
 import MissionPage from '../screens/Mission/MissionPage';
+import SettingsPage from '../screens/SettingsPage';
 import { View, Text, Button, Image } from 'react-native';
 
 const AppStack = createStackNavigator();
@@ -55,6 +56,7 @@ const MainStackNavigator = (props, signOut) => {
       <AppStack.Screen name="CreateGoalPage" component={CreateGoalPage}/>
       <AppStack.Screen name="Profile" component={Profile}/>
       <AppStack.Screen name="MissionPage" component={MissionPage}/>
+      <AppStack.Screen name="SettingsPage" component={SettingsPage}/>
     </AppStack.Navigator>
     )
 }
