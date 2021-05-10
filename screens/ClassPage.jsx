@@ -10,7 +10,7 @@ let ClassPage = function({ route, navigation }){
    const COURSE_CONTENT = gql 
    `
 	query {
-		courseContent(course: "Integrated Science") {
+		courseContent(course: "${className}") {
 			courseInfo {
 				instructor description course
 			}
@@ -30,7 +30,7 @@ let ClassPage = function({ route, navigation }){
 		const TASKS = gql 
 		`
 		query{
-		 tasksByCourse(course: "Integrated Science"){
+		 tasksByCourse(course: "${className}"){
 		   id name missionId
 		 }
 	   }
@@ -42,14 +42,19 @@ let ClassPage = function({ route, navigation }){
 		if(data){
 			data.tasksByCourse.forEach( task => {
 			let toPush = 
-			<Paper style={{fontSize:18, fontWeight:'bold', justifyContent:'center', backgroundColor: 'light-grey', 
-			 display: 'flex', alignItems: 'center', width: 200, height: 75}}
-			 elevation={3} onClick={() => navigation.navigate("TaskPage")}>
+			<Paper style={{margin: "4px",fontSize:18, fontWeight:'bold', justifyContent:'center', backgroundColor: 'light-grey', 
+			 display: 'flex', alignItems: 'center', width: 225, height: 75}}
+			 elevation={3} onClick={() => navigation.navigate("TaskPage", {id: task.id})}>
 				{task.name}
-			</Paper>
-			tasks.push(toPush)
+			</Paper>;
+			tasks.push(toPush);
 			});
 		}
+		tasks.push(<Paper style={{fontSize:18, fontWeight:'bold', justifyContent:'center', backgroundColor: 'light-grey', 
+		 display: 'flex', alignItems: 'center', width: 200, height: 75}}
+		 elevation={3} onClick={() => navigation.navigate("TaskPage", {id: "90e0c730e56"})}>
+		 TESTING TASK
+	     </Paper>);
 		return tasks;
 	}
 

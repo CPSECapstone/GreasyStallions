@@ -59,9 +59,6 @@ const CrsFliptedComponent = ({navigation}) => {
   if (error) { console.log('Error fetching courses', error); }
 
   let courses = [];
-  var goToClassPage = () => {
-    navigation.navigate('ClassPage', {className: "Test Class"})
-  };
 
   if(data){
     data.courseInfos.forEach( crs => {
