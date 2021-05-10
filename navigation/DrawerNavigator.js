@@ -46,17 +46,20 @@ function CustomDrawerContent(props, signOut) {
     );
 }
 
-function Settings({ navigation }) {
-	return (
-      navigation.navigate('SettingsPage')
-    );
-  }
-
 const DrawerNavigator = (navigation) => {
   return (
     <Drawer.Navigator drawerContent={props => <CustomDrawerContent {...props} />}>
-      <Drawer.Screen name="Home" component={MainStackNavigator} />
-      <Drawer.Screen name="Settings" component={Settings} />
+      <Drawer.Screen
+		name="Home"
+		component={MainStackNavigator} 
+	  />
+	  {/* WIP: not linking properly to the settings page
+      <Drawer.Screen
+		name="SettingsPage"
+		component={MainStackNavigator} 
+		options={{ drawerLabel: "Settings" }}
+		/>
+	  */}
       {/* <Drawer.Screen name="Feed" component={Feed} />
       <Drawer.Screen name="Profile" component={Profile} /> */}
     </Drawer.Navigator>

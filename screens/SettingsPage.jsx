@@ -36,7 +36,7 @@ let SettingsPage = function({ route, navigation }){
             <Text style = {styles.header}>
                 Settings{"\n"}
             </Text>
-            <Button variant="primary" size="lg"
+            <Button style = {styles.buttons}
                     onPress={() => navigation.navigate('Home')}>
                     <Text style={styles.buttonText}>Home</Text>
             </Button>
