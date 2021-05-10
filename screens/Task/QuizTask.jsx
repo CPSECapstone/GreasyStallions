@@ -1,7 +1,8 @@
    import React from 'react';
    import { View } from 'react-native';
-   import { FormControl, FormControlLabel, FormLabel, RadioGroup, Radio, Typography } from '@material-ui/core';
+   import { FormControl, FormControlLabel, FormLabel, RadioGroup, Radio, Typography, Paper } from '@material-ui/core';
    import { Pagination } from '@material-ui/lab';
+   import './TaskPage.css';
 
 
    /*
@@ -21,9 +22,8 @@
          setSelectedAns(temp);
       };
 
-      options[currQues - 1].forEach(element => {
-         {console.log(element)}
-         questionOpts.push(<FormControlLabel value={element} control={<Radio />} label={element}/>)
+      questions[currQues - 1].options.forEach(element => {
+         questionOpts.push(<FormControlLabel value={element.description} control={<Radio />} label={element.description}/>)
       });
       
       const handlePaginationChange = (event, value) => {
@@ -36,15 +36,17 @@
 
       return (
          <div>
-            <Typography variant="h2" component="h2">{title}</Typography>
-            <Pagination count={questions.length} page={currQues}
-             onChange={handlePaginationChange}/>
-            <FormControl component="fieldset">
-               <FormLabel component="legend">{questions[currQues - 1]}</FormLabel>
-               <RadioGroup aria-label="ques" value={value} onChange={handleAnsChange}>
-                  {questionOpts}
-               </RadioGroup>
-            </FormControl>
+            <Paper style={{padding: '10px'}} elevation={3}>
+               <Typography class="componentHeader" variant="h4" component="h4">{title}</Typography>
+               {questions.length === 1 ? <div/> : <Pagination count={questions.length} page={currQues}
+               onChange={handlePaginationChange}/>}
+               <FormControl component="fieldset">
+                  <FormLabel component="legend">{questions[currQues - 1].description}</FormLabel>
+                  <RadioGroup aria-label="ques" value={value} onChange={handleAnsChange}>
+                     {questionOpts}
+                  </RadioGroup>
+               </FormControl>
+            </Paper>
          </div>
       );
    }

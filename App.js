@@ -49,6 +49,7 @@ export default function App() {
 		let accessToken = res.getAccessToken()
 		let jwt = accessToken.getJwtToken()
     setToken(jwt);
+    console.log(jwt);
 	  })
 
     

@@ -1,5 +1,5 @@
 import React from 'react';
-import {WebView} from 'react-native-web-webview';
+import { WebView } from 'react-native-web-webview';
 
 /*
    displays a webpage in-page based on webpageUrl
