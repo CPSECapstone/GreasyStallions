@@ -1,3 +1,4 @@
+import { Typography } from '@material-ui/core';
 import React from 'react';
 import { img } from 'react-bootstrap';
 
@@ -7,7 +8,7 @@ let ImageTask = function({ pth, title }) {
 
    return (
       <div>
-         <h2>{title}</h2>
+         <Typography style={{color: "#87b5f4"}} variant="h4" component="h4">{title}</Typography>
          <img src={pth} class="img-fluid"/>
       </div>
    );

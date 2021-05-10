@@ -28,6 +28,9 @@ function Feed({ navigation }) {
       <DrawerContentScrollView {...props}>
         <DrawerItemList {...props} />
         <DrawerItem
+         label="Home"
+         onPress={() => props.navigation.navigate("Home")}/>
+        <DrawerItem
           label="Close drawer"
           onPress={() => props.navigation.closeDrawer()}
         />
@@ -49,7 +52,7 @@ function Feed({ navigation }) {
 const DrawerNavigator = (navigation) => {
   return (
     <Drawer.Navigator drawerContent={props => <CustomDrawerContent {...props} />}>
-      <Drawer.Screen name="Home" component={MainStackNavigator} />
+      <Drawer.Screen name="Flipt(ed)" component={MainStackNavigator}/>
       {/* <Drawer.Screen name="Feed" component={Feed} />
       <Drawer.Screen name="Profile" component={Profile} /> */}
     </Drawer.Navigator>
