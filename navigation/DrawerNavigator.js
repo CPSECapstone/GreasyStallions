@@ -28,6 +28,9 @@ function CustomDrawerContent(props, signOut) {
       <DrawerContentScrollView {...props}>
         <DrawerItemList {...props} />
         <DrawerItem
+         label="Home"
+         onPress={() => props.navigation.navigate("Home")}/>
+        <DrawerItem
           label="Close drawer"
           onPress={() => props.navigation.closeDrawer()}
         />
@@ -60,6 +63,7 @@ const DrawerNavigator = (navigation) => {
 		options={{ drawerLabel: "Settings" }}
 		/>
 	  */}
+      <Drawer.Screen name="Flipt(ed)" component={MainStackNavigator}/>
       {/* <Drawer.Screen name="Feed" component={Feed} />
       <Drawer.Screen name="Profile" component={Profile} /> */}
     </Drawer.Navigator>

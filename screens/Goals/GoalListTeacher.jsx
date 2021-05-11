@@ -1,14 +1,33 @@
+import React , { useState } from 'react';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
+import Collapse from '@material-ui/core/Collapse';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import Divider from '@material-ui/core/Divider';
+import { makeStyles } from '@material-ui/core/styles';
 import GoalListStudent from './GoalListStudent';
-import React from 'react';
-import { ListGroup, Card, Accordion, Row, Col, Button } from 'react-bootstrap'
 
+const useStyles = makeStyles({
+   studentGoalListRoot:{
+      'background-color': 'white',
+      padding: '30px 0px 0px 0px',
+      border: '1px solid grey',
+      'border-radius': '5px'
+   }
+ });
 
 let GoalListTeacher = ({navigation, studentGoals, 
-   setStudentGoals}) => {
+ setStudentGoals}) => {
+   const [studentOpenList, setStudentOpenList] = 
+    useState(new Array(studentGoals.length).fill(false));
+   const classes = useStyles();
    let studentGoalComponents = [];
 
    let completeGoalCheckTeacher = (ev, idx) => {
       let newGoals = [...studentGoals]; // copies into new array
+      console.log(ev.target.id)
       let goalIdx = ev && ev.target.id.split(" ")[0];
       let studentIdx = ev.target.id.split(" ")[1];
       if (!goalIdx) {
@@ -46,46 +65,41 @@ let GoalListTeacher = ({navigation, studentGoals,
    }
 
    studentGoals.forEach((studentGoal, idx) => {
+      let toggleStudentOpenList = () => {
+         let tempStudentOpenList = [...studentOpenList];
+         tempStudentOpenList[idx] = !tempStudentOpenList[idx];
+         setStudentOpenList(tempStudentOpenList);
+      }
+
+      let studentGoalHeader = (
+         <ListItem key={idx + " StudentGoals"}
+          id={idx}
+          button onClick={toggleStudentOpenList}>
+            <ListItemText primary={studentGoal.student_name}/>
+            {!studentOpenList[idx] ? <ExpandLess /> : <ExpandMore />}
+       </ListItem>
+      );
+      studentGoalComponents.push(studentGoalHeader);
       let studentGoalComponent = (
-         <ListGroup.Item key={idx + " StudentGoals"}>
-            <Accordion defaultActiveKey="0">
-            <Card>
-               <Card.Header>
-                  <Row>
-                     <Col sm={2}>
-                        <Accordion.Toggle
-                           as={Button}
-                           variant="link"
-                           eventKey={"0"}>
-                           expand
-                        </Accordion.Toggle>
-                     </Col>
-                     <Col sm={3}>
-                        {studentGoal.student_name}
-                     </Col>
-                  </Row>
-               </Card.Header>
-               <Accordion.Collapse eventKey={"0"}>
-                  <GoalListStudent
-                   goals={studentGoal.goals}
-                   studentIdx={idx}
-                   navigation={navigation}
-                   teacher={true}
-                   setGoals={(goal) => teacherSetGoals(idx, goal)}
-                   completeSubGoalTeacher={completeSubGoalTeacher}
-                   completeGoalCheckTeacher={completeGoalCheckTeacher}/>
-               </Accordion.Collapse>
-            </Card>
-         </Accordion>
-       </ListGroup.Item>
-      )
-      studentGoalComponents.push(studentGoalComponent)
+         <Collapse in={studentOpenList[idx]} timeout="auto" unmountOnExit>
+            <GoalListStudent
+             goals={studentGoal.goals}
+             studentIdx={idx}
+             navigation={navigation}
+             teacher={true}
+             setGoals={(goal) => teacherSetGoals(idx, goal)}
+             completeSubGoalTeacher={completeSubGoalTeacher}
+             completeGoalCheckTeacher={completeGoalCheckTeacher}/>      
+         </Collapse>
+      );
+      studentGoalComponents.push(studentGoalComponent);
+      studentGoalComponents.push(<Divider light />);
    });
 
    return (
-      <ListGroup>
+      <List className={classes.studentGoalListRoot}>
          {studentGoalComponents}
-      </ListGroup>
+      </List>
    );
 };
 export default GoalListTeacher;

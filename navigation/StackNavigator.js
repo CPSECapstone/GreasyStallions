@@ -1,18 +1,19 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import Home from '../screens/Home'; 
+import Home from '../screens/Student/StudentHome'; 
 import InstructorHome from '../screens/Instructor/InstructorHome';
 import ClassPage from '../screens/ClassPage';
-import QuizPage from '../screens/Quiz/QuizPage';
-import QuizVideo from '../screens/Quiz/QuizVideo';
-import QuizResults from '../screens/Quiz/QuizResults';
+import GoalPage from '../screens/Goals/GoalPage';
 import Welcome from '../screens/Welcome';
 import CreateGoalPage from '../screens/Goals/CreateGoalPage';
 import TaskPage from '../screens/Task/TaskPage';
 import Profile from '../screens/Drawer/Profile';
 import Icon from 'react-native-vector-icons/Octicons';
+<<<<<<< HEAD
 import MissionPage from '../screens/Mission/MissionPage';
 import SettingsPage from '../screens/SettingsPage';
+=======
+>>>>>>> a631fb41e162d71b76af4072b9ec22bea342c7e7
 import { View, Text, Button, Image } from 'react-native';
 
 const AppStack = createStackNavigator();
@@ -49,14 +50,15 @@ const MainStackNavigator = (props, signOut) => {
         headerLeft:null
       }}/>
       <AppStack.Screen name="ClassPage" component={ClassPage}/>
-      <AppStack.Screen name="QuizPage" component={QuizPage}/>
-      <AppStack.Screen name="QuizVideo" component={QuizVideo}/>
-      <AppStack.Screen name="QuizResults" component={QuizResults} />
       <AppStack.Screen name="TaskPage" component={TaskPage}/>
       <AppStack.Screen name="CreateGoalPage" component={CreateGoalPage}/>
       <AppStack.Screen name="Profile" component={Profile}/>
+<<<<<<< HEAD
       <AppStack.Screen name="MissionPage" component={MissionPage}/>
       <AppStack.Screen name="SettingsPage" component={SettingsPage}/>
+=======
+      <AppStack.Screen name="GoalPage" component={GoalPage}/>
+>>>>>>> a631fb41e162d71b76af4072b9ec22bea342c7e7
     </AppStack.Navigator>
     )
 }
