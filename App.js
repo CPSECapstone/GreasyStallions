@@ -82,16 +82,16 @@ export default function App() {
           </Button>
           <HelpIcon onClick = { () => openDialog()} style = {{marginTop: 32, color: '#3267EF'}} fontSize = 'large'></HelpIcon>
           <Dialog open={ShowInfo} >
-			<DialogTitle>Welcome to FliptEd!</DialogTitle>
-            <DialogContent>Select "Get Started" to begin. Sign in with
-				your FliptEd account or create a new one. You will be
-				automatically directed to your dashboard.
-			</DialogContent>
-			<Button style={{marginBottom: 16, alignSelf: 'center', width: 250, marginTop: 32, backgroundColor: '#3467EC', color:"white"}} 
-				onClick = { () => setShowInfo(false)}>
-				Got it!
-			</Button>
-		  </Dialog>
+          <DialogTitle>Welcome to FliptEd!</DialogTitle>
+                <DialogContent>Select "Get Started" to begin. Sign in with
+            your FliptEd account or create a new one. You will be
+            automatically directed to your dashboard.
+          </DialogContent>
+            <Button style={{marginBottom: 16, alignSelf: 'center', width: 250, marginTop: 32, backgroundColor: '#3467EC', color:"white"}} 
+              onClick = { () => setShowInfo(false)}>
+              Got it!
+            </Button>
+          </Dialog>
         </Grid>
       </View>
       )
