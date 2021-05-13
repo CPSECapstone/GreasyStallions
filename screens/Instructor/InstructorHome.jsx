@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import {useQuery, gql} from '@apollo/client';
-import {Typography, Grid, Box, Paper} from '@material-ui/core';
+import Amplify, { Auth, Hub } from 'aws-amplify';
+import { ApolloProvider, useQuery, gql} from '@apollo/client';
+import StudentGridComponent from "./StudentGrid.jsx";
+import GoalListTeacher from '../Goals/GoalListTeacher';
+import {Typography, Grid, Box, Paper, List, ListItem, ListItemText, Button} from '@material-ui/core';
 import randomColor from 'randomcolor';
 import CreateCourse from '../CreateModals/CreateCourse';
 
@@ -36,11 +39,10 @@ const USER_ROLE = gql
 
 
 
-
 const CrsFliptedComponent = ({navigation}) => {
   const {data, error, loading} = useQuery(LIST_COURSES);
+  
   if (error) { console.log('Error fetching courses', error); }
-
 
   let courses = [];
   var goToClassPage = () => {
@@ -51,7 +53,7 @@ const CrsFliptedComponent = ({navigation}) => {
     data.courseInfos.forEach( crs => {
       let toPush = 
         <Paper onClick={() => {
-         navigation.navigate('InstructorClassPage', 
+         navigation.navigate('ClassPage', 
           {
             className: crs.course,
             teacher: true
@@ -93,15 +95,17 @@ const CrsFliptedComponent = ({navigation}) => {
 
 export default function InstructorHome({ navigation, signOut }) {
 
+  let studentProgress = [];
+  const [students, setStudents] = useState(studentProgress);  
 
   return (
     <View style={styles.section}>
 		<CreateCourse/>
     	<CrsFliptedComponent navigation={navigation}/>
-    	{/* <StudentGridComponent
+    	<StudentGridComponent
 		  students={students}
     	setStudents={setStudents}
-    	navigation={navigation}/> */}
+    	navigation={navigation}/>
     </View>
   )
 }

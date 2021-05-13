@@ -2,7 +2,6 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import Home from '../screens/Student/StudentHome'; 
 import InstructorHome from '../screens/Instructor/InstructorHome';
-import InstructorClassPage from '../screens/Instructor/InstructorClassPage';
 import ClassPage from '../screens/ClassPage';
 import GoalPage from '../screens/Goals/GoalPage';
 import Welcome from '../screens/Welcome';
@@ -12,7 +11,6 @@ import Profile from '../screens/Drawer/Profile';
 import Icon from 'react-native-vector-icons/Octicons';
 import SettingsPage from '../screens/SettingsPage';
 import { View, Text, Button, Image } from 'react-native';
-import MasteryOverviewPage from '../screens/Instructor/MasteryOverviewPage';
 
 const AppStack = createStackNavigator();
 
@@ -54,8 +52,6 @@ const MainStackNavigator = (props, signOut) => {
       <AppStack.Screen name="Profile" component={Profile}/>
       <AppStack.Screen name="SettingsPage" component={SettingsPage}/>
       <AppStack.Screen name="GoalPage" component={GoalPage}/>
-      <AppStack.Screen name="InstructorClassPage" component={InstructorClassPage}/>
-      <AppStack.Screen name="MasteryOverviewPage" component={MasteryOverviewPage}/>
     </AppStack.Navigator>
     )
 }
