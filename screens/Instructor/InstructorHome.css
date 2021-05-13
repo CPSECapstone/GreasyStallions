@@ -30,3 +30,7 @@
     position: absolute;
     right: 1%;
   }
+
+  .grid-container {
+    margin-left: 10%;
+  }

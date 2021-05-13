@@ -98,96 +98,12 @@ const styles = StyleSheet.create({
   
 //   let listStudents = [];
   let listStudents = masteryProgress.progressOverview
-  console.log(listStudents)
-  /* listStudents.forEach(student =>{
-    //let statusColor = "rgb(48, 204, 48)"; // green, change for database query to empty string
-    let totalTasksInMission = 0;
-    let numTasksComplete = 0;
-    let studentProgress = 0;
-    totalTasksInMission = student.progress.length;
-    student.progress.forEach(task => {
-      if(task.status === true){
-        numTasksComplete++;
-      }
-    })
-    studentProgress = (numTasksComplete / totalTasksInMission) * 100; */
-
-    // commented until we have a database call for if students are online
-    /* if (student.task_progress === "offline"){
-      statusColor = "rgb(170, 177, 186)" // grey
-    }
-    if (student.task_progress === "online-idle"){
-      statusColor = "rgb(242, 201, 76)" // yellow
-    }
-    if (student.task_progress === "online-working"){
-      statusColor = "rgb(48, 204, 48)" // green
-    }*/
-
-    //studentsInfo.set(student, {mission_progress: studentProgress})
-  //})
-
-  /* let bubbleFilterOptions = new Map();
-  bubbleFilterOptions.set(1, "Mission Progress Low - High")
-  bubbleFilterOptions.set(2, "Mission Progress High - Low")
-  bubbleFilterOptions.set(3, "Alphabetical")
-  bubbleFilterOptions.set(4, "Online Status")
-
-  let handleChange = (event) => {
-    setSelect(event.target.value)
-    if(event.target.value === 1){
-      MissionProgressLHSort();
-    }
-    else if(event.target.value === 2){
-      MissionProgressHLSort();
-    }
-    else if(event.target.value === 3){
-      AlphabeticalSort();
-    }
-    else if(event.target.value === 4){
-      ActivitySort();
-    }
-  }; */
+  //console.log(listStudents)
 
   return (
     <View style = {styles.section}>
       <Text style = {styles.text}>{"STUDENTS:"}</Text>
-      {/* <FormControl className="bubblegridfilter">
-        <InputLabel id="demo-simple-select-label">FILTER</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={bubbleGridSelect}
-          onChange={handleChange}>
-          <MenuItem value={1}>{bubbleFilterOptions.get(1)}</MenuItem>
-          <MenuItem value={2}>{bubbleFilterOptions.get(2)}</MenuItem>
-          <MenuItem value={3}>{bubbleFilterOptions.get(3)}</MenuItem>
-          <MenuItem value={4}>{bubbleFilterOptions.get(4)}</MenuItem>
-        </Select>
-      </FormControl> */}
-      {/* <div class="flex-container">
-        {students.map(student => (
-          <div class="student">
-            <div class="status-circle" style={{backgroundColor: studentsInfo.get(student).status}}></div>
-            <CircularProgress style={
-              {border: "solid", borderRadius: "50%", borderColor: "rgb(170, 177, 186)", borderWidth: "10px"}}
-            variant="determinate" 
-            size="95%"
-            thickness="3"
-            value={studentsInfo.get(student).mission_progress} />
-            <div class={"info"}>
-              <div><Text> {student.userName}</Text></div>
-              <div><Text>Current Task:</Text></div>
-              </div>
-          </div>
-        ))}
-      </div> */}
-      {/* <div class="mastery-view">
-          {students.progressOverview.userProgress.map(student => (
-            <div class="student">
-                <Text>{student.userName}</Text>
-            </div>
-          ))}
-      </div> */}
+      
     </View>
   );
 }
