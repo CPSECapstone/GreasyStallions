@@ -17,6 +17,7 @@ let RubricModal = function({open, close, points, requirements, info}) {
         let tempChks = [...checked];
         tempChks[event.target.name] = event.target.checked;
         setChecked(tempChks);
+        console.log(checked);
     };
 
     // creates each check box that contains a requirment
@@ -55,6 +56,7 @@ let RubricModal = function({open, close, points, requirements, info}) {
             </FormControl>
             <DialogActions>
                 <Grid container justify="center">
+                    {console.log(completed)}
                     <Button disabled={!completed} variant="contained" color="primary">
                         Submit
                     </Button>
