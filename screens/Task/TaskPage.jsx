@@ -129,13 +129,15 @@ let TaskPage = ({ route, navigation }) => {
     return (
         <View>
             <Grid container justify="center">
-                <Typography class="componentHeader" variant="h3" component="h3">{data.task.name.toUpperCase()}</Typography>
+                <Typography class="componentHeader" variant="h3" component="h3"> 
+                    {data.task.name.toUpperCase()}
+                </Typography>
             </Grid>
             <Grid container justify="center">
                 <Pagination variant="outlined" count={data.task.pages.length} color="primary"
                  page={currPage} onChange={handleChange} size="large"/>
             </Grid>
-            <Button disabled={!data.task.requirements.length} variant="contained" onClick={handleClickOpen}>
+            <Button class="rubricButton" disabled={!data.task.requirements.length} variant="contained" onClick={handleClickOpen}>
                 TASK RUBRIC
             </Button>
             {fillComponents()}
@@ -153,6 +155,7 @@ let TaskPage = ({ route, navigation }) => {
             />
         </View>
     );
+
 }
 
 export default TaskPage;

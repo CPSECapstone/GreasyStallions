@@ -59,8 +59,10 @@
 
       return (
          <div>
-            <Paper style={{padding: '10px'}} elevation={3}>
-               <Typography class="componentHeader" variant="h4" component="h4">{title}</Typography>
+            <Paper style={{padding: '7%'}} elevation={3}>
+               <Typography class="componentHeader" variant="h4" component="h4">
+                  {title}
+               </Typography>
                {questions.length === 1 ? <div/> : <Pagination count={questions.length} page={currQues}
                onChange={handlePaginationChange}/>}
                {frormc()}

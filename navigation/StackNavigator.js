@@ -10,6 +10,7 @@ import CreateGoalPage from '../screens/Goals/CreateGoalPage';
 import TaskPage from '../screens/Task/TaskPage';
 import Profile from '../screens/Drawer/Profile';
 import Icon from 'react-native-vector-icons/Octicons';
+import SettingsPage from '../screens/SettingsPage';
 import { View, Text, Button, Image } from 'react-native';
 import MasteryOverviewPage from '../screens/Instructor/MasteryOverviewPage';
 
@@ -19,16 +20,17 @@ const MainStackNavigator = (props, signOut) => {
     return(
     <AppStack.Navigator
      screenOptions={{
+      headerStyle: { backgroundColor: '#4274F3' }, 
       //headerTitle: "Hello " + JSON.stringify(user.attributes.name),
       //headerTitle: props => <LogoTitle {...props} />,
       headerRight: () => (
         <View style={{paddingRight:20}}>
-        <Icon 
-        name='three-bars' 
-        size={30} 
-        color='#000' 
-        onPress={() => props.navigation.toggleDrawer()}
-        />
+          <Icon 
+           name='three-bars' 
+           size={30} 
+           color='#000' 
+           onPress={() => props.navigation.toggleDrawer()}
+          />
         </View>
         // <Button title="Toggle drawer" onPress={() => props.navigation.toggleDrawer()} />
         // <Button title="Sign Out" onPress={() => Auth.signOut()} color = 'red'/>
@@ -50,6 +52,7 @@ const MainStackNavigator = (props, signOut) => {
       <AppStack.Screen name="TaskPage" component={TaskPage}/>
       <AppStack.Screen name="CreateGoalPage" component={CreateGoalPage}/>
       <AppStack.Screen name="Profile" component={Profile}/>
+      <AppStack.Screen name="SettingsPage" component={SettingsPage}/>
       <AppStack.Screen name="GoalPage" component={GoalPage}/>
       <AppStack.Screen name="InstructorClassPage" component={InstructorClassPage}/>
       <AppStack.Screen name="MasteryOverviewPage" component={MasteryOverviewPage}/>

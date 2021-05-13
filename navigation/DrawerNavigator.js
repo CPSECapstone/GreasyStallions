@@ -22,8 +22,8 @@ function Feed({ navigation }) {
       </View>
     );
   }
-  
-  function CustomDrawerContent(props, signOut) {
+
+function CustomDrawerContent(props, signOut) {
     return (
       <DrawerContentScrollView {...props}>
         <DrawerItemList {...props} />
@@ -47,11 +47,22 @@ function Feed({ navigation }) {
         />
       </DrawerContentScrollView>
     );
-  }  
+}
 
 const DrawerNavigator = (navigation) => {
   return (
     <Drawer.Navigator drawerContent={props => <CustomDrawerContent {...props} />}>
+      <Drawer.Screen
+		name="Home"
+		component={MainStackNavigator} 
+	  />
+	  {/* WIP: not linking properly to the settings page
+      <Drawer.Screen
+		name="SettingsPage"
+		component={MainStackNavigator} 
+		options={{ drawerLabel: "Settings" }}
+		/>
+	  */}
       <Drawer.Screen name="Flipt(ed)" component={MainStackNavigator}/>
       {/* <Drawer.Screen name="Feed" component={Feed} />
       <Drawer.Screen name="Profile" component={Profile} /> */}

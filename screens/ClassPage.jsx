@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { ApolloProvider, useQuery, gql} from '@apollo/client';
+import './ClassPage.css';
 import {Typography, Grid, Box, Paper, List, ListItem, ListItemText,  Button} from '@material-ui/core';
 import randomColor from 'randomcolor';
 
@@ -131,5 +132,9 @@ let ClassPage = function({ route, navigation }){
       </View>
    );
 }
+
+/*
+
+*/
 
 export default ClassPage;
