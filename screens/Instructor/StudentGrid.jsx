@@ -6,9 +6,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { useQuery, gql, useApolloClient} from '@apollo/client';
-import {} from '@apollo/client/react/hooks';
-import { Typography } from '@material-ui/core';
+import { ApolloProvider, useQuery, gql} from '@apollo/client';
 
 const styles = StyleSheet.create({
     header: {
@@ -36,41 +34,55 @@ const styles = StyleSheet.create({
     query {progressByCourse(course: "Integrated Science") {userName progress {taskId status}}}
   `;
 
-  let StudentGridComponent = ({students, setStudents, filter, setFilter}) => {
+  let StudentGridComponent = ({students, setStudents, navigation}) => {
 
-  let studentsInfo = new Map();
-  const client = useApolloClient();
+  const [bubbleGridSelect, setSelect] = React.useState('');
+  let studentsInfo = new Map()
 
   // Query to fetch students for this course
   const {data, error, loading} = useQuery(LIST_STUDENTS);
   if (error) { console.log('Error fetching students', error); }
   if(data){
     setStudents(data.progressByCourse);
+  }      
+  
+
+  let sortProgressLH = (students) => {
+    return students.sort(function(s1, s2){return s1.student_mission_progress - s2.student_mission_progress});
+  }
+
+  let sortProgressHL = (students) => {
+    return students.sort(function(s1, s2){return s2.student_mission_progress - s1.student_mission_progress});
+  }
+
+  let sortAlphabetical = (students) => {
+    return students.sort(function(s1, s2){return s1.student_name > s2.student_name});
+  }
+
+  let sortActivity = (students) => {
+    return students.sort(function(s1, s2){return s1.task_progress < s2.task_progress});
   }
   
-  let MissionProgressLHSort = (tempStudents) => {
-    let newTemp = tempStudents.sort(function(s1, s2){return studentsInfo.get(s1).mission_progress
-     - studentsInfo.get(s2).mission_progress});
-    return newTemp;
+  let MissionProgressLHSort = () => {
+    let tempStudents = [...students];
+    setStudents(sortProgressLH(tempStudents))
   }
 
-  let MissionProgressHLSort = (tempStudents) => {
-    let newTemp = tempStudents.sort(function(s1, s2){return studentsInfo.get(s2).mission_progress - 
-     studentsInfo.get(s1).mission_progress});
-    return newTemp;
+  let MissionProgressHLSort = () => {
+    let tempStudents = [...students];
+    setStudents(sortProgressHL(tempStudents))
   }
 
-  let AlphabeticalSort = (tempStudents) => {
-    let newTemp = tempStudents.sort(function(s1, s2){return s1.userName > s2.userName});
-    return newTemp;
+  let AlphabeticalSort = () => {
+    let tempStudents = [...students];
+    setStudents(sortAlphabetical(tempStudents))
   }
 
-  let ActivitySort = (tempStudents) => {
-    let newTemp = tempStudents.sort(function(s1, s2){return s1.task_progress < s2.task_progress});
-    return newTemp;
+  let ActivitySort = () => {
+    let tempStudents = [...students];
+    setStudents(sortActivity(tempStudents))
   }
 
-  //create map of students with additional fields to make filtering easy
   students.forEach(student =>{
     let statusColor = "rgb(48, 204, 48)"; // green, change for database query to empty string
     let totalTasksInMission = 0;
@@ -78,10 +90,10 @@ const styles = StyleSheet.create({
     let studentProgress = 0;
     totalTasksInMission = student.progress.length;
     student.progress.forEach(task => {
-      if(task.status){
+      if(task.status === true){
         numTasksComplete++;
       }
-    });
+    })
     studentProgress = (numTasksComplete / totalTasksInMission) * 100;
 
     // commented until we have a database call for if students are online
@@ -105,60 +117,54 @@ const styles = StyleSheet.create({
   bubbleFilterOptions.set(4, "Online Status")
 
   let handleChange = (event) => {
-    setFilter(event.target.value)
-    let tempStudents = [...students];
-    let newTemp;
+    setSelect(event.target.value)
     if(event.target.value === 1){
-      newTemp = MissionProgressLHSort(tempStudents)
+      MissionProgressLHSort();
     }
     else if(event.target.value === 2){
-      newTemp = MissionProgressHLSort(tempStudents)
+      MissionProgressHLSort();
     }
     else if(event.target.value === 3){
-      newTemp = AlphabeticalSort(tempStudents)
+      AlphabeticalSort();
     }
     else if(event.target.value === 4){
-      newTemp = ActivitySort(tempStudents)
+      ActivitySort();
     }
-    let writeStruct = {
-      query: LIST_STUDENTS,
-      data: {progressByCourse: newTemp}
-    }
-    client.writeQuery(writeStruct)
   };
 
   return (
     <View style = {styles.section}>
-      <div class="grid-container">
-        <FormControl className="bubblegridfilter">
-          <InputLabel id="demo-simple-select-label">FILTER</InputLabel>
-          <Select
-            value={filter}
-            onChange={handleChange}>
-            <MenuItem value={1}>{bubbleFilterOptions.get(1)}</MenuItem>
-            <MenuItem value={2}>{bubbleFilterOptions.get(2)}</MenuItem>
-            <MenuItem value={3}>{bubbleFilterOptions.get(3)}</MenuItem>
-            <MenuItem value={4}>{bubbleFilterOptions.get(4)}</MenuItem>
-          </Select>
-        </FormControl>
-        <div class="flex-container">
-          {students.map(student => (
-            <div class="student">
-              <div class="status-circle" style={{backgroundColor: studentsInfo.get(student).status}}></div>
-              <CircularProgress style={
-                {border: "solid", borderRadius: "50%", borderColor: "rgb(170, 177, 186)", borderWidth: "10px"}}
-              variant="determinate" 
-              size="95%"
-              thickness="3"
-              value={studentsInfo.get(student).mission_progress} />
-              <div class={"info"}>
-                <div><Typography variant="body2"> {student.userName}</Typography></div>
-                <div><Typography variant="body2">Current Task:</Typography></div>
-                {/* {<div><Text>{student.student_current_task}</Text></div>} */}
-                </div>
-            </div>
-          ))}
-        </div>
+      <Text style = {styles.text}>{"STUDENTS:"}</Text>
+      <FormControl className="bubblegridfilter">
+        <InputLabel id="demo-simple-select-label">FILTER</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={bubbleGridSelect}
+          onChange={handleChange}>
+          <MenuItem value={1}>{bubbleFilterOptions.get(1)}</MenuItem>
+          <MenuItem value={2}>{bubbleFilterOptions.get(2)}</MenuItem>
+          <MenuItem value={3}>{bubbleFilterOptions.get(3)}</MenuItem>
+          <MenuItem value={4}>{bubbleFilterOptions.get(4)}</MenuItem>
+        </Select>
+      </FormControl>
+      <div class="flex-container">
+        {students.map(student => (
+          <div class="student">
+            <div class="status-circle" style={{backgroundColor: studentsInfo.get(student).status}}></div>
+            <CircularProgress style={
+              {border: "solid", borderRadius: "50%", borderColor: "rgb(170, 177, 186)", borderWidth: "10px"}}
+            variant="determinate" 
+            size="95%"
+            thickness="3"
+            value={studentsInfo.get(student).mission_progress} />
+            <div class={"info"}>
+              <div><Text> {student.userName}</Text></div>
+              <div><Text>Current Task:</Text></div>
+              {/* <div><Text>{student.student_current_task}</Text></div> */}
+              </div>
+          </div>
+        ))}
       </div>
     </View>
   );
