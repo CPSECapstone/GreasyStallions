@@ -96,16 +96,12 @@ export default function InstructorHome({ navigation, signOut }) {
 
   return (
     <View style={styles.section}>
-<<<<<<< HEAD
-      <CrsFliptedComponent navigation={navigation}/>
-=======
 		<CreateCourse/>
     	<CrsFliptedComponent navigation={navigation}/>
-    	<StudentGridComponent
+    	{/* <StudentGridComponent
 		  students={students}
     	setStudents={setStudents}
-    	navigation={navigation}/>
->>>>>>> 9ec0121f029589fd0114bdc150993842b1afb6be
+    	navigation={navigation}/> */}
     </View>
   )
 }
