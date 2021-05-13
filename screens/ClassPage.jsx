@@ -16,6 +16,7 @@ let ClassPage = function({ route, navigation }){
 			}
 			missions {
 				name
+				id
 			}
 			targets {
 				targetName
@@ -71,10 +72,11 @@ let ClassPage = function({ route, navigation }){
 	if(data){
 		data.courseContent.missions.forEach( mission => {
 		let toPush = 
-		<Paper style={{fontSize:18, fontWeight:'bold', justifyContent:'center', backgroundColor: randomColor(), 
-			display: 'flex', alignItems: 'center', width: 200, height: 150}} elevation={3}>
-				{mission.name}
-		</Paper>
+		 <Paper style={{fontSize:18, fontWeight:'bold', justifyContent:'center', backgroundColor: randomColor(), 
+		  display: 'flex', alignItems: 'center', width: 200, height: 150}} elevation={3}
+		  onClick={() => navigation.navigate("MissionPage", {id: mission.id})}>
+			{mission.name}
+		 </Paper>
 		missions.push(toPush)
 		});
 		
