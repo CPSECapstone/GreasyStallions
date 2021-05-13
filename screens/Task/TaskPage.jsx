@@ -5,6 +5,7 @@ import { View } from 'react-native';
 import QuizTask from './QuizTask';
 import VideoTask from './VideoTask';
 import WebpageTask from './WebpageTask';
+import FreeResponseTask from './FreeResponseTask';
 import RubricModal from './RubricModal';
 import TextPageTask from './TextPageTask';
 import { ApolloProvider, useQuery, gql} from '@apollo/client';
@@ -121,6 +122,8 @@ let TaskPage = ({ route, navigation }) => {
              answers={component.answers} />
         } else if (component.webpage != null) {
             return <WebpageTask webpageUrl={component.webpage} />
+        } else if (component.FRQuestion != null) {
+            return <FreeResponseTask freeResponseQuestion={component.FRQuestion} />
         } else if (component.__typename === "ImageBlock") {
             return  <ImageTask pth={component.imageUrl} title={component.title}/> 
         }
