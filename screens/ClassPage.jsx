@@ -105,11 +105,10 @@ let ClassPage = function({ route, navigation }){
           <Box style={{marginLeft: 24, marginTop: 8}}fontWeight="fontWeightBold" m={1}>
             {description}
           </Box>
-        </Typography>
-		
+        </Typography>		
 		<Typography style={{marginLeft:24, marginTop:36}} variant="h4">
           <Box fontWeight="fontWeightBold" m={1}>
-		  	<CreateMission/>
+		  	<CreateMission course = {className}/>
             Missions
           </Box>
         </Typography>
