@@ -4,6 +4,7 @@ import { ApolloProvider, useQuery, gql} from '@apollo/client';
 import './ClassPage.css';
 import {Typography, Grid, Box, Paper, List, ListItem, ListItemText,  Button} from '@material-ui/core';
 import randomColor from 'randomcolor';
+import CreateMission from './CreateModals/CreateMission';
 
 
 let ClassPage = function({ route, navigation }){
@@ -105,9 +106,10 @@ let ClassPage = function({ route, navigation }){
           <Box style={{marginLeft: 24, marginTop: 8}}fontWeight="fontWeightBold" m={1}>
             {description}
           </Box>
-        </Typography>
+        </Typography>		
 		<Typography style={{marginLeft:24, marginTop:36}} variant="h4">
           <Box fontWeight="fontWeightBold" m={1}>
+		  	<CreateMission course = {className}/>
             Missions
           </Box>
         </Typography>
