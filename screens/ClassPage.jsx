@@ -17,6 +17,7 @@ let ClassPage = function({ route, navigation }){
 			}
 			missions {
 				name
+				id
 			}
 			targets {
 				targetName
@@ -43,37 +44,40 @@ let ClassPage = function({ route, navigation }){
 		if(data){
 			data.tasksByCourse.forEach( task => {
 			let toPush = 
-			<Paper style={{margin: "4px",fontSize:18, fontWeight:'bold', justifyContent:'center', backgroundColor: 'light-grey', 
-			 display: 'flex', alignItems: 'center', width: 225, height: 75}}
-			 elevation={3} onClick={() => navigation.navigate("TaskPage", {id: task.id})}>
+			<Paper style={{margin: "4px",fontSize:18, fontWeight:'bold', justifyContent:'center', 
+				backgroundColor: 'light-grey', 
+				display: 'flex', alignItems: 'center', width: 225, height: 75}}
+				elevation={3} onClick={() => navigation.navigate("TaskPage", {id: task.id})}>
 				{task.name}
 			</Paper>;
 			tasks.push(toPush);
 			});
 		}
-		tasks.push(<Paper style={{fontSize:18, fontWeight:'bold', justifyContent:'center', backgroundColor: 'light-grey', 
-		 display: 'flex', alignItems: 'center', width: 200, height: 75}}
-		 elevation={3} onClick={() => navigation.navigate("TaskPage", {id: "90e0c730e56"})}>
-		 TESTING TASK
-	     </Paper>);
+		tasks.push(<Paper style={{fontSize:18, fontWeight:'bold', justifyContent:'center', 
+						backgroundColor: 'light-grey', 
+						display: 'flex', alignItems: 'center', width: 200, height: 75}}
+						elevation={3} onClick={() => navigation.navigate("TaskPage", {id: "90e0c730e56"})}>
+						TESTING TASK
+					</Paper>);
 		return tasks;
 	}
 
 	//later: put missions and tasks into separate functions
 	//get and style Missions
-   const {data, error, loading} = useQuery(COURSE_CONTENT);
+   	const {data, error, loading} = useQuery(COURSE_CONTENT);
 	if (error) { console.log('Error fetching courses', error); }
 	let missions = [];
 	let description = '';
 	let instructor = '';
-   let userType = teacher ? "teacher" : "student";
+  	let userType = teacher ? "teacher" : "student";
 	if(data){
 		data.courseContent.missions.forEach( mission => {
 		let toPush = 
-		<Paper style={{fontSize:18, fontWeight:'bold', justifyContent:'center', backgroundColor: randomColor(), 
-			display: 'flex', alignItems: 'center', width: 200, height: 150}} elevation={3}>
-				{mission.name}
-		</Paper>
+		 <Paper style={{fontSize:18, fontWeight:'bold', justifyContent:'center', backgroundColor: randomColor(), 
+		  display: 'flex', alignItems: 'center', width: 200, height: 150}} elevation={3}
+		  onClick={() => navigation.navigate("MissionPage", {id: mission.id})}>
+			{mission.name}
+		 </Paper>
 		missions.push(toPush)
 		});
 		
@@ -107,7 +111,7 @@ let ClassPage = function({ route, navigation }){
             Missions
           </Box>
         </Typography>
-		 <Grid style={{padding:16, marginTop: 32, marginLeft: 32}}container direction="row" justify="left" alignItems="center">
+		 <Grid style={{padding:16, marginTop: 32, marginLeft: 32}} container direction="row" justify="left" alignItems="center">
           {missions}
         </Grid>
 		<Typography style={{marginLeft:24, marginTop:36}} variant="h4">
