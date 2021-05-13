@@ -8,21 +8,21 @@ import { Typography }from '@material-ui/core';
 
 let VideoTask = function({ id, title }) {
 
-   let embededLink = "";
-   let getEmbededLink = () => {
+   let embeddedLink = "";
+   let getEmbeddedLink = () => {
       let out = id.indexOf(".be/");
-      embededLink = "https://www.youtube.com/embed/" + id.substring(out+4);
+      embeddedLink = "https://www.youtube.com/embed/" + id.substring(out+4);
    }
 
    return (
       <div>
-         {getEmbededLink()}
+         {getEmbeddedLink()}
          <Typography class="componentHeader" variant="h4" component="h4">
             {title}
          </Typography>
          <div class="embed-responsive embed-responsive-16by9">
             <iframe width="1024" height="576" class="embed-responsive-item" 
-            src={embededLink} allowFullScreen autoplay></iframe>
+            src={embeddedLink} allowFullScreen autoplay></iframe>
          </div>
       </div>
    );

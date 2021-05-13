@@ -9,11 +9,7 @@ import CreateGoalPage from '../screens/Goals/CreateGoalPage';
 import TaskPage from '../screens/Task/TaskPage';
 import Profile from '../screens/Drawer/Profile';
 import Icon from 'react-native-vector-icons/Octicons';
-<<<<<<< HEAD
-import MissionPage from '../screens/Mission/MissionPage';
 import SettingsPage from '../screens/SettingsPage';
-=======
->>>>>>> a631fb41e162d71b76af4072b9ec22bea342c7e7
 import { View, Text, Button, Image } from 'react-native';
 
 const AppStack = createStackNavigator();
@@ -22,16 +18,17 @@ const MainStackNavigator = (props, signOut) => {
     return(
     <AppStack.Navigator
      screenOptions={{
+      headerStyle: { backgroundColor: '#4274F3' }, 
       //headerTitle: "Hello " + JSON.stringify(user.attributes.name),
       //headerTitle: props => <LogoTitle {...props} />,
       headerRight: () => (
         <View style={{paddingRight:20}}>
-        <Icon 
-        name='three-bars' 
-        size={30} 
-        color='#000' 
-        onPress={() => props.navigation.toggleDrawer()}
-        />
+          <Icon 
+           name='three-bars' 
+           size={30} 
+           color='#000' 
+           onPress={() => props.navigation.toggleDrawer()}
+          />
         </View>
         // <Button title="Toggle drawer" onPress={() => props.navigation.toggleDrawer()} />
         // <Button title="Sign Out" onPress={() => Auth.signOut()} color = 'red'/>
@@ -53,12 +50,8 @@ const MainStackNavigator = (props, signOut) => {
       <AppStack.Screen name="TaskPage" component={TaskPage}/>
       <AppStack.Screen name="CreateGoalPage" component={CreateGoalPage}/>
       <AppStack.Screen name="Profile" component={Profile}/>
-<<<<<<< HEAD
-      <AppStack.Screen name="MissionPage" component={MissionPage}/>
       <AppStack.Screen name="SettingsPage" component={SettingsPage}/>
-=======
       <AppStack.Screen name="GoalPage" component={GoalPage}/>
->>>>>>> a631fb41e162d71b76af4072b9ec22bea342c7e7
     </AppStack.Navigator>
     )
 }
