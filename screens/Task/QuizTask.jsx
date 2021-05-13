@@ -65,19 +65,8 @@
                </Typography>
                {questions.length === 1 ? <div/> : <Pagination count={questions.length} page={currQues}
                onChange={handlePaginationChange}/>}
-<<<<<<< HEAD
-               <FormControl component="fieldset">
-                  <FormLabel component="legend">
-                     {questions[currQues - 1].description}
-                  </FormLabel>
-                  <RadioGroup aria-label="ques" value={value} onChange={handleAnsChange}>
-                     {questionOpts}
-                  </RadioGroup>
-               </FormControl>
-=======
                {frormc()}
                {show}
->>>>>>> 40665d2fca27fd81d93b56fd971f004c667293ad
             </Paper>
          </div>
       );
