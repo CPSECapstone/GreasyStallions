@@ -100,7 +100,7 @@ export default function InstructorHome({ navigation, signOut }) {
 
   return (
     <View style={styles.section}>
-		<CreateCourse></CreateCourse>
+		<CreateCourse/>
     	<CrsFliptedComponent navigation={navigation}/>
     	<StudentGridComponent
 		  students={students}

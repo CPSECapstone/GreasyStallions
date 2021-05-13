@@ -30,6 +30,8 @@ const ADD_COURSE = gql
 		}
 	`;
 
+//this modal uses MaterialUI Dialog to create a modal that is a form for an Instructor
+//to create a Course object, and is sent to our database
 export default function CreateCourse()  {
   	const [open, setOpen] = React.useState(false);
   	const [name, setName] = React.useState('');
@@ -37,14 +39,6 @@ export default function CreateCourse()  {
 	const [addCourse, {data1, error1}] = useMutation(ADD_COURSE);
 	const {data, error, loading} = useQuery(GET_USER);
 	if(error){console.log('error getting user')};
-
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-
-    const handleClose = () => {
-        setOpen(false);
-    };
 
     const handleNameChange = event => {
         setName(event.target.value);
@@ -69,10 +63,10 @@ export default function CreateCourse()  {
 
     return (
         <div>
-          	<Button variant="outlined" color="primary" onClick={handleClickOpen}>
+          	<Button variant="outlined" color="primary" onClick={() => setOpen(true)}>
             	Add Course
           	</Button>
-          	<Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+          	<Dialog open={open} onClose={() => setOpen(false)} aria-labelledby="form-dialog-title">
 				<DialogTitle id="form-dialog-title">Add Course</DialogTitle>
 				<DialogContent>
 					<DialogContentText>
@@ -98,7 +92,7 @@ export default function CreateCourse()  {
 					/>
 				</DialogContent>
 				<DialogActions>
-					<Button onClick={handleClose} color="primary">
+					<Button onClick={() => setOpen(false)} color="primary">
 						Cancel
 					</Button>
 					<Button onClick={() => submit()} color="primary">
