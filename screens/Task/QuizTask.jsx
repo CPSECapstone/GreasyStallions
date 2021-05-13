@@ -1,6 +1,6 @@
    import React from 'react';
    import { View } from 'react-native';
-   import { FormControl, FormControlLabel, FormLabel, RadioGroup, Radio, Typography, Paper } from '@material-ui/core';
+   import { FormControl, FormControlLabel, FormLabel, RadioGroup, Radio, Typography, Paper, TextField } from '@material-ui/core';
    import { Pagination } from '@material-ui/lab';
    import './TaskPage.css';
 
@@ -22,10 +22,7 @@
          setSelectedAns(temp);
       };
 
-      questions[currQues - 1].options.forEach(element => {
-         questionOpts.push(<FormControlLabel value={element.description} control={<Radio />} label={element.description}/>)
-      });
-      
+     
       const handlePaginationChange = (event, value) => {
          setCurrQues(value);
       };
@@ -34,18 +31,40 @@
          setValue(event.target.value);
       };
 
+      let show;
+      // determine if a question is free response or multiple choice
+      // and return the correct display type
+      const frormc = () => {
+         console.log(questions[currQues - 1].__typename);
+         if (questions[currQues - 1].__typename === "McQuestion") {
+            questions[currQues - 1].options.forEach(element => {
+               questionOpts.push(<FormControlLabel value={element.description} control={<Radio />} label={element.description}/>)
+            });
+
+            show = <FormControl component="fieldset">
+               <FormLabel component="legend">{questions[currQues - 1].description}</FormLabel>
+               <RadioGroup aria-label="ques" value={value} onChange={handleAnsChange}>
+                  {questionOpts}
+               </RadioGroup>
+            </FormControl>
+         } else if (questions[currQues - 1].__typename === "FrQuestion") {
+            show = <TextField
+             label={questions[currQues - 1].description}
+             variant="outlined"
+             fullWidth
+             multiline
+             rows={6}/>
+         }
+      }
+
       return (
          <div>
             <Paper style={{padding: '10px'}} elevation={3}>
                <Typography class="componentHeader" variant="h4" component="h4">{title}</Typography>
                {questions.length === 1 ? <div/> : <Pagination count={questions.length} page={currQues}
                onChange={handlePaginationChange}/>}
-               <FormControl component="fieldset">
-                  <FormLabel component="legend">{questions[currQues - 1].description}</FormLabel>
-                  <RadioGroup aria-label="ques" value={value} onChange={handleAnsChange}>
-                     {questionOpts}
-                  </RadioGroup>
-               </FormControl>
+               {frormc()}
+               {show}
             </Paper>
          </div>
       );

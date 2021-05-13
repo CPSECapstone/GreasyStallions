@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
           </Box>
         </Typography>
         <Button 
+        style={{margin: "1%"}}
        color="primary"
        variant="contained"
        onClick={() => {navigation.navigate('InstructorClassPage', {className: className})}}>

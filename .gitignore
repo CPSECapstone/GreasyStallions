@@ -23,7 +23,7 @@ DerivedData
 project.xcworkspace
 package-lock.json
 cypress.env.json
-config
+config.js
 
 # Android/IntelliJ
 #

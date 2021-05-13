@@ -12,6 +12,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
+import { Typography } from '@material-ui/core';
 
 const styles = StyleSheet.create({
     header: {
@@ -98,7 +99,7 @@ const styles = StyleSheet.create({
     const {data, error, loading} = useQuery(GET_MASTERY);
     if (error) { console.log('Error fetching mastery', error); }
     if(data){
-        console.log(data)
+        //console.log(data)
       fullerProgress = [...data.getAllTargetProgress];
     }
     //console.log("ba"+fullerProgress[0])
@@ -115,8 +116,8 @@ const styles = StyleSheet.create({
   getStudents()
   getMastery()
 
-  console.log(studentList)
-  console.log(targetList)
+  //console.log(studentList)
+  //console.log(targetList)
 
   
   
@@ -125,9 +126,16 @@ const styles = StyleSheet.create({
   return (
     <View style = {styles.section}>
       <div class="flex-container">
-        {/* {studentList.map(student => (
-          <GridList className="meh" cols={3}></GridList>
-        ))} */}
+        {targetList.map(target => (
+          <Typography variant="h5"> {target}</Typography>
+        ))}
+        {studentList.map(student => (
+          <GridList className="meh" cols={3}>
+            <GridListTile key={student}>
+              <GridListTileBar title={student}></GridListTileBar>
+            </GridListTile>
+          </GridList>
+        ))}
       </div>
     </View>
   );

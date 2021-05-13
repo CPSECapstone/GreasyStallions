@@ -19,12 +19,14 @@ import {Typography, Box,  Button} from '@material-ui/core';
         </Box>
       </Typography>
       <Button 
+      style={{margin: "1%"}}
        color="primary"
        variant="contained"
        onClick={() => {navigation.navigate('MasteryOverviewPage', {className: className})}}>
          Mastery
       </Button>
         <Button 
+        style={{margin: "1%"}}
        color="primary"
        variant="contained"
        onClick={() => {navigation.navigate('GoalPage', {user: teacher})}}>
