@@ -1,55 +1,41 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View } from 'react-native';
 import "./InstructorHome.css";
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import { ApolloProvider, useQuery, gql} from '@apollo/client';
 import StudentGridComponent from './StudentGrid';
-import {Typography, Grid, Box, Paper, List, ListItem, ListItemText,  Button} from '@material-ui/core';
+import {Typography, Box,  Button} from '@material-ui/core';
 
-
-const styles = StyleSheet.create({
-    header: {
-      marginLeft: 50,
-      flex: 1,
-      width: "100%",
-      justifyContent: 'top',
-      alignItems: 'left',
-      alignSelf: 'center'
-    },
-    text: {
-      textAlign: 'left',
-      fontSize: 28,
-      fontStyle: 'bold',
-      paddingTop: 20
-    },
-    section: {
-      padding:16,
-      justifyContent: 'top'
-    }
-  });
-
+  // The landing page for a teacher when they click into a course
+  // from their home page
   export default function InstructorClassPage ({route, navigation}) {
-    const { className, teacher } = route.params;
+    const { className, teacher } = route.params; //change to instructor
     const [bubbleGridSelect, setSelect] = React.useState('');
-    const [students, setStudents] = useState([]);
+    const [students, setStudents] = useState([]); //use React
 
   return (
-    <View style = {styles.section}>
+    <View class="section">
       <Typography align='center' variant="h4">
-          <Box style={{marginLeft: 24, marginTop: 24}}fontWeight="fontWeightBold" m={1}>
-            {className}
-          </Box>
-        </Typography>
+        <Box style={{marginLeft: 24, marginTop: 24}}fontWeight="fontWeightBold" m={1}>
+          {className}
+        </Box>
+      </Typography>
+      <Button 
+       color="primary"
+       variant="contained"
+       onClick={() => {navigation.navigate('MasteryOverviewPage', {className: className})}}>
+         Mastery
+      </Button>
+        <Button 
+       color="primary"
+       variant="contained"
+       onClick={() => {navigation.navigate('GoalPage', {user: teacher})}}>
+         Goal Page
+      </Button>
       <StudentGridComponent
-      students={students}
-      setStudents={setStudents}
-      navigation={navigation}
-      filter={bubbleGridSelect}
-      setFilter={setSelect}/>
+        students={students}
+        setStudents={setStudents}
+        navigation={navigation}
+        filter={bubbleGridSelect}
+        setFilter={setSelect}/>
     </View>
   );
 }
