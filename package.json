@@ -25,6 +25,7 @@
     "bootstrap": "^4.6.0",
     "bowser": "^2.11.0",
     "browserslist": "^4.16.4",
+    "build": "^0.1.4",
     "denodeify": "^1.2.1",
     "expo": "~40.0.0",
     "expo-constants": "^9.3.5",

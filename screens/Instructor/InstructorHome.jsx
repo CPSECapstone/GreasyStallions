@@ -6,7 +6,7 @@ import StudentGridComponent from "./StudentGrid.jsx";
 import GoalListTeacher from '../Goals/GoalListTeacher';
 import {Typography, Grid, Box, Paper, List, ListItem, ListItemText, Button} from '@material-ui/core';
 import randomColor from 'randomcolor';
-
+import CreateCourse from '../CreateModals/CreateCourse';
 
 const LIST_COURSES = gql
 `
@@ -27,6 +27,14 @@ const LIST_TASKS = gql
 const LIST_STUDENTS = gql
 `
 query {progressByCourse(course: "Integrated Science") {userName progress {taskId status}}}
+`;
+
+const USER_ROLE = gql
+`
+{getUser{
+	role
+	email
+  }}
 `;
 
 
@@ -83,35 +91,6 @@ const CrsFliptedComponent = ({navigation}) => {
   );
 }
 
-//currently using the same tasks as on the student page
-const TskFliptedComponent = () => {
-  const {data, error, loading} = useQuery(LIST_TASKS);
-  
-  let tasks = [];
-
-  if (error) { console.log('Error fetching users', error); }
-
-  if(data){
-    data.getTasks.forEach( tsk =>{
-      tasks.push(<Text style={styles.starshipName}> {tsk.name + " " + tsk.description}</Text>)
-    });
-  }
-
-  return (
-    <View style = {styles.section}>
-      <Text style = {styles.text}>{"TASKS:"}</Text>
-      {tasks}
-    </View>
-  );
-}
-
-const USER_ROLE = gql
-`
-{getUser{
-	role
-	email
-  }}
-`;
 
 
 export default function InstructorHome({ navigation, signOut }) {
@@ -121,11 +100,12 @@ export default function InstructorHome({ navigation, signOut }) {
 
   return (
     <View style={styles.section}>
-      <CrsFliptedComponent navigation={navigation}/>
-      <StudentGridComponent
-      students={students}
-      setStudents={setStudents}
-      navigation={navigation}/>
+		<CreateCourse/>
+    	<CrsFliptedComponent navigation={navigation}/>
+    	<StudentGridComponent
+		  students={students}
+    	setStudents={setStudents}
+    	navigation={navigation}/>
     </View>
   )
 }
