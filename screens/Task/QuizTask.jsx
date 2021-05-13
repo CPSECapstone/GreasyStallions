@@ -36,12 +36,16 @@
 
       return (
          <div>
-            <Paper style={{padding: '10px'}} elevation={3}>
-               <Typography class="componentHeader" variant="h4" component="h4">{title}</Typography>
+            <Paper style={{padding: '7%'}} elevation={3}>
+               <Typography class="componentHeader" variant="h4" component="h4">
+                  {title}
+               </Typography>
                {questions.length === 1 ? <div/> : <Pagination count={questions.length} page={currQues}
                onChange={handlePaginationChange}/>}
                <FormControl component="fieldset">
-                  <FormLabel component="legend">{questions[currQues - 1].description}</FormLabel>
+                  <FormLabel component="legend">
+                     {questions[currQues - 1].description}
+                  </FormLabel>
                   <RadioGroup aria-label="ques" value={value} onChange={handleAnsChange}>
                      {questionOpts}
                   </RadioGroup>

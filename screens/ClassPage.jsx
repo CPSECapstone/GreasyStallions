@@ -1,15 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-<<<<<<< HEAD
-import {ListGroup, Button, Col, Row, Card, Accordion} from 'react-bootstrap'
-import CreateGoalModal from '../components/CreateGoalModal'
-import GoalListStudent from './Goals/GoalListStudent'
-import './ClassPage.css';
-=======
 import { ApolloProvider, useQuery, gql} from '@apollo/client';
+import './ClassPage.css';
 import {Typography, Grid, Box, Paper, List, ListItem, ListItemText,  Button} from '@material-ui/core';
 import randomColor from 'randomcolor';
->>>>>>> a631fb41e162d71b76af4072b9ec22bea342c7e7
 
 
 let ClassPage = function({ route, navigation }){
@@ -92,41 +86,6 @@ let ClassPage = function({ route, navigation }){
 
 
    return (
-<<<<<<< HEAD
-      <View className="quiz-list">
-         <h2>{className}</h2>
-         <ListGroup>
-            {quizzes}
-         </ListGroup>
-         <div className="my-2 text-left">
-            <Button variant="primary" size="sm"
-            onClick={() => 
-               navigation.navigate('MissionPage',
-               {
-                  quizzes
-               })}>
-               View All Missions
-            </Button>
-         </div>
-         <GoalListStudent 
-          goals={goals}
-          setGoals={setGoals}
-          teacher={false}
-          goalProgress={goalProgress}
-          setGoalProgress={setGoalProgress}
-          navigation={navigation}/>
-         <div className="my-2 text-center">
-            <Button variant="primary" size="lg"
-            onClick={() => 
-              navigation.navigate('CreateGoalPage', 
-              {
-                  goals: goals, 
-                  setGoals: setGoals
-              })}>
-               Create Goal
-            </Button>
-         </div>
-=======
       <View>
          <Typography align='center' variant="h4">
           <Box style={{marginLeft: 24, marginTop: 24}}fontWeight="fontWeightBold" m={1}>
@@ -166,7 +125,6 @@ let ClassPage = function({ route, navigation }){
        onClick={() => {navigation.navigate('GoalPage', {user: userType})}}>
          Goal Page
       </Button>
->>>>>>> a631fb41e162d71b76af4072b9ec22bea342c7e7
       </View>
    );
 }
