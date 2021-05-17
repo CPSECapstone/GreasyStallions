@@ -1,4 +1,4 @@
-import React , { useState } from 'react';
+import React , { useEffect, useState } from 'react';
 import Checkbox from '@material-ui/core/Checkbox';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -16,7 +16,10 @@ import { ProgressBar, Colors } from 'react-native-paper';
 import GoalSubListStudent from './GoalSubListStudent';
 import OverallGoalProgressBar from './GoalProgressBar'
 import { makeStyles } from '@material-ui/core/styles';
+import { useQuery, gql, useApolloClient} from '@apollo/client';
+import {} from '@apollo/client/react/hooks'
 import  './GoalListStudent.css'
+import { Typography } from '@material-ui/core';
 
 const useStyles = makeStyles({
    goalWithSubsName: {
@@ -39,49 +42,138 @@ const useStyles = makeStyles({
    }
  });
 
+ let LIST_ALL_GOALS = gql`
+ query getGoals {
+    getAllGoals {
+      id
+      title
+      dueDate
+      completed
+      completedDate
+      category
+      favorited
+      owner
+      assignee
+      pointValue
+      subGoals {
+        title
+        dueDate
+        completed
+        completedDate
+      }
+    }
+  }
+ `;
 
-let GoalListStudent = ({ goals, setGoals, 
+let GoalListStudent = ({ /* goals, */ setGoals, 
  navigation, goalProgress, setGoalProgress, teacher,
  completeSubGoalTeacher,  completeGoalCheckTeacher, studentIdx}) => {
-   const [goalOpenList, setGoalOpenList] = useState(new Array(goals.length).fill(false));
+   const [goalOpenList, setGoalOpenList] = useState([]);
+   const client = useApolloClient();
    const classes = useStyles();
+
+   // const {data} = client.readQuery({query: LIST_ALL_GOALS})
+   const {data, error, loading} = useQuery(LIST_ALL_GOALS);
+   let goals = []
+
 
    let goalComponents = [];
 
+   if(loading)
+      return (<Typography>
+         Loading
+      </Typography>);
+   
+   if(error)
+      return(
+         <View>
+            <Typography>
+               Error Occured
+            </Typography>
+         </View>
+      )
+
+   if(data){
+      goals = [...data.getAllGoals]
+      console.log(goals)
+   }
+
+
    let completeGoalCheck = (ev, idx) => {
-      let newGoals = [...goals];
+      const {getAllGoals} = client.readQuery({query: LIST_ALL_GOALS});
+      let newGoals = [...getAllGoals];
       let goalIdx = ev && ev.target.id;
       if (!goalIdx) {
          goalIdx = idx
       }
-      let prevGoalCompleteVal = newGoals[goalIdx].complete
-      newGoals[goalIdx].complete = !prevGoalCompleteVal
+      newGoals[goalIdx] = {};
+      let prevGoalCompleteVal = getAllGoals[goalIdx].completed
+      newGoals[goalIdx].completed = !prevGoalCompleteVal
+      newGoals[goalIdx].__typename =  getAllGoals[goalIdx].__typename
+      newGoals[goalIdx].id =  getAllGoals[goalIdx].id
       setGoalProgress(prevGoalCompleteVal ? 
        goalProgress - 1 : goalProgress + 1)
-      
-      setGoals(newGoals)
+      let writeStruct = {
+         query: LIST_ALL_GOALS,
+         data: { getAllGoals: newGoals}
+      }
+      client.writeQuery(writeStruct)
+
    }
 
    let completeSubGoal = (ev) => {
-      let newGoals = [...goals];
+      const {getAllGoals} = client.readQuery({query: LIST_ALL_GOALS});
+      console.log(getAllGoals)
+      let newGoals = [...getAllGoals];
       let goalIdx = ev.target.id.split(" ")[0]
       let subGoalIdx = ev.target.id.split(" ")[1]
       let subGoals = newGoals[goalIdx].subGoals
-      let prevSubCompleteVal = 
-         subGoals[subGoalIdx].complete
-      newGoals[goalIdx].subGoals[subGoalIdx].complete = 
-       !prevSubCompleteVal
-      newGoals[goalIdx].subCompleted = 
-       subGoals[subGoalIdx].complete ? 
-       newGoals[goalIdx].subCompleted + 1:
-       newGoals[goalIdx].subCompleted - 1;
+      let prevSubCompleteVal = subGoals[subGoalIdx].complete
+      let freshGoal = {
+         __typename: getAllGoals[goalIdx].__typename,
+         id: getAllGoals[goalIdx].id,
+         subGoals: [...getAllGoals[goalIdx].subGoals],
 
-      if(newGoals[goalIdx].subCompleted === subGoals.length ||
-       newGoals[goalIdx].subCompleted === subGoals.length - 1 
-       && prevSubCompleteVal)
+      };
+      freshGoal.subGoals[subGoalIdx] = {
+         completed: !prevSubCompleteVal,
+         title: getAllGoals[goalIdx].subGoals[subGoalIdx].title,
+         dueDate: getAllGoals[goalIdx].subGoals[subGoalIdx].dueDate,
+      }
+      newGoals[goalIdx] = freshGoal;
+      // newGoals[goalIdx] = {};
+      // newGoals[goalIdx].__typename =  getAllGoals[goalIdx].__typename
+      // newGoals[goalIdx].id =  getAllGoals[goalIdx].id
+      // newGoals[goalIdx].subGoals = [...getAllGoals[goalIdx].subGoals]
+      // console.log(newGoals)
+      // newGoals[goalIdx].subGoals[subGoalIdx] = {__typename: "SubGoal"}
+      // newGoals[goalIdx].subGoals[subGoalIdx].completed = 
+      //  !prevSubCompleteVal
+      // newGoals[goalIdx].subGoals[subGoalIdx].title = 
+      //  getAllGoals[goalIdx].subGoals[subGoalIdx].title
+      // newGoals[goalIdx].subGoals[subGoalIdx].dueDate = 
+      //  getAllGoals[goalIdx].subGoals[subGoalIdx].dueDate
+      let reducer = (acc, cv) => cv.completed ? acc + 1 : acc;
+      let subCompleted = newGoals[goalIdx].subGoals.reduce(reducer, 0)
+      //  subGoals[subGoalIdx].complete ? 
+      //  newGoals[goalIdx].subCompleted + 1:
+      //  newGoals[goalIdx].subCompleted - 1;
+      console.log(subCompleted)
+
+      if(subCompleted === subGoals.length ||
+         subCompleted === subGoals.length - 1 && prevSubCompleteVal)
        completeGoalCheck(null, goalIdx)
-      else
-         setGoals(newGoals)
+      else{
+         let writeStruct = {
+            query: LIST_ALL_GOALS,
+            data: { getAllGoals: newGoals}
+            
+         }
+         console.log(writeStruct)
+         client.writeQuery(writeStruct)
+         console.log(client.readQuery({query: LIST_ALL_GOALS}))
+      }
+         // setGoals(newGoals)
    }
 
    let editGoal = (idx) => {
@@ -100,26 +192,26 @@ let GoalListStudent = ({ goals, setGoals,
    let makeGoalWithSubs = (goal, editGoal, idx, subGoalCmps) => {
       let progress = goal.subCompleted / goal.subGoals.length;
       let subGoalCmp = [];
-      let toggleGoalOpenList = () => {
-         let tempGoalOpenList = [...goalOpenList];
-         tempGoalOpenList[idx] = !tempGoalOpenList[idx];
-         setGoalOpenList(tempGoalOpenList);
-      }
+      // let toggleGoalOpenList = () => {
+      //    let tempGoalOpenList = [...goalOpenList];
+      //    tempGoalOpenList[idx] = !tempGoalOpenList[idx];
+      //    setGoalOpenList(tempGoalOpenList);
+      // }
 
       subGoalCmp.push(
-         <ListItem key={idx + " goal"} button onClick={toggleGoalOpenList}>
+         <ListItem key={idx + " goal"} button /* onClick={toggleGoalOpenList} */>
             <ListItemText 
-             primary={goal.name}
+             primary={goal.title}
              className={classes.goalWithSubsName}/>
             <ListItemText 
-             primary={"due by: " + goal.due}
+             primary={"due by: " + goal.dueDate}
              className={classes.goalWithSubsDue}/>
             <ListItemIcon className={classes.goalWithSubsProgressBar}>
                <Icon className={classes.goalWithSubsProgressBarIcon}>
                   <ProgressBar progress={progress} color={Colors.red800} />
                </Icon>
             </ListItemIcon>
-            {!goalOpenList[idx] ? <ExpandLess /> : <ExpandMore />}
+            {/* !goalOpenList[idx] ? <ExpandLess /> : */ <ExpandMore />}
             <ListItemSecondaryAction>
                <IconButton 
                 edge="end" 
@@ -130,7 +222,7 @@ let GoalListStudent = ({ goals, setGoals,
             </ListItemSecondaryAction>
          </ListItem>)
       subGoalCmp.push(
-         <Collapse in={goalOpenList[idx]} timeout="auto" unmountOnExit>
+         <Collapse in={true/* goalOpenList[idx] */} timeout="auto" unmountOnExit>
             <List>
                {subGoalCmps}
             </List>
@@ -142,18 +234,18 @@ let GoalListStudent = ({ goals, setGoals,
       return (
       <ListItem key={idx + " goal"} button>
          <ListItemText className={classes.goalWithSubsName}>
-            {goal.name}
+            {goal.title}
          </ListItemText>
          <ListItemText className={classes.goalWithSubsDue}>
-            {"due by: " + goal.due}
+            {"due by: " + goal.dueDate}
          </ListItemText>
          <ListItemIcon>
             <Checkbox
             edge="start"
             color="primary"
-            onChange={completeGoalCheckTeacher 
+            onChange={teacher 
                ? completeGoalCheckTeacher : completeGoalCheck}
-            checked={goal.complete}
+            checked={goal.completed}
             id={idx + (teacher ? " " + studentIdx : "")}
             />
          </ListItemIcon>
@@ -194,7 +286,7 @@ let GoalListStudent = ({ goals, setGoals,
             subGoalCmps.push(<Divider light />);
       });
       
-      let component = goal.subGoals ? 
+      let component = goal.subGoals.length ? 
          makeGoalWithSubs(goal, editGoal, idx, subGoalCmps) :
          makeGoalNoSubs(goal, editGoal, idx);
       goalComponents.push(component)

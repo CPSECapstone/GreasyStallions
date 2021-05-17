@@ -17,7 +17,7 @@ const useStyles = makeStyles({
 let GoalSubListStudent = ({subGoal, completeSubGoal,
  completeSubGoalTeacher, idx, subIdx, teacher, studentIdx}) => {
    const classes = useStyles();
-   console.log(completeSubGoalTeacher)
+
 
    return (
    <ListItem key={idx + " " + subIdx + " subGoal"} button>
