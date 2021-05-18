@@ -18,7 +18,8 @@ const makeApolloClient = (token) => {
   });
 
   // create an inmemory cache instance for caching graphql data
-  const cache = new InMemoryCache()
+  const cache = new InMemoryCache({
+  })
 
   // instantiate apollo client with apollo link instance and cache instance
   const client = new ApolloClient({

@@ -1,0 +1,17 @@
+.lgDiv {
+    background-color: #ffffff;
+    padding: 50px;
+}
+
+.dgDiv {
+    background-color:  #f2f2f2;
+    padding: 50px;
+}
+
+.componentHeader {
+    color: #87b5f4;
+}
+
+.closeButton {
+    position: 'absolute';
+}
