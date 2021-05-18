@@ -7,6 +7,8 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
+import StarIcon from '@material-ui/icons/Star';
+import StarBorderOutlinedIcon from '@material-ui/icons/StarBorderOutlined';
 import Collapse from '@material-ui/core/Collapse';
 import { ProgressBar, Colors } from 'react-native-paper';
 import ExpandLess from '@material-ui/icons/ExpandLess';
@@ -29,13 +31,16 @@ const useStyles = makeStyles({
    goalWithSubsProgressBarIcon: {
       flex: 'auto',
    },
+   endIcons: {
+      display: "flex"
+   },
    goalListRoot:{
       'background-color': 'white',
    }
  });
 
 
-let GoalWithSubGoals = ({goal, editGoal, idx, subGoalCmps}) => {
+let GoalWithSubGoals = ({goal, editGoal, idx, subGoalCmps, favGoal}) => {
    const classes = useStyles();
    const [goalOpen, setGoalOpen] = useState(false);
    let reducer = (acc, cv) => cv.completed ? acc + 1 : acc;
@@ -54,12 +59,30 @@ let GoalWithSubGoals = ({goal, editGoal, idx, subGoalCmps}) => {
          <ListItemText 
             primary={"due by: " + goal.dueDate}
             className={classes.goalWithSubsDue}/>
+         <ListItemText 
+            primary={goal.subGoals.length +  " subGoals"}
+            className={classes.goalWithSubsDue}/>
          <ListItemIcon className={classes.goalWithSubsProgressBar}>
             <Icon className={classes.goalWithSubsProgressBarIcon}>
                <ProgressBar progress={progress} color={Colors.red800} />
             </Icon>
+            
          </ListItemIcon>
-         {!goalOpen ? <ExpandLess /> : <ExpandMore />}
+         <ListItemIcon>
+            <Icon>
+            {!goalOpen ? <ExpandLess /> : <ExpandMore />}
+            </Icon>
+         </ListItemIcon>
+         <ListItemIcon>
+            <IconButton 
+             edge="end" 
+             aria-label="edit"
+             onClick={() => favGoal(idx)}>
+               {goal.favorited ?
+                <StarIcon /> :
+                <StarBorderOutlinedIcon/>}
+            </IconButton>
+         </ListItemIcon>
          <ListItemSecondaryAction>
             <IconButton 
                edge="end" 

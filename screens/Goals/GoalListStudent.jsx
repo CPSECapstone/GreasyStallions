@@ -8,6 +8,8 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import EditIcon from '@material-ui/icons/Edit';
+import StarIcon from '@material-ui/icons/Star';
+import StarBorderOutlinedIcon from '@material-ui/icons/StarBorderOutlined';
 import GoalSubListStudent from './GoalSubListStudent';
 import OverallGoalProgressBar from './GoalProgressBar'
 import { makeStyles } from '@material-ui/core/styles';
@@ -100,7 +102,6 @@ let GoalListStudent = ({ navigation, teacher,
          id: newGoals[goalIdx].id,
          title: newGoals[goalIdx].title,
          dueDate: newGoals[goalIdx].dueDate,
-         // completed: newGoals[goalIdx].completed,
          category: newGoals[goalIdx].category,
          favorited: newGoals[goalIdx].favorited,
          owner: newGoals[goalIdx].owner,
@@ -142,6 +143,30 @@ let GoalListStudent = ({ navigation, teacher,
       navigation.navigate('CreateGoalPage', params)
    }
 
+   let starGoal = (idx) => {
+      const {getAllGoals} = client.readQuery({query: LIST_ALL_GOALS});
+      let newGoals = [...getAllGoals];
+      let newGoal = {
+         id: newGoals[idx].id,
+         title: newGoals[idx].title,
+         dueDate: newGoals[idx].dueDate,
+         category: newGoals[idx].category,
+         favorited: !newGoals[idx].favorited,
+         owner: newGoals[idx].owner,
+         completed: newGoals[idx].completed,
+         assignee: newGoals[idx].assignee,
+         pointValue: newGoals[idx].pointValue,
+         subGoals: [],
+      };
+      newGoals[idx].subGoals.forEach( (subGoal, subIdx) => {
+         newGoal.subGoals[subIdx] = {
+            ...subGoal
+         }
+         delete newGoal.subGoals[subIdx].__typename
+      })
+      updateGoal({variables:{ goal: newGoal}});
+   }
+
    
    let makeGoalNoSubs = (goal, editGoal, idx) => {
       return (
@@ -161,6 +186,16 @@ let GoalListStudent = ({ navigation, teacher,
             checked={goal.completed}
             id={idx + (teacher ? " " + studentIdx : "")}
             />
+         </ListItemIcon>
+         <ListItemIcon>
+            <IconButton 
+             edge="end" 
+             aria-label="edit"
+             onClick={() => starGoal(idx)}>
+               {goal.favorited ?
+                  <StarIcon /> :
+                  <StarBorderOutlinedIcon/>}
+            </IconButton>
          </ListItemIcon>
          <ListItemSecondaryAction>
                <IconButton 
@@ -204,7 +239,8 @@ let GoalListStudent = ({ navigation, teacher,
           goal={goal}
           editGoal={editGoal}
           idx={idx}
-          subGoalCmps={subGoalCmps}/> :
+          subGoalCmps={subGoalCmps}
+          favGoal={starGoal}/> :
          makeGoalNoSubs(goal, editGoal, idx);
       
       goalComponents.push(component)
