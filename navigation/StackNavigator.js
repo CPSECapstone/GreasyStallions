@@ -20,7 +20,7 @@ const MainStackNavigator = (props, signOut) => {
      screenOptions={{
       //headerTitle: "Hello " + JSON.stringify(user.attributes.name),
       //headerTitle: props => <LogoTitle {...props} />,
-      headerRight: () => (
+      headerLeft: () => (
         <View style={{paddingRight:20}}>
         <Icon 
         name='three-bars' 

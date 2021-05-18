@@ -25,6 +25,7 @@
     "bootstrap": "^4.6.0",
     "bowser": "^2.11.0",
     "browserslist": "^4.16.4",
+    "build": "^0.1.4",
     "check-more-types": "^2.24.0",
     "cypress-localstorage-commands": "^1.4.3",
     "denodeify": "^1.2.1",

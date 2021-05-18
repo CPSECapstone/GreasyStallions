@@ -104,6 +104,7 @@ let TaskPage = ({ navigation }) => {
                     },
                     {
                         title: "ski trick",
+                        testID:'YouTube',
                         videoUrl: "https://www.youtube.com/embed/TUZ_T_Rfios"
                     }
                 ]
