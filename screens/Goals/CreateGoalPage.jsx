@@ -10,6 +10,9 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Button from '@material-ui/core/Button';
+import { useQuery, gql, useApolloClient, useMutation } from '@apollo/client';
+import { LIST_ALL_GOALS, UPDATE_GOAL} from './GoalQueries'
+
 
 import './CreateGoalPage.css';
 
@@ -26,16 +29,25 @@ const useStyles = makeStyles((theme) => ({
  }));
 
 let CreateGoalPage = ({route, navigation}) => {
-   const { name, due, subGoalsIn, idx, setGoals, goals, teacher } = route.params
-   const [goalName, setGoalName] = useState(name ? name : "")
-   const [dueDate, setDueDate] = useState(due ? due : new Date('2014-08-18T21:11:54'))
-   const [subGoals, setSubGoals] = useState(subGoalsIn ? subGoalsIn : [])
+   const client = useApolloClient();
+   const { idx, teacher } = route.params
+   const {getAllGoals} = client.readQuery({query: LIST_ALL_GOALS});
+   const [updateGoal] = useMutation(UPDATE_GOAL, {refetchQueries: [{query: LIST_ALL_GOALS}]});
+   const currGoal = getAllGoals[idx]
+   const [goalName, setGoalName] = useState(currGoal.title ? currGoal.title : "")
+   const [dueDate, setDueDate] = useState(currGoal.dueDate ? currGoal.dueDate : new Date('2014-08-18T21:11:54'))
+   const [subGoals, setSubGoals] = useState(currGoal.subGoals ? currGoal.subGoals : [])
+   const [category, setCategory] = useState(currGoal.category ? currGoal.category : "")
    const classes = useStyles();
 
    let subGoalCmps = []
 
    let addSubGoal = () => {
-      setSubGoals(subGoals.concat([{title:""}]))
+      setSubGoals(subGoals.concat([{
+         title:"",
+         dueDate: new Date(),
+         completed: false
+      }]))
    }
 
    const handleChange = (ev) => {
@@ -48,40 +60,49 @@ let CreateGoalPage = ({route, navigation}) => {
       setGoalName(ev.target.value);
    }
 
+   const handleGoalCategoryChange = (ev) =>{
+      setCategory(ev.target.value);
+   }
+
    const handleDateChange = (ev) => {
       setDueDate(ev.target.value);
    };
+
+   const handleSubGoalDateChange = (ev) => {
+      let newSubGoals = [...subGoals];
+      newSubGoals[ev.target.id].dueDate = ev.target.value
+      setSubGoals(newSubGoals);
+   };
+
    let userType = teacher ? "teacher" : "student";
 
    let submit = () => {
       let finalGoal = {
-         name: goalName,
-         due: dueDate,
+         title: goalName,
+         dueDate: dueDate,
+         category: category,
+         favorited: currGoal.favorited,
+         owner: currGoal.owner || "",
+         completed: currGoal.completed || false,
+         assignee: currGoal.assignee || "",
+         pointValue: currGoal.pointValue || 0,
+         subGoals: []
       };
-      let tempGoal = [...goals];
+      subGoals.forEach( (subGoal, idx) => {
+         finalGoal.subGoals[idx] = {
+            ...subGoal
+         }
+         delete finalGoal.subGoals[idx].__typename
+      })
+      if(idx)
+         finalGoal.id = currGoal.id
 
-      if (subGoals.length) {
-         finalGoal.subCompleted = goals[idx] && 
-          !isNaN(goals[idx].subCompleted) ? 
-          goals[idx].subCompleted : 0;
-         finalGoal.subGoals = subGoals
-         
-      } else {
-         finalGoal.complete = goals[idx] &&
-          goals[idx].complete ? 
-          goals[idx].complete : false;
-      }
-      if (!isNaN(idx)) {
-         tempGoal[idx] = finalGoal;
-      } else {
-         tempGoal = tempGoal.concat([finalGoal]);
-      }
-      setGoals(tempGoal);
+      updateGoal({variables:{ goal: finalGoal}});
       navigation.navigate('GoalPage', {user: userType});
    }
 
    let goalValid = () => {
-      return goalName.length && dueDate.length;
+      return goalName.length && dueDate.length && category.length;
    };
 
    let deleteSubGoal = (ev) => {
@@ -104,6 +125,17 @@ let CreateGoalPage = ({route, navigation}) => {
                 onChange={handleChange}
                 type="text"
                 label="Subgoal Title"/>
+               <TextField
+                  id={idx}
+                  label="SubGoal Due Date"
+                  type="date"
+                  defaultValue="3000-9-21"
+                  value={goal.dueDate}
+                  onChange={handleSubGoalDateChange}
+                  className={classes.textField}
+                  InputLabelProps={{
+                     shrink: true,
+               }}/> 
             </ListItemIcon>
             <ListItemSecondaryAction>
                <IconButton 
@@ -131,17 +163,22 @@ let CreateGoalPage = ({route, navigation}) => {
              onChange={handleGoalTitleChange}
              value={goalName}/>
             <TextField
-            id="date"
-            label="Due Date"
-            type="date"
-            defaultValue="3000-9-21"
-            value={dueDate}
-            onChange={handleDateChange}
-            className={classes.textField}
-            InputLabelProps={{
+             id="date"
+             label="Due Date"
+             type="date"
+             defaultValue="3000-9-21"
+             value={dueDate}
+             onChange={handleDateChange}
+             className={classes.textField}
+             InputLabelProps={{
                shrink: true,
-            }}
-            />
+             }}/>
+            <TextField required 
+             id="standard-required" 
+             label="Goal Category" 
+             defaultValue="Category" 
+             onChange={handleGoalTitleChange}
+             value={category}/>
          </form>
          <List>
             {subGoalCmps}
