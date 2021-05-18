@@ -6,6 +6,7 @@ import StudentGridComponent from "./StudentGrid.jsx";
 import GoalListTeacher from '../Goals/GoalListTeacher';
 import {Typography, Grid, Box, Paper, List, ListItem, ListItemText, Button} from '@material-ui/core';
 import randomColor from 'randomcolor';
+import CreateCourse from '../CreateModals/CreateCourse';
 
 
 const LIST_COURSES = gql
@@ -121,6 +122,7 @@ export default function InstructorHome({ navigation, signOut }) {
 
   return (
     <View style={styles.section}>
+      <CreateCourse/>
       <CrsFliptedComponent navigation={navigation}/>
       <StudentGridComponent
       students={students}
