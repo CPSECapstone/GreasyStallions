@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { ApolloProvider, useQuery, gql} from '@apollo/client';
 import {Typography, Grid, Box, Paper, List, ListItem, ListItemText,  Button} from '@material-ui/core';
 import randomColor from 'randomcolor';
-
+import CreateMission from './CreateModals/CreateMission';
 
 let ClassPage = function({ route, navigation }){
    const { className, teacher } = route.params;
@@ -107,7 +107,8 @@ let ClassPage = function({ route, navigation }){
         </Typography>
 		<Typography style={{marginLeft:24, marginTop:36}} variant="h4">
           <Box fontWeight="fontWeightBold" m={1}>
-            Missions
+		    <CreateMission course = {className}/>
+        	  Missions
           </Box>
         </Typography>
 		 <Grid style={{padding:16, marginTop: 32, marginLeft: 32}} container direction="row" justify="left" alignItems="center">

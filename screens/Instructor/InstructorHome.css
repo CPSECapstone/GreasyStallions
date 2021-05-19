@@ -16,7 +16,7 @@
     display: block;
     top: 15%;
     text-align: center;
-    padding-top: 10%;
+    padding-top: 15%;
   }
 
   .bubblegridfilter {
@@ -29,4 +29,13 @@
     border-radius: 50%;
     position: absolute;
     right: 1%;
+  }
+
+  .grid-container {
+    margin-left: 10%;
+  }
+
+  .section {
+    padding:16;
+    justify-content: 'top';
   }

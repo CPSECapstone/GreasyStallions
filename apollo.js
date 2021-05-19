@@ -1,4 +1,5 @@
-import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client';import { setContext } from '@apollo/link-context';
+import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client';
+import { setContext } from '@apollo/link-context';
 import Auth from 'aws-amplify';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
