@@ -98,33 +98,8 @@ let GoalListStudent = ({ navigation, teacher,
       let subGoals = newGoals[goalIdx].subGoals
       let prevGoalCompleteVal = getAllGoals[goalIdx].completed
       let prevSubCompleteVal = subGoals[subGoalIdx].completed
-      let newGoal = {
-         id: newGoals[goalIdx].id,
-         title: newGoals[goalIdx].title,
-         dueDate: newGoals[goalIdx].dueDate,
-         category: newGoals[goalIdx].category,
-         favorited: newGoals[goalIdx].favorited,
-         owner: newGoals[goalIdx].owner,
-         assignee: newGoals[goalIdx].assignee,
-         pointValue: newGoals[goalIdx].pointValue,
-         subGoals: [],
-      };
-      let newSubGoalVals = getAllGoals[goalIdx].subGoals[subGoalIdx];
-      newGoal.subGoals[subGoalIdx] = {
-         title: newSubGoalVals.title,
-         dueDate: newSubGoalVals.dueDate,
-         completedDate: newSubGoalVals.completedDate,
-         completed: !prevSubCompleteVal
-      }
-      delete newGoal.subGoals[subGoalIdx].__typename
-      newGoals[goalIdx].subGoals.forEach( (subGoal, idx) => {
-         if(idx != subGoalIdx) {
-            newGoal.subGoals[idx] = {
-               ...subGoal
-            }
-            delete newGoal.subGoals[idx].__typename
-         }
-      })
+      let newGoal = buildNewGoal(
+         newGoals, goalIdx, getAllGoals, subGoalIdx, prevSubCompleteVal);
       newGoal.completed = (subCompleted === subGoals.length ||
        subCompleted === subGoals.length - 1 && prevSubCompleteVal) ?
        !prevGoalCompleteVal : prevGoalCompleteVal
@@ -262,3 +237,35 @@ let GoalListStudent = ({ navigation, teacher,
 
 
 export default GoalListStudent;
+
+export default function buildNewGoal(
+   newGoals, goalIdx, getAllGoals, subGoalIdx, prevSubCompleteVal) {
+   let newGoal = {
+      id: newGoals[goalIdx].id,
+      title: newGoals[goalIdx].title,
+      dueDate: newGoals[goalIdx].dueDate,
+      category: newGoals[goalIdx].category,
+      favorited: newGoals[goalIdx].favorited,
+      owner: newGoals[goalIdx].owner,
+      assignee: newGoals[goalIdx].assignee,
+      pointValue: newGoals[goalIdx].pointValue,
+      subGoals: [],
+   };
+   let newSubGoalVals = getAllGoals[goalIdx].subGoals[subGoalIdx];
+   newGoal.subGoals[subGoalIdx] = {
+      title: newSubGoalVals.title,
+      dueDate: newSubGoalVals.dueDate,
+      completedDate: newSubGoalVals.completedDate,
+      completed: !prevSubCompleteVal
+   };
+   delete newGoal.subGoals[subGoalIdx].__typename;
+   newGoals[goalIdx].subGoals.forEach((subGoal, idx) => {
+      if (idx != subGoalIdx) {
+         newGoal.subGoals[idx] = {
+            ...subGoal
+         };
+         delete newGoal.subGoals[idx].__typename;
+      }
+   });
+   return newGoal;
+}
