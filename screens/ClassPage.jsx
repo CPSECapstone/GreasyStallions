@@ -31,9 +31,9 @@ let ClassPage = function({ route, navigation }){
 		const TASKS = gql 
 		`
 		query{
-		 tasksByCourse(course: "${className}"){
-		   id name missionId
-		 }
+			tasksByCourse(course: "${className}"){
+				id name missionId
+			}
 	   }
 		`;
 		//get and style Tasks

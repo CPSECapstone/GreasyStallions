@@ -10,7 +10,7 @@ import RubricModal from './RubricModal';
 import TextPageTask from './TextPageTask';
 import { ApolloProvider, useQuery, gql} from '@apollo/client';
 import ImageTask from './ImageTask';
-import './TaskPage.css';
+// import './TaskPage.css';
 import ArrowBackRoundedIcon from '@material-ui/icons/ArrowBackRounded';
 import { separateOperations } from 'graphql';
 

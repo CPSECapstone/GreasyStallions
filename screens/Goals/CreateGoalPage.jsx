@@ -14,7 +14,7 @@ import { useQuery, gql, useApolloClient, useMutation } from '@apollo/client';
 import { LIST_ALL_GOALS, UPDATE_GOAL} from './GoalQueries'
 
 
-import './CreateGoalPage.css';
+// import './CreateGoalPage.css';
 
 const useStyles = makeStyles((theme) => ({
    container: {

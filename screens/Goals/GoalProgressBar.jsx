@@ -7,7 +7,7 @@ import Icon from '@material-ui/core/Icon';
 import { LIST_ALL_GOALS } from './GoalQueries'
 import { useApolloClient } from '@apollo/client';
 import { makeStyles } from '@material-ui/core/styles';
-import  './GoalListStudent.css'
+// import  './GoalListStudent.css'
 
 const useStyles = makeStyles({
    goalProgressLabel: {

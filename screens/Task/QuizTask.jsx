@@ -2,7 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 import { FormControl, FormControlLabel, FormLabel, RadioGroup, Radio, Typography, Paper, TextField } from '@material-ui/core';
 import { Pagination } from '@material-ui/lab';
-import './TaskPage.css';
+// import './TaskPage.css';
 
 
 /*

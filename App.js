@@ -4,16 +4,68 @@ import { ApolloProvider, useQuery, gql} from '@apollo/client';
 import { Picker } from '@react-native-picker/picker';
 import { StatusBar } from 'expo-status-bar';
 import AppNavigation from './navigation';
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 import Amplify, { Auth, Hub } from 'aws-amplify';
 import makeApolloClient from './apollo';
 import {Dialog, DialogContent, DialogTitle, Grid, Container, Button} from '@material-ui/core';
 import HelpIcon from '@material-ui/icons/HelpOutline';
-import fliptedlogo from './assets/fliptedlogo.PNG';
-import fullfliptedlogo from './assets/fullfliptedlogo.PNG';
+// import fliptedlogo from './assets/fliptedlogo.PNG';
+// import fullfliptedlogo from './assets/fullfliptedlogo.PNG';
 import config from './amplify/config';
+import { registerRootComponent } from 'expo';
+
 
 Amplify.configure(config);
+const styles = StyleSheet.create({
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'top',
+    marginTop: 50
+  },
+  container2: {
+    width: 300,
+    flex: 1,
+    justifyContent: 'top',
+    marginTop: 75,
+    alignItems: 'center'
+  },
+  helpButton: {
+    flex: 1,
+    justifyContent: 'top',
+    alignSelf: 'middle',
+    marginTop: 16
+  },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    paddingHorizontal: 0,
+  },
+  label: {
+    marginBottom: 2,
+    fontSize: 12,
+    fontWeight: 'bold',
+    textTransform: 'uppercase',
+  },
+  section: {
+    marginVertical: 12,
+  },
+  starshipName: {
+    fontSize: 32,
+    fontWeight: 'bold',
+  },
+  starshipModel: {
+    fontStyle: 'italic',
+  },
+  item: {
+    padding: 20,
+    marginVertical: 8,
+    marginHorizontal: 16,
+  },
+  title: {
+    fontSize: 32,
+  },
+});
 
 export default function App() {
 
@@ -75,8 +127,8 @@ export default function App() {
           direction="column"
           justify="center"
           alignItems="center">          
-          <Image style = {{width:100, height:100, marginBottom: 32, marginTop: -100}} source={fliptedlogo}/>
-          <Image style = {{width:400, height:120}} source={fullfliptedlogo}/>
+          {/* <Image style = {{width:100, height:100, marginBottom: 32, marginTop: -100}} source={fliptedlogo}/>
+          <Image style = {{width:400, height:120}} source={fullfliptedlogo}/> */}
           <Button style={{width: 250, marginTop: 32, backgroundColor: '#3467EC', color:"white"}} 
             onClick = { () => Auth.federatedSignIn()}>
             Get Started
@@ -100,54 +152,5 @@ export default function App() {
     else return(null);
     
 }
+registerRootComponent(App);
 
-const styles = StyleSheet.create({
-  loadingContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'top',
-    marginTop: 50
-  },
-  container2: {
-    width: 300,
-    flex: 1,
-    justifyContent: 'top',
-    marginTop: 75,
-    alignItems: 'center'
-  },
-  helpButton: {
-    flex: 1,
-    justifyContent: 'top',
-    alignSelf: 'middle',
-    marginTop: 16
-  },
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    paddingHorizontal: 0,
-  },
-  label: {
-    marginBottom: 2,
-    fontSize: 12,
-    fontWeight: 'bold',
-    textTransform: 'uppercase',
-  },
-  section: {
-    marginVertical: 12,
-  },
-  starshipName: {
-    fontSize: 32,
-    fontWeight: 'bold',
-  },
-  starshipModel: {
-    fontStyle: 'italic',
-  },
-  item: {
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
-  },
-  title: {
-    fontSize: 32,
-  },
-});

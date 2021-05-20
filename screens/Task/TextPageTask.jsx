@@ -1,6 +1,6 @@
 import React from 'react';
 import { Typography } from '@material-ui/core';
-import './TaskPage.css';
+// import './TaskPage.css';
 
 /**
  * Task page so simply display plain text

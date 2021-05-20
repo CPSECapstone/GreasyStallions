@@ -15,7 +15,7 @@ import OverallGoalProgressBar from './GoalProgressBar'
 import { makeStyles } from '@material-ui/core/styles';
 import { useQuery, gql, useApolloClient, useMutation } from '@apollo/client';
 import {} from '@apollo/client/react/hooks'
-import  './GoalListStudent.css'
+// import  './GoalListStudent.css'
 import { LIST_ALL_GOALS, UPDATE_GOAL} from './GoalQueries'
 import GoalWithSubGoals from './GoalWithSubGoals'
 import { Typography } from '@material-ui/core';
