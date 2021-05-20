@@ -26,6 +26,7 @@ import {
     DrawerItem,
   } from '@react-navigation/drawer';
 import { ApolloProvider, useQuery, gql} from '@apollo/client';
+import { makeStyles } from '@material-ui/core/styles';
 
 const Drawer = createDrawerNavigator();
 const BASE_PATH = 'https://raw.githubusercontent.com/AboutReact/sampleresource/master/';
@@ -50,9 +51,11 @@ const LIST_COURSES = gql
     }
   }
 `;
-const handleClick = () => {
-  setOpen(!open);
-};
+
+// const [open, setOpen] = React.useState(true);
+// const handleClick = () => {
+//   setOpen(!open);
+// };
 
 const CrsFliptedComponent = ({navigation}) => {
   const {data, error, loading} = useQuery(LIST_COURSES);
@@ -69,7 +72,7 @@ const CrsFliptedComponent = ({navigation}) => {
         </Paper>
       courses.push(toPush)
     });
-  }}
+  }
 /*
   return (
     <View style = {styles.section}>
@@ -82,7 +85,7 @@ const CrsFliptedComponent = ({navigation}) => {
           {courses}
         </Grid>
     </View>
-  );
+  );*/
 
   return (
     <List
@@ -96,18 +99,6 @@ const CrsFliptedComponent = ({navigation}) => {
     >
       <ListItem button>
         <ListItemIcon>
-          <SendIcon />
-        </ListItemIcon>
-        <ListItemText primary="Sent mail" />
-      </ListItem>
-      <ListItem button>
-        <ListItemIcon>
-          <DraftsIcon />
-        </ListItemIcon>
-        <ListItemText primary="Drafts" />
-      </ListItem>
-      <ListItem button onClick={handleClick}>
-        <ListItemIcon>
           <InboxIcon />
         </ListItemIcon>
         <ListItemText primary="Inbox" />
@@ -115,17 +106,11 @@ const CrsFliptedComponent = ({navigation}) => {
       </ListItem>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-          <ListItem button>
-            <ListItemIcon>
-              <StarBorder />
-            </ListItemIcon>
-            <ListItemText primary="Starred" />
-          </ListItem>
         </List>
       </Collapse>
     </List>
   );
-}*/
+}
 
 const UserInfo = () => {
   //not really accurate because this page is using the old Apollo Client/queries
@@ -171,7 +156,7 @@ function Feed({ navigation }) {
         />
 
       <UserInfo></UserInfo>
-      {/* <CrsFliptedComponent navigation={navigation}/> */}
+      <CrsFliptedComponent navigation={navigation}/>
         <DrawerItemList {...props} />
         {/* <View style={{paddingRight:20}}>
         <Icon 
