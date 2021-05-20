@@ -32,12 +32,17 @@ let MissionsView = function({ className, navigation }) {;
         return <View/>
     }
 
+    let checkMission = (name) => {
+        var assert = require('assert');
+        assert.strictEqual(name, "Chemical Bonds")
+    }
+
     let missions = [];
     data.courseContent.missions.forEach( mission => {
         missions.push(
             <Paper style={{fontSize:18, fontWeight:'bold', justifyContent:'center',
              display: 'flex', alignItems: 'center', width: 200, height: 150}} elevation={3}
-             onClick={(className) => showTasks()}>
+             onClick={checkMission(mission.name)}>
                 {mission.name}
             </Paper>
         )
