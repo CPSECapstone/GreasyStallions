@@ -11,6 +11,8 @@ import Profile from '../screens/Drawer/Profile';
 import Icon from 'react-native-vector-icons/Octicons';
 import MissionPage from '../screens/Mission/MissionPage';
 import { View, Text, Button, Image } from 'react-native';
+import MasteryOverviewPage from '../screens/Instructor/MasteryOverviewPage';
+import InstructorClassPage from '../screens/Instructor/InstructorClassPage';
 
 const AppStack = createStackNavigator();
 
@@ -51,6 +53,8 @@ const MainStackNavigator = (props, signOut) => {
       <AppStack.Screen name="Profile" component={Profile}/>
       <AppStack.Screen name="GoalPage" component={GoalPage}/>
       <AppStack.Screen name="MissionPage" component={MissionPage}/>
+      <AppStack.Screen name="InstructorClassPage" component={InstructorClassPage}/>
+      <AppStack.Screen name="MasteryOverviewPage" component={MasteryOverviewPage}/>
     </AppStack.Navigator>
     )
 }
