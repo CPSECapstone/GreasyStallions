@@ -52,10 +52,13 @@ export default function CreateCourse()  {
     function submit(){   
 		let email = '';
 		email = data.getUser.email;
+		//leaving instructor as Mr Butcher for now so it shows in the live demo
+		// later we will change this to current user id or email** would be a good 
+		// idea because they are the unique key
 		addCourse({ 
 			variables:{ 
 				"course": name, 
-				"instructor": email, 
+				"instructor": "Mr. Butcher", 
 				"description": desc 
 			}   
 		});

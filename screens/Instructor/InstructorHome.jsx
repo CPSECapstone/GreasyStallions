@@ -5,6 +5,8 @@ import {Typography, Grid, Box, Paper} from '@material-ui/core';
 import randomColor from 'randomcolor';
 import CreateCourse from '../CreateModals/CreateCourse';
 
+//change the instructor to the instructor whose classes we want to show
+// right now it is Mr Butcher because his classes are set in DB
 const LIST_COURSES = gql
 `
   query GetCourseInfos {
@@ -82,7 +84,7 @@ const CrsFliptedComponent = ({navigation}) => {
             Courses
           </Box>
         </Typography>
-        <Grid container direction="row" justify="space-around" alignItems="center">
+        <Grid style={{padding:16, marginTop: 32, marginLeft: 32}} container direction="row" justify="left" alignItems="center">
           {courses}
         </Grid>
     </View>
