@@ -5,7 +5,20 @@ import Amplify, { Auth, Hub } from 'aws-amplify';
 import { View, Text, Button, StyleSheet, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/Octicons';
 import Home from '../screens/Student/StudentHome';
-import {Typography, Grid, Box} from '@material-ui/core';
+import {Typography, Grid, Box, Paper} from '@material-ui/core';
+import ListSubheader from '@material-ui/core/ListSubheader';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
+import DraftsIcon from '@material-ui/icons/Drafts';
+import SendIcon from '@material-ui/icons/Send';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
+import Collapse from '@material-ui/core/Collapse';
+import StarBorder from '@material-ui/icons/StarBorder';
+
 import {
     createDrawerNavigator,
     DrawerContentScrollView,
@@ -25,6 +38,94 @@ const USER_ROLE = gql
 	email
   }}
 `;
+
+const LIST_COURSES = gql
+`
+  query GetCourseInfos {
+    courseInfos(instructor: "Mr. Butcher") {
+      courseId
+      course
+      description
+      instructor
+    }
+  }
+`;
+const handleClick = () => {
+  setOpen(!open);
+};
+
+const CrsFliptedComponent = ({navigation}) => {
+  const {data, error, loading} = useQuery(LIST_COURSES);
+  
+  if (error) { console.log('Error fetching courses', error); }
+
+  let courses = [];
+
+  if(data){
+    data.courseInfos.forEach( crs => {
+      let toPush = 
+      <Paper onClick={() => {navigation.navigate('ClassPage', {className: crs.course})}} style={{marginTop: 32,fontSize:18, fontWeight:'bold', justifyContent:'center', display: 'flex', alignItems: 'center', width: 200, height: 150}} elevation={3}>
+            {crs.course}
+        </Paper>
+      courses.push(toPush)
+    });
+  }}
+/*
+  return (
+    <View style = {styles.section}>
+      <Typography variant="h5">
+          <Box fontWeight="fontWeightBold" m={1}>
+            Courses
+          </Box>
+        </Typography>
+        <Grid container direction="row" justify="space-around" alignItems="center">
+          {courses}
+        </Grid>
+    </View>
+  );
+
+  return (
+    <List
+      component="nav"
+      aria-labelledby="nested-list-subheader"
+      subheader={
+        <ListSubheader component="div" id="nested-list-subheader">
+          Nested List Items
+        </ListSubheader>
+      }
+    >
+      <ListItem button>
+        <ListItemIcon>
+          <SendIcon />
+        </ListItemIcon>
+        <ListItemText primary="Sent mail" />
+      </ListItem>
+      <ListItem button>
+        <ListItemIcon>
+          <DraftsIcon />
+        </ListItemIcon>
+        <ListItemText primary="Drafts" />
+      </ListItem>
+      <ListItem button onClick={handleClick}>
+        <ListItemIcon>
+          <InboxIcon />
+        </ListItemIcon>
+        <ListItemText primary="Inbox" />
+        {open ? <ExpandLess /> : <ExpandMore />}
+      </ListItem>
+      <Collapse in={open} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          <ListItem button>
+            <ListItemIcon>
+              <StarBorder />
+            </ListItemIcon>
+            <ListItemText primary="Starred" />
+          </ListItem>
+        </List>
+      </Collapse>
+    </List>
+  );
+}*/
 
 const UserInfo = () => {
   //not really accurate because this page is using the old Apollo Client/queries
@@ -49,6 +150,7 @@ const UserInfo = () => {
       </View>
     );
   }
+
 function Feed({ navigation }) {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -59,15 +161,17 @@ function Feed({ navigation }) {
     );
   }
   
-  function CustomDrawerContent(props, signOut) {
+
+  function CustomDrawerContent(props, navigation, signOut) {
     return (
       <DrawerContentScrollView {...props}>
         <Image
         source={{ uri: BASE_PATH + proileImage }}
         style={styles.sideMenuProfileIcon}
         />
-        
+
       <UserInfo></UserInfo>
+      {/* <CrsFliptedComponent navigation={navigation}/> */}
         <DrawerItemList {...props} />
         {/* <View style={{paddingRight:20}}>
         <Icon 
