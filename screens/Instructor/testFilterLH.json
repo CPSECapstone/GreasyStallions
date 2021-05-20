@@ -1,0 +1,1991 @@
+{"expected": [
+  {
+    "__typename": "UserProgress",
+    "userName": "Robb Stark",
+    "progress": [
+      {
+        "__typename": "Progress",
+        "taskId": "0871dc9d56f",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "0970586df34",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "09b24574eeb",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "0e8a6bed891",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "0efdd418812",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "124531c8c32",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "1807e7b133c",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "1ce8483fac4",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "1f359794c00",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "206d5dc0ef6",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "27fd92ba2ab",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "29bb137976a",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "34451eec603",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "3a8b818b63d",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "3be0fdc1ed5",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "3d00a9e1304",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "44ec1ed2a27",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "4b0256f9edb",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "4b293aa8ad4",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "4e1399fc6d0",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "54346bbc430",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "559771cb2a7",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "5cf57356c1b",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "5e10b9a69a5",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "5e33abb5906",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "709fe8ad6a9",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "7be5ab2f029",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "800244454f0",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "80707254158",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "8874f49061c",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "926081f012f",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "92fbfcafa24",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "97299349caf",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "992ae53bf47",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "9c2851a4946",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "aa18f532db2",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "ae0c9fb7457",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "bb186b35f68",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "bc4fc1cfa78",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "c414f9dc83e",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "c8670f839c7",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "cc53680bbd6",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "cd5b28c3537",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "cda670613ac",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "d652afb487c",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "d96fba6aacc",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "e1033508b2f",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "e8e04f7f828",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "ecb663085b5",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "f210ee6c504",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "f2717f2083a",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "f6b06f0d70f",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "f7a68497e81",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "f7cde719585",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "fb86f650341",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "fd550662e13",
+        "status": true
+      }
+    ]
+  },
+  {
+    "__typename": "UserProgress",
+    "userName": "Arya Stark",
+    "progress": [
+      {
+        "__typename": "Progress",
+        "taskId": "0871dc9d56f",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "0970586df34",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "09b24574eeb",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "0e8a6bed891",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "0efdd418812",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "124531c8c32",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "1807e7b133c",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "1ce8483fac4",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "1f359794c00",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "206d5dc0ef6",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "27fd92ba2ab",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "29bb137976a",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "34451eec603",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "3a8b818b63d",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "3be0fdc1ed5",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "3d00a9e1304",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "44ec1ed2a27",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "4b0256f9edb",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "4b293aa8ad4",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "4e1399fc6d0",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "54346bbc430",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "559771cb2a7",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "5cf57356c1b",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "5e10b9a69a5",
+        "status": false
+      }
+    ]
+  },
+  {
+    "__typename": "UserProgress",
+    "userName": "Jaime Lannister",
+    "progress": [
+      {
+        "__typename": "Progress",
+        "taskId": "0871dc9d56f",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "0970586df34",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "09b24574eeb",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "0e8a6bed891",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "0efdd418812",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "124531c8c32",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "1807e7b133c",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "1ce8483fac4",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "1f359794c00",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "206d5dc0ef6",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "27fd92ba2ab",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "29bb137976a",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "34451eec603",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "3a8b818b63d",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "3be0fdc1ed5",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "3d00a9e1304",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "44ec1ed2a27",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "4b0256f9edb",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "4b293aa8ad4",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "4e1399fc6d0",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "54346bbc430",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "559771cb2a7",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "5cf57356c1b",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "5e10b9a69a5",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "5e33abb5906",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "709fe8ad6a9",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "7be5ab2f029",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "800244454f0",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "80707254158",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "8874f49061c",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "926081f012f",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "92fbfcafa24",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "97299349caf",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "992ae53bf47",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "9c2851a4946",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "aa18f532db2",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "ae0c9fb7457",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "bb186b35f68",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "bc4fc1cfa78",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "c414f9dc83e",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "c8670f839c7",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "cc53680bbd6",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "cd5b28c3537",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "cda670613ac",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "d652afb487c",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "d96fba6aacc",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "e1033508b2f",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "e8e04f7f828",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "ecb663085b5",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "f210ee6c504",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "f2717f2083a",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "f6b06f0d70f",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "f7a68497e81",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "f7cde719585",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "fb86f650341",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "fd550662e13",
+        "status": true
+      }
+    ]
+  },
+  {
+    "__typename": "UserProgress",
+    "userName": "Robert Baratheon",
+    "progress": [
+      {
+        "__typename": "Progress",
+        "taskId": "0871dc9d56f",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "0970586df34",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "09b24574eeb",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "0e8a6bed891",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "0efdd418812",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "124531c8c32",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "1807e7b133c",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "1ce8483fac4",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "1f359794c00",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "206d5dc0ef6",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "27fd92ba2ab",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "29bb137976a",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "34451eec603",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "3a8b818b63d",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "3be0fdc1ed5",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "3d00a9e1304",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "44ec1ed2a27",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "4b0256f9edb",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "4b293aa8ad4",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "4e1399fc6d0",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "54346bbc430",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "559771cb2a7",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "5cf57356c1b",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "5e10b9a69a5",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "5e33abb5906",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "709fe8ad6a9",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "7be5ab2f029",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "800244454f0",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "80707254158",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "8874f49061c",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "926081f012f",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "92fbfcafa24",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "97299349caf",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "992ae53bf47",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "9c2851a4946",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "aa18f532db2",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "ae0c9fb7457",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "bb186b35f68",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "bc4fc1cfa78",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "c414f9dc83e",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "c8670f839c7",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "cc53680bbd6",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "cd5b28c3537",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "cda670613ac",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "d652afb487c",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "d96fba6aacc",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "e1033508b2f",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "e8e04f7f828",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "ecb663085b5",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "f210ee6c504",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "f2717f2083a",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "f6b06f0d70f",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "f7a68497e81",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "f7cde719585",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "fb86f650341",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "fd550662e13",
+        "status": false
+      }
+    ]
+  },
+  {
+    "__typename": "UserProgress",
+    "userName": "Eddard 'Ned' Stark",
+    "progress": [
+      {
+        "__typename": "Progress",
+        "taskId": "0871dc9d56f",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "0970586df34",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "09b24574eeb",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "0e8a6bed891",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "0efdd418812",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "124531c8c32",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "1807e7b133c",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "1ce8483fac4",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "1f359794c00",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "206d5dc0ef6",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "27fd92ba2ab",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "29bb137976a",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "34451eec603",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "3a8b818b63d",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "3be0fdc1ed5",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "3d00a9e1304",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "44ec1ed2a27",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "4b0256f9edb",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "4b293aa8ad4",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "4e1399fc6d0",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "54346bbc430",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "559771cb2a7",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "5cf57356c1b",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "5e10b9a69a5",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "5e33abb5906",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "709fe8ad6a9",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "7be5ab2f029",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "800244454f0",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "80707254158",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "8874f49061c",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "926081f012f",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "92fbfcafa24",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "97299349caf",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "992ae53bf47",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "9c2851a4946",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "aa18f532db2",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "ae0c9fb7457",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "bb186b35f68",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "bc4fc1cfa78",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "c414f9dc83e",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "c8670f839c7",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "cc53680bbd6",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "cd5b28c3537",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "cda670613ac",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "d652afb487c",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "d96fba6aacc",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "e1033508b2f",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "e8e04f7f828",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "ecb663085b5",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "f210ee6c504",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "f2717f2083a",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "f6b06f0d70f",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "f7a68497e81",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "f7cde719585",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "fb86f650341",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "fd550662e13",
+        "status": false
+      }
+    ]
+  },
+  {
+    "__typename": "UserProgress",
+    "userName": "Catelyn Stark",
+    "progress": [
+      {
+        "__typename": "Progress",
+        "taskId": "0871dc9d56f",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "0970586df34",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "09b24574eeb",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "0e8a6bed891",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "0efdd418812",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "124531c8c32",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "1807e7b133c",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "1ce8483fac4",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "1f359794c00",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "206d5dc0ef6",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "27fd92ba2ab",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "29bb137976a",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "34451eec603",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "3a8b818b63d",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "3be0fdc1ed5",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "3d00a9e1304",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "44ec1ed2a27",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "4b0256f9edb",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "4b293aa8ad4",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "4e1399fc6d0",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "54346bbc430",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "559771cb2a7",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "5cf57356c1b",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "5e10b9a69a5",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "5e33abb5906",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "709fe8ad6a9",
+        "status": true
+      }
+    ]
+  },
+  {
+    "__typename": "UserProgress",
+    "userName": "Jon Snow",
+    "progress": [
+      {
+        "__typename": "Progress",
+        "taskId": "0871dc9d56f",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "0970586df34",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "09b24574eeb",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "0e8a6bed891",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "0efdd418812",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "124531c8c32",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "1807e7b133c",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "1ce8483fac4",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "1f359794c00",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "206d5dc0ef6",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "27fd92ba2ab",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "29bb137976a",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "34451eec603",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "3a8b818b63d",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "3be0fdc1ed5",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "3d00a9e1304",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "44ec1ed2a27",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "4b0256f9edb",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "4b293aa8ad4",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "4e1399fc6d0",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "54346bbc430",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "559771cb2a7",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "5cf57356c1b",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "5e10b9a69a5",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "5e33abb5906",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "709fe8ad6a9",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "7be5ab2f029",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "800244454f0",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "80707254158",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "8874f49061c",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "926081f012f",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "92fbfcafa24",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "97299349caf",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "992ae53bf47",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "9c2851a4946",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "aa18f532db2",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "ae0c9fb7457",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "bb186b35f68",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "bc4fc1cfa78",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "c414f9dc83e",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "c8670f839c7",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "cc53680bbd6",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "cd5b28c3537",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "cda670613ac",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "d652afb487c",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "d96fba6aacc",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "e1033508b2f",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "e8e04f7f828",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "ecb663085b5",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "f210ee6c504",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "f2717f2083a",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "f6b06f0d70f",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "f7a68497e81",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "f7cde719585",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "fb86f650341",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "fd550662e13",
+        "status": false
+      }
+    ]
+  },
+  {
+    "__typename": "UserProgress",
+    "userName": "Sansa Stark",
+    "progress": [
+      {
+        "__typename": "Progress",
+        "taskId": "0871dc9d56f",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "0970586df34",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "09b24574eeb",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "0e8a6bed891",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "0efdd418812",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "124531c8c32",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "1807e7b133c",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "1ce8483fac4",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "1f359794c00",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "206d5dc0ef6",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "27fd92ba2ab",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "29bb137976a",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "34451eec603",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "3a8b818b63d",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "3be0fdc1ed5",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "3d00a9e1304",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "44ec1ed2a27",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "4b0256f9edb",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "4b293aa8ad4",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "4e1399fc6d0",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "54346bbc430",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "559771cb2a7",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "5cf57356c1b",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "5e10b9a69a5",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "5e33abb5906",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "709fe8ad6a9",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "7be5ab2f029",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "800244454f0",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "80707254158",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "8874f49061c",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "926081f012f",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "92fbfcafa24",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "97299349caf",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "992ae53bf47",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "9c2851a4946",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "aa18f532db2",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "ae0c9fb7457",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "bb186b35f68",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "bc4fc1cfa78",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "c414f9dc83e",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "c8670f839c7",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "cc53680bbd6",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "cd5b28c3537",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "cda670613ac",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "d652afb487c",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "d96fba6aacc",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "e1033508b2f",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "e8e04f7f828",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "ecb663085b5",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "f210ee6c504",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "f2717f2083a",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "f6b06f0d70f",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "f7a68497e81",
+        "status": false
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "f7cde719585",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "fb86f650341",
+        "status": true
+      },
+      {
+        "__typename": "Progress",
+        "taskId": "fd550662e13",
+        "status": true
+      }
+    ]
+  },
+  {
+    "__typename": "UserProgress",
+    "userName": "Tywin Lannister",
+    "progress": [
+      {
+        "__typename": "Progress",
+        "taskId": "0871dc9d56f",
+        "status": true
+      }
+    ]
+  }
+]}

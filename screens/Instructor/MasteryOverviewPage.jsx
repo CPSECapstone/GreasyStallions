@@ -29,9 +29,9 @@ const styles = StyleSheet.create({
 
   export default function MasteryOverviewPage ({route, navigation}) {
 
-//   const [bubbleGridSelect, setSelect] = React.useState('');
   const {className} = route.params;
-  const [masteryProgress, setMasteryProgress] = useState({});
+  const [students, setStudents] = useState({});
+  const [masteryFilter, setMasteryFilter] = useState({});
 
   return (
     <View style = {styles.section}>
@@ -48,8 +48,10 @@ const styles = StyleSheet.create({
          Bubble View
       </Button>
       <MasteryStudentListComponent
-      masteryProgress = {masteryProgress}
-      setMasteryProgress = {setMasteryProgress}
+      students = {students}
+      setStudents = {setStudents}
+      filter = {masteryFilter}
+      setFilter = {setMasteryFilter}
       navigation = {navigation}/>
     </View>
   );

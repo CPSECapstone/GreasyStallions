@@ -1,0 +1,23 @@
+.titleText {
+    font-family: Poppins;
+    font-weight: 500;
+    font-size: 24px;
+}
+
+.trail {
+    margin-top: 1%;
+    margin-left: 1%;
+}
+
+.header {
+    margin-left: 2%;
+    margin-top: 1%;
+    margin-right: 2%;
+}
+
+.blueline {
+    margin-top: 0.25%;
+    margin-left: 2%;
+    margin-right: 2%;
+    border-top: 3px solid #4879D2;
+}

@@ -4,8 +4,12 @@ import { ApolloProvider, useQuery, gql} from '@apollo/client';
 import { Picker } from '@react-native-picker/picker';
 import { StatusBar } from 'expo-status-bar';
 import AppNavigation from './navigation';
+<<<<<<< HEAD
 /* BOOTSTRAP causes our auto-resizing and font problem */
 import 'bootstrap/dist/css/bootstrap.min.css';
+=======
+// import 'bootstrap/dist/css/bootstrap.min.css';
+>>>>>>> c8c2bdecb89f7ec462c37bf6825dd9748ef015e9
 import Amplify, { Auth, Hub } from 'aws-amplify';
 import makeApolloClient from './apollo';
 import {Dialog, DialogContent, DialogTitle, Grid, Container, Button} from '@material-ui/core';

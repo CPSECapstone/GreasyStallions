@@ -9,6 +9,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { useQuery, gql, useApolloClient} from '@apollo/client';
 import {} from '@apollo/client/react/hooks';
 import { Typography } from '@material-ui/core';
+import "./testFilterLH.json"
 
 const styles = StyleSheet.create({
     header: {
@@ -104,12 +105,23 @@ const styles = StyleSheet.create({
   bubbleFilterOptions.set(3, "Alphabetical")
   bubbleFilterOptions.set(4, "Online Status")
 
+  let checkFilterLHWorking = (newTemp) => {
+    var assert = require('assert')
+    let expectedSortedStudents = require('./testFilterLH.json')
+    assert.deepStrictEqual(newTemp, expectedSortedStudents.expected)
+  }
+
   let handleChange = (event) => {
     setFilter(event.target.value)
     let tempStudents = [...students];
     let newTemp;
     if(event.target.value === 1){
       newTemp = MissionProgressLHSort(tempStudents)
+      try{
+        checkFilterLHWorking(newTemp)
+      } catch(err){
+        console.error("FAIL: filter low to high not working")
+      }
     }
     else if(event.target.value === 2){
       newTemp = MissionProgressHLSort(tempStudents)

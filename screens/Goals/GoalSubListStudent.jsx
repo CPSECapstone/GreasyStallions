@@ -22,6 +22,10 @@ let GoalSubListStudent = ({subGoal, completeSubGoal,
    return (
    <ListItem key={idx + " " + subIdx + " subGoal"} button>
       <ListItemText >{subGoal.title}</ListItemText>
+      <ListItemText 
+       className={classes.subGoalComplete}> 
+         {"due by: "+ subGoal.dueDate}
+      </ListItemText>
       <ListItemText className={classes.subGoalComplete}>
          Complete
       </ListItemText>
@@ -31,7 +35,7 @@ let GoalSubListStudent = ({subGoal, completeSubGoal,
           color="primary"
           onChange={teacher ?
             completeSubGoalTeacher : completeSubGoal}
-          checked={subGoal.complete}
+          checked={subGoal.completed}
           id={idx + " " + subIdx + 
            (teacher ? " " + studentIdx : "")}
          />

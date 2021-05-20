@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { ApolloProvider, useQuery, gql} from '@apollo/client';
-import {Typography, Grid, Box, Paper, List, ListItem, ListItemText,  Button} from '@material-ui/core';
+import {Typography, ButtonGroup, Grid, Box, Paper, Link, List, ListItem, ListItemText,  Button, Breadcrumbs} from '@material-ui/core';
 import randomColor from 'randomcolor';
 import CreateMission from './CreateModals/CreateMission';
+import MissionsView from '../screens/Mission/MissionsView';
+import LearningTaskVisualization from '../screens/Student/LearningTargets/LearningTaskVisualization';
+import './ClassPage.css';
+import { useQuery, gql} from '@apollo/client';
+import {Typography, Grid, Box, Paper, List, ListItem, ListItemText,  Button} from '@material-ui/core';
+import randomColor from 'randomcolor';
 
 let ClassPage = function({ route, navigation }){
    const { className, teacher } = route.params;
+   const [curr, setCurr] = React.useState(0);
    const COURSE_CONTENT = gql 
    `
 	query {
@@ -25,41 +32,6 @@ let ClassPage = function({ route, navigation }){
 	}
    `;
 
-
-   	const getTasks = () => {
-		
-		const TASKS = gql 
-		`
-		query{
-		 tasksByCourse(course: "${className}"){
-		   id name missionId
-		 }
-	   }
-		`;
-		//get and style Tasks
-		const {data, error, loading} = useQuery(TASKS);
-		if (error) { console.log('Error fetching courses', error); }
-		let tasks = [];
-		if(data){
-			data.tasksByCourse.forEach( task => {
-			let toPush = 
-			<Paper style={{margin: "4px",fontSize:18, fontWeight:'bold', justifyContent:'center', 
-				backgroundColor: 'light-grey', 
-				display: 'flex', alignItems: 'center', width: 225, height: 75}}
-				elevation={3} onClick={() => navigation.navigate("TaskPage", {id: task.id})}>
-				{task.name}
-			</Paper>;
-			tasks.push(toPush);
-			});
-		}
-		tasks.push(<Paper style={{fontSize:18, fontWeight:'bold', justifyContent:'center', 
-						backgroundColor: 'light-grey', 
-						display: 'flex', alignItems: 'center', width: 200, height: 75}}
-						elevation={3} onClick={() => navigation.navigate("TaskPage", {id: "90e0c730e56"})}>
-						TESTING TASK
-					</Paper>);
-		return tasks;
-	}
 
 	//later: put missions and tasks into separate functions
 	//get and style Missions
@@ -84,6 +56,7 @@ let ClassPage = function({ route, navigation }){
 		instructor = data.courseContent.courseInfo.instructor;
 	}
 
+<<<<<<< HEAD
 	let tasks = [];
 	tasks = getTasks();
 
@@ -131,6 +104,52 @@ let ClassPage = function({ route, navigation }){
 		 direction="row" justify="left" alignItems="center">
           {tasks}
         </Grid>
+=======
+	let displayCurr = () => {
+		if (curr === 0) {
+			return <MissionsView className={className}/>
+		} else if (curr === 1) {
+			return <LearningTaskVisualization className={className}/>
+		}
+	}
+
+	return (
+    	<View>
+			<Breadcrumbs class="trail" aria-label="breadcrumb">
+				<Link color="textPrimary" onClick={() => navigation.navigate("StudentHome")}>
+					Course
+				</Link>
+				<Link color="textPrimary" onClick={() => navigation.navigate("StudentHome")}>
+					{className}
+				</Link>
+				<Link>
+					{(curr === 0) ? "Missions Progress Visualization" : "Learning Task Visualization"}
+				</Link>
+			</Breadcrumbs>
+			<Grid classes={{root: "header"}} container spacing={0}>
+				<Grid item xs={5}>
+					<Typography class="titleText" variant="h3" component="h3">
+						{(curr === 0) ? "Missions Progress" : "Mastery Progress"}
+					</Typography>
+				</Grid>
+				<Grid item xs={4}/>
+				<Grid item xs={2}>
+					<ButtonGroup color="primary" variant="contained">
+						<Button onClick={() => setCurr(0)}>
+							<Typography>Missions</Typography>
+						</Button>
+						<Button onClick={() => setCurr(1)}>
+							<Typography>Learning Targets</Typography>
+						</Button>
+					</ButtonGroup>
+				</Grid>
+			</Grid>
+			<div class="blueline"/>
+			{displayCurr()}
+		 	<Grid style={{padding:16, marginTop: 32, marginLeft: 32}} container direction="row" justify="left" alignItems="center">
+          		{missions}
+        	</Grid>
+>>>>>>> c8c2bdecb89f7ec462c37bf6825dd9748ef015e9
       </View>
    );
 }
