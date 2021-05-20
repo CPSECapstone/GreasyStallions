@@ -7,9 +7,6 @@ import CreateMission from './CreateModals/CreateMission';
 import MissionsView from '../screens/Mission/MissionsView';
 import LearningTaskVisualization from '../screens/Student/LearningTargets/LearningTaskVisualization';
 import './ClassPage.css';
-import { useQuery, gql} from '@apollo/client';
-import {Typography, Grid, Box, Paper, List, ListItem, ListItemText,  Button} from '@material-ui/core';
-import randomColor from 'randomcolor';
 
 let ClassPage = function({ route, navigation }){
    const { className, teacher } = route.params;
@@ -56,55 +53,6 @@ let ClassPage = function({ route, navigation }){
 		instructor = data.courseContent.courseInfo.instructor;
 	}
 
-<<<<<<< HEAD
-	let tasks = [];
-	tasks = getTasks();
-
-   return (
-      <View>
-         <Typography align='center' variant="h4">
-          <Box style={{marginLeft: 24, marginTop: 24}}fontWeight="fontWeightBold" m={1}>
-            {className}
-          </Box>
-        </Typography>
-		<Typography align='center' variant="h5">
-          <Box style={{marginLeft: 24, marginTop: 8}}fontWeight="fontWeightBold" m={1}>
-            {instructor}
-          </Box>
-        </Typography>
-		<Typography align='center' variant="h7">
-          <Box style={{marginLeft: 24, marginTop: 8}}fontWeight="fontWeightBold" m={1}>
-            {description}
-          </Box>
-        </Typography>
-		<Typography style={{marginLeft:24, marginTop:36}} variant="h4">
-          <Box fontWeight="fontWeightBold" m={1}>
-			<Button style={{ width: "150px" }} 
-			color="primary" variant="contained"
-			onClick={() => {navigation.navigate('GoalPage', {user: userType})}}>
-			Goal Page
-			</Button>
-          </Box>
-        </Typography>
-		<Typography style={{marginLeft:24, marginTop:18}} variant="h4">
-          <Box fontWeight="fontWeightBold" m={1}>
-			Missions
-		    <CreateMission course = {className}/>
-          </Box>
-        </Typography>
-		 <Grid style={{padding:16, marginTop: 32, marginLeft: 32}} container direction="row" justify="left" alignItems="center">
-          {missions}
-        </Grid>
-		<Typography style={{marginLeft:24, marginTop:36}} variant="h4">
-          <Box fontWeight="fontWeightBold" m={1}>
-            Tasks
-          </Box>
-        </Typography>
-		<Grid style={{padding:16, marginTop: 32, marginLeft: 32}}container 
-		 direction="row" justify="left" alignItems="center">
-          {tasks}
-        </Grid>
-=======
 	let displayCurr = () => {
 		if (curr === 0) {
 			return <MissionsView className={className}/>
@@ -149,7 +97,6 @@ let ClassPage = function({ route, navigation }){
 		 	<Grid style={{padding:16, marginTop: 32, marginLeft: 32}} container direction="row" justify="left" alignItems="center">
           		{missions}
         	</Grid>
->>>>>>> c8c2bdecb89f7ec462c37bf6825dd9748ef015e9
       </View>
    );
 }

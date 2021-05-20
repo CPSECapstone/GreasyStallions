@@ -2,9 +2,9 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import Home from '../screens/Student/StudentHome'; 
 import InstructorHome from '../screens/Instructor/InstructorHome';
-import InstructorClassPage from '../screens/Instructor/InstructorClassPage';
 import ClassPage from '../screens/ClassPage';
 import GoalPage from '../screens/Goals/GoalPage';
+import { StyleSheet } from 'react-native';
 import Welcome from '../screens/Welcome';
 import CreateGoalPage from '../screens/Goals/CreateGoalPage';
 import TaskPage from '../screens/Task/TaskPage';
@@ -14,6 +14,8 @@ import MissionPage from '../screens/Mission/MissionPage';
 import SettingsPage from '../screens/SettingsPage.jsx';
 import { View, Text, Button, Image } from 'react-native';
 import MasteryOverviewPage from '../screens/Instructor/MasteryOverviewPage';
+import InstructorClassPage from '../screens/Instructor/InstructorClassPage';
+import { HeaderBackButton } from '@react-navigation/stack';
 
 const AppStack = createStackNavigator();
 
@@ -24,18 +26,31 @@ const MainStackNavigator = (props, signOut) => {
       headerStyle: { backgroundColor: '#4274F3' }, 
       //headerTitle: "Hello " + JSON.stringify(user.attributes.name),
       //headerTitle: props => <LogoTitle {...props} />,
-      headerRight: () => (
-        <View style={{paddingRight:20}}>
-        	<Icon 
-        	  name='three-bars' 
-        	  size={30} 
-        	  color='#000' 
-        	  onPress={() => props.navigation.toggleDrawer()}
-        	/>
+      headerLeft: () => (
+        <View style={styles.iconContainer}>
+        <Icon 
+        containerStyle={styles.icon}
+        paddingLeft={20}
+        name='three-bars' 
+        size={30} 
+        color='#000' 
+        onPress={() => props.navigation.toggleDrawer()}
+        />
+        <HeaderBackButton containerStyle={styles.icon}  {...props} onPress={() => props.navigation.goBack()} />
         </View>
+      ),
+      // headerRight: () => (
+        // <View style={{paddingRight:20}}>
+        // <Icon 
+        // name='three-bars' 
+        // size={30} 
+        // color='#000' 
+        // onPress={() => props.navigation.toggleDrawer()}
+        // />
+        // </View>
         // <Button title="Toggle drawer" onPress={() => props.navigation.toggleDrawer()} />
         // <Button title="Sign Out" onPress={() => Auth.signOut()} color = 'red'/>
-      )
+      // )
      }}>
       <AppStack.Screen name="Welcome" component={Welcome} signOut={signOut}
       options={{
@@ -61,5 +76,20 @@ const MainStackNavigator = (props, signOut) => {
     </AppStack.Navigator>
     )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  },
+  icon: {
+    paddingLeft: 10
+  },
+  iconContainer: {
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    width: 40,
+    paddingLeft: 30
+  }
+});
 
 export {MainStackNavigator}
