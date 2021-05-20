@@ -12,7 +12,7 @@ const ADD_MISSION = gql
 	`
 		mutation ($course: String!, $name: String!, $description: String!) {
 			addMission(
-				course:{
+				mission:{
 					course: $course
 					name: $name
 					description: $description
@@ -20,7 +20,7 @@ const ADD_MISSION = gql
 			)
 		}
 	`;
-
+//const [updateGoal] = useMutation(UPDATE_GOAL, {refetchQueries: [{query: LIST_ALL_GOALS}]});
 //this modal uses MaterialUI Dialog to create a modal that is a form for an Instructor
 //to create a Mission object, and is sent to our database
 export default function CreateMission(course)  {
@@ -41,11 +41,14 @@ export default function CreateMission(course)  {
     function submit(){   
 		addMission({ 
 			variables:{ 
-				"course": course, 
+				"course": course.course, 
 				"name": name, 
 				"description": desc 
 			}   
 		});
+		console.log(course.course);
+		console.log(name);
+		console.log(desc);
     }
 
     return (

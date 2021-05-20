@@ -7,6 +7,9 @@ import CreateMission from './CreateModals/CreateMission';
 import MissionsView from '../screens/Mission/MissionsView';
 import LearningTaskVisualization from '../screens/Student/LearningTargets/LearningTaskVisualization';
 import './ClassPage.css';
+import { useQuery, gql} from '@apollo/client';
+import {Typography, Grid, Box, Paper, List, ListItem, ListItemText,  Button} from '@material-ui/core';
+import randomColor from 'randomcolor';
 
 
 

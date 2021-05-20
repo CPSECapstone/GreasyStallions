@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import Amplify, { Auth, Hub } from 'aws-amplify';
-import { ApolloProvider, useQuery, gql} from '@apollo/client';
-import StudentGridComponent from "./StudentGrid.jsx";
-import GoalListTeacher from '../Goals/GoalListTeacher';
-import {Typography, Grid, Box, Paper, List, ListItem, ListItemText, Button} from '@material-ui/core';
+import {useQuery, gql} from '@apollo/client';
+import {Typography, Grid, Box, Paper} from '@material-ui/core';
 import randomColor from 'randomcolor';
 import CreateCourse from '../CreateModals/CreateCourse';
 
-
+//change the instructor to the instructor whose classes we want to show
+// right now it is Mr Butcher because his classes are set in DB
 const LIST_COURSES = gql
 `
   query GetCourseInfos {
@@ -30,12 +28,21 @@ const LIST_STUDENTS = gql
 query {progressByCourse(course: "Integrated Science") {userName progress {taskId status}}}
 `;
 
+const USER_ROLE = gql
+`
+{getUser{
+	role
+	email
+  }}
+`;
+
+
 
 
 const CrsFliptedComponent = ({navigation}) => {
   const {data, error, loading} = useQuery(LIST_COURSES);
-  
   if (error) { console.log('Error fetching courses', error); }
+
 
   let courses = [];
   var goToClassPage = () => {
@@ -46,7 +53,7 @@ const CrsFliptedComponent = ({navigation}) => {
     data.courseInfos.forEach( crs => {
       let toPush = 
         <Paper onClick={() => {
-         navigation.navigate('ClassPage', 
+         navigation.navigate('InstructorClassPage', 
           {
             className: crs.course,
             teacher: true
@@ -77,57 +84,26 @@ const CrsFliptedComponent = ({navigation}) => {
             Courses
           </Box>
         </Typography>
-        <Grid container direction="row" justify="space-around" alignItems="center">
+        <Grid style={{padding:16, marginTop: 32, marginLeft: 32}} container direction="row" justify="left" alignItems="center">
           {courses}
         </Grid>
     </View>
   );
 }
 
-//currently using the same tasks as on the student page
-const TskFliptedComponent = () => {
-  const {data, error, loading} = useQuery(LIST_TASKS);
-  
-  let tasks = [];
-
-  if (error) { console.log('Error fetching users', error); }
-
-  if(data){
-    data.getTasks.forEach( tsk =>{
-      tasks.push(<Text style={styles.starshipName}> {tsk.name + " " + tsk.description}</Text>)
-    });
-  }
-
-  return (
-    <View style = {styles.section}>
-      <Text style = {styles.text}>{"TASKS:"}</Text>
-      {tasks}
-    </View>
-  );
-}
-
-const USER_ROLE = gql
-`
-{getUser{
-	role
-	email
-  }}
-`;
 
 
 export default function InstructorHome({ navigation, signOut }) {
 
-  let studentProgress = [];
-  const [students, setStudents] = useState(studentProgress);  
 
   return (
     <View style={styles.section}>
-      <CreateCourse/>
-      <CrsFliptedComponent navigation={navigation}/>
-      <StudentGridComponent
-      students={students}
-      setStudents={setStudents}
-      navigation={navigation}/>
+		<CreateCourse/>
+    	<CrsFliptedComponent navigation={navigation}/>
+    	{/* <StudentGridComponent
+		  students={students}
+    	setStudents={setStudents}
+    	navigation={navigation}/> */}
     </View>
   )
 }
@@ -177,4 +153,3 @@ const styles = StyleSheet.create({
         alignSelf: 'center'
     }
 });
-
