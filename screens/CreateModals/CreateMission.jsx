@@ -29,6 +29,8 @@ export default function CreateMission(course)  {
   	const [desc, setDesc] = React.useState('');
 	const [addMission, {data1, error1}] = useMutation(ADD_MISSION);
 
+	//updates the mission name and description (below)
+	//based on typed user input
     const handleNameChange = event => {
         setName(event.target.value);
     };
@@ -46,9 +48,6 @@ export default function CreateMission(course)  {
 				"description": desc 
 			}   
 		});
-		console.log(course.course);
-		console.log(name);
-		console.log(desc);
     }
 
     return (
