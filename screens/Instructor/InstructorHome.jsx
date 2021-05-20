@@ -36,8 +36,8 @@ const USER_ROLE = gql
 
 const CrsFliptedComponent = ({navigation}) => {
   const {data, error, loading} = useQuery(LIST_COURSES);
-  
   if (error) { console.log('Error fetching courses', error); }
+
 
   let courses = [];
   var goToClassPage = () => {
@@ -145,4 +145,3 @@ const styles = StyleSheet.create({
         alignSelf: 'center'
     }
 });
-

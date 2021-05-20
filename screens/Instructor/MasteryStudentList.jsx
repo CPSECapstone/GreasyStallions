@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
       fullProgress = Object.assign({}, data.progressOverview);
       // console.log("yee"+fullProgress)
     }
-
+  
     if(fullProgress.userProgress != undefined){
         fullProgress.userProgress.forEach(stud => {
             studentList.push(stud.userName)
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
       fullerProgress = [...data.getAllTargetProgress];
     }
     //console.log("ba"+fullerProgress[0])
-
+  
     if(fullerProgress != undefined){
         fullerProgress.forEach(targ => {
             targetList.push(targ.target.targetName)
@@ -119,9 +119,9 @@ const styles = StyleSheet.create({
   //console.log(studentList)
   //console.log(targetList)
 
-
-
-
+  
+  
+  
 
   return (
     <View style = {styles.section}>

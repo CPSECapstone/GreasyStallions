@@ -5,14 +5,17 @@ import React from 'react';
 
 let ImageTask = function({ pth, title }) {
 
-   return (
-      <div>
+    return (
+        <div>
           <Typography class="componentHeader" variant="h4" component="h4">
               {title}
           </Typography>
-          <img src={pth} class="img-fluid"/>
-      </div>
-  );
+          <img
+            style={{ resizeMode: "center"}}
+            src={pth} class="img-thumbnail"
+          />
+        </div>
+    );
 }
 
 export default ImageTask;

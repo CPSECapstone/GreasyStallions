@@ -87,7 +87,6 @@ let ClassPage = function({ route, navigation }){
 	let tasks = [];
 	tasks = getTasks();
 
-
    return (
       <View>
          <Typography align='center' variant="h4">
@@ -107,8 +106,17 @@ let ClassPage = function({ route, navigation }){
         </Typography>
 		<Typography style={{marginLeft:24, marginTop:36}} variant="h4">
           <Box fontWeight="fontWeightBold" m={1}>
+			<Button style={{ width: "150px" }} 
+			color="primary" variant="contained"
+			onClick={() => {navigation.navigate('GoalPage', {user: userType})}}>
+			Goal Page
+			</Button>
+          </Box>
+        </Typography>
+		<Typography style={{marginLeft:24, marginTop:18}} variant="h4">
+          <Box fontWeight="fontWeightBold" m={1}>
+			Missions
 		    <CreateMission course = {className}/>
-        	  Missions
           </Box>
         </Typography>
 		 <Grid style={{padding:16, marginTop: 32, marginLeft: 32}} container direction="row" justify="left" alignItems="center">
@@ -123,12 +131,6 @@ let ClassPage = function({ route, navigation }){
 		 direction="row" justify="left" alignItems="center">
           {tasks}
         </Grid>
-      <Button 
-       color="primary"
-       variant="contained"
-       onClick={() => {navigation.navigate('GoalPage', {user: userType})}}>
-         Goal Page
-      </Button>
       </View>
    );
 }

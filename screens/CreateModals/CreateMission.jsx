@@ -50,7 +50,8 @@ export default function CreateMission(course)  {
 
     return (
         <div>
-          	<Button variant="outlined" color="primary" onClick={() => setOpen(true)}>
+          	<Button style={{ width: "150px" }} 
+              variant="outlined" color="primary" onClick={() => setOpen(true)}>
             	Add Mission
           	</Button>
           	<Dialog open={open} onClose={() => setOpen(false)} aria-labelledby="form-dialog-title">

@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
       marginLeft: 0,
       alignSelf: 'center'
     }
-  });
+});
 
 let SettingsPage = function({ route, navigation }){
 
@@ -37,8 +37,8 @@ let SettingsPage = function({ route, navigation }){
                 Settings{"\n"}
             </Text>
             <Button style = {styles.buttons}
-                    onPress={() => navigation.navigate('Home')}>
-                    <Text style={styles.buttonText}>Home</Text>
+              onPress={() => navigation.navigate('Home')}>
+              <Text style={styles.buttonText}>Home</Text>
             </Button>
         </View>
     )

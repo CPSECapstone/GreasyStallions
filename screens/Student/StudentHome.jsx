@@ -94,66 +94,6 @@ export default function Home({ navigation, signOut }) {
   )
 }
 
-/*
-const TskFliptedComponent = () => {
-  const {data, error, loading} = useQuery(LIST_TASKS);
-  if (error) { console.log('Error fetching users', error); }
-
-  let tasks = [];
-
-  if(data){
-    data.getTasks.forEach( tsk =>{
-      tasks.push(<Text style={styles.starshipName}> {tsk.name + " " + tsk.description}</Text>)
-    });
-  }
-
-  //tasks is empty right now because there is no query for them yet
-  return (
-    <View style = {styles.section}>
-      <h2>{"Tasks:"}</h2>
-      <ListGroup>
-        {tasks}
-      </ListGroup>
-      <Button></Button>
-    </View>
-  );
-}
-
-
-export default function Home({ navigation, signOut }) {
-  return (
-    <View style={styles.header}>
-      {console.log(navigation)}
-        <UserInfo></UserInfo>
-        <CrsFliptedComponent navigation={navigation}/>
-        <Button variant="contained"
-         onClick={() => {navigation.navigate('ClassPage', {className: 
-         "Test"})}}>TaskPage</Button>
-    </View>
-  )
-}
-
-/*
-<TskFliptedComponent />
-      </ApolloProvider>
-      <Text style={{paddingTop: 100, textAlign: 'left',fontSize: 20,fontStyle: 'bold'}}>You are now authenticated</Text>
-      <div className="my-2 text-center">
-        <Button variant="primary" size="lg"
-                onPress={() => navigation.navigate('Welcome')}>
-                  <Text style={styles.buttonText}>Go to Welcome Screen</Text>
-        </Button>
-        <Button variant="secondary" size="sm"
-                onPress={() => navigation.navigate('InstructorHome')}>
-                  <Text style={styles.buttonText}>Instructor View</Text>
-        </Button>
-      </div>
-//      { <Button
-//      onPress={() => navigation.navigate('Profile')}>
-//        <Text style={{width: "15%",marginLeft:0,alignSelf:'center'}}>Profile</Text>
-//      </Button> }
-*/
-
-
 const styles = StyleSheet.create({
   section: {
     padding:16,

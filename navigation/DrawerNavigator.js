@@ -53,6 +53,7 @@ const DrawerNavigator = (navigation) => {
   return (
     <Drawer.Navigator drawerContent={props => <CustomDrawerContent {...props} />}>
       <Drawer.Screen name="Flipt(ed)" component={MainStackNavigator}/>
+	  <Drawer.Screen name="Settings" component={MainStackNavigator}/>
       {/* <Drawer.Screen name="Feed" component={Feed} />
       <Drawer.Screen name="Profile" component={Profile} /> */}
     </Drawer.Navigator>

@@ -38,8 +38,8 @@ const styles = StyleSheet.create({
 
   let StudentGridComponent = ({students, setStudents, filter, setFilter}) => {
 
-    let studentsInfo = new Map();
-    const client = useApolloClient();
+  let studentsInfo = new Map();
+  const client = useApolloClient();
 
   // Query to fetch students for this course
   const {data, error, loading} = useQuery(LIST_STUDENTS);
