@@ -72,7 +72,7 @@ const CrsFliptedComponent = ({navigation}) => {
         </Paper>
       courses.push(toPush)
     });
-  }
+  }}
 /*
   return (
     <View style = {styles.section}>
@@ -86,7 +86,7 @@ const CrsFliptedComponent = ({navigation}) => {
         </Grid>
     </View>
   );*/
-
+/*
   return (
     <List
       component="nav"
@@ -110,7 +110,7 @@ const CrsFliptedComponent = ({navigation}) => {
       </Collapse>
     </List>
   );
-}
+}*/
 
 const UserInfo = () => {
   //not really accurate because this page is using the old Apollo Client/queries
@@ -156,7 +156,7 @@ function Feed({ navigation }) {
         />
 
       <UserInfo></UserInfo>
-      <CrsFliptedComponent navigation={navigation}/>
+      {/* <CrsFliptedComponent navigation={navigation}/> */}
         <DrawerItemList {...props} />
         {/* <View style={{paddingRight:20}}>
         <Icon 
