@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Text, View, SafeAreaView, ActivityIndicator, StyleSheet } from 'react-native';
 import { ApolloProvider, useQuery, gql} from '@apollo/client';
-import { Picker } from '@react-native-picker/picker';
 import { StatusBar } from 'expo-status-bar';
 import AppNavigation from './navigation';
 import config from './aws-exports';
