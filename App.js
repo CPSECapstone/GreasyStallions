@@ -1,209 +1,107 @@
-import React, { useState } from 'react';
-import { Button, Text, View, SafeAreaView, ActivityIndicator, StyleSheet } from 'react-native';
-import { ApolloProvider, useQuery, gql} from '@apollo/client';
+import React, { useEffect, useState } from 'react';
+import { View, Text } from 'react-native';
+import { ApolloProvider } from '@apollo/client';
 import { StatusBar } from 'expo-status-bar';
 import AppNavigation from './navigation';
-import config from './aws-exports';
-import Amplify from '@aws-amplify/core';
+import Amplify, { Auth, Hub } from 'aws-amplify';
+import makeApolloClient from './apollo';
+import {Dialog, DialogContent, DialogTitle, Grid, Button} from '@material-ui/core';
+import HelpIcon from '@material-ui/icons/HelpOutline';
+import config from './amplify/config';
+import { registerRootComponent } from 'expo';
 
-import { apolloClient } from './apollo';
-import { apolloClientFlipted} from './apollo-flipted';
 
 Amplify.configure(config);
 
-// Imperial I-class Star Destroyer
-/*
-const defaultStarshipId = 'c3RhcnNoaXBzOjM=';
+export default function App() {
 
-const LIST_USERS = gql`
-    query {users {
-      id
-      firstName
-      lastName
-    }}
-`;
+  const [user, setUser] = useState(null);
 
-
-const LIST_STARSHIPTS = gql`
-  query listStarships {
-    allStarships {
-      starships {
-        id
-        name
-      }
-    }
-  }
-`;
-
-const GET_STARSHIP = gql`
-  query getStarship($id: ID!) {
-    starship(id: $id) {
-      id
-      name
-      model
-      starshipClass
-      manufacturers
-      length
-      crew
-      costInCredits
-      consumables
-      filmConnection {
-        films {
-          id
-          title
+  useEffect(() => {
+    Hub.listen('auth', ({ payload: { event, data } }) => {
+      switch (event) {
+        case 'signIn':
+          getUser().then((userData) => setUser(userData));
+          break;
+        case 'signOut':
+          setUser(null);
+          break;
+        case 'signIn_failure':
+        case 'cognitoHostedUI_failure':
+          console.log('Sign in failure', data);
+          break;
         }
-      }
-    }
+      });
+
+    getUser().then((userData) => setUser(userData));
+  }, []);
+
+  function getUser() {
+    return Auth.currentAuthenticatedUser()
+      .then((userData) => userData)
+      .catch(() => console.log('Not signed in'));
   }
-`;
 
-const FliptedComponent = () => {
-  const {data, error, loading} = useQuery(LIST_USERS);
+  const [token, setToken]= React.useState();
+	Auth.currentSession().then(res => {
+		let accessToken = res.getAccessToken()
+		let jwt = accessToken.getJwtToken()
+    setToken(jwt);
+    console.log(jwt);
+  })
 
-  if (error) { console.log('Error fetching users', error); }
+    
+  const client = makeApolloClient(token);    
 
-  return (
-    <View style = {styles.section}>
-      <Text style={styles.starshipName}>Hello</Text>
-      <Text style={styles.starshipName}>Greasy Stallions!</Text> 
-    </View>
-  );
-  //issue is that data is null
-}
+	const [ShowInfo, setShowInfo] = useState(false);
+	function openDialog() {
+    setShowInfo(true);
+  }
 
-function RootComponent() {
-  const [starshipId, setStarshipId] = useState(defaultStarshipId);
-  const { data, error, loading } = useQuery(GET_STARSHIP, {
-    variables: { id: starshipId },
-  });
-
-  if (error) { console.log('Error fetching starship', error); }
-
-  return (
-    <View style={styles.container}>
-
-      <View style={styles.section}>
-        Example app from react native template, leaving for syntax reference
-        <StarshipPicker
-          starshipId={starshipId}
-          onStarshipChange={setStarshipId}
-        />
-      </View>
-      {loading ? (
-        <ActivityIndicator color='#333' />
-      ) : (
-        <StarshipDetails starship={data.starship} />
-      )}
-    </View>
-  );
-}
-
-function StarshipPicker(props) {
-  const { data, error, loading } = useQuery(LIST_STARSHIPTS);
-
-  if (error) { console.log('Error listing starships', error) }
-  if (loading) return null;
-
-  const { starships } = data.allStarships;
-
-  return (
-    <Picker
-      selectedValue={props.starshipId}
-      onValueChange={props.onStarshipChange}
-    >
-      {starships.map(starship => (
-        <Picker.Item key={starship.id} label={starship.name} value={starship.id} />
-      ))}
-    </Picker>
-  )
-}
-
-function StarshipDetails({ starship }) {
-  return (
-    <>
-      <View style={styles.section}>
-        <Text style={styles.starshipName}>{starship.name}</Text>
-        <Text style={styles.starshipModel}>{starship.model}</Text>
-      </View>
-
-      <View style={styles.section}>
-        <Text style={styles.label}>Operational abilities</Text>
-        <Text>- {starship.crew} crew members</Text>
-        <Text>- {starship.consumables} without restocking</Text>
-      </View>
-
+    if(user){return(
       <View>
-        <Text style={styles.label}>Ship attributes</Text>
-        <Text>- {starship.length}m long</Text>
-        <Text>- {starship.costInCredits} credits</Text>
+        <ApolloProvider client = {client}>
+          <View >
+              <AppNavigation />
+              <StatusBar style="auto" />
+            </View>
+        </ApolloProvider>
+      </View>)
+    }
+    else if(!user){
+      return(
+      <View>
+        <Grid
+          container
+          direction="column">          
+          <Button onClick={() => Auth.federatedSignIn()}>
+            <Text>
+              {"Get Started"}
+            </Text>
+          </Button>
+          <HelpIcon onClick={ () => openDialog()} fontSize = 'large'></HelpIcon>
+          <Dialog open={ShowInfo} >
+            <DialogTitle>Welcome to FliptEd!</DialogTitle>
+            <DialogContent>
+              <Text>
+                {"Select \"Get Started\" to begin. Sign in with \
+                your FliptEd account or create a new one. You will be\
+                automatically directed to your dashboard."}
+              </Text>
+            </DialogContent>
+            <Button 
+              onClick = { () => setShowInfo(false)}>
+              <Text>
+                {"Got it!"}
+              </Text>
+            </Button>
+          </Dialog>
+        </Grid>
       </View>
-
-      <View style={styles.section}>
-        <Text style={styles.label}>Manufacturers</Text>
-        {starship.manufacturers.map(manufacturer => (
-          <Text key={manufacturer}>- {manufacturer}</Text>
-        ))}
-      </View>
-
-      <View style={styles.section}>
-        <Text style={styles.label}>Appeared in</Text>
-        {starship.filmConnection.films.map(film => (
-          <Text key={film.id}>- {film.title}</Text>
-        ))}
-      </View>
-    </>
-  )
+      )
+    }
+    else return(<View></View>);
+    
 }
+registerRootComponent(App);
 
-const styles = StyleSheet.create({
-  loadingContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    paddingHorizontal: 50,
-  },
-  label: {
-    marginBottom: 2,
-    fontSize: 12,
-    fontWeight: 'bold',
-    textTransform: 'uppercase',
-  },
-  section: {
-    marginVertical: 12,
-  },
-  starshipName: {
-    fontSize: 32,
-    fontWeight: 'bold',
-  },
-  starshipModel: {
-    fontStyle: 'italic',
-  },
-});
-
-export default function App() {
-  return (
-    <ApolloProvider client={apolloClientFlipted}>
-      <FliptedComponent />
-    </ApolloProvider>
-  );
-}
-*/
-
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <AppNavigation />
-      <StatusBar style="auto" />
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
