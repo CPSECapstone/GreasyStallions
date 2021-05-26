@@ -1,5 +1,4 @@
 // import Amplify, { Auth, Hub } from 'aws-amplify';
-import {Dialog} from 'react-native-material-ui';
 import { apolloClient } from './apollo';
 import { apolloClientFlipted} from './apollo-flipted';
 import fliptedlogo from './assets/rn-logo.png';
