@@ -7,6 +7,7 @@
     "@react-native-picker/picker": "1.9.2",
     "@react-navigation/native": "^5.0.5",
     "@react-navigation/stack": "^5.14.3",
+    "aws-amplify": "^4.0.2",
     "expo": "~40.0.0",
     "expo-status-bar": "^1.0.3",
     "graphql": "^15.0.0",
