@@ -8,15 +8,15 @@ import { withAuthenticator } from 'aws-amplify-react-native'
 import Amplify, { Auth } from 'aws-amplify';
 import config from './aws-exports';
 
-
+Amplify.configure(config);
 
 function App() {
   function getUser() {
-    return Auth.currentAuthenticatedUser()
-        .then((userData) => userData)
-        .catch(() => console.log('Not signed in'));
-  }
-  
+  return Auth.currentAuthenticatedUser()
+      .then((userData) => userData)
+      .catch(() => console.log('Not signed in'));
+}
+
   const [token, setToken]= React.useState();
   Auth.currentSession().then(res=>{
     let accessToken = res.getAccessToken()
@@ -24,11 +24,9 @@ function App() {
     setToken(jwt);
     console.log(jwt);
     })
-  
+
   const client = makeApolloClient(token);    
-  
-  
-  Amplify.configure(config);
+
 
   return (
     <ApolloProvider client = {client}>
