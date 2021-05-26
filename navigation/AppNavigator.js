@@ -1,15 +1,11 @@
 import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
-import Home from '../screens/Home';
+import {DrawerNavigator} from './DrawerNavigator'
+import { NavigationContainer } from '@react-navigation/native';
 
-const AppStack = createStackNavigator();
-
-export default function App({ signOut }) {
+export default function App({ signOut, navigation }) {
   return (
-    <AppStack.Navigator>
-      <AppStack.Screen name="Home">
-        {() => <Home signOut={signOut} />}
-      </AppStack.Screen>
-    </AppStack.Navigator>
+    <NavigationContainer independent={true}>
+    <DrawerNavigator />
+    </NavigationContainer>
   );
 }

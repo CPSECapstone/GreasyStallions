@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import Button from '../components/Button';
+import { Button,View, Text, StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {

@@ -1,0 +1,11 @@
+{
+  "auth": {
+    "gscross2831a069": {
+      "service": "Cognito",
+      "serviceType": "imported",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false
+    }
+  }
+}
