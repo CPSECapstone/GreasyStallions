@@ -38,12 +38,21 @@ let MissionsView = function({ className, navigation }) {;
     data.courseContent.missions.forEach( mission => {
         missions.push(
             <Paper style={{fontSize:18, fontWeight:'bold', justifyContent:'center',
+<<<<<<< Updated upstream
              display: 'flex', alignItems: 'center', width: 200, height: 150}} elevation={3}>
+=======
+             display: 'flex', alignItems: 'center', width: 200, height: 150}} elevation={3}
+             >
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
                 {mission.name}
             </Paper>
         )
     });
-
+// line 45:
+// onClick={checkMission(mission.name)}>
 
     return (
         <Grid style={{padding:16, marginTop: 32, marginLeft: 32}} 
