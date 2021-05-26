@@ -4,6 +4,7 @@ import { apolloClientFlipted} from './apollo-flipted';
 import fliptedlogo from './assets/rn-logo.png';
 import fullfliptedlogo from './assets/rn-logo.png';
 // import config from './amplify/config';
+import {Dialog } from 'react-native-paper';
 
 import React, { useState } from 'react';
 import { Button, Text, View, SafeAreaView, ActivityIndicator, StyleSheet } from 'react-native';
