@@ -7,6 +7,12 @@ import CreateMission from './CreateModals/CreateMission';
 import MissionsView from '../screens/Mission/MissionsView';
 import LearningTaskVisualization from '../screens/Student/LearningTargets/LearningTaskVisualization';
 import './ClassPage.css';
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> ad39d40b9885495fde16cd7afa16a7594e8761d6
 
 let ClassPage = function({ route, navigation }){
    const { className, teacher } = route.params;
