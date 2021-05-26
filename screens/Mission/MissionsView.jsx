@@ -38,15 +38,8 @@ let MissionsView = function({ className, navigation }) {;
     data.courseContent.missions.forEach( mission => {
         missions.push(
             <Paper style={{fontSize:18, fontWeight:'bold', justifyContent:'center',
-<<<<<<< Updated upstream
-             display: 'flex', alignItems: 'center', width: 200, height: 150}} elevation={3}>
-=======
-             display: 'flex', alignItems: 'center', width: 200, height: 150}} elevation={3}
-             >
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
+             display: 'flex', alignItems: 'center', width: 200, height: 150}} 
+             elevation={3}>
                 {mission.name}
             </Paper>
         )
