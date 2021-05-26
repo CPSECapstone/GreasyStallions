@@ -1,9 +1,10 @@
-import { Button, View,  StyleSheet } from 'react-native';
+import { ScrollView, TouchableOpacity,  Button, View,  StyleSheet } from 'react-native';
 import { Surface, Text } from 'react-native-paper';
 import React, { useState } from 'react';
 import {useQuery, gql} from '@apollo/client';
-import {Typography, Grid, Box, Paper} from '@material-ui/core';
+import {Typography,  Box, Paper} from '@material-ui/core';
 import randomColor from 'randomcolor';
+import Grid from 'react-native-grid-component';
 
 const LIST_COURSES = gql
 `
@@ -17,7 +18,7 @@ query GetCourseInfos {
 }
 `;
 
-const Courses = ({navigation}) => {
+export default function InstructorHome({navigation}) {
 	const {data, error, loading} = useQuery(LIST_COURSES);
 	if (error) { console.log('Error fetching courses', error); }
   
@@ -30,39 +31,29 @@ const Courses = ({navigation}) => {
 	if(data){
 	  data.courseInfos.forEach( crs => {
 		let toPush = 
-		  <Surface style = {styles.surface} onClick = {() => {
-			navigation.navigate('InstructorClassPage', 
-			 {
-			   className: crs.course,
-			   teacher: true
-			 })}}>
-			  <Text>{crs.course}</Text>
-		  </Surface>
+		  <TouchableOpacity 
+		  	style = {styles.coursebutton}
+			onPress = {() => {
+				navigation.navigate('InstructorClassPage', 
+				{
+				className: crs.course,
+				teacher: true
+				})}}>
+				<Text style={{color: "#FFFFFF"}}>{crs.course}</Text>
+			</TouchableOpacity>
 		courses.push(toPush)
 	  });
 	}
-	
-  
-	return (
-	  <View style = {styles.section}>
-		<Text>Courses</Text>
-		<View>
-			{courses}
-		</View>
-	  </View>
-	);
-  }
 
 
 
-
-
-export default function InstructorHome() {
 
   return (
     <View style={styles.container}>
-		<Courses/>
-      	<Text style={styles.text}>instruct home</Text>
+		<Text style={{marginBottom: 32, marginTop: 32}}>Courses</Text>
+		<ScrollView>
+			{courses}
+		</ScrollView>
     </View>
   )
 }
@@ -77,11 +68,29 @@ const styles = StyleSheet.create({
 	  textAlign: 'center'
 	},
 	surface: {
+		marginTop: 16,
 		padding: 8,
-		height: 80,
-		width: 80,
+		height: 100,
+		width: 250,
 		alignItems: 'center',
 		justifyContent: 'center',
 		elevation: 4,
+	  },
+	  item: {
+		flex: 1,
+		height: 160,
+		margin: 1
+	  },
+	  list: {
+		flex: 1
+	  },
+	  coursebutton: {
+		marginTop: 16,
+		padding: 8,
+		height: 100,
+		width: 250,
+		alignItems: 'center',
+		justifyContent: 'center',
+		backgroundColor: '#3467EC'
 	  }
   });
