@@ -1,45 +1,14 @@
 import React , { useEffect, useState } from 'react';
-import Checkbox from '@material-ui/core/Checkbox';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import EditIcon from '@material-ui/icons/Edit';
-import StarIcon from '@material-ui/icons/Star';
-import StarBorderOutlinedIcon from '@material-ui/icons/StarBorderOutlined';
 import GoalSubListStudent from './GoalSubListStudent';
 import OverallGoalProgressBar from './GoalProgressBar'
-import { makeStyles } from '@material-ui/core/styles';
 import { useQuery, gql, useApolloClient, useMutation } from '@apollo/client';
 import {} from '@apollo/client/react/hooks'
 import  './GoalListStudent.css'
 import { LIST_ALL_GOALS, UPDATE_GOAL} from './GoalQueries'
 import GoalWithSubGoals from './GoalWithSubGoals'
 import { Typography } from '@material-ui/core';
-
-const useStyles = makeStyles({ 
-   goalWithSubsName: {
-      flex: '0 0 auto',
-      padding:'0 10px 0 10px' 
-   },
-   goalWithSubsDue: {
-      flex: '1 0 auto',
-      padding:'0 10px 0 10px' 
-   },
-   goalWithSubsProgressBar: {
-      flex: '1 1 auto',
-      padding:'0 10px 0 10px' 
-   },
-   goalWithSubsProgressBarIcon: {
-      flex: 'auto',
-   },
-   goalListRoot:{
-      'background-color': 'white',
-   }
- });
+import { List, Colors, IconButton } from 'react-native-paper';
 
 
 
@@ -48,7 +17,6 @@ let GoalListStudent = ({ navigation, teacher,
  completeSubGoalTeacher,  completeGoalCheckTeacher, studentIdx}) => {
    const [goalProgress, setGoalProgress] = useState(0);
    const client = useApolloClient();
-   const classes = useStyles();
 
    const {data, error, loading} = useQuery(LIST_ALL_GOALS);
    const [updateGoal] = useMutation(UPDATE_GOAL, {refetchQueries: [{query: LIST_ALL_GOALS}]});
@@ -75,12 +43,10 @@ let GoalListStudent = ({ navigation, teacher,
       goals = [...data.getAllGoals]
    }
 
-   let completeGoalCheck = (ev, idx) => {
+   let completeGoalCheck = (idx) => {
       const {getAllGoals} = client.readQuery({query: LIST_ALL_GOALS});
-      let goalIdx = ev && ev.target.id;
-      if (!goalIdx) {
-         goalIdx = idx
-      }
+      let goalIdx = idx;
+      console.log(idx)
       let prevGoalCompleteVal = getAllGoals[goalIdx].completed
       let newGoal = {
          ...getAllGoals[goalIdx],
@@ -90,11 +56,11 @@ let GoalListStudent = ({ navigation, teacher,
       updateGoal({variables:{ goal: newGoal}});
    }
 
-   let completeSubGoal = (ev) => {
+   let completeSubGoal = (idx) => {
       const {getAllGoals} = client.readQuery({query: LIST_ALL_GOALS});
       let newGoals = [...getAllGoals];
-      let goalIdx = ev.target.id.split(" ")[0]
-      let subGoalIdx = ev.target.id.split(" ")[1]
+      let goalIdx = idx.split(" ")[0]
+      let subGoalIdx = idx.split(" ")[1]
       let subGoals = newGoals[goalIdx].subGoals
       let prevGoalCompleteVal = getAllGoals[goalIdx].completed
       let prevSubCompleteVal = subGoals[subGoalIdx].completed
@@ -170,42 +136,31 @@ let GoalListStudent = ({ navigation, teacher,
    
    let makeGoalNoSubs = (goal, editGoal, idx) => {
       return (
-      <ListItem key={idx + " goal"} button>
-         <ListItemText className={classes.goalWithSubsName}>
-            {goal.title}
-         </ListItemText>
-         <ListItemText className={classes.goalWithSubsDue}>
-            {"due by: " + goal.dueDate}
-         </ListItemText>
-         <ListItemIcon>
-            <Checkbox
-            edge="start"
-            color="primary"
-            onChange={teacher 
-               ? completeGoalCheckTeacher : completeGoalCheck}
-            checked={goal.completed}
-            id={idx + (teacher ? " " + studentIdx : "")}
-            />
-         </ListItemIcon>
-         <ListItemIcon>
-            <IconButton 
-             edge="end" 
-             aria-label="edit"
-             onClick={() => starGoal(idx)}>
-               {goal.favorited ?
-                  <StarIcon /> :
-                  <StarBorderOutlinedIcon/>}
-            </IconButton>
-         </ListItemIcon>
-         <ListItemSecondaryAction>
-               <IconButton 
-                edge="end" 
-                aria-label="edit"
-                onClick={() => editGoal(idx)}>
-                  <EditIcon />
-               </IconButton>
-            </ListItemSecondaryAction>
-      </ListItem>)
+         <List.Item
+          title={goal.title}
+          description={"Due by: " + goal.dueDate}
+          right={() => {
+            let lst = [];
+            console.log(idx)
+            lst.push(
+               <IconButton
+                onPress={() => starGoal(idx)}
+                color={Colors.blue500} 
+                icon={goal.favorited ? "star" : "star-outline"}/>)
+            lst.push(<IconButton
+                icon={goal.completed ? 
+                  "checkbox-marked" : "checkbox-blank-outline"}
+                color={Colors.blue500} 
+                onPress={teacher 
+                  ? completeGoalCheckTeacher : () => completeGoalCheck(idx)} />)
+            lst.push(<IconButton 
+               color={Colors.blue500} 
+               icon={"pencil"}
+               onPress={() => editGoal(idx)}/>)
+            return lst
+          }}
+          />
+      )
    }
    if(!teacher){
       goalComponents.push(
@@ -251,9 +206,9 @@ let GoalListStudent = ({ navigation, teacher,
    return (
       <div>
          {teacher ? null : <h2>Goals:</h2>}
-         <List className={classes.goalListRoot}>
+         {/* <List className={classes.goalListRoot}> */}
             {goalComponents}
-         </List>
+         {/* </List> */}
       </div>
    );
 }

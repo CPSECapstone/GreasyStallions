@@ -1,5 +1,5 @@
 import React from 'react';
-import { ProgressBar, Colors } from 'react-native-paper';
+// import { ProgressBar, Colors } from 'react-native-paper';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItem from '@material-ui/core/ListItem';
@@ -7,6 +7,7 @@ import Icon from '@material-ui/core/Icon';
 import { LIST_ALL_GOALS } from './GoalQueries'
 import { useApolloClient } from '@apollo/client';
 import { makeStyles } from '@material-ui/core/styles';
+import { List, Colors, ProgressBar } from 'react-native-paper';
 import  './GoalListStudent.css'
 
 const useStyles = makeStyles({
@@ -43,6 +44,14 @@ let OverallGoalProgressBar = ({goalProgress, goalsLength, showBar}) => {
       }
    })
    goalProgressVal = completedGoals / getAllGoals.length;
+
+   return (<List.Item
+             title={"Overall Goal Progress: " + 
+             (Number((parseFloat(goalProgressVal)).toFixed(2)) * 100) 
+              + "%"}
+            right={() => <ProgressBar 
+               progress={goalProgressVal}
+               color={Colors.red800}/>}/>)
 
    return (
       <div>

@@ -9,10 +9,10 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import Button from '@material-ui/core/Button';
-import { useQuery, gql, useApolloClient, useMutation } from '@apollo/client';
+import { useApolloClient, useMutation } from '@apollo/client';
 import { LIST_ALL_GOALS, UPDATE_GOAL} from './GoalQueries'
-
+import { DatePickerModal } from 'react-native-paper-dates';
+import { TextInput, Title, Button } from 'react-native-paper';
 
 import './CreateGoalPage.css';
 
@@ -35,10 +35,24 @@ let CreateGoalPage = ({route, navigation}) => {
    const [updateGoal] = useMutation(UPDATE_GOAL, {refetchQueries: [{query: LIST_ALL_GOALS}]});
    const currGoal = getAllGoals[idx]
    const [goalName, setGoalName] = useState(currGoal.title ? currGoal.title : "")
-   const [dueDate, setDueDate] = useState(currGoal.dueDate ? currGoal.dueDate : new Date('2014-08-18T21:11:54'))
+   const [dueDate, setDueDate] = useState(currGoal.dueDate ? new Date(currGoal.dueDate) : new Date('2014-08-18T21:11:54'))
    const [subGoals, setSubGoals] = useState(currGoal.subGoals ? currGoal.subGoals : [])
    const [category, setCategory] = useState(currGoal.category ? currGoal.category : "")
+   const [open, setOpen] = useState(true);
    const classes = useStyles();
+   
+
+   const onDismissSingle = React.useCallback(() => {
+      setOpen(false);
+   }, [setOpen]);
+
+   const onConfirmSingle = React.useCallback(
+      (params) => {
+         setOpen(false);
+         setDueDate(params.date);
+      },
+      [setOpen, setDueDate]
+   );
 
    let subGoalCmps = []
 
@@ -150,6 +164,33 @@ let CreateGoalPage = ({route, navigation}) => {
       subGoalCmps.push(subGoalCmp)
       subGoalCmps.push(<Divider light />);
    });
+   return(
+      <View>
+         <Title>{isNaN(idx)? "Make Goal" : "Edit Goal"}</Title>
+         <TextInput
+            mode="outlined"
+            label="Goal Name"
+            text={goalName}
+            onChangeText={text => setGoalName(text)}
+            right={<TextInput.Affix text="/100" />}/>
+         <TextInput
+            mode="outlined"
+            label="Category"
+            text={category}
+            onChangeText={text => setCategory(text)}/>
+         <Button onPress={() => setOpen(true)} uppercase={false} mode="outlined">
+            {dueDate ? "Due Date: " + dueDate : "Pick Date"}
+         </Button>
+         {console.log(open)}
+         <DatePickerModal
+            mode="single"
+            visible={open}
+            onDismiss={onDismissSingle}
+            date={dueDate}
+            onConfirm={onConfirmSingle}/>
+         {console.log(DatePickerModal)}
+      </View>
+   );
 
 
    return(

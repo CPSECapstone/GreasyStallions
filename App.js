@@ -12,6 +12,7 @@ import HelpIcon from '@material-ui/icons/HelpOutline';
 import fliptedlogo from './assets/fliptedlogo.PNG';
 import fullfliptedlogo from './assets/fullfliptedlogo.PNG';
 import config from './amplify/config';
+import {  DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 
 Amplify.configure(config);
 
@@ -53,7 +54,16 @@ export default function App() {
 	  })
 
     
-  const client = makeApolloClient(token);    
+  const client = makeApolloClient(token); 
+  const theme = {
+    ...DefaultTheme,
+    roundness: 2,
+    colors: {
+      ...DefaultTheme.colors,
+      primary: '#3498db',
+      accent: '#f1c40f',
+    },
+  };   
 
 	const [ShowInfo, setShowInfo] = useState(false);
 	function openDialog() {
@@ -61,12 +71,14 @@ export default function App() {
     }
 
     if(user){return(
-      <ApolloProvider client = {client}>
-        <View style={styles.container}>
+      <PaperProvider theme={theme}>
+        <ApolloProvider client = {client}>
+          <View style={styles.container}>
             <AppNavigation />
             <StatusBar style="auto" />
           </View>
-          </ApolloProvider>)
+        </ApolloProvider>
+      </PaperProvider>)
     }
     else if(!user){return(
       <View style = {styles.loadingContainer}>

@@ -3,6 +3,7 @@ import { View } from 'react-native';
 import GoalListStudent from './GoalListStudent'
 import GoalListTeacher from './GoalListTeacher'
 
+
 let GoalPage = ({route, navigation}) => {
    const {user} = route.params;
 
