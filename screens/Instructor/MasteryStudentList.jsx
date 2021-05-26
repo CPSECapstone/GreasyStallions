@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import "./InstructorHome.css";
 import InputLabel from '@material-ui/core/InputLabel';
@@ -100,6 +100,7 @@ const styles = StyleSheet.create({
 
   let fullProgress = {}
   let fullerProgress = []
+  //const [studentList, setStudentList] = useState([]);
   let studentList = []
   let targetList = []
   let progressMapByStudent = new Map();
@@ -126,6 +127,7 @@ const styles = StyleSheet.create({
             studentList.push(stud.userName)
         })
     }
+    
   }
 
   let getMastery = () => {
@@ -202,9 +204,11 @@ const styles = StyleSheet.create({
   }
 
   let MasteryLHSort = (tempStudents) => {
+    console.log(progressMapByStudent.get(tempStudents[0]))
     let newTemp = tempStudents.sort(function(s1, s2){
-      return progressMapByStudent.get(s1).mastery
-       - progressMapByStudent.get(s2).mastery});
+      return progressMapByStudent.get(s1)[0].mastery
+       - progressMapByStudent.get(s2)[0].mastery});
+       console.log(newTemp)
     return newTemp;
   }
 
@@ -215,6 +219,7 @@ const styles = StyleSheet.create({
     if(event.target.value === 1){
       newTemp = MasteryLHSort(tempStudents)
     }
+    console.log(newTemp)
     let writeStruct = {
       query: GET_STUDENTS,
       data: {progressOverview: {userProgress: newTemp}}
@@ -226,6 +231,7 @@ const styles = StyleSheet.create({
   getStudents()
   getMastery()
   buildProgressMap()
+  console.log("built")
 
   return (
     <View style = {styles.section}>

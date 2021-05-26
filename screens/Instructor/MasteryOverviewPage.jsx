@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
 
   const {className} = route.params;
   const [students, setStudents] = useState({});
-  const [masteryFilter, setMasteryFilter] = useState({});
+  const [masteryFilter, setMasteryFilter] = useState('');
 
   return (
     <View style = {styles.section}>
