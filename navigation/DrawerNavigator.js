@@ -29,7 +29,7 @@ function Feed({ navigation }) {
         <DrawerItemList {...props} />
         <DrawerItem
          label="Home"
-         onPress={() => props.navigation.navigate("Home")}/>
+         onPress={() => props.navigation.navigate("StudentHome")}/>
         <DrawerItem
           label="Close drawer"
           onPress={() => props.navigation.closeDrawer()}
