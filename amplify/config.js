@@ -1,3 +1,5 @@
+import Analytics from "@aws-amplify/analytics";
+
 const config = {
     Auth: {
 		identityPoolId: 'us-east-1:07057d76-612a-4045-8522-f38a759cf216',
@@ -11,6 +13,9 @@ const config = {
 		  redirectSignOut: 'http://localhost:19006/',
 		  responseType: 'token'
 		}
+	},
+	Analytics:{
+		disabled: true
 	}
   }
 export default config;

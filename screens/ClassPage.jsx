@@ -1,5 +1,7 @@
 import React from 'react';
 import {Button, View, Text, StyleSheet } from 'react-native';
+import { ApolloProvider, useQuery, gql} from '@apollo/client';
+
 
 export default function ClassPage() {
   return (
