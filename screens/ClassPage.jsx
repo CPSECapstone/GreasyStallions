@@ -59,7 +59,6 @@ let ClassPage = function({ route, navigation }){
 				</Text>
 				</TouchableOpacity>
 			 </ScrollView>
-			 <div class="blueline"/>
 			 {displayCurr()}
 	   </View>
 	);
