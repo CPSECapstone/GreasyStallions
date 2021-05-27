@@ -10,9 +10,10 @@ import TaskPage from '../screens/Task/TaskPage';
 import Profile from '../screens/Drawer/Profile';
 import Icon from 'react-native-vector-icons/Octicons';
 import MissionPage from '../screens/Mission/MissionPage';
-import { View, Text, Button, Image } from 'react-native';
+import { View, Text, Button, Image, StyleSheet } from 'react-native';
 import MasteryOverviewPage from '../screens/Instructor/MasteryOverviewPage';
 import InstructorClassPage from '../screens/Instructor/InstructorClassPage';
+import { HeaderBackButton } from '@react-navigation/stack';
 
 const AppStack = createStackNavigator();
 
@@ -22,6 +23,23 @@ const MainStackNavigator = (props, signOut) => {
      screenOptions={{
       //headerTitle: "Hello " + JSON.stringify(user.attributes.name),
       //headerTitle: props => <LogoTitle {...props} />,
+      // headerLeft: () => (
+      //   <View style={styles.iconContainer}>
+      //   <Icon 
+      //   containerStyle={styles.icon}
+      //   paddingLeft={40}
+      //   paddingRight={40}
+      //   name='three-bars' 
+      //   size={30} 
+      //   color='#000' 
+      //   onPress={() => props.navigation.toggleDrawer()}
+      //   />
+      //   <HeaderBackButton containerStyle={styles.icon}
+      //   paddingLeft={80}
+      //   paddingRight={40}
+      //   {...props} onPress={() => props.navigation.goBack()} />
+      //   </View>
+      // )
       headerRight: () => (
         <View style={{paddingRight:20}}>
         <Icon 
@@ -31,10 +49,8 @@ const MainStackNavigator = (props, signOut) => {
         onPress={() => props.navigation.toggleDrawer()}
         />
         </View>
-        // <Button title="Toggle drawer" onPress={() => props.navigation.toggleDrawer()} />
-        // <Button title="Sign Out" onPress={() => Auth.signOut()} color = 'red'/>
       )
-     }}>
+      }}>
       <AppStack.Screen name="Welcome" component={Welcome} signOut={signOut}
       options={{
         headerShown:false
@@ -58,5 +74,21 @@ const MainStackNavigator = (props, signOut) => {
     </AppStack.Navigator>
     )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  },
+  icon: {
+    paddingLeft: 10,
+    paddingRight: 40
+  },
+  iconContainer: {
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    width: 80,
+    paddingLeft: 20
+  }
+});
 
 export {MainStackNavigator}

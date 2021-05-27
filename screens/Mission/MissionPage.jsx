@@ -62,7 +62,7 @@ let MissionPage = function({ route, navigation}){
         <View style={styles.container}>
             {getComponents()}
 			<Text>{data.mission.name}</Text>
-			<Text>{data.mission.description}</Text>
+			<Text style={{textAlign: 'center'}}>{data.mission.description}</Text>
 			<Text>Tasks:</Text>
             <ScrollView>
                 {taskList}

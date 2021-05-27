@@ -1,16 +1,26 @@
-import { Typography } from '@material-ui/core';
 import React from 'react';
-
-
+import { View, Image, StyleSheet } from 'react-native';
 
 let ImageTask = function({ pth, title }) {
 
    return (
-      <div>
-         <Typography style={{color: "#87b5f4"}} variant="h4" component="h4">{title}</Typography>
-         <img src={pth} class="img-fluid"/>
-      </div>
+      <View style={styles.container}>
+         <Image
+          source={pth}
+         />
+      </View>
    );
 }
 
 export default ImageTask;
+
+const styles = StyleSheet.create({
+	container: {
+	  flex: 1,
+	  justifyContent: 'center',
+	  alignItems: 'center',
+	},
+	text: {
+	  textAlign: 'center'
+	},
+  });

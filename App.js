@@ -13,12 +13,12 @@ Amplify.configure(config);
 function App() {
   function getUser() {
   return Auth.currentAuthenticatedUser()
-      .then((userData) => userData)
-      .catch(() => console.log('Not signed in'));
-}
+    .then((userData) => userData)
+    .catch(() => console.log('Not signed in'));
+  }
 
   const [token, setToken]= React.useState();
-  Auth.currentSession().then(res=>{
+  Auth.currentSession().then(res => {
     let accessToken = res.getAccessToken()
     let jwt = accessToken.getJwtToken()
     setToken(jwt);
@@ -29,12 +29,12 @@ function App() {
 
 
   return (
-    <ApolloProvider client = {client}>
-      <View style={styles.container}>
-        <AppNavigation />
-        <StatusBar style="auto" />
-      </View>
-    </ApolloProvider>
+      <ApolloProvider client = {client}>
+        <View style={styles.container}>
+          <AppNavigation />
+          <StatusBar style="auto" />
+        </View>
+      </ApolloProvider>
   );
 }
 
