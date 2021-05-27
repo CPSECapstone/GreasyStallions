@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import {Alert, ListGroup, Button, Col, Row, Card, Accordion} from 'react-bootstrap';
+import {Alert, ListGroup, Button, Col, Row, Card, Accordion} from 'react-bootstrap'
 import { useQuery, gql} from '@apollo/client';
 import { Typography, Paper, Grid } from '@material-ui/core';
 let MissionPage = function({ route, navigation}){
@@ -85,4 +85,4 @@ let MissionPage = function({ route, navigation}){
     );
 }
 
-export default MissionPage;
+export default MissionPage; 

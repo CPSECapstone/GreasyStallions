@@ -32,11 +32,11 @@ export default function CreateMission(course)  {
     const handleNameChange = event => {
         setName(event.target.value);
     };
-    
+
     const handleDescChange = event => {
         setDesc(event.target.value);
     };
-	  
+
 
     function submit(){   
 		addMission({ 
@@ -53,7 +53,8 @@ export default function CreateMission(course)  {
 
     return (
         <div>
-          	<Button variant="outlined" color="primary" onClick={() => setOpen(true)}>
+          	<Button style={{ width: "150px" }} 
+              variant="outlined" color="primary" onClick={() => setOpen(true)}>
             	Add Mission
           	</Button>
           	<Dialog open={open} onClose={() => setOpen(false)} aria-labelledby="form-dialog-title">

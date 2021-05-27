@@ -11,6 +11,7 @@ import TaskPage from '../screens/Task/TaskPage';
 import Profile from '../screens/Drawer/Profile';
 import Icon from 'react-native-vector-icons/Octicons';
 import MissionPage from '../screens/Mission/MissionPage';
+import SettingsPage from '../screens/SettingsPage.jsx';
 import { View, Text, Button, Image } from 'react-native';
 import MissionsView from '../screens/Mission/MissionsView';
 import MasteryOverviewPage from '../screens/Instructor/MasteryOverviewPage';
@@ -23,6 +24,7 @@ const MainStackNavigator = (props, signOut) => {
     return(
     <AppStack.Navigator
      screenOptions={{
+      headerStyle: { backgroundColor: '#4274F3' }, 
       //headerTitle: "Hello " + JSON.stringify(user.attributes.name),
       //headerTitle: props => <LogoTitle {...props} />,
       headerLeft: () => (
@@ -67,6 +69,7 @@ const MainStackNavigator = (props, signOut) => {
       <AppStack.Screen name="TaskPage" component={TaskPage}/>
       <AppStack.Screen name="CreateGoalPage" component={CreateGoalPage}/>
       <AppStack.Screen name="Profile" component={Profile}/>
+	  <AppStack.Screen name="SettingsPage" component={SettingsPage}/>
       <AppStack.Screen name="GoalPage" component={GoalPage}/>
       <AppStack.Screen name="MissionPage" component={MissionPage}/>
       <AppStack.Screen name="MissionsView" component={MissionsView}/>

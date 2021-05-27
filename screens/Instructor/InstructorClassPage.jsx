@@ -106,4 +106,4 @@ import randomColor from 'randomcolor';
         setFilter={setSelect}/>
     </View>
   );
-}
+} 

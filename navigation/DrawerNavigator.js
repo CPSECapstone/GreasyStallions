@@ -137,14 +137,14 @@ const UserInfo = () => {
   }
 
 function Feed({ navigation }) {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Feed Screen</Text>
-        <Button title="Open drawer" onPress={() => navigation.openDrawer()} />
-        <Button title="Toggle drawer" onPress={() => navigation.toggleDrawer()} />
-      </View>
-    );
-  }
+	return (
+	<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+		<Text>Feed Screen</Text>
+		<Button title="Open drawer" onPress={() => navigation.openDrawer()} />
+		<Button title="Toggle drawer" onPress={() => navigation.toggleDrawer()} />
+	</View>
+	);
+}
   
 
   function CustomDrawerContent(props, navigation, signOut) {
@@ -183,6 +183,7 @@ const DrawerNavigator = (navigation) => {
   return (
     <Drawer.Navigator drawerContent={props => <CustomDrawerContent {...props} />}>
       <Drawer.Screen name="Flipt(ed)" component={MainStackNavigator}/>
+	  <Drawer.Screen name="Settings" component={MainStackNavigator}/>
       {/* <Drawer.Screen name="Feed" component={Feed} />
       <Drawer.Screen name="Profile" component={Profile} /> */}
     </Drawer.Navigator>

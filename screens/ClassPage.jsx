@@ -8,9 +8,6 @@ import MissionsView from '../screens/Mission/MissionsView';
 import LearningTaskVisualization from '../screens/Student/LearningTargets/LearningTaskVisualization';
 import './ClassPage.css';
 
-
-
-
 let ClassPage = function({ route, navigation }){
    const { className, teacher } = route.params;
    const [curr, setCurr] = React.useState(0);

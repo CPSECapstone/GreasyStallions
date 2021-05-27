@@ -55,4 +55,4 @@ const styles = StyleSheet.create({
       navigation = {navigation}/>
     </View>
   );
-}
+} 

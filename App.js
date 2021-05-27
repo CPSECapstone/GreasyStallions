@@ -4,6 +4,7 @@ import { ApolloProvider, useQuery, gql} from '@apollo/client';
 import { Picker } from '@react-native-picker/picker';
 import { StatusBar } from 'expo-status-bar';
 import AppNavigation from './navigation';
+// breaks our fonts/auto-resizing
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import Amplify, { Auth, Hub } from 'aws-amplify';
 import makeApolloClient from './apollo';
@@ -65,8 +66,8 @@ export default function App() {
         <View style={styles.container}>
             <AppNavigation />
             <StatusBar style="auto" />
-          </View>
-          </ApolloProvider>)
+        </View>
+      </ApolloProvider>)
     }
     else if(!user){return(
       <View style = {styles.loadingContainer}>
@@ -83,16 +84,17 @@ export default function App() {
           </Button>
           <HelpIcon onClick = { () => openDialog()} style = {{marginTop: 32, color: '#3267EF'}} fontSize = 'large'></HelpIcon>
           <Dialog open={ShowInfo} >
-			<DialogTitle>Welcome to FliptEd!</DialogTitle>
-            <DialogContent>Select "Get Started" to begin. Sign in with
-				your FliptEd account or create a new one. You will be
-				automatically directed to your dashboard.
-			</DialogContent>
-			<Button style={{marginBottom: 16, alignSelf: 'center', width: 250, marginTop: 32, backgroundColor: '#3467EC', color:"white"}} 
-				onClick = { () => setShowInfo(false)}>
-				Got it!
-			</Button>
-		  </Dialog>
+          <DialogTitle>Welcome to FliptEd!</DialogTitle>
+            <DialogContent>
+              Select "Get Started" to begin. Sign in with
+              your FliptEd account or create a new one. You will be
+              automatically directed to your dashboard.
+            </DialogContent>
+            <Button style={{marginBottom: 16, alignSelf: 'center', width: 250, marginTop: 32, backgroundColor: '#3467EC', color:"white"}} 
+              onClick = { () => setShowInfo(false)}>
+              Got it!
+            </Button>
+          </Dialog>
         </Grid>
       </View>
       )

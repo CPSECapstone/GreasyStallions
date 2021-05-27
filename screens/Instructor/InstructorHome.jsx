@@ -36,9 +36,6 @@ const USER_ROLE = gql
   }}
 `;
 
-
-
-
 const CrsFliptedComponent = ({navigation}) => {
   const {data, error, loading} = useQuery(LIST_COURSES);
   if (error) { console.log('Error fetching courses', error); }
@@ -91,14 +88,11 @@ const CrsFliptedComponent = ({navigation}) => {
   );
 }
 
-
-
 export default function InstructorHome({ navigation, signOut }) {
-
 
   return (
     <View style={styles.section}>
-		<CreateCourse/>
+      <CreateCourse/>
     	<CrsFliptedComponent navigation={navigation}/>
     	{/* <StudentGridComponent
 		  students={students}

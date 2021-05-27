@@ -43,7 +43,7 @@ let RubricModal = function({open, close, points, requirements, info}) {
  
 
     return (
-        <Dialog onClose={close} open={open}>
+        <Dialog onClose={close} open={open} disableScrollLock={true}>
             <Grid container justify="center">
                 <DialogTitle class="componentHeader">
                     TASK RUBRIC
