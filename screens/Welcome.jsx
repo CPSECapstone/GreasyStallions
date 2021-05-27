@@ -28,7 +28,7 @@ export default function Welcome({navigation}) {
 		navigation.navigate('InstructorHome');
 	}
 	else if(role == 'STUDENT'){
-    	navigation.navigate('Home');
+    	navigation.navigate('StudentHome');
 	}
     return (
         <View>
