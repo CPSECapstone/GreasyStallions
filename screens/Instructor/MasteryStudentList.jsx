@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import "./InstructorHome.css";
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
+//import InputLabel from '@material-ui/core/InputLabel';
+//import MenuItem from '@material-ui/core/MenuItem';
+//import FormControl from '@material-ui/core/FormControl';
+//import Select from '@material-ui/core/Select';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { useQuery, gql, useApolloClient} from '@apollo/client';
 import {} from '@apollo/client/react/hooks'
@@ -12,7 +12,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
-import { Grid, Typography } from '@material-ui/core';
+//import { Grid, Typography } from '@material-ui/core';
 
 const styles = StyleSheet.create({
     header: {

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View } from 'react-native';
 import "./InstructorHome.css";
 import StudentGridComponent from './StudentGrid';
-import {Typography, Box,  Button} from '@material-ui/core';
+//import {Typography, Box,  Button} from '@material-ui/core';
 
   // The landing page for a teacher when they click into a course
   // from their home page

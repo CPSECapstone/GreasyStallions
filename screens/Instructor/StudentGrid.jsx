@@ -1,14 +1,15 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import "./InstructorHome.css";
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import CircularProgress from '@material-ui/core/CircularProgress';
+//import InputLabel from '@material-ui/core/InputLabel';
+//import MenuItem from '@material-ui/core/MenuItem';
+//import FormControl from '@material-ui/core/FormControl';
+//import Select from '@material-ui/core/Select';
+///import CircularProgress from '@material-ui/core/CircularProgress';
 import { useQuery, gql, useApolloClient} from '@apollo/client';
 import {} from '@apollo/client/react/hooks';
-import { Typography } from '@material-ui/core';
+//import { Typography } from '@material-ui/core'import {Text} from 
+import { Button, Menu } from 'react-native-paper';
 import "./testFilterLH.json"
 
 const styles = StyleSheet.create({
@@ -164,8 +165,8 @@ const styles = StyleSheet.create({
               thickness="3"
               value={studentsInfo.get(student).mission_progress} />
               <div class={"info"}>
-                <div><Typography variant="body2"> {student.userName}</Typography></div>
-                <div><Typography variant="body2">Current Task:</Typography></div>
+                <div><Text variant="body2"> {student.userName}</Text></div>
+                <div><Text variant="body2">Current Task:</Text></div>
                 {/* {<div><Text>{student.student_current_task}</Text></div>} */}
                 </div>
             </div>

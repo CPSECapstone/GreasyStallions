@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import {useQuery, gql} from '@apollo/client';
-import {Typography, Grid, Box, Paper} from '@material-ui/core';
+//import {Typography, Grid, Box, Paper} from '@material-ui/core';
 import randomColor from 'randomcolor';
 import CreateCourse from '../CreateModals/CreateCourse';
 
@@ -77,14 +77,14 @@ const CrsFliptedComponent = ({navigation}) => {
 
   return (
     <View style = {styles.section}>
-      <Typography variant="h5">
+      <Text variant="h5">
           <Box fontWeight="fontWeightBold" m={1}>
             Courses
           </Box>
-        </Typography>
-        <Grid container direction="row" justify="space-around" alignItems="center">
+        </Text>
+        {/* <Grid container direction="row" justify="space-around" alignItems="center">
           {courses}
-        </Grid>
+        </Grid> */}
     </View>
   );
 }
