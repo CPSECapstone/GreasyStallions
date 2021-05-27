@@ -6,7 +6,7 @@ import AppNavigation from './navigation';
 import makeApolloClient from './apollo';
 import { withAuthenticator } from 'aws-amplify-react-native'
 import Amplify, { Auth } from 'aws-amplify';
-import config from './aws-exports';
+import config from './amplify/config';
 
 Amplify.configure(config);
 
