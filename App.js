@@ -5,20 +5,23 @@ import { StatusBar } from 'expo-status-bar';
 import AppNavigation from './navigation';
 import makeApolloClient from './apollo';
 import { withAuthenticator } from 'aws-amplify-react-native'
-import Amplify, { Auth } from 'aws-amplify';
-import config from './aws-exports';
+import Amplify, { Auth, Hub } from 'aws-amplify';
+// import Amplify from '@aws-amplify/core';
+// import Auth from '@aws-amplify/auth';
+import config from './amplify/config';
+import { Provider as PaperProvider } from 'react-native-paper';
 
 Amplify.configure(config);
 
 function App() {
   function getUser() {
   return Auth.currentAuthenticatedUser()
-      .then((userData) => userData)
-      .catch(() => console.log('Not signed in'));
-}
+    .then((userData) => userData)
+    .catch(() => console.log('Not signed in'));
+  }
 
   const [token, setToken]= React.useState();
-  Auth.currentSession().then(res=>{
+  Auth.currentSession().then(res => {
     let accessToken = res.getAccessToken()
     let jwt = accessToken.getJwtToken()
     setToken(jwt);
@@ -29,12 +32,12 @@ function App() {
 
 
   return (
-    <ApolloProvider client = {client}>
-      <View style={styles.container}>
-        <AppNavigation />
-        <StatusBar style="auto" />
-      </View>
-    </ApolloProvider>
+      <ApolloProvider client = {client}>
+        <View style={styles.container}>
+          <AppNavigation />
+          <StatusBar style="auto" />
+        </View>
+      </ApolloProvider>
   );
 }
 
