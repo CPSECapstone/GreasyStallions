@@ -5,11 +5,8 @@ import { StatusBar } from 'expo-status-bar';
 import AppNavigation from './navigation';
 import makeApolloClient from './apollo';
 import { withAuthenticator } from 'aws-amplify-react-native'
-import Amplify, { Auth, Hub } from 'aws-amplify';
-// import Amplify from '@aws-amplify/core';
-// import Auth from '@aws-amplify/auth';
+import Amplify, { Auth } from 'aws-amplify';
 import config from './amplify/config';
-import { Provider as PaperProvider } from 'react-native-paper';
 
 Amplify.configure(config);
 
