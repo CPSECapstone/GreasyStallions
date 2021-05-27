@@ -1,21 +1,115 @@
 import React from 'react';
-import {Button, View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { gql } from '@apollo/client';
+import { Text } from 'react-native-paper';
+let ClassPage = function({ route, navigation }){
+	const { className, teacher } = route.params;
+	const [curr, setCurr] = React.useState(0);
+	const COURSE_CONTENT = gql 
+	`
+	 query {
+		 courseContent(course: "${className}") {
+			 courseInfo {
+				 instructor description course
+			 }
+			 missions {
+				 name
+				 id
+			 }
+			 targets {
+				 targetName
+			 }
+		 }
+	 }
+	`;
+ 
+	 let displayCurr = () => {
+		 if (curr === 0) {
+			 return <MissionsView className={className}/>
+		 } else if (curr === 1) {
+			 return <LearningTaskVisualization className={className}/>
+		 }
+	 }
+ 
+	 return (
+		 <View>
+			 <ScrollView classes={{root: "header"}} >
+				<Text style={styles.coursebutton}>
+					{(curr === 0) ? "Missions Progress" : "Mastery Progress"}
+				</Text>
 
-export default function ClassPage() {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Classpage</Text>
-    </View>
-  )
-}
+				<TouchableOpacity
+				  style={styles.coursebutton} 
+				  onPress={ () => setCurr(0)}
+				>
+				<Text style={{color: "#FFFFFF"}}>
+					Missions
+				</Text>
+				</TouchableOpacity>
+
+				<TouchableOpacity
+				  style={styles.coursebutton} 
+				  onPress={ () => setCurr(1)}
+				>
+				<Text style={{color: "#FFFFFF"}}>
+					Learning Targets
+				</Text>
+				</TouchableOpacity>
+			 </ScrollView>
+			 <div class="blueline"/>
+			 {displayCurr()}
+	   </View>
+	);
+ }
+
+ export default ClassPage;
 
 const styles = StyleSheet.create({
-	container: {
-	  flex: 1,
-	  justifyContent: 'center',
-	  alignItems: 'center',
-	},
-	text: {
-	  textAlign: 'center'
-	},
-  });
+  section: {
+	padding:16,
+  },
+  header: {
+	marginLeft: 50,
+	flex: 1,
+	width: "100%",
+	alignSelf: 'center'
+  },
+  text: {
+	textAlign: 'left',
+	fontSize: 28,
+	paddingTop: 20
+  },
+  buttons: {
+	width: 100,
+	backgroundColor: '#99004d',
+	marginTop: 20
+  },
+  buttonText: {
+	width: "15%",
+	marginLeft: 0,
+	alignSelf: 'center'
+  },
+  coursebutton: {
+	marginTop: 16,
+	padding: 8,
+	height: 100,
+	width: 250,
+	alignItems: 'center',
+	justifyContent: 'center',
+	backgroundColor: '#3467EC'
+  }
+});
+/* 
+  will have to build custom breadcrumbs to work with all platforms
+<Breadcrumbs class="trail" aria-label="breadcrumb">
+				 <Link color="textPrimary" onClick={() => navigation.navigate("StudentHome")}>
+					 Course
+				 </Link>
+				 <Link color="textPrimary" onClick={() => navigation.navigate("StudentHome")}>
+					 {className}
+				 </Link>
+				 <Link>
+					 {(curr === 0) ? "Missions Progress Visualization" : "Learning Task Visualization"}
+				 </Link>
+</Breadcrumbs> 
+*/
