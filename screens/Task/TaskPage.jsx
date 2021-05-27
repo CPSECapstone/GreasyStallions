@@ -4,6 +4,7 @@ import React from 'react';
 import { View } from 'react-native';
 import QuizTask from './QuizTask';
 import VideoTask from './VideoTask';
+import { makeStyles } from '@material-ui/core/styles';
 import WebpageTask from './WebpageTask';
 import FreeResponseTask from './FreeResponseTask';
 import RubricModal from './RubricModal';
@@ -131,13 +132,15 @@ let TaskPage = ({ route, navigation }) => {
 
     return (
         <View>
-            <Grid container justify="center">
-                <Typography class="componentHeader" variant="h3" component="h3">{data.task.name.toUpperCase()}</Typography>
-            </Grid>
-            <Grid container justify="center">
-                <Pagination variant="outlined" count={data.task.pages.length} color="primary"
-                 page={currPage} onChange={handleChange} size="large"/>
-            </Grid>
+            <View>
+              <Grid container justify="center">
+                  <Typography class="componentHeader" variant="h3" component="h3">{data.task.name.toUpperCase()}</Typography>
+              </Grid>
+              <Grid container justify="center">
+                  <Pagination variant="outlined" count={data.task.pages.length} color="primary"
+                  page={currPage} onChange={handleChange} size="large"/>
+              </Grid>
+            </View>
             <Button disabled={!data.task.requirements.length} variant="contained" onClick={handleClickOpen}>
                 TASK RUBRIC
             </Button>
