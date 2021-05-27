@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import Home from '../screens/Student/StudentHome'; 
+import StudentHome from '../screens/Student/StudentHome'; 
 import InstructorHome from '../screens/Instructor/InstructorHome';
 import ClassPage from '../screens/ClassPage';
 import GoalPage from '../screens/Goals/GoalPage';
@@ -55,8 +55,10 @@ const MainStackNavigator = (props, signOut) => {
       options={{
         headerShown:false
       }}/>
-      <AppStack.Screen name="Home" component={Home} signOut={signOut}
-      />
+      <AppStack.Screen name="StudentHome" component={StudentHome} signOut={signOut}
+      options={{
+        headerLeft:null
+      }}/>
       <AppStack.Screen name="InstructorHome" component={InstructorHome} signOut={signOut}
       options={{
         headerLeft:null
