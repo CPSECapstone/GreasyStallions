@@ -34,6 +34,10 @@ function Feed({ navigation }) {
           label="Close drawer"
           onPress={() => props.navigation.closeDrawer()}
         />
+        <DrawerItem
+          label="Goals"
+          onPress={() => props.navigation.navigate("GoalPage")}
+        />
         {/* <View style={{paddingRight:20}}>
         <Icon 
         name='three-bars' 
