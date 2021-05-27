@@ -2,9 +2,7 @@ import { ScrollView, TouchableOpacity,  Button, View,  StyleSheet } from 'react-
 import { Surface, Text } from 'react-native-paper';
 import React, { useState } from 'react';
 import {useQuery, gql} from '@apollo/client';
-import {Typography,  Box, Paper} from '@material-ui/core';
 import randomColor from 'randomcolor';
-import Grid from 'react-native-grid-component';
 
 const LIST_COURSES = gql
 `
@@ -45,17 +43,14 @@ export default function InstructorHome({navigation}) {
 	  });
 	}
 
-
-
-
-  return (
-    <View style={styles.container}>
-		<Text style={{marginBottom: 32, marginTop: 32}}>Courses</Text>
-		<ScrollView>
-			{courses}
-		</ScrollView>
-    </View>
-  )
+	return (
+		<View style={styles.container}>
+			<Text style={{marginBottom: 32, marginTop: 32}}>Courses</Text>
+			<ScrollView>
+				{courses}
+			</ScrollView>
+		</View>
+	)
 }
 
 const styles = StyleSheet.create({
