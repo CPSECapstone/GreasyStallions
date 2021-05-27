@@ -111,9 +111,10 @@ let StudentGridComponent = ({students, setStudents, filter, setFilter}) =>{
   const closeMenu = () => setVisible(false);
   return (
 	<Provider>
-		<ScrollView style={styles.container}>
+		<View style={styles.container}>
 			<Menu
 				visible={visible}
+				style={styles.filter}
 				onDismiss={closeMenu}
 				anchor={<Button onPress={openMenu}>FILTER STUDENTS</Button>}>
 				<Menu.Item onPress={() => {handleChange(1)}} title={bubbleFilterOptions.get(1)} />
@@ -126,7 +127,7 @@ let StudentGridComponent = ({students, setStudents, filter, setFilter}) =>{
 				{students.map(student => (
 						<AnimatedCircularProgress
 							style={styles.circle}
-							size={200}
+							size={150}
 							width={10}
 							rotation={0}
 							backgroundWidth={10}
@@ -143,7 +144,7 @@ let StudentGridComponent = ({students, setStudents, filter, setFilter}) =>{
 						</AnimatedCircularProgress>
 				))}
 			</View>
-		</ScrollView>
+		</View>
 	</Provider>
   )
 }
@@ -164,6 +165,6 @@ const styles = StyleSheet.create({
 		width: '100%',
 		flexDirection: 'row',
 		flexWrap: "wrap",
-	}
+	},
   });
   export default StudentGridComponent;

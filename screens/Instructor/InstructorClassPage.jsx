@@ -71,13 +71,15 @@ import { Surface, Text } from 'react-native-paper';
 		<Text>{instructor}</Text>
 		<Text>{description}</Text>
 		<ScrollView>
-			{missions}
+			<View style={styles.missionlist}>
+				{missions}
+			</View>
+			<StudentGridComponent
+			students={students}
+			setStudents={setStudents}
+			filter={bubbleGridSelect}
+			setFilter={setSelect}/>
 		</ScrollView>
-		<StudentGridComponent
-        students={students}
-        setStudents={setStudents}
-        filter={bubbleGridSelect}
-        setFilter={setSelect}/>
     </View>
   );
 }
@@ -109,12 +111,18 @@ const styles = StyleSheet.create({
 		flex: 1
 	  },
 	  coursebutton: {
-		marginTop: 16,
+		margin: 15,
 		padding: 8,
 		height: 100,
 		width: 250,
 		alignItems: 'center',
 		justifyContent: 'center',
 		backgroundColor: '#3467EC'
+	  },
+	  missionlist: {
+	  	flexDirection: 'row',
+		flexWrap: "wrap",
+		justifyContent: 'center',
+		
 	  }
   });
