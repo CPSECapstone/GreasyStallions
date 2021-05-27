@@ -68,7 +68,7 @@ export default function MissionsView({ className }) {
             let missions = [];
             data.courseContent.missions.forEach( mission => {
                 missions.push(
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => {navigation.navigate('TaskPage', {id: id})}}>
                         <Text>{mission.name}</Text>
                     </TouchableOpacity>
                 );
