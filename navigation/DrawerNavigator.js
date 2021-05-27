@@ -59,6 +59,16 @@ function Feed({ navigation }) {
   }
   
   function CustomDrawerContent(props, signOut) {
+    const {data, error, loading} = useQuery(USER_ROLE);
+    if (error) { console.log('Error fetching user', error); }
+    let role = '';
+    let email = '';
+    let firstName = '';
+    if(data){
+      email = data.getUser.email;
+      firstName = data.getUser.firstName;
+      role = data.getUser.role;
+    }
     return (
       <DrawerContentScrollView {...props}>
         <Image
@@ -69,7 +79,7 @@ function Feed({ navigation }) {
         <DrawerItemList {...props} />
         <DrawerItem
          label="Home"
-         onPress={() => props.navigation.navigate("Home")}/>
+         onPress={() => { props.navigation.navigate(role === "STUDENT" ? "StudentHome": "InstructorHome")}}/>
          <DrawerItem
          label="Goals"
          onPress={() => props.navigation.navigate("GoalPage", {user: "STUDENT"})}/>
