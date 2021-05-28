@@ -1,21 +1,15 @@
 import React from 'react';
-import { Button,View, Text, StyleSheet } from 'react-native';
+import { View } from 'react-native';
+import GoalListStudent from './GoalListStudent'
 
-export default function GoalPage() {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.text}>GoalPage</Text>
-    </View>
-  )
+
+let GoalPage = ({route, navigation}) => {
+
+   return (
+      <View>
+         <GoalListStudent 
+         teacher={false}
+         navigation={navigation}/>
+      </View>)
 }
-
-const styles = StyleSheet.create({
-	container: {
-	  flex: 1,
-	  justifyContent: 'center',
-	  alignItems: 'center',
-	},
-	text: {
-	  textAlign: 'center'
-	},
-  });
+export default GoalPage;
