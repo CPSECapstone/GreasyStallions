@@ -5,6 +5,7 @@ import Amplify, { Auth, Hub } from 'aws-amplify';
 import { View, Text, Button, Image, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/Octicons';
 import { Subheading } from 'react-native-paper';
+import Styles from '../styles/styles'
 import {
     createDrawerNavigator,
     DrawerContentScrollView,
@@ -39,7 +40,7 @@ const UserInfo = () => {
     }
 
     return (
-      <View style = {styles.section}>
+      <View style = {Styles.section}>
         <Subheading>
             Hi {email}!
         </Subheading>
@@ -73,7 +74,7 @@ function Feed({ navigation }) {
       <DrawerContentScrollView {...props}>
         <Image
         source={{ uri: BASE_PATH + proileImage }}
-        style={styles.sideMenuProfileIcon}
+        style={Styles.sideMenuProfileIcon}
         />
         <UserInfo></UserInfo>
         <DrawerItemList {...props} />
@@ -103,29 +104,6 @@ const DrawerNavigator = (navigation) => {
     </Drawer.Navigator>
   );
 }
-
-const styles = StyleSheet.create({
-  sideMenuProfileIcon: {
-    resizeMode: 'center',
-    width: 100,
-    height: 100,
-    borderRadius: 100 / 2,
-    alignSelf: 'center',
-  },
-  section: {
-    alignSelf: 'center',
-  },
-  iconStyle: {
-    width: 15,
-    height: 15,
-    marginHorizontal: 5,
-  },
-  customItem: {
-    padding: 16,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-});
 
 export {DrawerNavigator}
 // export default DrawerNavigator;
