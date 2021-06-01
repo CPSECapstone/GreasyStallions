@@ -131,7 +131,7 @@ let TaskPage = ({ route, navigation }) => {
             {fillComponents()}
             {currComponents.map((comp) => {
                 return (
-                    <View class={(compCount++ % 2 === 0) ? "lgDiv" : "dgDiv"}>
+                    <View style={(compCount++ % 2 === 0) ? styles.lgDiv : styles.dgDiv}>
                         {comp}
                     </View>
                 )
@@ -143,6 +143,13 @@ let TaskPage = ({ route, navigation }) => {
 export default TaskPage;
 
 const styles = StyleSheet.create({
+  dgDiv: {
+    color: "#F2F2F2",
+    
+  },
+  lgDiv: {
+    color: "#FFFFFF"
+  },
 	container: {
 	  flex: 1,
 	  justifyContent: 'center',
@@ -151,6 +158,7 @@ const styles = StyleSheet.create({
 	text: {
 	  textAlign: 'center'
 	},
+
 	surface: {
 		marginTop: 16,
 		padding: 8,

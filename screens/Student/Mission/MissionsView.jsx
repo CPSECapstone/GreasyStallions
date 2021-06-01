@@ -1,7 +1,7 @@
 import React from 'react';
 import { useQuery, gql } from "@apollo/client";
 import { View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
-import { Text } from 'react-native-paper';
+import { Button, Text } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 
 
@@ -68,7 +68,7 @@ export default function MissionsView({ className }) {
             let missions = [];
             data.courseContent.missions.forEach( mission => {
                 missions.push(
-                    <TouchableOpacity onPress={() => {navigation.navigate('TaskPage', {id: id})}}>
+                    <TouchableOpacity onPress={() => clickHandler(mission.id)}>
                         <Text>{mission.name}</Text>
                     </TouchableOpacity>
                 );
@@ -79,6 +79,36 @@ export default function MissionsView({ className }) {
                     {missions}
                 </ScrollView>
             );
+        } else if (view === 1) {
+            const { data, error, loading } = useQuery(TASK_QUERY);
+            
+            if (loading) {
+                return <View/>
+            }
+
+            let taskList = [];
+
+            for (let i=0; i<data.mission.missionContent.length; i++) {
+                let crMiss = data.mission.missionContent[i]; 
+                if (crMiss.__typename === "Task") {
+                    taskList.push(
+                        <TouchableOpacity onPress={() => taskViewer(crMiss.id)}>
+                            <Text>{crMiss.name}</Text>
+                        </TouchableOpacity>
+                    )
+                } 
+            }
+            
+            return (
+                <div st>
+                    <Button onPress={() => setView(0)}>
+                        Back to Missions
+                    </Button>
+                    <ScrollView>
+                        {taskList}
+                    </ScrollView>
+                </div>
+            )
         }
     }
 
