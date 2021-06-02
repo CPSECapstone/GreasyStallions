@@ -1,21 +1,36 @@
 import React from 'react';
-import { Button, View, Text, StyleSheet } from 'react-native';
+import { LIST_ALL_GOALS } from './GoalQueries'
+import { useApolloClient } from '@apollo/client';
+import { List, Colors, ProgressBar } from 'react-native-paper';
 
-export default function GoalProgressBar() {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.text}>goalprogressbar</Text>
-    </View>
-  )
+
+// Goal Progress Bar for GoalListStudent that hides on teacher view
+let OverallGoalProgressBar = ({goalProgress, goalsLength, showBar}) => {
+   const client = useApolloClient();
+   const {getAllGoals} = client.readQuery({query: LIST_ALL_GOALS});
+   let goalProgressVal = 0;
+   let completedGoals = 0;
+
+   getAllGoals.forEach((goal) => {
+      if(!goal.subGoals.length){
+         goal.completed && completedGoals++;
+      } else{
+         let reducer = (acc, cv) => cv.completed ? acc + 1 : acc;
+         let subCompleted = goal.subGoals.reduce(reducer, 0)
+         if(subCompleted === goal.subGoals.length){
+            completedGoals++;
+         }
+      }
+   })
+   goalProgressVal = completedGoals / getAllGoals.length;
+
+   return (<List.Item
+             title={"Overall Goal Progress: " + 
+             (Number((parseFloat(goalProgressVal)).toFixed(2)) * 100) 
+              + "%"}
+            right={() => <ProgressBar 
+               progress={goalProgressVal}
+               color={Colors.red800}/>}/>)
 }
 
-const styles = StyleSheet.create({
-	container: {
-	  flex: 1,
-	  justifyContent: 'center',
-	  alignItems: 'center',
-	},
-	text: {
-	  textAlign: 'center'
-	},
-  });
+export default OverallGoalProgressBar

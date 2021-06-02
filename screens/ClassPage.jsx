@@ -2,6 +2,9 @@ import React from 'react';
 import { View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { gql } from '@apollo/client';
 import { Text } from 'react-native-paper';
+import MissionsView from './Student/Mission/MissionsView';
+
+
 let ClassPage = function({ route, navigation }){
 	const { className, teacher } = route.params;
 	const [curr, setCurr] = React.useState(0);
@@ -56,7 +59,6 @@ let ClassPage = function({ route, navigation }){
 				</Text>
 				</TouchableOpacity>
 			 </ScrollView>
-			 <div class="blueline"/>
 			 {displayCurr()}
 	   </View>
 	);
@@ -99,17 +101,3 @@ const styles = StyleSheet.create({
 	backgroundColor: '#3467EC'
   }
 });
-/* 
-  will have to build custom breadcrumbs to work with all platforms
-<Breadcrumbs class="trail" aria-label="breadcrumb">
-				 <Link color="textPrimary" onClick={() => navigation.navigate("StudentHome")}>
-					 Course
-				 </Link>
-				 <Link color="textPrimary" onClick={() => navigation.navigate("StudentHome")}>
-					 {className}
-				 </Link>
-				 <Link>
-					 {(curr === 0) ? "Missions Progress Visualization" : "Learning Task Visualization"}
-				 </Link>
-</Breadcrumbs> 
-*/

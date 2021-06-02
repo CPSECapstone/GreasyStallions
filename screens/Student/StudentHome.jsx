@@ -76,10 +76,10 @@ const CrsFliptedComponent = ({navigation}) => {
 
 	return (
 		<View style = {styles.section}>
+			<ScrollView>
 			<Text style={{marginBottom: 32, marginTop: 32}}>
 				Courses
 			</Text>
-			<ScrollView>
 				{courses}
 			</ScrollView>
 		</View>

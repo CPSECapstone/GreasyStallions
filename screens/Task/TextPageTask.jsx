@@ -1,21 +1,37 @@
 import React from 'react';
-import { Button, View, Text, StyleSheet } from 'react-native';
+import {Text,  Surface} from 'react-native-paper';
+import { View, StyleSheet } from 'react-native';
 
-export default function TextPageTask() {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.text}>textpagetask</Text>
-    </View>
-  )
+
+/**
+ * Task page so simply display plain text
+ * May be edited later to allow for formatted text files or input
+ */
+
+let TextPageTask = function({ title, text, size }) {
+    
+    return (
+        <View>
+            <Surface style={styles.surface}>
+				<Text>{title}</Text>
+				<Text>{text}</Text>
+			</Surface>
+        </View>
+    );
 }
 
+export default TextPageTask;
+
 const styles = StyleSheet.create({
-	container: {
-	  flex: 1,
-	  justifyContent: 'center',
+	surface: {
+	  padding: 8,
 	  alignItems: 'center',
+	  justifyContent: 'center',
+	  elevation: 4,
 	},
-	text: {
-	  textAlign: 'center'
-	},
+	container: {
+		flex: 1,
+		justifyContent: 'center',
+		alignItems: 'center',
+	  }
   });

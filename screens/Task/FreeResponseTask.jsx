@@ -1,21 +1,24 @@
+import { TextInput } from 'react-native-paper';
 import React from 'react';
-import { Button, View, Text, StyleSheet } from 'react-native';
 
-export default function FreeResponseTask() {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.text}>freeresponsetask</Text>
-    </View>
-  )
+
+/*
+	Free response question task page.
+	Still need to save the answer after submission.
+*/
+
+let freeResponseAnswer = "";
+
+let FreeResponseTask = function({ freeResponseQuestion }) {
+
+	return (
+		<View>
+			<TextInput
+				label={freeResponseQuestion}
+				multiline
+			/>
+		</View>
+	);
 }
 
-const styles = StyleSheet.create({
-	container: {
-	  flex: 1,
-	  justifyContent: 'center',
-	  alignItems: 'center',
-	},
-	text: {
-	  textAlign: 'center'
-	},
-  });
+export default FreeResponseTask;

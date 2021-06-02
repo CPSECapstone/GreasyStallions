@@ -1,21 +1,23 @@
 import React from 'react';
-import { Button, View, Text, StyleSheet } from 'react-native';
+import { List, IconButton, Colors } from 'react-native-paper';
 
-export default function GoalSubListStudent() {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.text}>goalsuliststudent</Text>
-    </View>
-  )
-}
 
-const styles = StyleSheet.create({
-	container: {
-	  flex: 1,
-	  justifyContent: 'center',
-	  alignItems: 'center',
-	},
-	text: {
-	  textAlign: 'center'
-	},
-  });
+
+let GoalSubListStudent = ({subGoal, completeSubGoal,
+ completeSubGoalTeacher, idx, subIdx, teacher, studentIdx}) => {
+   return (
+      <List.Item
+       title={subGoal.title}
+       description={"due by: "+ subGoal.dueDate}
+       right={() =>
+         <IconButton
+          icon={subGoal.completed ? 
+           "checkbox-marked" : "checkbox-blank-outline"}
+          color={Colors.blue500} 
+          onPress={teacher 
+           ? completeSubGoalTeacher : () => completeSubGoal(idx + " " + subIdx)} />}/>
+   )
+
+};
+
+export default GoalSubListStudent;
