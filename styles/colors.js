@@ -1,16 +1,9 @@
 const Colors = {
-  primary: '#478a91',
-  info: '#a0c9cf',
-  success: '#2AC062',
-  warning: '#ffbc27',
-  light: '#c8e3e7',
-  lighter: '#e9f6f3',
-  background: '#f0efef',
-  dark: '#010101',
-  danger: '#cc0022',
-  like: '#e06e9a',
-  tan: '#fff9f1',
-  tandark: '#fff0db'
+  blue: '#4274F3',
+  green: '#27AE60',
+  light_gray: '#E5E5E5',
+  yellow: '#F2C94C',
+  red: '#EA6868'
 };
 
 export default Colors;
