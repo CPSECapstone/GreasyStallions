@@ -9,6 +9,7 @@ import RubricModal from './RubricModal';
 import TextPageTask from './TextPageTask';
 import { ApolloProvider, useQuery, gql} from '@apollo/client';
 import ImageTask from './ImageTask';
+import  Styles  from '../../styles/styles';
 import { separateOperations } from 'graphql';
 
 /**
@@ -127,11 +128,11 @@ let TaskPage = ({ route, navigation }) => {
     }
 
     return (
-        <View style={styles.container}>
+        <View>
             {fillComponents()}
             {currComponents.map((comp) => {
                 return (
-                    <View style={(compCount++ % 2 === 0) ? styles.lgDiv : styles.dgDiv}>
+                    <View style={(compCount++ % 2 === 0) ? Styles.taskPageComponentBackgroundLG : Styles.taskPageComponentBackgroundDG}>
                         {comp}
                     </View>
                 )
@@ -142,47 +143,3 @@ let TaskPage = ({ route, navigation }) => {
 
 export default TaskPage;
 
-const styles = StyleSheet.create({
-  dgDiv: {
-    color: "#F2F2F2",
-    
-  },
-  lgDiv: {
-    color: "#FFFFFF"
-  },
-	container: {
-	  flex: 1,
-	  justifyContent: 'center',
-	  alignItems: 'center',
-	},
-	text: {
-	  textAlign: 'center'
-	},
-
-	surface: {
-		marginTop: 16,
-		padding: 8,
-		height: 100,
-		width: 250,
-		alignItems: 'center',
-		justifyContent: 'center',
-		elevation: 4,
-	  },
-	  item: {
-		flex: 1,
-		height: 160,
-		margin: 1
-	  },
-	  list: {
-		flex: 1
-	  },
-	  coursebutton: {
-		marginTop: 16,
-		padding: 8,
-		height: 100,
-		width: 250,
-		alignItems: 'center',
-		justifyContent: 'center',
-		backgroundColor: '#3467EC'
-	  }
-  });
