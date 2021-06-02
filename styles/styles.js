@@ -25,6 +25,13 @@ const Styles = StyleSheet.create({
 		flexWrap: "wrap",
     justifyContent: 'center'
 	},
+	containerTask: {
+	  flex: 1,
+	  justifyContent: 'center',
+	  alignItems: 'center',
+    padding: 16,
+    width: '100%'
+	},
   container: {
 	  flex: 1,
 	  width: '100%',

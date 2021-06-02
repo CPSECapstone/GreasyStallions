@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { ScrollView, TouchableOpacity,  Button, View,  StyleSheet } from 'react-native';
-import { Surface, Text, Portal, Provider } from 'react-native-paper';
+import { Surface, Text, Portal, Provider, Modal } from 'react-native-paper';
 import QuizTask from './QuizTask';
 import VideoTask from './VideoTask';
 import WebpageTask from './WebpageTask';
@@ -10,6 +10,7 @@ import TextPageTask from './TextPageTask';
 import { ApolloProvider, useQuery, gql} from '@apollo/client';
 import ImageTask from './ImageTask';
 import { separateOperations } from 'graphql';
+import Styles from '../../styles/styles'
 
 /**
  * The general task page that will hold all components that define a task
@@ -22,7 +23,9 @@ let TaskPage = ({ route, navigation }) => {
     const [currPage, setCurrPage] = React.useState(1);
     const [open , setOpen] = React.useState(false);
     const [taskInfo, setTaskInfo] = React.useState();
+    const [show, setShow] = useState(false)
     let compCount = 0;
+    const containerStyle = {backgroundColor: 'white', padding: 20};
 
     // handle changes in the pagination
     const handleChange = (event, value) => {
@@ -126,19 +129,20 @@ let TaskPage = ({ route, navigation }) => {
     }
 
     return (
-      <View style={styles.container}>
+      <View style={Styles.containerTask}>
+        <Button mode='contained' title= 'Show Rubric' onPress={() => setShow(true)} />
         <Provider>
           <Portal>
-        <RubricModal/>
             {fillComponents()}
             {currComponents.map((comp, idx) => {
                 return (
-                    <View style={(idx % 2 === 0) ? styles.lgDiv : styles.dgDiv}>
+                    <View style={(idx % 2 === 0) ? Styles.lgDiv : Styles.dgDiv}>
                       {console.log(comp)}
                         {comp}
                     </View>
                 )
             })}
+            <RubricModal/>
           </Portal>
         </Provider>
       </View>
@@ -147,46 +151,46 @@ let TaskPage = ({ route, navigation }) => {
 
 export default TaskPage;
 
-const styles = StyleSheet.create({
-  dgDiv: {
-    backgroundColor: "#F2F2F2",
-  },
-  lgDiv: {
-    backgroundColor: "#E5E5E5"
-  },
-	container: {
-	  flex: 1,
-	  justifyContent: 'center',
-	  alignItems: 'center',
-	},
-	text: {
-	  textAlign: 'center'
-	},
+// const styles = StyleSheet.create({
+//   dgDiv: {
+//     backgroundColor: "#F2F2F2",
+//   },
+//   lgDiv: {
+//     backgroundColor: "#E5E5E5"
+//   },
+// 	container: {
+// 	  flex: 1,
+// 	  justifyContent: 'center',
+// 	  alignItems: 'center',
+// 	},
+// 	text: {
+// 	  textAlign: 'center'
+// 	},
 
-	surface: {
-		marginTop: 16,
-		padding: 8,
-		height: 100,
-		width: 250,
-		alignItems: 'center',
-		justifyContent: 'center',
-		elevation: 4,
-	  },
-	  item: {
-		flex: 1,
-		height: 160,
-		margin: 1
-	  },
-	  list: {
-		flex: 1
-	  },
-	  coursebutton: {
-		marginTop: 16,
-		padding: 8,
-		height: 100,
-		width: 250,
-		alignItems: 'center',
-		justifyContent: 'center',
-		backgroundColor: '#3467EC'
-	  }
-  });
+// 	surface: {
+// 		marginTop: 16,
+// 		padding: 8,
+// 		height: 100,
+// 		width: 250,
+// 		alignItems: 'center',
+// 		justifyContent: 'center',
+// 		elevation: 4,
+// 	  },
+// 	  item: {
+// 		flex: 1,
+// 		height: 160,
+// 		margin: 1
+// 	  },
+// 	  list: {
+// 		flex: 1
+// 	  },
+// 	  coursebutton: {
+// 		marginTop: 16,
+// 		padding: 8,
+// 		height: 100,
+// 		width: 250,
+// 		alignItems: 'center',
+// 		justifyContent: 'center',
+// 		backgroundColor: '#3467EC'
+// 	  }
+//   });

@@ -5,18 +5,12 @@ import { Surface, Modal, Portal, Text, Button, Provider } from 'react-native-pap
 export default function RubricModal() {
 	const [show, setShow] = useState(false)
 
-	const containerStyle = {backgroundColor: 'white', padding: 20};
+	// const containerStyle = {backgroundColor: 'white', padding: 20};
 	return (
 		<View style={styles.container}>
-			<Text style={styles.text}>rubricmodal</Text>
-			<Button mode='contained' title= 'Show panel' onPress={() => setShow(true)} />
-			{/* <Provider>
-				<Portal> */}
-					<Modal visible={show} onDismiss={() =>setShow(false)} contentContainerStyle={containerStyle}>
-						<Text>Example Modal.  Click outside this area to dismiss.</Text>
-					</Modal>
-				{/* </Portal>
-			</Provider> */}
+			<Modal visible={show} onDismiss={() =>setShow(false)} /* contentContainerStyle={containerStyle} */>
+				<Text>Example Modal.  Click outside this area to dismiss.</Text>
+			</Modal>
 		</View>
 	)
 }
