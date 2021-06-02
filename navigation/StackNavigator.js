@@ -59,9 +59,10 @@ const MainStackNavigator = (props, signOut) => {
       options={{
         headerLeft:null
       }}/>
-      <AppStack.Screen name="InstructorHome" component={InstructorHome} signOut={signOut}
+      <AppStack.Screen name="Courses" component={InstructorHome} signOut={signOut}
       options={{
-        headerLeft:null
+        headerLeft:null,
+        gestureEnabled: false
       }}/>
       <AppStack.Screen name="ClassPage" component={ClassPage}/>
       <AppStack.Screen name="TaskPage" component={TaskPage}/>

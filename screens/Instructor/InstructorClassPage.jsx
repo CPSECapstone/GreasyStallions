@@ -4,7 +4,7 @@ import CreateMission from '../CreateModals/CreateMission';
 import { useQuery, gql} from '@apollo/client';
 import randomColor from 'randomcolor';
 import { ScrollView, TouchableOpacity,  Button, View,  StyleSheet } from 'react-native';
-import { Surface, Text } from 'react-native-paper';
+import { List, Surface, Text } from 'react-native-paper';
 
 
 
@@ -45,12 +45,12 @@ import { Surface, Text } from 'react-native-paper';
       if(data){
         data.courseContent.missions.forEach( mission => {
         let toPush = 
-			<TouchableOpacity 
-				style = {styles.coursebutton}
+			<List.Item 
+				titleStyle = {styles.item}
+				title={mission.name} 
 				onPress = {() => {
-				navigation.navigate("MissionPage", {id: mission.id})}}>
-			<Text style={{color: "#FFFFFF"}}>{mission.name}</Text>
-			</TouchableOpacity>
+				navigation.navigate("MissionPage", {id: mission.id})}}
+			/>
         missions.push(toPush)
         });
         
@@ -77,27 +77,61 @@ import { Surface, Text } from 'react-native-paper';
 				onPress={() => {navigation.navigate('MasteryOverviewPage', {className: className})}}>
 			</Button>
 		<ScrollView>
-			<View style={styles.missionlist}>
+			<Text style={styles.header}>{className}</Text>
+			<Text style={styles.info}>{instructor}</Text>
+			<Text style={styles.info}>{description}</Text>
+			<List.Accordion
+			titleStyle ={styles.title}
+
+			style = {{backgroundColor: '#F2F2F2'}}
+				title="Missions">
 				{missions}
+			</List.Accordion>
+			<View style = {{marginTop: 16, marginBottom: 32}}>
+				<StudentGridComponent
+				students={students}
+				setStudents={setStudents}
+				filter={bubbleGridSelect}
+				setFilter={setSelect}/>
 			</View>
-			<StudentGridComponent
-			students={students}
-			setStudents={setStudents}
-			filter={bubbleGridSelect}
-			setFilter={setSelect}/>
 		</ScrollView>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+	header: {
+		alignSelf: 'flex-start',
+	  	textAlign: 'left',
+	  	color: '#3467EC',
+	  	fontSize: 28,
+		marginTop: 16
+	},
+	info: {
+		alignSelf: 'flex-start',
+	  	textAlign: 'left',
+	  	fontSize: 18,
+		marginTop: 6
+	},
+	item: {
+		alignSelf: 'flex-start',
+	  	textAlign: 'left',
+	  	fontSize: 18,
+		marginLeft: -14
+	},
+	title: {
+		alignSelf: 'flex-start',
+	  	textAlign: 'left',
+	  	color: '#3467EC',
+	  	fontSize: 28,
+		marginTop: 16,
+		marginLeft: -14,
+		marginBottom: 12
+	},
 	container: {
 	  flex: 1,
 	  justifyContent: 'center',
 	  alignItems: 'center',
-	},
-	text: {
-	  textAlign: 'center'
 	},
 	surface: {
 		marginTop: 16,
@@ -107,11 +141,6 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'center',
 		elevation: 4,
-	  },
-	  item: {
-		flex: 1,
-		height: 160,
-		margin: 1
 	  },
 	  list: {
 		flex: 1
