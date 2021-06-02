@@ -13,7 +13,10 @@ import {
     DrawerItem,
   } from '@react-navigation/drawer';
 import { useQuery, gql} from '@apollo/client';
+import {Dimensions} from 'react-native';
 
+const WIDTH = Dimensions.get('window').width;
+const DrawerWIDTH = WIDTH * .83;
 const Drawer = createDrawerNavigator();
 const BASE_PATH = 'https://raw.githubusercontent.com/AboutReact/sampleresource/master/';
 const proileImage = 'react_logo.png';
@@ -83,7 +86,7 @@ function Feed({ navigation }) {
          onPress={() => { props.navigation.navigate(role === "STUDENT" ? "StudentHome": "Courses")}}/>
          <DrawerItem
          label="Goals"
-         onPress={() => props.navigation.navigate("GoalPage", {user: "STUDENT"})}/>: undefined }
+         onPress={() => props.navigation.navigate("GoalPage", {user: "STUDENT"})}/>
         <DrawerItem
           label="Sign Out"
           onPress={() => Auth.signOut()}
@@ -93,10 +96,13 @@ function Feed({ navigation }) {
     );
   }  
 
+
 const DrawerNavigator = (navigation) => {
   return (
     <Drawer.Navigator 
-    drawerPosition = "right"
+    // drawerPosition = "right"
+    //drawerWidth = {DrawerWIDTH}
+    // edgeWidth= {50 - DrawerWIDTH}
     drawerContent={props => <CustomDrawerContent {...props}/>}>
       <Drawer.Screen name="Flipt(ed)" component={MainStackNavigator}/>
       {/* <Drawer.Screen name="Feed" component={Feed} />

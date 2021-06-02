@@ -5,7 +5,7 @@ import { ApolloProvider, useQuery, gql} from '@apollo/client';
 import { View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { Divider, Text, Surface, List, ListItem, Button } from 'react-native-paper';
 import {Ionicons} from '@expo/vector-icons';
-
+import Styles from '../../styles/styles';
 
 const LIST_COURSES = gql
 `
@@ -43,8 +43,8 @@ const UserInfo = () => {
 	}
 
 	return (
-		<View style = {styles.section}>
-			<Text style={styles.header}>
+		<View>
+			<Text style={Styles.webHeader}>
 				Hello, {email}
 			</Text>
 		</View>
@@ -60,11 +60,11 @@ const CrsFliptedComponent = ({navigation}) => {
 	if(data){
 		data.courseInfos.forEach( crs => {
 			let toPush = 
-			<TouchableOpacity style = {styles.coursebutton} onPress={() => 
+			<TouchableOpacity style = {Styles.coursebutton} onPress={() => 
 				{navigation.navigate('ClassPage', {className: crs.course})}}>
 				<View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems:'center'}}>
-					<Text style = {styles.text}>{crs.course}</Text>
-					<Ionicons style = {styles.carrot} name="md-arrow-forward" size={32} color='#3467EC'/>
+					<Text style = {Styles.webTitleText}>{crs.course}</Text>
+					<Ionicons style = {Styles.carrot} name="md-arrow-forward" size={32} color='#3467EC'/>
 				</View>
 				<Divider style = {{marginTop:6}}/>
 			</TouchableOpacity>
@@ -73,52 +73,17 @@ const CrsFliptedComponent = ({navigation}) => {
 	}
 
 	return (
-		<View style = {styles.section}>
-			<ScrollView>
+		<View style = {Styles.webSection}>
 				{courses}
-			</ScrollView>
 		</View>
 	);
 }
 
 export default function Home({ navigation, signOut }) {
 	return (
-		<View style={styles.section}>
+		<ScrollView style={Styles.webContainer}>
 			<UserInfo></UserInfo>
 			<CrsFliptedComponent navigation={navigation}/>
-		</View>
+		</ScrollView>
 	)
 }
-
-const styles = StyleSheet.create({
-	container: {
-	  flex: 1,
-	  width: '100%',
-	  marginTop: 12,
-	  marginBottom: 32
-	},
-	text: {
-		alignSelf: 'flex-start',
-	  	textAlign: 'left',
-	  	color: '#3467EC',
-	  	fontSize: 24
-	},
-	header: {
-		alignSelf: 'flex-start',
-	  	textAlign: 'left',
-	  	color: '#3467EC',
-	  	fontSize: 28,
-		marginLeft: 32, 
-		marginTop: 32,
-		marginBottom: 32
-	},
-	carrot: {
-		marginRight: 32
-	},
-	  coursebutton: {
-		height: 75,
-		width: '80%',
-		justifyContent: 'center',
-		alignSelf: 'flex-end'	
-	}
-  });
