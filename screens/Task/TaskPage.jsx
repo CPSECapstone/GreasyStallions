@@ -1,6 +1,6 @@
 import React from 'react';
 import { ScrollView, TouchableOpacity,  Button, View,  StyleSheet } from 'react-native';
-import { Surface, Text } from 'react-native-paper';
+import { Surface, Text, Portal, Provider } from 'react-native-paper';
 import QuizTask from './QuizTask';
 import VideoTask from './VideoTask';
 import WebpageTask from './WebpageTask';
@@ -100,13 +100,12 @@ let TaskPage = ({ route, navigation }) => {
             for (let i=0; i<data.task.pages[currPage - 1].blocks.length;i++) {
                 currComponents.push(typeFinder(data.task.pages[currPage - 1].blocks[i]));
             }
-        } else {
-            currComponents.push(<View/>);
         }
     }
 
     // finds the type of component it is and returns the correct one filled out
     let typeFinder = (component) => {
+      console.log(component)
         if (component.__typename === "TextBlock") {
             return <TextPageTask title={component.title}
              text={component.contents} size={component.fontSize}/>
@@ -127,16 +126,22 @@ let TaskPage = ({ route, navigation }) => {
     }
 
     return (
-        <View style={styles.container}>
+      <View style={styles.container}>
+        <Provider>
+          <Portal>
+        <RubricModal/>
             {fillComponents()}
-            {currComponents.map((comp) => {
+            {currComponents.map((comp, idx) => {
                 return (
-                    <View style={(compCount++ % 2 === 0) ? styles.lgDiv : styles.dgDiv}>
+                    <View style={(idx % 2 === 0) ? styles.lgDiv : styles.dgDiv}>
+                      {console.log(comp)}
                         {comp}
                     </View>
                 )
             })}
-        </View>
+          </Portal>
+        </Provider>
+      </View>
     );
 }
 
@@ -144,11 +149,10 @@ export default TaskPage;
 
 const styles = StyleSheet.create({
   dgDiv: {
-    color: "#F2F2F2",
-    
+    backgroundColor: "#F2F2F2",
   },
   lgDiv: {
-    color: "#FFFFFF"
+    backgroundColor: "#E5E5E5"
   },
 	container: {
 	  flex: 1,

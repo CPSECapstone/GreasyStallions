@@ -31,7 +31,9 @@
     "react-native-reanimated": "~1.13.0",
     "react-native-screens": "~2.15.2",
     "react-native-svg": "^12.1.1",
-    "react-native-web": "^0.16.3"
+    "react-native-web": "^0.16.3",
+    "react-navigation": "^4.4.4",
+    "rn-sliding-up-panel": "^2.4.5"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0"
