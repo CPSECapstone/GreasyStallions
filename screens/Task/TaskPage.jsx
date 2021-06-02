@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { ScrollView, TouchableOpacity,  Button, View,  StyleSheet } from 'react-native';
-import { Surface, Title, Title, Text, Portal, Provider, Modal } from 'react-native-paper';
+import { Surface, Title, Text, Portal, Provider, Modal } from 'react-native-paper';
 import QuizTask from './QuizTask';
 import VideoTask from './VideoTask';
 import WebpageTask from './WebpageTask';
@@ -11,7 +11,6 @@ import { ApolloProvider, useQuery, gql} from '@apollo/client';
 import ImageTask from './ImageTask';
 import  Styles  from '../../styles/styles';
 import { separateOperations } from 'graphql';
-import Styles from '../../styles/styles'
 
 /**
  * The general task page that will hold all components that define a task
