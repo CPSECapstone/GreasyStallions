@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { ScrollView, TouchableOpacity,  Button, View,  StyleSheet } from 'react-native';
-import { Surface, Text, Portal, Provider, Modal } from 'react-native-paper';
+import { Surface, Title, Text, Portal, Provider, Modal } from 'react-native-paper';
 import QuizTask from './QuizTask';
 import VideoTask from './VideoTask';
 import WebpageTask from './WebpageTask';
@@ -9,6 +9,7 @@ import RubricModal from './RubricModal';
 import TextPageTask from './TextPageTask';
 import { ApolloProvider, useQuery, gql} from '@apollo/client';
 import ImageTask from './ImageTask';
+import  Styles  from '../../styles/styles';
 import { separateOperations } from 'graphql';
 import Styles from '../../styles/styles'
 
@@ -129,19 +130,19 @@ let TaskPage = ({ route, navigation }) => {
     }
 
     return (
-      <View style={Styles.containerTask}>
-        <Button mode='contained' title= 'Show Rubric' onPress={() => setShow(true)} />
-        <Provider>
-          <Portal>
-            {fillComponents()}
-            {currComponents.map((comp, idx) => {
-                return (
-                    <View style={(idx % 2 === 0) ? Styles.lgDiv : Styles.dgDiv}>
-                      {console.log(comp)}
-                        {comp}
-                    </View>
-                )
-            })}
+        <View>
+          <Button mode='contained' title= 'Show Rubric' onPress={() => setShow(true)} />
+          <Provider>
+            <Portal>
+            <Title style={Styles.taskPageTitle}>{data.task.name.toUpperCase()}</Title>
+              {fillComponents()}
+              {currComponents.map((comp, idx) => {
+                  return (
+                      <View style={(compCount++ % 2 === 0) ? Styles.taskPageComponentBackgroundLG : Styles.taskPageComponentBackgroundDG}>
+                          {comp}
+                      </View>
+                  )
+              })}
             <RubricModal/>
           </Portal>
         </Provider>
@@ -151,46 +152,3 @@ let TaskPage = ({ route, navigation }) => {
 
 export default TaskPage;
 
-// const styles = StyleSheet.create({
-//   dgDiv: {
-//     backgroundColor: "#F2F2F2",
-//   },
-//   lgDiv: {
-//     backgroundColor: "#E5E5E5"
-//   },
-// 	container: {
-// 	  flex: 1,
-// 	  justifyContent: 'center',
-// 	  alignItems: 'center',
-// 	},
-// 	text: {
-// 	  textAlign: 'center'
-// 	},
-
-// 	surface: {
-// 		marginTop: 16,
-// 		padding: 8,
-// 		height: 100,
-// 		width: 250,
-// 		alignItems: 'center',
-// 		justifyContent: 'center',
-// 		elevation: 4,
-// 	  },
-// 	  item: {
-// 		flex: 1,
-// 		height: 160,
-// 		margin: 1
-// 	  },
-// 	  list: {
-// 		flex: 1
-// 	  },
-// 	  coursebutton: {
-// 		marginTop: 16,
-// 		padding: 8,
-// 		height: 100,
-// 		width: 250,
-// 		alignItems: 'center',
-// 		justifyContent: 'center',
-// 		backgroundColor: '#3467EC'
-// 	  }
-//   });
