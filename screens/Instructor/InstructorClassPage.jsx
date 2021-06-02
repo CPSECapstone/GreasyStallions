@@ -4,8 +4,8 @@ import CreateMission from '../CreateModals/CreateMission';
 import { useQuery, gql} from '@apollo/client';
 import randomColor from 'randomcolor';
 import { ScrollView, TouchableOpacity,  Button, View,  StyleSheet } from 'react-native';
-import { List, Surface, Text } from 'react-native-paper';
-
+import { Divider, List, Surface, Text } from 'react-native-paper';
+import { Ionicons } from '@expo/vector-icons'
 
 
   // The landing page for a teacher when they click into a course
@@ -67,19 +67,18 @@ import { List, Surface, Text } from 'react-native-paper';
 
   return (
     <View style={styles.container}>
-		<Text style={{fontSize: 24, marginTop: 32, marginBottom: 16}}>{className}</Text>
-		<Text>{instructor}</Text>
-		<Text>{description}</Text>
-		<Button 
-				title='Mastery View'
-				style={styles.navbutton}
-				color='#841584'
-				onPress={() => {navigation.navigate('MasteryOverviewPage', {className: className})}}>
-			</Button>
+		
 		<ScrollView>
 			<Text style={styles.header}>{className}</Text>
 			<Text style={styles.info}>{instructor}</Text>
 			<Text style={styles.info}>{description}</Text>
+			<TouchableOpacity style = {styles.coursebutton} onPress={() => navigation.navigate('MasteryOverviewPage', {className: className})}>
+				<View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems:'center'}}>
+					<Text style = {styles.text}>Mastery View</Text>
+					<Ionicons style = {styles.carrot} name="md-arrow-forward" size={32} color='#3467EC'/>
+				</View>
+				<Divider style = {{marginTop:6}}/>
+		</TouchableOpacity>
 			<List.Accordion
 			titleStyle ={styles.title}
 
@@ -132,6 +131,7 @@ const styles = StyleSheet.create({
 	  flex: 1,
 	  justifyContent: 'center',
 	  alignItems: 'center',
+	  padding: 16
 	},
 	surface: {
 		marginTop: 16,
@@ -146,14 +146,17 @@ const styles = StyleSheet.create({
 		flex: 1
 	  },
 	  coursebutton: {
-		margin: 15,
-		padding: 8,
-		height: 100,
-		width: 250,
-		alignItems: 'center',
+		height: 75,
+		width: '50%',
 		justifyContent: 'center',
-		backgroundColor: '#3467EC'
-	  },
+		alignSelf: 'center'	
+	},
+	text: {
+		alignSelf: 'flex-start',
+	  	textAlign: 'left',
+	  	color: '#3467EC',
+	  	fontSize: 24
+	},
 	  missionlist: {
 	  	flexDirection: 'row',
 		flexWrap: "wrap",

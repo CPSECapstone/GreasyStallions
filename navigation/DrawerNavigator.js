@@ -83,7 +83,7 @@ function Feed({ navigation }) {
          onPress={() => { props.navigation.navigate(role === "STUDENT" ? "StudentHome": "Courses")}}/>
          <DrawerItem
          label="Goals"
-         onPress={() => props.navigation.navigate("GoalPage", {user: "STUDENT"})}/>: undefined }
+         onPress={() => props.navigation.navigate("GoalPage", {user: "STUDENT"})}/>
         <DrawerItem
           label="Sign Out"
           onPress={() => Auth.signOut()}

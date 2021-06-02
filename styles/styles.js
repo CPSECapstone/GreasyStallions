@@ -15,6 +15,35 @@ const Styles = StyleSheet.create({
   section: {
     alignSelf: 'center',
   },
+  circle:{
+		margin: 10,
+		flexDirection: 'row'
+	},
+	grid: {
+		width: '100%',
+		flexDirection: 'row',
+		flexWrap: "wrap",
+    justifyContent: 'center'
+	},
+  container: {
+	  flex: 1,
+	  width: '100%',
+    justifyContent: 'center',
+    padding: 16
+	},
+  header: {
+		alignSelf: 'flex-start',
+	  	textAlign: 'left',
+	  	color: '#3467EC',
+	  	fontSize: 28,
+		marginTop: 16
+	},
+	info: {
+		alignSelf: 'flex-start',
+	  	textAlign: 'left',
+	  	fontSize: 18,
+		marginTop: 6
+	}
 
 });
 

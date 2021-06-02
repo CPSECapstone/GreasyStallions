@@ -74,19 +74,17 @@ const CrsFliptedComponent = ({navigation}) => {
 
 	return (
 		<View style = {styles.section}>
-			<ScrollView>
-				{courses}
-			</ScrollView>
+			{courses}
 		</View>
 	);
 }
 
 export default function Home({ navigation, signOut }) {
 	return (
-		<View style={styles.section}>
+		<ScrollView style={styles.container}>
 			<UserInfo></UserInfo>
 			<CrsFliptedComponent navigation={navigation}/>
-		</View>
+		</ScrollView>
 	)
 }
 
