@@ -1,10 +1,12 @@
-import { ScrollView, TouchableOpacity,  View,  StyleSheet } from 'react-native';
+import { ScrollView, TouchableOpacity,  View,  Stylesheet } from 'react-native';
 import React, { useState } from 'react';
 import {useQuery, gql} from '@apollo/client';
 import randomColor from 'randomcolor';
 import { Surface, Text, List, Divider,  Headline , Avatar, Button, Card, Title, Paragraph } from 'react-native-paper';
 import { ArrowLeftOutlined } from '@material-ui/icons';
 import {Ionicons} from '@expo/vector-icons';
+import Amplify, { Auth } from 'aws-amplify';
+import Styles from '../../styles/styles';
 
 
 const LIST_COURSES = gql
@@ -32,10 +34,10 @@ export default function InstructorHome({navigation}) {
 	if(data){
 	  data.courseInfos.forEach( crs => {
 		let toPush = 
-		<TouchableOpacity style = {styles.coursebutton} onPress={() => goToClassPage(crs.course, crs.instructor)}>
+		<TouchableOpacity style = {Styles.coursebutton} onPress={() => goToClassPage(crs.course, crs.instructor)}>
 			<View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems:'center'}}>
-				<Text style = {styles.text}>{crs.course}</Text>
-				<Ionicons style = {styles.carrot} name="md-arrow-forward" size={32} color='#3467EC'/>
+				<Text style = {Styles.courseListText}>{crs.course}</Text>
+				<Ionicons style = {Styles.carrot} name="md-arrow-forward" size={32} color='#3467EC'/>
 			</View>
     		<Divider style = {{marginTop:6}}/>
 		</TouchableOpacity>
@@ -47,32 +49,8 @@ export default function InstructorHome({navigation}) {
 	}
 
 	return (
-		<ScrollView style={styles.container}>
+		<ScrollView contentContainerStyle={Styles.container}>
 			{courses}
 		</ScrollView>
 	)
 }
-
-const styles = StyleSheet.create({
-	container: {
-	  flex: 1,
-	  width: '100%',
-	  marginTop: 12,
-	  marginBottom: 32
-	},
-	text: {
-		alignSelf: 'flex-start',
-	  	textAlign: 'left',
-	  	color: '#3467EC',
-	  	fontSize: 24
-	},
-	carrot: {
-		marginRight: 32
-	},
-	  coursebutton: {
-		height: 75,
-		width: '80%',
-		justifyContent: 'center',
-		alignSelf: 'flex-end'	
-	}
-  });

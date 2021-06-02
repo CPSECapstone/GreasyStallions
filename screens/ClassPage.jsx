@@ -82,7 +82,7 @@ let ClassPage = function({ route, navigation }){
 				<Text style={Styles.info}>{description}</Text>
 			</View>
 			 <ScrollView classes={{root: "header"}} >
-				<View style={styles.container}>
+				<View style={Styles.container}>
 					<Button mode="contained" 
 					style = {{width: '100%', maxWidth: 500, alignSelf: 'center'}}
 					 color={(curr === 0) ? "#3267EF" : "#E0E0E0"} 
@@ -104,53 +104,3 @@ let ClassPage = function({ route, navigation }){
 
  export default ClassPage;
 
-const styles = StyleSheet.create({
-	header: {
-		flexDirection: 'row',
-		padding: "2%",
-		justifyContent: 'space-evenly',
-	},	
-  section: {
-	padding:16,
-  },
-  container: {
-	flex: 1,
-	width: '100%',
-	marginTop: 12,
-	marginBottom: 32
-  },
-  header: {
-	marginLeft: 50,
-	flex: 1,
-	width: "100%",
-	alignSelf: 'center'
-  },
-  text: {
-	textAlign: 'left',
-	fontSize: 28,
-	paddingTop: 20
-  },
-  buttons: {
-	width: 100,
-	backgroundColor: '#99004d',
-	marginTop: 20
-  },
-  buttonText: {
-	width: "15%",
-	marginLeft: 0,
-	alignSelf: 'center'
-  },
-  doubleButtons: {
-	flexDirection: 'row',
-	justifyContent: 'space-between',
-  },
-  coursebutton: {
-	marginTop: 16,
-	padding: 8,
-	height: 100,
-	width: 250,
-	alignItems: 'center',
-	justifyContent: 'center',
-	backgroundColor: '#3467EC'
-  }
-});

@@ -6,6 +6,7 @@ import randomColor from 'randomcolor';
 import { ScrollView, TouchableOpacity,  Button, View,  StyleSheet } from 'react-native';
 import { Divider, List, Surface, Text } from 'react-native-paper';
 import { Ionicons } from '@expo/vector-icons'
+import Styles from '../../styles/styles';
 
 
   // The landing page for a teacher when they click into a course
@@ -46,7 +47,7 @@ import { Ionicons } from '@expo/vector-icons'
         data.courseContent.missions.forEach( mission => {
         let toPush = 
 			<List.Item 
-				titleStyle = {styles.item}
+				titleStyle = {Styles.item}
 				title={mission.name} 
 				onPress = {() => {
 				navigation.navigate("MissionPage", {id: mission.id})}}
@@ -66,21 +67,21 @@ import { Ionicons } from '@expo/vector-icons'
     let description = result.description;
 
   return (
-    <View style={styles.container}>
+    <View style={Styles.container}>
 		
 		<ScrollView>
-			<Text style={styles.header}>{className}</Text>
-			<Text style={styles.info}>{instructor}</Text>
-			<Text style={styles.info}>{description}</Text>
-			<TouchableOpacity style = {styles.coursebutton} onPress={() => navigation.navigate('MasteryOverviewPage', {className: className})}>
+			<Text style={Styles.header}>{className}</Text>
+			<Text style={Styles.info}>{instructor}</Text>
+			<Text style={Styles.info}>{description}</Text>
+			<TouchableOpacity style = {Styles.coursebutton} onPress={() => navigation.navigate('MasteryOverviewPage', {className: className})}>
 				<View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems:'center'}}>
-					<Text style = {styles.text}>Mastery View</Text>
-					<Ionicons style = {styles.carrot} name="md-arrow-forward" size={32} color='#3467EC'/>
+					<Text style = {Styles.webTitleText}>Mastery View</Text>
+					<Ionicons style = {Styles.carrot} name="md-arrow-forward" size={32} color='#3467EC'/>
 				</View>
 				<Divider style = {{marginTop:6}}/>
 		</TouchableOpacity>
 			<List.Accordion
-			titleStyle ={styles.title}
+			titleStyle ={Styles.title}
 
 			style = {{backgroundColor: '#F2F2F2'}}
 				title="Missions">
@@ -97,72 +98,3 @@ import { Ionicons } from '@expo/vector-icons'
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-	header: {
-		alignSelf: 'flex-start',
-	  	textAlign: 'left',
-	  	color: '#3467EC',
-	  	fontSize: 28,
-		marginTop: 16
-	},
-	info: {
-		alignSelf: 'flex-start',
-	  	textAlign: 'left',
-	  	fontSize: 18,
-		marginTop: 6
-	},
-	item: {
-		alignSelf: 'flex-start',
-	  	textAlign: 'left',
-	  	fontSize: 18,
-		marginLeft: -14
-	},
-	title: {
-		alignSelf: 'flex-start',
-	  	textAlign: 'left',
-	  	color: '#3467EC',
-	  	fontSize: 28,
-		marginTop: 16,
-		marginLeft: -14,
-		marginBottom: 12
-	},
-	container: {
-	  flex: 1,
-	  justifyContent: 'center',
-	  alignItems: 'center',
-	  padding: 16
-	},
-	surface: {
-		marginTop: 16,
-		padding: 8,
-		height: 100,
-		width: 250,
-		alignItems: 'center',
-		justifyContent: 'center',
-		elevation: 4,
-	  },
-	  list: {
-		flex: 1
-	  },
-	  coursebutton: {
-		height: 75,
-		width: '50%',
-		justifyContent: 'center',
-		alignSelf: 'center'	
-	},
-	text: {
-		alignSelf: 'flex-start',
-	  	textAlign: 'left',
-	  	color: '#3467EC',
-	  	fontSize: 24
-	},
-	  missionlist: {
-	  	flexDirection: 'row',
-		flexWrap: "wrap",
-		justifyContent: 'center',
-	  },
-	  navbutton: {
-		  margin:10,
-	  }
-  });
