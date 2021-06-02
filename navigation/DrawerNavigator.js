@@ -79,7 +79,7 @@ function Feed({ navigation }) {
         <DrawerItemList {...props} />
         <DrawerItem
          label="Home"
-         onPress={() => { props.navigation.navigate(role === "STUDENT" ? "StudentHome": "InstructorHome")}}/>
+         onPress={() => { props.navigation.navigate(role === "STUDENT" ? "StudentHome": "Courses")}}/>
          <DrawerItem
          label="Goals"
          onPress={() => props.navigation.navigate("GoalPage", {user: "STUDENT"})}/>

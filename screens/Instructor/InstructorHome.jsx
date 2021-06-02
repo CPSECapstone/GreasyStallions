@@ -1,8 +1,11 @@
-import { ScrollView, TouchableOpacity,  Button, View,  StyleSheet } from 'react-native';
-import { Surface, Text } from 'react-native-paper';
+import { ScrollView, TouchableOpacity,  View,  StyleSheet } from 'react-native';
 import React, { useState } from 'react';
 import {useQuery, gql} from '@apollo/client';
 import randomColor from 'randomcolor';
+import { Surface, Text, List, Divider,  Headline , Avatar, Button, Card, Title, Paragraph } from 'react-native-paper';
+import { ArrowLeftOutlined } from '@material-ui/icons';
+import {Ionicons} from '@expo/vector-icons';
+
 
 const LIST_COURSES = gql
 `
@@ -22,70 +25,54 @@ export default function InstructorHome({navigation}) {
   
   
 	let courses = [];
-	var goToClassPage = () => {
-	  navigation.navigate('ClassPage', {className: "Test Class"})
+	var goToClassPage = (courseName, instructor) => {
+		navigation.navigate('InstructorClassPage', {className: courseName, teacher: instructor})
 	};
   
 	if(data){
 	  data.courseInfos.forEach( crs => {
 		let toPush = 
-		  <TouchableOpacity 
-		  	style = {styles.coursebutton}
-			onPress = {() => {
-				navigation.navigate('InstructorClassPage', 
-				{
-				className: crs.course,
-				teacher: true
-				})}}>
-				<Text style={{color: "#FFFFFF"}}>{crs.course}</Text>
-			</TouchableOpacity>
+		<TouchableOpacity style = {styles.coursebutton} onPress={() => goToClassPage(crs.course, crs.instructor)}>
+			<View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems:'center'}}>
+				<Text style = {styles.text}>{crs.course}</Text>
+				<Ionicons style = {styles.carrot} name="md-arrow-forward" size={32} color='#3467EC'/>
+			</View>
+    		<Divider style = {{marginTop:6}}/>
+		</TouchableOpacity>
+		
+
+		
 		courses.push(toPush)
 	  });
 	}
 
 	return (
-		<View style={styles.container}>
-			<Text style={{marginBottom: 32, marginTop: 32}}>Courses</Text>
-			<ScrollView>
-				{courses}
-			</ScrollView>
-		</View>
+		<ScrollView style={styles.container}>
+			{courses}
+		</ScrollView>
 	)
 }
 
 const styles = StyleSheet.create({
 	container: {
 	  flex: 1,
-	  justifyContent: 'center',
-	  alignItems: 'center',
+	  width: '100%',
+	  marginTop: 12,
+	  marginBottom: 32
 	},
 	text: {
-	  textAlign: 'center'
+		alignSelf: 'flex-start',
+	  	textAlign: 'left',
+	  	color: '#3467EC',
+	  	fontSize: 24
 	},
-	surface: {
-		marginTop: 16,
-		padding: 8,
-		height: 100,
-		width: 250,
-		alignItems: 'center',
-		justifyContent: 'center',
-		elevation: 4,
-	  },
-	  item: {
-		flex: 1,
-		height: 160,
-		margin: 1
-	  },
-	  list: {
-		flex: 1
-	  },
+	carrot: {
+		marginRight: 32
+	},
 	  coursebutton: {
-		marginTop: 16,
-		padding: 8,
-		height: 100,
-		width: 250,
-		alignItems: 'center',
+		height: 75,
+		width: '80%',
 		justifyContent: 'center',
-		backgroundColor: '#3467EC'
-	  }
+		alignSelf: 'flex-end'	
+	}
   });
