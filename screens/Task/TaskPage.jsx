@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { ScrollView, TouchableOpacity,  Button, View,  StyleSheet } from 'react-native';
-import { Surface, Title, Text, Portal, Provider, Modal } from 'react-native-paper';
+import { Surface, Title, Title, Text, Portal, Provider, Modal } from 'react-native-paper';
 import QuizTask from './QuizTask';
 import VideoTask from './VideoTask';
 import WebpageTask from './WebpageTask';
