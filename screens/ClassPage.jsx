@@ -1,8 +1,9 @@
 import React from 'react';
 import { View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { gql } from '@apollo/client';
-import { Text } from 'react-native-paper';
+import { Button, Text } from 'react-native-paper';
 import MissionsView from './Student/Mission/MissionsView';
+import LearningTaskVisualization from './Student/LearningTargets/LearningTaskVisualization';
 
 
 let ClassPage = function({ route, navigation }){
@@ -37,29 +38,22 @@ let ClassPage = function({ route, navigation }){
 	 return (
 		 <View>
 			 <ScrollView classes={{root: "header"}} >
-				<Text style={styles.coursebutton}>
-					{(curr === 0) ? "Missions Progress" : "Mastery Progress"}
-				</Text>
-
-				<TouchableOpacity
-				  style={styles.coursebutton} 
-				  onPress={ () => setCurr(0)}
-				>
-				<Text style={{color: "#FFFFFF"}}>
-					Missions
-				</Text>
-				</TouchableOpacity>
-
-				<TouchableOpacity
-				  style={styles.coursebutton} 
-				  onPress={ () => setCurr(1)}
-				>
-				<Text style={{color: "#FFFFFF"}}>
-					Learning Targets
-				</Text>
-				</TouchableOpacity>
+				<View style={styles.header}>
+					<Text>
+						{(curr === 0) ? "Missions Progress" : "Mastery Progress"}
+					</Text>
+					<Button mode="contained" 
+					 color={(curr === 0) ? "#3267EF" : "#E0E0E0"} 
+					 onPress={() => setCurr(0)}>
+						Missions
+					</Button>
+					<Button mode="contained"
+					 onPress={() => setCurr(1)}
+					 color={(curr === 1) ? "#3267EF" : "#E0E0E0"}>
+						Learning Targets
+					</Button>
+				</View>
 			 </ScrollView>
-			 <div class="blueline"/>
 			 {displayCurr()}
 	   </View>
 	);
@@ -68,6 +62,11 @@ let ClassPage = function({ route, navigation }){
  export default ClassPage;
 
 const styles = StyleSheet.create({
+	header: {
+		flexDirection: 'row',
+		padding: "2%",
+		justifyContent: 'space-evenly',
+	},	
   section: {
 	padding:16,
   },
@@ -91,6 +90,10 @@ const styles = StyleSheet.create({
 	width: "15%",
 	marginLeft: 0,
 	alignSelf: 'center'
+  },
+  doubleButtons: {
+	flexDirection: 'row',
+	justifyContent: 'space-between',
   },
   coursebutton: {
 	marginTop: 16,

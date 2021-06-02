@@ -12,10 +12,8 @@ let TextPageTask = function({ title, text, size }) {
     
     return (
         <View>
-            <Surface style={styles.surface}>
-				<Text>{title}</Text>
-				<Text>{text}</Text>
-			</Surface>
+			<Text>{title}</Text>
+			<Text>{text}</Text>
         </View>
     );
 }
@@ -23,12 +21,6 @@ let TextPageTask = function({ title, text, size }) {
 export default TextPageTask;
 
 const styles = StyleSheet.create({
-	surface: {
-	  padding: 8,
-	  alignItems: 'center',
-	  justifyContent: 'center',
-	  elevation: 4,
-	},
 	container: {
 		flex: 1,
 		justifyContent: 'center',

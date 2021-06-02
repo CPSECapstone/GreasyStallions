@@ -67,6 +67,15 @@ import { List, Surface, Text } from 'react-native-paper';
 
   return (
     <View style={styles.container}>
+		<Text style={{fontSize: 24, marginTop: 32, marginBottom: 16}}>{className}</Text>
+		<Text>{instructor}</Text>
+		<Text>{description}</Text>
+		<Button 
+				title='Mastery View'
+				style={styles.navbutton}
+				color='#841584'
+				onPress={() => {navigation.navigate('MasteryOverviewPage', {className: className})}}>
+			</Button>
 		<ScrollView>
 			<Text style={styles.header}>{className}</Text>
 			<Text style={styles.info}>{instructor}</Text>
@@ -149,6 +158,8 @@ const styles = StyleSheet.create({
 	  	flexDirection: 'row',
 		flexWrap: "wrap",
 		justifyContent: 'center',
-		
+	  },
+	  navbutton: {
+		  margin:10,
 	  }
   });
