@@ -25,7 +25,7 @@ export default function Welcome({navigation}) {
 	console.log(role);
 	
 	if(role == 'INSTRUCTOR'){
-		navigation.navigate('InstructorHome');
+		navigation.navigate('Courses');
 	}
 	else if(role == 'STUDENT'){
     	navigation.navigate('StudentHome');
