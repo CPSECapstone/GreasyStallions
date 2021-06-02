@@ -35,7 +35,7 @@ const MainStackNavigator = (props, signOut) => {
       //   onPress={() => props.navigation.toggleDrawer()}
       //   />
       //   <HeaderBackButton containerStyle={styles.icon}
-      //   paddingLeft={80}
+      //   paddingLeft={60}
       //   paddingRight={40}
       //   {...props} onPress={() => props.navigation.goBack()} />
       //   </View>

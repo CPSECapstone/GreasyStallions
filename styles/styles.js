@@ -1,9 +1,23 @@
+import { BorderColor } from '@material-ui/icons';
 import {StyleSheet} from 'react-native';
 
 import Colors from './colors';
 
 const Styles = StyleSheet.create({
-
+  taskPageComponentBackgroundDG: {
+    backgroundColor: "#F2F2F2"
+  },
+  taskPageComponentBackgroundLG: {
+    backgroundColor: "#FFFFFF"
+  },
+  taskContainer: {
+    alignItems: 'left',
+    alignContent: 'center',
+    paddingTop: "2%",
+    paddingBottom: "2%",
+    paddingLeft: "20%",
+    paddingRight: "20%",
+  },
   sideMenuProfileIcon: {
     resizeMode: 'center',
     width: 100,
@@ -49,7 +63,9 @@ const Styles = StyleSheet.create({
 	},
 	  coursebutton: {
 		height: 75,
-		width: '80%',
+    width: '100%',
+		paddingLeft: '10%',
+    paddingRight: '10%',
 		justifyContent: 'center',
 		alignSelf: 'flex-end'	
 	},
@@ -119,8 +135,37 @@ const Styles = StyleSheet.create({
       flexDirection: 'row',
       flexWrap: "wrap",
       justifyContent: 'center',    
-      }
+      },
+  
+  TaskListContainer: { 
+    paddingLeft: "8%",
+    paddingTop: "1%",
+    paddingBottom: "1%",
+  }, 
+  blueLine: {
+    borderStyle: "solid",
+    borderWidth: 1,
+    borderColor: "#9BC9FF",
+  },
 
+  // Text styles
+  missionTitleText: {
+    color: Colors.blueTitle,
+    paddingLeft: "5%",
+  }, 
+  targetItemText: {
+    paddingLeft: "5%",
+  },
+  taskTitleText: {
+    color: Colors.blue,
+  },
+  taskPageTitle: {
+    color: Colors.blueTitle,
+    textAlign: 'center',
+    backgroundColor: "#FFFFFF",
+    marginTop: 0,
+    marginBottom: 0,
+  }
 });
 
 export default Styles;

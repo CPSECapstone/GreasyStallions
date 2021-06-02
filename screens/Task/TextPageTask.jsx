@@ -1,7 +1,7 @@
 import React from 'react';
-import {Text,  Surface} from 'react-native-paper';
+import {Text,  Surface, Title, Paragraph} from 'react-native-paper';
 import { View, StyleSheet } from 'react-native';
-
+import  Styles  from '../../styles/styles';
 
 /**
  * Task page so simply display plain text
@@ -11,19 +11,11 @@ import { View, StyleSheet } from 'react-native';
 let TextPageTask = function({ title, text, size }) {
     
     return (
-        <View>
-			<Text>{title}</Text>
-			<Text>{text}</Text>
+        <View style={Styles.taskContainer}>
+			<Title style={Styles.taskTitleText}>{title}</Title>
+			<Paragraph>{text}</Paragraph>
         </View>
     );
 }
 
 export default TextPageTask;
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		justifyContent: 'center',
-		alignItems: 'center',
-	  }
-  });

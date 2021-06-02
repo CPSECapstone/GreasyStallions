@@ -73,7 +73,7 @@ const CrsFliptedComponent = ({navigation}) => {
 	}
 
 	return (
-		<View style = {Styles.webSection}>
+		<View>
 				{courses}
 		</View>
 	);
@@ -81,8 +81,8 @@ const CrsFliptedComponent = ({navigation}) => {
 
 export default function Home({ navigation, signOut }) {
 	return (
-		<ScrollView style={Styles.webContainer}>
-			<UserInfo></UserInfo>
+		<ScrollView >
+			<UserInfo/>
 			<CrsFliptedComponent navigation={navigation}/>
 		</ScrollView>
 	)

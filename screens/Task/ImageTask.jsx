@@ -1,37 +1,18 @@
 import React from 'react';
 import { View, Image, StyleSheet } from 'react-native';
-import { Button, Surface, Text } from 'react-native-paper';
+import { Button, Surface, Text, Title } from 'react-native-paper';
+import  Styles  from '../../styles/styles';
 
 let ImageTask = function({ pth, title }) {
 
    return (
-      <View>
-         <Text>
+      <View style={Styles.taskContainer}>
+         <Title style={Styles.taskTitleText}>
             {title}
-         </Text>
-         <Image style={styles.image} source={pth} class="img-fluid"/>
+         </Title>
+         <Image style={{width: "75%", height: "500", resizeMode: 'contain'}} source={pth}/>
       </View>
    );
 }
 
 export default ImageTask;
-
-const styles = StyleSheet.create({
-	container: {
-	  flex: 1,
-	  justifyContent: 'center',
-	  alignItems: 'center',
-	}, image: {
-      flex: 1,
-   },
-	text: {
-	  textAlign: 'center'
-	},surface: {
-      width: "100%",
-      flex: 1,
-      padding: 8,
-      alignItems: 'center',
-      justifyContent: 'center',
-      elevation: 4,
-    },
-  });
