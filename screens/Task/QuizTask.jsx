@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, View, Text, StyleSheet, TextInput } from 'react-native';
-import { Surface, RadioButton, Subheading, DataTable } from 'react-native-paper'
+import { Surface, RadioButton, Subheading, Title,  DataTable } from 'react-native-paper'
+import Styles from '../../styles/styles';
 
 let QuizTask = function ({ title, questions, options, answers }) {
 
@@ -65,9 +66,9 @@ let QuizTask = function ({ title, questions, options, answers }) {
    }
 
    return (
-      <View>
+      <View style={Styles.taskContainer}>
          <Surface style={{padding: '10px'}} elevation={3}>
-            <Subheading class="componentHeader" variant="h4" component="h4">{title}</Subheading>
+            <Title style={Styles.taskTitleText}>{title}</Title>
 				<DataTable>
 					{questions.length !== 1 && 
 					 <DataTable.Pagination
