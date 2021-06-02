@@ -3,10 +3,9 @@ import Amplify, { Auth, Hub } from 'aws-amplify';
 import { apolloClientFlipted} from '../../apollo';
 import { ApolloProvider, useQuery, gql} from '@apollo/client';
 import { View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
-import { Text, Surface, List, ListItem, Button } from 'react-native-paper';
-// need a replacement for grid, box, ListItemText
-// scrollview for grid
-// using Text and Button from react-native-paper
+import { Divider, Text, Surface, List, ListItem, Button } from 'react-native-paper';
+import {Ionicons} from '@expo/vector-icons';
+import Styles from '../../styles/styles';
 
 const LIST_COURSES = gql
 `
@@ -44,8 +43,8 @@ const UserInfo = () => {
 	}
 
 	return (
-		<View style = {styles.section}>
-			<Text style={{marginBottom: 32, marginTop: 32}}>
+		<View>
+			<Text style={Styles.webHeader}>
 				Hello, {email}
 			</Text>
 		</View>
@@ -61,72 +60,30 @@ const CrsFliptedComponent = ({navigation}) => {
 	if(data){
 		data.courseInfos.forEach( crs => {
 			let toPush = 
-			  <TouchableOpacity 
-				style={styles.coursebutton}
-				onPress={ () => 
-					{navigation.navigate('ClassPage', {className: crs.course})}
-				}>
-				<Text style={{color: "#FFFFFF"}}>
-					{crs.course}
-				</Text>
+			<TouchableOpacity style = {Styles.coursebutton} onPress={() => 
+				{navigation.navigate('ClassPage', {className: crs.course})}}>
+				<View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems:'center'}}>
+					<Text style = {Styles.webTitleText}>{crs.course}</Text>
+					<Ionicons style = {Styles.carrot} name="md-arrow-forward" size={32} color='#3467EC'/>
+				</View>
+				<Divider style = {{marginTop:6}}/>
 			</TouchableOpacity>
 		courses.push(toPush)
 		});
 	}
 
 	return (
-		<View style = {styles.section}>
-			<ScrollView>
-			<Text style={{marginBottom: 32, marginTop: 32}}>
-				Courses
-			</Text>
+		<View style = {Styles.webSection}>
 				{courses}
-			</ScrollView>
 		</View>
 	);
 }
 
 export default function Home({ navigation, signOut }) {
 	return (
-		<View style={styles.section}>
+		<ScrollView style={Styles.webContainer}>
 			<UserInfo></UserInfo>
 			<CrsFliptedComponent navigation={navigation}/>
-		</View>
+		</ScrollView>
 	)
 }
-
-const styles = StyleSheet.create({
-  section: {
-	padding:16,
-  },
-  header: {
-	marginLeft: 50,
-	flex: 1,
-	width: "100%",
-	alignSelf: 'center'
-  },
-  text: {
-	textAlign: 'left',
-	fontSize: 28,
-	paddingTop: 20
-  },
-  buttons: {
-	width: 100,
-	backgroundColor: '#99004d',
-	marginTop: 20
-  },
-  buttonText: {
-	width: "15%",
-	marginLeft: 0,
-	alignSelf: 'center'
-  },
-  coursebutton: {
-	marginTop: 16,
-	padding: 8,
-	height: 100,
-	width: 250,
-	alignItems: 'center',
-	justifyContent: 'center',
-	backgroundColor: '#3467EC'
-  }
-});

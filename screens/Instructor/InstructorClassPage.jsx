@@ -4,8 +4,9 @@ import CreateMission from '../CreateModals/CreateMission';
 import { useQuery, gql} from '@apollo/client';
 import randomColor from 'randomcolor';
 import { ScrollView, TouchableOpacity,  Button, View,  StyleSheet } from 'react-native';
-import { Surface, Text } from 'react-native-paper';
-
+import { Divider, List, Surface, Text } from 'react-native-paper';
+import { Ionicons } from '@expo/vector-icons'
+import Styles from '../../styles/styles';
 
 
   // The landing page for a teacher when they click into a course
@@ -45,12 +46,12 @@ import { Surface, Text } from 'react-native-paper';
       if(data){
         data.courseContent.missions.forEach( mission => {
         let toPush = 
-			<TouchableOpacity 
-				style = {styles.coursebutton}
+			<List.Item 
+				titleStyle = {Styles.item}
+				title={mission.name} 
 				onPress = {() => {
-				navigation.navigate("MissionPage", {id: mission.id})}}>
-			<Text style={{color: "#FFFFFF"}}>{mission.name}</Text>
-			</TouchableOpacity>
+				navigation.navigate("MissionPage", {id: mission.id})}}
+			/>
         missions.push(toPush)
         });
         
@@ -66,63 +67,34 @@ import { Surface, Text } from 'react-native-paper';
     let description = result.description;
 
   return (
-    <View style={styles.container}>
-		<Text style={{fontSize: 24, marginTop: 32, marginBottom: 16}}>{className}</Text>
-		<Text>{instructor}</Text>
-		<Text>{description}</Text>
+    <View style={Styles.container}>
+		
 		<ScrollView>
-			<View style={styles.missionlist}>
+			<Text style={Styles.header}>{className}</Text>
+			<Text style={Styles.info}>{instructor}</Text>
+			<Text style={Styles.info}>{description}</Text>
+			<TouchableOpacity style = {Styles.coursebutton} onPress={() => navigation.navigate('MasteryOverviewPage', {className: className})}>
+				<View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems:'center'}}>
+					<Text style = {Styles.webTitleText}>Mastery View</Text>
+					<Ionicons style = {Styles.carrot} name="md-arrow-forward" size={32} color='#3467EC'/>
+				</View>
+				<Divider style = {{marginTop:6}}/>
+		</TouchableOpacity>
+			<List.Accordion
+			titleStyle ={Styles.title}
+
+			style = {{backgroundColor: '#F2F2F2'}}
+				title="Missions">
 				{missions}
+			</List.Accordion>
+			<View style = {{marginTop: 16, marginBottom: 32}}>
+				<StudentGridComponent
+				students={students}
+				setStudents={setStudents}
+				filter={bubbleGridSelect}
+				setFilter={setSelect}/>
 			</View>
-			<StudentGridComponent
-			students={students}
-			setStudents={setStudents}
-			filter={bubbleGridSelect}
-			setFilter={setSelect}/>
 		</ScrollView>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-	container: {
-	  flex: 1,
-	  justifyContent: 'center',
-	  alignItems: 'center',
-	},
-	text: {
-	  textAlign: 'center'
-	},
-	surface: {
-		marginTop: 16,
-		padding: 8,
-		height: 100,
-		width: 250,
-		alignItems: 'center',
-		justifyContent: 'center',
-		elevation: 4,
-	  },
-	  item: {
-		flex: 1,
-		height: 160,
-		margin: 1
-	  },
-	  list: {
-		flex: 1
-	  },
-	  coursebutton: {
-		margin: 15,
-		padding: 8,
-		height: 100,
-		width: 250,
-		alignItems: 'center',
-		justifyContent: 'center',
-		backgroundColor: '#3467EC'
-	  },
-	  missionlist: {
-	  	flexDirection: 'row',
-		flexWrap: "wrap",
-		justifyContent: 'center',
-		
-	  }
-  });
