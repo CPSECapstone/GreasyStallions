@@ -1,6 +1,6 @@
 import React from 'react';
 import { ScrollView, TouchableOpacity,  Button, View,  StyleSheet } from 'react-native';
-import { Surface, Text } from 'react-native-paper';
+import { Surface, Text, Title } from 'react-native-paper';
 import QuizTask from './QuizTask';
 import VideoTask from './VideoTask';
 import WebpageTask from './WebpageTask';
@@ -129,6 +129,7 @@ let TaskPage = ({ route, navigation }) => {
 
     return (
         <View>
+          <Title style={Styles.taskPageTitle}>{data.task.name.toUpperCase()}</Title>
             {fillComponents()}
             {currComponents.map((comp) => {
                 return (

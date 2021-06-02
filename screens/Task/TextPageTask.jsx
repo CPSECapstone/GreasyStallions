@@ -11,7 +11,7 @@ import  Styles  from '../../styles/styles';
 let TextPageTask = function({ title, text, size }) {
     
     return (
-        <View style={Styles.container}>
+        <View style={Styles.taskContainer}>
 			<Title style={Styles.taskTitleText}>{title}</Title>
 			<Paragraph>{text}</Paragraph>
         </View>

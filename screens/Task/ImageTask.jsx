@@ -6,7 +6,7 @@ import  Styles  from '../../styles/styles';
 let ImageTask = function({ pth, title }) {
 
    return (
-      <View style={Styles.container}>
+      <View style={Styles.taskContainer}>
          <Title style={Styles.taskTitleText}>
             {title}
          </Title>

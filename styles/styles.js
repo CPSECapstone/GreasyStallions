@@ -1,3 +1,4 @@
+import { BorderColor } from '@material-ui/icons';
 import {StyleSheet} from 'react-native';
 
 import Colors from './colors';
@@ -9,7 +10,7 @@ const Styles = StyleSheet.create({
   taskPageComponentBackgroundLG: {
     backgroundColor: "#FFFFFF"
   },
-  container: {
+  taskContainer: {
     alignItems: 'left',
     alignContent: 'center',
     paddingTop: "2%",
@@ -62,7 +63,9 @@ const Styles = StyleSheet.create({
 	},
 	  coursebutton: {
 		height: 75,
-		width: '80%',
+    width: '100%',
+		paddingLeft: '10%',
+    paddingRight: '10%',
 		justifyContent: 'center',
 		alignSelf: 'flex-end'	
 	},
@@ -132,11 +135,36 @@ const Styles = StyleSheet.create({
       flexDirection: 'row',
       flexWrap: "wrap",
       justifyContent: 'center',    
-      }
+      },
+  
+  TaskListContainer: { 
+    paddingLeft: "8%",
+    paddingTop: "1%",
+    paddingBottom: "1%",
+  }, 
+  blueLine: {
+    borderStyle: "solid",
+    borderWidth: 1,
+    borderColor: "#9BC9FF",
+  },
 
   // Text styles
+  missionTitleText: {
+    color: Colors.blueTitle,
+    paddingLeft: "5%",
+  }, 
+  targetItemText: {
+    paddingLeft: "5%",
+  },
   taskTitleText: {
     color: Colors.blue,
+  },
+  taskPageTitle: {
+    color: Colors.blueTitle,
+    textAlign: 'center',
+    backgroundColor: "#FFFFFF",
+    marginTop: 0,
+    marginBottom: 0,
   }
 });
 

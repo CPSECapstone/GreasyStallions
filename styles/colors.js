@@ -3,7 +3,8 @@ const Colors = {
   green: '#27AE60',
   light_gray: '#E5E5E5',
   yellow: '#F2C94C',
-  red: '#EA6868'
+  red: '#EA6868',
+  blueTitle: "#2F80ED",
 };
 
 export default Colors;
