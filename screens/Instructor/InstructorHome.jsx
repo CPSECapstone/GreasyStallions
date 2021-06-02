@@ -7,6 +7,7 @@ import { ArrowLeftOutlined } from '@material-ui/icons';
 import {Ionicons} from '@expo/vector-icons';
 import Amplify, { Auth } from 'aws-amplify';
 import Styles from '../../styles/styles';
+import CreateCourse from '../CreateModals/CreateCourse';
 
 
 const LIST_COURSES = gql
@@ -23,13 +24,17 @@ query GetCourseInfos {
 
 export default function InstructorHome({navigation}) {
 	const {data, error, loading} = useQuery(LIST_COURSES);
+	const [showModal, setShowModal] = React.useState(false);
+
 	if (error) { console.log('Error fetching courses', error); }
-  
+
+	
   
 	let courses = [];
 	var goToClassPage = (courseName, instructor) => {
 		navigation.navigate('InstructorClassPage', {className: courseName, teacher: instructor})
 	};
+
   
 	if(data){
 	  data.courseInfos.forEach( crs => {
@@ -47,9 +52,12 @@ export default function InstructorHome({navigation}) {
 		courses.push(toPush)
 	  });
 	}
+	
+
 
 	return (
 		<ScrollView contentContainerStyle={Styles.container}>
+			{/*<CreateCourse/>*/ }
 			{courses}
 		</ScrollView>
 	)

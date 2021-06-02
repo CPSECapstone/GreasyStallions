@@ -1,12 +1,7 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import { TextInput, Modal, Portal, Text, Button, Provider } from 'react-native-paper';
 import {useQuery, useMutation, gql} from '@apollo/client';
+import { View, TouchableOpacity } from 'react-native';
 
 const GET_USER = gql
 	`
@@ -33,21 +28,16 @@ const ADD_COURSE = gql
 //this modal uses MaterialUI Dialog to create a modal that is a form for an Instructor
 //to create a Course object, and is sent to our database
 export default function CreateCourse()  {
-  	const [open, setOpen] = React.useState(false);
+  	const [visible, setVisible] = React.useState(false);
   	const [name, setName] = React.useState('');
   	const [desc, setDesc] = React.useState('');
 	const [addCourse, {data1, error1}] = useMutation(ADD_COURSE);
 	const {data, error, loading} = useQuery(GET_USER);
 	if(error){console.log('error getting user')};
 
-    const handleNameChange = event => {
-        setName(event.target.value);
-    };
-    
-    const handleDescChange = event => {
-        setDesc(event.target.value);
-    };
-	  
+	const [newName, setNewName] = React.useState('');
+	const [newDesc, setNewDesc] = React.useState('');
+
 
     function submit(){   
 		let email = '';
@@ -64,46 +54,35 @@ export default function CreateCourse()  {
 		});
     }
 
-    return (
-        <div>
-          	<Button variant="outlined" color="primary" onClick={() => setOpen(true)}>
-            	Add Course
-          	</Button>
-          	<Dialog open={open} onClose={() => setOpen(false)} aria-labelledby="form-dialog-title">
-				<DialogTitle id="form-dialog-title">Add Course</DialogTitle>
-				<DialogContent>
-					<DialogContentText>
-						Please fill out the form and press submit to add a course.
-					</DialogContentText>
-					<TextField
-						autoFocus
-						margin="dense"
-						id="name"
-						label="Course Name"
-						type="text"
-						fullWidth
-						onChange={handleNameChange}
-					/>
-					<TextField
-						autoFocus
-						margin="dense"
-						id="name"
-						label="Description"
-						type="text"
-						fullWidth
-						onChange={handleDescChange}
-					/>
-				</DialogContent>
-				<DialogActions>
-					<Button onClick={() => setOpen(false)} color="primary">
-						Cancel
+    return (	
+		
+		<View>
+			<TextInput
+				style={{maxWidth: 600, margin: 8, backgroundColor:'#d3d3d3', fontColor: '#000000'}}
+					selectionColor= '#3467EC'
+					label="Course Name:"
+					value={newName}
+					onChangeText={newName => setNewName(newName)}
+			/>
+			<TextInput
+				style={{height: 150, maxWidth: 600, margin: 8, backgroundColor:'#d3d3d3', fontColor: '#000000'}}
+					selectionColor= '#3467EC'
+					multiline
+					label="Course Description:"
+					value={newDesc}
+					onChangeText={newDesc => setNewDesc(newDesc)}
+			/>
+			<View style={{flexDirection: 'row', alignSelf: 'center'}}>
+					<Button onPress = {() => setVisible(false)}>
+						<Text>Cancel</Text>
 					</Button>
-					<Button onClick={() => submit()} color="primary">
-						Submit
+					<Button style={{backgroundColor: '#3467EC'}}>
+						<Text style={{color: '#FFFFFF'}}>Submit</Text>
 					</Button>
-				</DialogActions>
-          	</Dialog>
-        </div>
-      );
+			</View>
+        </View>
+		
+
+	)
 
 }
