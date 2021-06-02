@@ -29,7 +29,6 @@ let QuizTask = function ({ title, questions, options, answers }) {
    // determine if a question is free response or multiple choice
    // and return the correct display type
    const frormc = () => {
-      console.log(questions[currQues].__typename);
       if (questions[currQues].__typename === "McQuestion") {
          questions[currQues].options.forEach(element => {
             questionOpts.push(

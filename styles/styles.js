@@ -11,7 +11,7 @@ const Styles = StyleSheet.create({
     backgroundColor: "#FFFFFF"
   },
   taskContainer: {
-    alignItems: 'left',
+
     alignContent: 'center',
     paddingTop: "2%",
     paddingBottom: "2%",

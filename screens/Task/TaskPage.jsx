@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { ScrollView, TouchableOpacity,  Button, View,  StyleSheet } from 'react-native';
-import { Surface, Title, Title, Text, Portal, Provider, Modal } from 'react-native-paper';
+import { Surface, Title, Text, Portal, Provider, Modal } from 'react-native-paper';
 import QuizTask from './QuizTask';
 import VideoTask from './VideoTask';
 import WebpageTask from './WebpageTask';
@@ -11,7 +11,6 @@ import { ApolloProvider, useQuery, gql} from '@apollo/client';
 import ImageTask from './ImageTask';
 import  Styles  from '../../styles/styles';
 import { separateOperations } from 'graphql';
-import Styles from '../../styles/styles'
 
 /**
  * The general task page that will hold all components that define a task
@@ -109,7 +108,6 @@ let TaskPage = ({ route, navigation }) => {
 
     // finds the type of component it is and returns the correct one filled out
     let typeFinder = (component) => {
-      console.log(component)
         if (component.__typename === "TextBlock") {
             return <TextPageTask title={component.title}
              text={component.contents} size={component.fontSize}/>
@@ -137,11 +135,11 @@ let TaskPage = ({ route, navigation }) => {
             <Title style={Styles.taskPageTitle}>{data.task.name.toUpperCase()}</Title>
               {fillComponents()}
               {currComponents.map((comp, idx) => {
-                  return (
-                      <View style={(compCount++ % 2 === 0) ? Styles.taskPageComponentBackgroundLG : Styles.taskPageComponentBackgroundDG}>
-                          {comp}
-                      </View>
-                  )
+                return (
+                  <View style={(compCount++ % 2 === 0) ? Styles.taskPageComponentBackgroundLG : Styles.taskPageComponentBackgroundDG}>
+                      {comp}
+                  </View>
+                )
               })}
             <RubricModal/>
           </Portal>
