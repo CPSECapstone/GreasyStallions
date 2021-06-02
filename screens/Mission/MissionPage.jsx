@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { ScrollView, TouchableOpacity,  Button, View,  StyleSheet } from 'react-native';
 import { useQuery, gql} from '@apollo/client';
-import { Surface, Text } from 'react-native-paper';
-
+import { Divider, List,  Surface, Text } from 'react-native-paper';
+import Styles from '../../styles/styles';
 
 let MissionPage = function({ route, navigation}){
 
@@ -40,74 +40,46 @@ let MissionPage = function({ route, navigation}){
             let crMiss = data.mission.missionContent[i]; 
             if (crMiss.__typename === "Task") {
                 taskList.push(
-                    <TouchableOpacity
-						style = {styles.coursebutton}
-						 onPress={() => navigation.navigate("TaskPage", {id: crMiss.id})}>
-                    	<Text style={{color: "#FFFFFF"}}>{crMiss.name}</Text>
-                    </TouchableOpacity>
-
+					<List.Item 
+						titleStyle = {Styles.item}
+						title={crMiss.name} 
+						onPress = {() => {
+							navigation.navigate("TaskPage", {id: crMiss.id})}}
+					/>
                 )
             } else if (crMiss.__typename === "SubMission") {
                 submissionList.push(
-                    <TouchableOpacity
-						style = {styles.coursebutton}>
-                    	<Text style={{color: "#FFFFFF"}}>{crMiss.name}</Text>
-                    </TouchableOpacity>
+					<List.Item 
+						titleStyle = {Styles.item}
+						title={crMiss.name} 
+					/>
                 )
             }
         }
     }
 
     return (
-        <View style={styles.container}>
-            {getComponents()}
-			<Text>{data.mission.name}</Text>
-			<Text style={{textAlign: 'center'}}>{data.mission.description}</Text>
-			<Text>Tasks:</Text>
-            <ScrollView>
-                {taskList}
-            </ScrollView>
-			<Text>Submissions</Text>
-			<ScrollView>{submissionList}</ScrollView>
-        </View>
+
+		<View style = {Styles.container}>
+			<ScrollView contentContainerStyle = {Styles.webContainer}>
+				{getComponents()}
+				<Text style = {Styles.header}>{data.mission.name}</Text>
+				<Text style={Styles.info}>{data.mission.description}</Text>
+				<Divider style = {{marginTop: 16, marginBottom: 16}}></Divider>
+				<List.Accordion titleStyle = {Styles.title}
+					style = {{backgroundColor: '#F2F2F2'}}
+					title = 'Tasks'>
+					{taskList}
+				</List.Accordion>
+				<List.Accordion titleStyle = {Styles.title}
+					style = {{backgroundColor: '#F2F2F2'}}
+					title = 'Sub-Missions'>
+					{submissionList}
+				</List.Accordion>
+			</ScrollView>
+		</View>
     );
 }
 
 export default MissionPage;
 
-const styles = StyleSheet.create({
-	container: {
-	  flex: 1,
-	  justifyContent: 'center',
-	  alignItems: 'center',
-	},
-	text: {
-	  textAlign: 'center'
-	},
-	surface: {
-		marginTop: 16,
-		padding: 8,
-		height: 100,
-		width: 250,
-		alignItems: 'center',
-		justifyContent: 'center',
-		elevation: 4,
-	  },
-	  item: {
-		flex: 1,
-		height: 160,
-		margin: 1
-	  },
-	  list: {
-		flex: 1
-	  },
-	  coursebutton: {
-		marginTop: 16,
-		padding: 8,
-		height: 100,
-		width: 250,
-		alignItems: 'center',
-		justifyContent: 'center',
-		backgroundColor: '#3467EC'
-	  }
-  });

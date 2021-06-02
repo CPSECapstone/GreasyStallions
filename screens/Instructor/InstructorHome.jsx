@@ -1,8 +1,13 @@
-import { ScrollView, TouchableOpacity,  Button, View,  StyleSheet } from 'react-native';
-import { Surface, Text } from 'react-native-paper';
+import { ScrollView, TouchableOpacity,  View,  Stylesheet } from 'react-native';
 import React, { useState } from 'react';
 import {useQuery, gql} from '@apollo/client';
 import randomColor from 'randomcolor';
+import { Surface, Text, List, Divider,  Headline , Avatar, Button, Card, Title, Paragraph } from 'react-native-paper';
+import { ArrowLeftOutlined } from '@material-ui/icons';
+import {Ionicons} from '@expo/vector-icons';
+import Amplify, { Auth } from 'aws-amplify';
+import Styles from '../../styles/styles';
+
 
 const LIST_COURSES = gql
 `
@@ -22,70 +27,30 @@ export default function InstructorHome({navigation}) {
   
   
 	let courses = [];
-	var goToClassPage = () => {
-	  navigation.navigate('ClassPage', {className: "Test Class"})
+	var goToClassPage = (courseName, instructor) => {
+		navigation.navigate('InstructorClassPage', {className: courseName, teacher: instructor})
 	};
   
 	if(data){
 	  data.courseInfos.forEach( crs => {
 		let toPush = 
-		  <TouchableOpacity 
-		  	style = {styles.coursebutton}
-			onPress = {() => {
-				navigation.navigate('InstructorClassPage', 
-				{
-				className: crs.course,
-				teacher: true
-				})}}>
-				<Text style={{color: "#FFFFFF"}}>{crs.course}</Text>
-			</TouchableOpacity>
+		<TouchableOpacity style = {Styles.coursebutton} onPress={() => goToClassPage(crs.course, crs.instructor)}>
+			<View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems:'center'}}>
+				<Text style = {Styles.courseListText}>{crs.course}</Text>
+				<Ionicons style = {Styles.carrot} name="md-arrow-forward" size={32} color='#3467EC'/>
+			</View>
+    		<Divider style = {{marginTop:6}}/>
+		</TouchableOpacity>
+		
+
+		
 		courses.push(toPush)
 	  });
 	}
 
 	return (
-		<View style={styles.container}>
-			<Text style={{marginBottom: 32, marginTop: 32}}>Courses</Text>
-			<ScrollView>
-				{courses}
-			</ScrollView>
-		</View>
+		<ScrollView contentContainerStyle={Styles.container}>
+			{courses}
+		</ScrollView>
 	)
 }
-
-const styles = StyleSheet.create({
-	container: {
-	  flex: 1,
-	  justifyContent: 'center',
-	  alignItems: 'center',
-	},
-	text: {
-	  textAlign: 'center'
-	},
-	surface: {
-		marginTop: 16,
-		padding: 8,
-		height: 100,
-		width: 250,
-		alignItems: 'center',
-		justifyContent: 'center',
-		elevation: 4,
-	  },
-	  item: {
-		flex: 1,
-		height: 160,
-		margin: 1
-	  },
-	  list: {
-		flex: 1
-	  },
-	  coursebutton: {
-		marginTop: 16,
-		padding: 8,
-		height: 100,
-		width: 250,
-		alignItems: 'center',
-		justifyContent: 'center',
-		backgroundColor: '#3467EC'
-	  }
-  });
