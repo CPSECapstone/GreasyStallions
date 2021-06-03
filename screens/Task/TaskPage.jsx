@@ -76,15 +76,23 @@ let TaskPage = ({ route, navigation }) => {
         } else if (component.FRQuestion != null) {
             return <FreeResponseTask freeResponseQuestion={component.FRQuestion} />
         } else if (component.__typename === "ImageBlock") {
-            return  <ImageTask pth={component.imageUrl} title={component.title}/> 
+            return  /* <ImageTask pth={component.imageUrl} title={component.title}/> */ undefined 
         }
     }
     
-
+    fillComponents()
+    let comps = currComponents.map((comp, idx) => {
+        return (
+          <View style={(compCount++ % 2 === 0) ? Styles.taskPageComponentBackgroundLG : Styles.taskPageComponentBackgroundDG}>
+              {comp}
+          </View>
+        )
+      })
+    console.log(comps)
     return (
       <ScrollView>
-            <Provider>
-              <Portal>
+        <View>
+
                 <Button mode='contained'onPress={() => setShow(true)}>
                         {'Show Rubric'}
                 </Button>
@@ -102,21 +110,15 @@ let TaskPage = ({ route, navigation }) => {
                   showFastPaginationControls
                   numberOfItemsPerPage={1}
                   />}
-                <RubricModal show={show} setShow={setShow} 
+                {<RubricModal show={show} setShow={setShow} 
                  reqs={data.task.requirements}
                  taskProgress={data.retrieveTaskProgress}
-                 taskId={id}/>
-                {fillComponents()}
-                {currComponents.map((comp, idx) => {
-                  return (
-                    <View style={(compCount++ % 2 === 0) ? Styles.taskPageComponentBackgroundLG : Styles.taskPageComponentBackgroundDG}>
-                        {comp}
-                    </View>
-                  )
-                })}
+                 taskId={id}/>}
+                {/* fillComponents() */}
+                {comps}
               </DataTable>
-            </Portal>
-          </Provider>
+
+      </View>
       </ScrollView>
 
     );

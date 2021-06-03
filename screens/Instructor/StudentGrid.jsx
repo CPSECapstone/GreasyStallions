@@ -78,12 +78,6 @@ let StudentGridComponent = ({students, setStudents, filter, setFilter}) =>{
   bubbleFilterOptions.set(3, "Alphabetical")
   bubbleFilterOptions.set(4, "Online Status") 
 
-  /* let checkFilterLHWorking = (newTemp) => {
-    var assert = require('assert')
-    let expectedSortedStudents = require('./testFilterLH.json')
-    assert.deepStrictEqual(newTemp, expectedSortedStudents.expected)
-  } */
-
   let handleChange = (option) => {
     //setFilter(event.target.value)
     let tempStudents = [...students];
@@ -136,10 +130,12 @@ let StudentGridComponent = ({students, setStudents, filter, setFilter}) =>{
 							backgroundColor="#E0E0E0">
 							{
 								() => (
-								<Text>
-									{student.userName}
-								</Text>
-								)
+                  <View style={{textAlign: 'center'}}>
+                  <Text style={{fontWeight: 600}}>{student.userName}</Text>
+                  <Text style={{fontSize: 12}}>Current Task:</Text>
+                  <Text style={{fontSize: 12}}>Electron Orbitals</Text>
+                  </View>
+                  )
 							}
 						</AnimatedCircularProgress>
 				))}
