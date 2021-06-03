@@ -172,6 +172,37 @@ const Styles = StyleSheet.create({
     backgroundColor: "#FFFFFF",
     marginTop: 0,
     marginBottom: 0,
+  },
+  masteryname: {
+    flex: 1,
+    maxWidth: 200,
+    height: 40
+  },
+  masteryrow: {
+    width: '100%',
+    flexDirection: 'row',
+    flex: 1,
+    margin: 5
+  },
+  masteryprogressbar: {
+    flex: 1,
+    height: 40,
+    marginLeft: '1%',
+    marginRight: '1%',
+  },
+  masterybar: {
+    color: Colors.red,
+    backgroundColor: Colors.light_gray,
+    height: 40,
+    borderRadius: 10
+  },
+  masterycontainer: {
+    width: '100%',
+    flex: 1
+  },
+  masterytargetname: {
+    flex: 1,
+    textAlign: 'center'
   }
 });
 
