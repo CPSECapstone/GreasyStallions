@@ -105,7 +105,8 @@ let TaskPage = ({ route, navigation }) => {
                   />}
                 <RubricModal show={show} setShow={setShow} 
                  reqs={data.task.requirements}
-                 taskProgress={data.retrieveTaskProgress}/>
+                 taskProgress={data.retrieveTaskProgress}
+                 taskId={id}/>
                 {fillComponents()}
                 {currComponents.map((comp, idx) => {
                   return (
