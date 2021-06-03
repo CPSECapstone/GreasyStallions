@@ -13,12 +13,7 @@ let QuizTask = function ({ block, taskId, blockKey, quesProg}) {
 	const [currQues, setCurrQues] = React.useState(0);
 	let pullAnsr = [];
 	questions.forEach(q => pullAnsr.push(quesProg.length ? quesProg.answers.find(elm => q.id === elm.questionId).answer : null));
-<<<<<<< HEAD
-   const [selectedAns, setSelectedAns] = React.useState( pullAnsr);
-   console.log(selectedAns)
-=======
    const [selectedAns, setSelectedAns] = React.useState(pullAnsr);
->>>>>>> c93ef13631b2b8f285d6a767146200323611ba58
    const [value, setValue] = React.useState(pullAnsr ? 
 		(questions[currQues].__typename === "McQuestion" ? 
 		(pullAnsr[currQues] ? questions[currQues].options[pullAnsr[currQues]].description : undefined) : pullAnsr.answer): undefined); // curr answer
