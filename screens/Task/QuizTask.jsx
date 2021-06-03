@@ -12,7 +12,7 @@ let QuizTask = function ({ block, taskId, blockKey, quesProg}) {
 	let { title, questions, options, answers } = block
 	const [currQues, setCurrQues] = React.useState(0);
 	let pullAnsr = [];
-	questions.forEach(q => pullAnsr.push(quesProg.length ? quesProg.answers.find(elm => q.id === elm.questionId).answer : null));
+	questions.forEach(q => pullAnsr.push(quesProg ? quesProg.answers.find(elm => q.id === elm.questionId).answer : null));
    const [selectedAns, setSelectedAns] = React.useState(pullAnsr);
    const [value, setValue] = React.useState(pullAnsr ? 
 		(questions[currQues].__typename === "McQuestion" ? 
@@ -58,22 +58,22 @@ let QuizTask = function ({ block, taskId, blockKey, quesProg}) {
    let show;
    // determine if a question is free response or multiple choice
    // and return the correct display type
-   const frormc = () => {
+   // const frormc = () => {
       if (questions[currQues].__typename === "McQuestion") {
          questions[currQues].options.forEach(element => {
-				if(Platform.OS === 'ios'  || Platform.OS === 'android') {
-					questionOpts.push(
-						<View>
-							<Text>{element.description}</Text>
-							<RadioButton value={element.description}/>
-						</View>)
-				} else {
+				// if(Platform.OS === 'ios'  || Platform.OS === 'android') {
+				// 	questionOpts.push(
+				// 		<View>
+				// 			<Text>{element.description}</Text>
+				// 			<RadioButton value={element.description}/>
+				// 		</View>)
+				// } else {
 					questionOpts.push(
 						<View style={{"flex-direction": "row"}}>
 							<RadioButton value={element.description}/>
 							<Text>{element.description}</Text>
 						</View>)
-				}
+				// }
          });
          show = <>
 						<Subheading>
@@ -90,6 +90,7 @@ let QuizTask = function ({ block, taskId, blockKey, quesProg}) {
 							{questionOpts}
 						</RadioButton.Group>
 					</>
+			console.log(show)
       } else if (questions[currQues].__typename === "FrQuestion") {
          show = <>
 				<Subheading>
@@ -107,7 +108,8 @@ let QuizTask = function ({ block, taskId, blockKey, quesProg}) {
 				 rows={6}/>
 			</>
       }
-   }
+   // }
+	// console.log(show)
 
    return (
       <View style={Styles.taskContainer}>
@@ -127,7 +129,7 @@ let QuizTask = function ({ block, taskId, blockKey, quesProg}) {
 					 showFastPaginationControls
 					 numberOfItemsPerPage={1}
 				  />}
-					{frormc()}
+					{/* frormc() */}
 					{show}
 				</DataTable>
          </Surface>
