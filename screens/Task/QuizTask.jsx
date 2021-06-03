@@ -12,7 +12,7 @@ let QuizTask = function ({ block, taskId, blockKey, quesProg}) {
 	let { title, questions, options, answers } = block
 	const [currQues, setCurrQues] = React.useState(0);
 	let pullAnsr = [];
-	questions.forEach(q => pullAnsr.push(quesProg ? quesProg.answers.find(elm => q.id === elm.questionId).answer : null));
+	questions.forEach(q => pullAnsr.push(quesProg.length ? quesProg.answers.find(elm => q.id === elm.questionId).answer : null));
    const [selectedAns, setSelectedAns] = React.useState(pullAnsr);
    const [value, setValue] = React.useState(pullAnsr ? 
 		(questions[currQues].__typename === "McQuestion" ? 
