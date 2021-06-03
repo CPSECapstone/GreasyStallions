@@ -66,7 +66,7 @@ const GET_STUDENTS = gql
   ]
 
 
-  let MasteryStudentListComponent = ({students, setStudents, filter, setFilter, setShowTargetMastery, setShowObjMastery}) => {
+  let ObjectiveMasteryComponent = ({students, setStudents, filter, setFilter, setShowTargetMastery, setShowObjMastery, setObjSelected}) => {
     const client = useApolloClient();
 
     let fullProgress = {}
@@ -121,25 +121,24 @@ const GET_STUDENTS = gql
 
     let buildProgressMap = () =>{
       studentList.forEach(stud =>{
-        let totalTasks = 0;
-        let masteredTasks = 0;
         targetList.forEach(targ => {
           targ.objectives.forEach(obj => {
+              let objprogress=0;
+              let numtasksinobj=0;
             obj.tasks.forEach(task => {
-              totalTasks = totalTasks + 1;
+              numtasksinobj = numtasksinobj + 1;
               if(task.mastery === "MASTERED"){
-                masteredTasks = masteredTasks + 1;
+                objprogress = objprogress + 1;
               }
             })
+            progressMapByStudent.set(obj.objectiveName, {objMastery: (objprogress/numtasksinobj)})
           })
         })
-        progressMapByStudent.set(stud, {taskMastery: (masteredTasks / totalTasks)})
       })
     }
 
-    let changeView = () => {
-      setShowTargetMastery(false)
-      setShowObjMastery(true)
+    let changeView = () =>{
+        setShowObjMastery(false);
     }
 
     /* let handleChange = (event) =>{
@@ -161,27 +160,34 @@ const GET_STUDENTS = gql
     getStudents()
     getMastery()
     buildProgressMap()
+    let colorMap = new Map();
+    colorMap.set(1, Colors.green)
+    colorMap.set(0.25, Colors.red)
   return (
     <View style={Styles.masterycontainer}>
       <View style={{flexDirection: 'row'}}>
       <Text style={{flex: 1, maxWidth: 200}}>Student</Text>
-          {targetList.map(targ => (
+          {targetList[0].objectives.map(obj => (
             <View style={{flex: 1}}>
-              <Button onPress={changeView}
-              title={targ.target.targetName}
-              accessibilityLabel='switch to objective'></Button>
-            </View>
+            <Button onPress={() => {
+                setShowObjMastery(false)
+                setObjSelected(obj.objectiveName)
+            }}
+            title={obj.objectiveName}
+            accessibilityLabel='switch to objective'></Button>
+          </View>
           ))}
-          <View style={Styles.masteryprogressbar}></View>
       </View>
       <ScrollView>
         {studentList.map(student =>(
           <View style={Styles.masteryrow}>
             <Text style={Styles.masteryname}>{student}</Text>
-            <View style={Styles.masteryprogressbar}>
-              <ProgressBar progress={progressMapByStudent.get(student).taskMastery} color={Colors.yellow} style={Styles.masterybar}></ProgressBar>
-            </View>
-            <View style={Styles.masteryprogressbar}></View>
+            {Array.from(progressMapByStudent.keys()).map(obj => (
+                <View style={Styles.masteryprogressbar}>
+                <ProgressBar progress={progressMapByStudent.get(obj).objMastery} 
+                color={colorMap.get(progressMapByStudent.get(obj).objMastery)} style={Styles.masterybar}></ProgressBar>
+              </View>
+            ))}
           </View>
         ))}
       </ScrollView>
@@ -189,4 +195,4 @@ const GET_STUDENTS = gql
   )
 }
 
-  export default MasteryStudentListComponent;
+  export default ObjectiveMasteryComponent;
