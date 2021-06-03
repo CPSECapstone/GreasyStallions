@@ -1,6 +1,9 @@
 import React from 'react';
 import { Button, View, Text, StyleSheet, TextInput } from 'react-native';
-import { Surface, RadioButton, Subheading, DataTable } from 'react-native-paper'
+import { Surface, RadioButton, Subheading, Title,  DataTable } from 'react-native-paper'
+import Styles from '../../styles/styles';
+import Color from '../../styles/colors';
+
 
 let QuizTask = function ({ title, questions, options, answers }) {
 
@@ -29,7 +32,6 @@ let QuizTask = function ({ title, questions, options, answers }) {
    // determine if a question is free response or multiple choice
    // and return the correct display type
    const frormc = () => {
-      console.log(questions[currQues].__typename);
       if (questions[currQues].__typename === "McQuestion") {
          questions[currQues].options.forEach(element => {
             questionOpts.push(
@@ -66,14 +68,15 @@ let QuizTask = function ({ title, questions, options, answers }) {
    }
 
    return (
-      <View>
-         <Surface style={{padding: '10px'}} elevation={3}>
-            <Subheading class="componentHeader" variant="h4" component="h4">{title}</Subheading>
+      <View style={Styles.taskContainer}>
+         <Surface style={{padding: 10, backgroundColor: Color.light_gray }} elevation={3}>
+            <Title style={Styles.taskTitleText}>{title}</Title>
 				<DataTable>
 					{questions.length !== 1 && 
 					 <DataTable.Pagination
 					 page={currQues}
 					 numberOfPages={questions.length}
+					 style={{backgroundColor: Color.light_gray}}
 					 onPageChange={page => {
 						setCurrQues(page)
 						setValue(selectedAns[page] || undefined)

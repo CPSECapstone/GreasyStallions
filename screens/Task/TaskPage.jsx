@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import { ScrollView, TouchableOpacity,  Button, View,  StyleSheet } from 'react-native';
-import { Surface, Title, Title, Text, Portal, Provider, Modal } from 'react-native-paper';
+import { ScrollView, TouchableOpacity,   View,  StyleSheet } from 'react-native';
+import { DataTable, Title, Text, Portal, Provider, Modal, Button } from 'react-native-paper';
 import QuizTask from './QuizTask';
 import VideoTask from './VideoTask';
 import WebpageTask from './WebpageTask';
@@ -11,7 +11,8 @@ import { ApolloProvider, useQuery, gql} from '@apollo/client';
 import ImageTask from './ImageTask';
 import  Styles  from '../../styles/styles';
 import { separateOperations } from 'graphql';
-import Styles from '../../styles/styles'
+import Color from '../../styles/colors';
+
 
 /**
  * The general task page that will hold all components that define a task
@@ -21,7 +22,7 @@ import Styles from '../../styles/styles'
 
 let TaskPage = ({ route, navigation }) => {
     const { id } = route.params;
-    const [currPage, setCurrPage] = React.useState(1);
+    const [currPage, setCurrPage] = React.useState(0);
     const [open , setOpen] = React.useState(false);
     const [taskInfo, setTaskInfo] = React.useState();
     const [show, setShow] = useState(false)
@@ -101,15 +102,14 @@ let TaskPage = ({ route, navigation }) => {
     // fill the components array with the components that are currently being displayed
     let fillComponents = () => {
         if (data.task.pages.length !== 0) {
-            for (let i=0; i<data.task.pages[currPage - 1].blocks.length;i++) {
-                currComponents.push(typeFinder(data.task.pages[currPage - 1].blocks[i]));
+            for (let i=0; i<data.task.pages[currPage].blocks.length;i++) {
+                currComponents.push(typeFinder(data.task.pages[currPage].blocks[i]));
             }
         }
     }
 
     // finds the type of component it is and returns the correct one filled out
     let typeFinder = (component) => {
-      console.log(component)
         if (component.__typename === "TextBlock") {
             return <TextPageTask title={component.title}
              text={component.contents} size={component.fontSize}/>
@@ -130,23 +130,37 @@ let TaskPage = ({ route, navigation }) => {
     }
 
     return (
+      <ScrollView>
         <View>
-          <Button mode='contained' title= 'Show Rubric' onPress={() => setShow(true)} />
-          <Provider>
-            <Portal>
-            <Title style={Styles.taskPageTitle}>{data.task.name.toUpperCase()}</Title>
-              {fillComponents()}
-              {currComponents.map((comp, idx) => {
+            <Provider>
+              <Button mode='contained' title= 'Show Rubric' onPress={() => setShow(true)} />
+              <Portal>
+                <Title style={Styles.taskPageTitle}>{data.task.name.toUpperCase()}</Title>
+                <DataTable>
+                {data.task.pages.length !== 1 && 
+                  <DataTable.Pagination
+                  page={currPage}
+                  numberOfPages={data.task.pages.length}
+                  style={{backgroundColor: Color.light_gray}}
+                  onPageChange={page => setCurrPage(page)}
+                  label={`${currPage + 1} of ${data.task.pages.length}`}
+                  showFastPaginationControls
+                  numberOfItemsPerPage={1}
+                  />}
+                {fillComponents()}
+                {currComponents.map((comp, idx) => {
                   return (
-                      <View style={(compCount++ % 2 === 0) ? Styles.taskPageComponentBackgroundLG : Styles.taskPageComponentBackgroundDG}>
-                          {comp}
-                      </View>
+                    <View style={(compCount++ % 2 === 0) ? Styles.taskPageComponentBackgroundLG : Styles.taskPageComponentBackgroundDG}>
+                        {comp}
+                    </View>
                   )
-              })}
-            <RubricModal/>
-          </Portal>
-        </Provider>
+                })}
+              </DataTable>
+              <RubricModal/>
+            </Portal>
+          </Provider>
       </View>
+      </ScrollView>
     );
 }
 

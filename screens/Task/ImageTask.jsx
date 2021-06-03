@@ -10,7 +10,7 @@ let ImageTask = function({ pth, title }) {
          <Title style={Styles.taskTitleText}>
             {title}
          </Title>
-         <Image style={{width: "75%", height: "500", resizeMode: 'contain'}} source={pth}/>
+         <Image style={{width: "75%", height: 500, resizeMode: 'contain'}} source={pth}/>
       </View>
    );
 }
