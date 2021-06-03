@@ -116,7 +116,7 @@ let StudentGridComponent = ({students, setStudents, filter, setFilter}) =>{
 				visible={visible}
 				style={styles.filter}
 				onDismiss={closeMenu}
-				anchor={<Button onPress={openMenu}>FILTER STUDENTS</Button>}>
+				anchor={<Button onPress={openMenu} style={{}}>FILTER STUDENTS</Button>}>
 				<Menu.Item onPress={() => {handleChange(1)}} title={bubbleFilterOptions.get(1)} />
 				<Menu.Item onPress={() => {handleChange(2)}} title={bubbleFilterOptions.get(2)} />
 				<Menu.Item onPress={() => {handleChange(3)}} title={bubbleFilterOptions.get(3)} />
