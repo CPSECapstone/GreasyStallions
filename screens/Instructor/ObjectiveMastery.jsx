@@ -41,30 +41,6 @@ const GET_STUDENTS = gql
   }
   `;
 
-  const sampleTargetProgress0 = [
-    {
-      mastery: 0,
-    }
-  ]
-
-  const sampleTargetProgress1 = [
-    {
-      mastery: 1,
-    }
-  ]
-
-  const sampleTargetProgress2 = [
-    {
-      mastery: 2,
-    }
-  ]
-
-  const sampleTargetProgress3 = [
-    {
-      mastery: 3,
-    }
-  ]
-
 
   let ObjectiveMasteryComponent = ({students, setStudents, filter, setFilter, setShowTargetMastery, setShowObjMastery, setObjSelected}) => {
     const client = useApolloClient();
@@ -115,10 +91,6 @@ const GET_STUDENTS = gql
       }
     }
 
-    let getRandom = () =>{
-      return Math.floor(Math.random() * 4)
-    }
-
     let buildProgressMap = () =>{
       studentList.forEach(stud =>{
         targetList.forEach(targ => {
@@ -137,25 +109,6 @@ const GET_STUDENTS = gql
       })
     }
 
-    let changeView = () =>{
-        setShowObjMastery(false);
-    }
-
-    /* let handleChange = (event) =>{
-      setFilter(event.target.value)
-      let tempStudents = [...studentList];
-      let newTemp;
-      if(event.target.value === 1){
-        newTemp = MasteryLHSort(tempStudents)
-      }
-      console.log(newTemp)
-      let writeStruct = {
-        query: GET_STUDENTS,
-        data: {progressOverview: {userProgress: newTemp}}
-      }
-      client.writeQuery(writeStruct)
-    } */
-
     // Query to fetch student progress for this course
     getStudents()
     getMastery()
@@ -166,9 +119,9 @@ const GET_STUDENTS = gql
   return (
     <View style={Styles.masterycontainer}>
       <View style={{flexDirection: 'row'}}>
-      <Text style={{flex: 1, maxWidth: 200}}>Student</Text>
+      <Text style={Styles.masteryname}>Student</Text>
           {targetList[0].objectives.map(obj => (
-            <View style={{flex: 1}}>
+            <View style={Styles.masterycolumn}>
             <Button onPress={() => {
                 setShowObjMastery(false)
                 setObjSelected(obj.objectiveName)
