@@ -7,17 +7,22 @@ import { SAVE_FRQUESTION, SAVE_MCQUESTION, GET_TASK_BY_ID} from './TaskQueries'
 import {useMutation} from '@apollo/client';
 
 
-let QuizTask = function ({ block, taskId, blockKey}) {
+let QuizTask = function ({ block, taskId, blockKey, quesProg}) {
 	const refreshQuery = {refetchQueries: [{query: GET_TASK_BY_ID, variables: {id: taskId}}]}
-   const [selectedAns, setSelectedAns] = React.useState([]);
-   const [currQues, setCurrQues] = React.useState(0);
-   const [value, setValue] = React.useState(); // curr answer
+	let { title, questions, options, answers } = block
+	const [currQues, setCurrQues] = React.useState(0);
+	let pullAnsr = [];
+	questions.forEach(q => pullAnsr.push(quesProg ? quesProg.answers.find(elm => q.id === elm.questionId).answer : null));
+   const [selectedAns, setSelectedAns] = React.useState(pullAnsr);
+   const [value, setValue] = React.useState(pullAnsr ? 
+		(questions[currQues].__typename === "McQuestion" ? 
+		(pullAnsr[currQues] ? questions[currQues].options[pullAnsr[currQues]].description : undefined) : pullAnsr.answer): undefined); // curr answer
 	const [saveFRQuestion] = useMutation(SAVE_FRQUESTION, refreshQuery);
 	const [saveMCQuestion] = useMutation(SAVE_MCQUESTION, refreshQuery);
 
    let questionOpts = [];
-	let { title, questions, options, answers } = block
-   let updateAnswers = (newValue, idx) => {
+
+	let updateAnswers = (newValue, idx) => {
       let temp = [...selectedAns];
       temp[idx] = newValue;
 		setValue(newValue)
@@ -53,22 +58,22 @@ let QuizTask = function ({ block, taskId, blockKey}) {
    let show;
    // determine if a question is free response or multiple choice
    // and return the correct display type
-   const frormc = () => {
+   // const frormc = () => {
       if (questions[currQues].__typename === "McQuestion") {
          questions[currQues].options.forEach(element => {
-				if(Platform.OS === 'ios'  || Platform.OS === 'android') {
-					questionOpts.push(
-						<View>
-							<Text>{element.description}</Text>
-							<RadioButton value={element.description}/>
-						</View>)
-				} else {
+				// if(Platform.OS === 'ios'  || Platform.OS === 'android') {
+				// 	questionOpts.push(
+				// 		<View>
+				// 			<Text>{element.description}</Text>
+				// 			<RadioButton value={element.description}/>
+				// 		</View>)
+				// } else {
 					questionOpts.push(
 						<View style={{"flex-direction": "row"}}>
 							<RadioButton value={element.description}/>
 							<Text>{element.description}</Text>
 						</View>)
-				}
+				// }
          });
          show = <>
 						<Subheading>
@@ -85,6 +90,7 @@ let QuizTask = function ({ block, taskId, blockKey}) {
 							{questionOpts}
 						</RadioButton.Group>
 					</>
+			console.log(show)
       } else if (questions[currQues].__typename === "FrQuestion") {
          show = <>
 				<Subheading>
@@ -102,7 +108,8 @@ let QuizTask = function ({ block, taskId, blockKey}) {
 				 rows={6}/>
 			</>
       }
-   }
+   // }
+	// console.log(show)
 
    return (
       <View style={Styles.taskContainer}>
@@ -122,7 +129,7 @@ let QuizTask = function ({ block, taskId, blockKey}) {
 					 showFastPaginationControls
 					 numberOfItemsPerPage={1}
 				  />}
-					{frormc()}
+					{/* frormc() */}
 					{show}
 				</DataTable>
          </Surface>

@@ -41,31 +41,6 @@ const GET_STUDENTS = gql
   }
   `;
 
-  const sampleTargetProgress0 = [
-    {
-      mastery: 0,
-    }
-  ]
-
-  const sampleTargetProgress1 = [
-    {
-      mastery: 1,
-    }
-  ]
-
-  const sampleTargetProgress2 = [
-    {
-      mastery: 2,
-    }
-  ]
-
-  const sampleTargetProgress3 = [
-    {
-      mastery: 3,
-    }
-  ]
-
-
   let TaskMasteryComponent = ({students, setStudents, filter, setFilter, setShowTargetMastery, objSelected}) => {
     const client = useApolloClient();
 
@@ -115,10 +90,6 @@ const GET_STUDENTS = gql
       }
     }
 
-    let getRandom = () =>{
-      return Math.floor(Math.random() * 4)
-    }
-
     let buildProgressMap = (obj) =>{
         if(obj === "Backend-Mocked Objective 1"){
             targetList.forEach(targ =>{
@@ -133,43 +104,7 @@ const GET_STUDENTS = gql
                 })
             })
         }
-
-
-      /* studentList.forEach(stud =>{
-        targetList.forEach(targ => {
-          targ.objectives.forEach(obj => {
-              let objprogress=0;
-              let numtasksinobj=0;
-            obj.tasks.forEach(task => {
-              numtasksinobj = numtasksinobj + 1;
-              if(task.mastery === "MASTERED"){
-                objprogress = objprogress + 1;
-              }
-            })
-            progressMapByStudent.set(obj.objectiveName, {objMastery: (objprogress/numtasksinobj)})
-          })
-        })
-      }) */
     }
-
-    let changeView = () =>{
-        setShowTargetMastery(true);
-    }
-
-    /* let handleChange = (event) =>{
-      setFilter(event.target.value)
-      let tempStudents = [...studentList];
-      let newTemp;
-      if(event.target.value === 1){
-        newTemp = MasteryLHSort(tempStudents)
-      }
-      console.log(newTemp)
-      let writeStruct = {
-        query: GET_STUDENTS,
-        data: {progressOverview: {userProgress: newTemp}}
-      }
-      client.writeQuery(writeStruct)
-    } */
 
     // Query to fetch student progress for this course
     getStudents()
@@ -187,10 +122,10 @@ const GET_STUDENTS = gql
     <View style={Styles.masterycontainer}>
       <View style={{flexDirection: 'row'}}>
       <Text style={Styles.masteryname}>Student</Text>
-          {targetList[0].objectives[0].tasks.map(task => (
-            <View style={{flex: 1}}>
+          {Array.from(progressMapByStudent.keys()).map(task => (
+            <View style={Styles.masterycolumn}>
             <Button onPress={() => {setShowTargetMastery(true)}}
-            title={task.taskName}
+            title={task}
             accessibilityLabel='switch to objective'></Button>
           </View>
           ))}

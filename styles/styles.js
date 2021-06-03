@@ -184,7 +184,8 @@ const Styles = StyleSheet.create({
   masteryname: {
     flex: 1,
     maxWidth: 200,
-    height: 40
+    height: 40,
+    paddingLeft: 10
   },
   masteryrow: {
     width: '100%',
@@ -211,6 +212,12 @@ const Styles = StyleSheet.create({
   masterytargetname: {
     flex: 1,
     textAlign: 'center'
+  },
+  masterycolumn: {
+    borderRadius: 10,
+    flex: 1,
+    marginLeft: '2%',
+    marginRight: '1%',
   }
 });
 

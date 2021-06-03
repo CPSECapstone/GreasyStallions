@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
-import { Button, View, Text, StyleSheet } from 'react-native';
 import MasteryStudentListComponent from './MasteryStudentList';
 import { ApolloProvider, useQuery, gql} from '@apollo/client';
 import ObjectiveMasteryComponent from './ObjectiveMastery';
 import TaskMasteryComponent from './TaskMastery';
+import Styles from '../../styles/styles';
+import { ScrollView, TouchableOpacity,  Button, View,  StyleSheet } from 'react-native';
+import { Divider, List, Surface, Text } from 'react-native-paper';
+import { Ionicons } from '@expo/vector-icons'
 
 export default function MasteryOverviewPage({route, navigation}) {
   const {className} = route.params;
@@ -16,14 +19,15 @@ export default function MasteryOverviewPage({route, navigation}) {
 
   if(showTargetMastery){
 	return (
-		<View style={styles.container}>
-		<Text style={styles.text}>{className}</Text>
-			<Button 
-			title='Bubble View'
-				style={styles.navbutton}
-				color='#841584'
-				onPress={() => {navigation.navigate('InstructorClassPage', {className: className})}}>
-			</Button>
+		<View style={Styles.container}>
+		<Text style={Styles.header}>{className}</Text>
+		<TouchableOpacity style = {Styles.coursebutton} onPress={() => navigation.navigate('InstructorClassPage', {className: className})}>
+				<View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems:'center'}}>
+					<Text style = {Styles.webTitleText}>Mission View</Text>
+					<Ionicons style = {Styles.carrot} name="md-arrow-forward" size={32} color='#3467EC'/>
+				</View>
+				<Divider style = {{marginTop:6}}/>
+		</TouchableOpacity>
 		<MasteryStudentListComponent
 		students = {students}
 		setStudents = {setStudents}
@@ -35,14 +39,15 @@ export default function MasteryOverviewPage({route, navigation}) {
   	)
   }else if (showObjMastery){
 	return (
-		<View style={styles.container}>
-		<Text style={styles.text}>{className}</Text>
-			<Button 
-			title='Bubble View'
-				style={styles.navbutton}
-				color='#841584'
-				onPress={() => {navigation.navigate('InstructorClassPage', {className: className})}}>
-			</Button>
+		<View style={Styles.container}>
+		<Text style={Styles.header}>{className}</Text>
+		<TouchableOpacity style = {Styles.coursebutton} onPress={() => navigation.navigate('InstructorClassPage', {className: className})}>
+				<View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems:'center'}}>
+					<Text style = {Styles.webTitleText}>Mission View</Text>
+					<Ionicons style = {Styles.carrot} name="md-arrow-forward" size={32} color='#3467EC'/>
+				</View>
+				<Divider style = {{marginTop:6}}/>
+		</TouchableOpacity>
 		<ObjectiveMasteryComponent
 		students = {students}
 		setStudents = {setStudents}
@@ -53,16 +58,17 @@ export default function MasteryOverviewPage({route, navigation}) {
 		setObjSelected = {setObjSelected}/>
 		</View> 
   	)
-  } else{
+  } else{ //task mastery
 	return (
-		<View style={styles.container}>
-		<Text style={styles.text}>{className}</Text>
-			<Button 
-			title='Bubble View'
-				style={styles.navbutton}
-				color='#841584'
-				onPress={() => {navigation.navigate('InstructorClassPage', {className: className})}}>
-			</Button>
+		<View style={Styles.container}>
+		<Text style={Styles.header}>{className}</Text>
+		<TouchableOpacity style = {Styles.coursebutton} onPress={() => navigation.navigate('InstructorClassPage', {className: className})}>
+				<View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems:'center'}}>
+					<Text style = {Styles.webTitleText}>Mission View</Text>
+					<Ionicons style = {Styles.carrot} name="md-arrow-forward" size={32} color='#3467EC'/>
+				</View>
+				<Divider style = {{marginTop:6}}/>
+		</TouchableOpacity>
 		<TaskMasteryComponent
 		students = {students}
 		setStudents = {setStudents}
@@ -75,17 +81,3 @@ export default function MasteryOverviewPage({route, navigation}) {
   	)
   }
 }
-
-const styles = StyleSheet.create({
-	container: {
-	  flex: 1,
-	  justifyContent: 'center',
-	  alignItems: 'center',
-	},
-	text: {
-	  textAlign: 'center'
-	},
-	navbutton: {
-		margin:10,
-	}
-  });
