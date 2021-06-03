@@ -25,18 +25,25 @@ export default function InstructorHome({navigation}) {
   
 	if(data){
 	  data.courseInfos.forEach( crs => {
-		let toPush = 
+		if(crs.course != 'test' && crs.course != 'Test1' && crs.course != 'Science' && crs.course != 'Chemistry'){
+			let toPush = 
 		<TouchableOpacity style = {Styles.coursebutton} onPress={() => goToClassPage(crs.course, crs.instructor)}>
 			<View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems:'center'}}>
 				<Text style = {Styles.courseListText}>{crs.course}</Text>
 				<Ionicons style = {Styles.carrot} name="md-arrow-forward" size={32} color='#3467EC'/>
 			</View>
+			<Text>{crs.description}</Text>
     		<Divider style = {{marginTop:6}}/>
 		</TouchableOpacity>
 		
+		courses.push(toPush)
 
 		
-		courses.push(toPush)
+		}
+		
+		
+
+		
 	  });
 	}
 	

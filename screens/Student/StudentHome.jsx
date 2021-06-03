@@ -59,16 +59,19 @@ const CrsFliptedComponent = ({navigation}) => {
 
 	if(data){
 		data.courseInfos.forEach( crs => {
-			let toPush = 
+			if(crs.course != 'test' && crs.course != 'Test1' && crs.course != 'Science' && crs.course != 'Chemistry'){
+				let toPush = 
 			<TouchableOpacity style = {Styles.coursebutton} onPress={() => 
 				{navigation.navigate('ClassPage', {className: crs.course})}}>
 				<View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems:'center'}}>
 					<Text style = {Styles.webTitleText}>{crs.course}</Text>
 					<Ionicons style = {Styles.carrot} name="md-arrow-forward" size={32} color='#3467EC'/>
 				</View>
+				<Text>{crs.description}</Text>
 				<Divider style = {{marginTop:6}}/>
 			</TouchableOpacity>
-		courses.push(toPush)
+			courses.push(toPush)
+			}
 		});
 	}
 

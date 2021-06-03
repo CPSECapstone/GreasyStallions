@@ -66,7 +66,7 @@ import Colors from '../../styles/colors';
 			</List.Accordion>
       <TouchableOpacity >
         <Divider style = {{marginTop:6}}/>
-        <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems:'flex-end'}}>
+        <View style={{flexDirection: 'row', justifyContent: 'flex-end', alignItems:'flex-end'}}>
 					<Button onPress={() => navigation.navigate('MasteryOverviewPage', {className: className})} 
             style = {{marginTop: 32, alignSelf: 'flex-end'}} color={Colors.fliptedColor}  
             labelStyle= {{color: Colors.fliptedColor}} icon="menu">Mastery View</Button>
