@@ -7,19 +7,7 @@ import {Ionicons} from '@expo/vector-icons';
 import Amplify, { Auth } from 'aws-amplify';
 import Styles from '../../styles/styles';
 import CreateCourse from '../CreateModals/CreateCourse';
-
-
-const LIST_COURSES = gql
-`
-query GetCourseInfos {
-	courseInfos(instructor: "Mr. Butcher") {
-	courseId
-	course
-	description
-	instructor
-	}
-}
-`;
+import {LIST_COURSES} from '../CreateModals/CreateGQL';
 
 export default function InstructorHome({navigation}) {
 	const {data, error, loading} = useQuery(LIST_COURSES);

@@ -5,6 +5,7 @@ const Colors = {
   yellow: '#F2C94C',
   red: '#EA6868',
   blueTitle: "#2F80ED",
+  fliptedColor: '#3467EC'
 };
 
 export default Colors;
