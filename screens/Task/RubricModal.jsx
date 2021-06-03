@@ -47,7 +47,6 @@ export default function RubricModal({show, setShow, reqs, taskProgress, taskId})
 	}
 
 	reqs.forEach((element, idx) => {
-		console.log(element)
 		reqComps.push(
 		<Surface style={{paddingLeft: '10px', marginTop: '10px',
 		 marginRight: '5px', marginLeft: '5px',
@@ -90,4 +89,4 @@ const styles = StyleSheet.create({
 	text: {
 	  textAlign: 'center'
 	},
-  });
+});

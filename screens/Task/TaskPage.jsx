@@ -89,7 +89,7 @@ let TaskPage = ({ route, navigation }) => {
                         {'Show Rubric'}
                 </Button>
                 <Title style={Styles.taskPageTitle}>{data.task.name.toUpperCase()}</Title>
-                {console.log(data)}
+
                 <DataTable>
                 
                 {data.task.pages.length !== 1 && 

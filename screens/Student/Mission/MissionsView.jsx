@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import Styles  from '../../../styles/styles.js';
 import { Ionicons } from '@expo/vector-icons';
+import { GET_ALL_MISSION_PROGRESS } from './MissionQueries';
 
 export default function MissionsView({ className }) {
     const navigation = useNavigation();
