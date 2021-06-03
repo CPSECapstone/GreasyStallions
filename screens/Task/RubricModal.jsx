@@ -48,9 +48,9 @@ export default function RubricModal({show, setShow, reqs, taskProgress, taskId})
 
 	reqs.forEach((element, idx) => {
 		reqComps.push(
-		<Surface style={{paddingLeft: '10px', marginTop: '10px',
-		 marginRight: '5px', marginLeft: '5px',
-		 marginBottom: '10px'}}elevation={3}>
+		<Surface style={{paddingLeft: 10, marginTop: 10,
+		 marginRight: 5, marginLeft: 5,
+		 marginBottom: 10}}elevation={3}>
 			 <Checkbox 
 			  status={isComplete(element.id) ? 'checked' : 'unchecked'}
 			  onPress={() => completeReqPress(element.id)}/>
