@@ -146,6 +146,7 @@ let CreateGoalPage = ({route, navigation}) => {
 			 style={{margin: "1%"}}
           onPress={addSubGoal}
           color={Colors.blue500}
+          testID='subgoal'
           mode="contained">
              <Text>{"Add SubGoal"}</Text>
           </Button>
@@ -154,6 +155,7 @@ let CreateGoalPage = ({route, navigation}) => {
           onPress={addSubGoal}
           disabled={!goalValid()}
           onPress={submit}
+          testID='submit'
           color={Colors.green200}
           mode="contained">
             <Text>{"Submit"}</Text>

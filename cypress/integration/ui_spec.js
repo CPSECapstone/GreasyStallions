@@ -1,9 +1,5 @@
   it("Visit Flipted", () => {
-    Cypress.on('uncaught:exception', (err, runnable) => {
-        // returning false here prevents Cypress from
-        // failing the test
-        return false
-    })
+    // cy.exec('npm run web', { failOnNonZeroExit: false }).then((result) => { })
     // cy.exec('npm run web', { failOnNonZeroExit: false }).then((result) => { })
     cy.visit("http://localhost:19006/");
     //cy.get(".App-logo").should("be.visible");
@@ -14,21 +10,99 @@
     cy.get('[data-testid=aws-amplify__auth--password-input]').type('Password1!');
     cy.get('[data-testid=aws-amplify__auth--sign-in-button]').click();
   })
+  
+  it("Loading", () => {
+    cy.wait(500);
+  })
 
   it("Course Dashboard", () => {
-    cy.contains('Integrated').click()
-    cy.scrollTo('bottom')
+    Cypress.on('uncaught:exception', (err, runnable) => {
+      // returning false here prevents Cypress from
+      // failing the test
+      return false
+  })
+    cy.wait(2500);
+    cy.wait(3500);
+    cy.get(':nth-child(4) > .r-alignItems-1awozwy > .r-alignSelf-k200y').click();
+  })
 
-    // cy.get('.btn').click()
-    // cy.contains(/Dashboard/i).click()
+
+  it("Interact with Class Page", () => {
+    cy.wait(500);
+    cy.get(':nth-child(5) > .r-flexDirection-18u37iz > .css-view-1dbjc4n').click();
+    cy.wait(250);
+    cy.get(':nth-child(3) > :nth-child(1) > .r-WebkitOverflowScrolling-150rngu > :nth-child(1) > :nth-child(1) > .css-text-901oao').click();
+    cy.wait(500);
+  })
+  
+  it("Interact with Tasks", () => {
+    cy.wait(500);
+    cy.get(':nth-child(3) > .r-borderRadius-6ncur5').click();
+    cy.wait(250);
+    cy.get('.r-bottom-1p0dtai.r-pointerEvents-12vffkv > :nth-child(2) > :nth-child(1) > .css-cursor-18t94o4 > .css-view-1dbjc4n').click();
+    cy.wait(500);
+    cy.get('[role="radiogroup"] > :nth-child(1) > .r-borderRadius-6ncur5').click();
+    cy.wait(250);
+    cy.get('.r-display-6koalj > :nth-child(2) > :nth-child(2) > :nth-child(1) > .r-minHeight-2llsf > .r-flexDirection-1d5kdc7 > :nth-child(2) > :nth-child(1) > [style="height: 64px;"] > .r-flex-13awgt0 > .r-justifyContent-1777fci.r-left-1d2f490 > [data-testid=header-back]').click();
+    cy.wait(500);
+  })
+
+  it("View Missions", () => {
+    cy.wait(250);
+    cy.contains('Learning').click();
+    cy.wait(250);
+    cy.get('.r-display-6koalj > :nth-child(2) > :nth-child(2) > :nth-child(1) > .r-minHeight-2llsf > .r-flexDirection-1d5kdc7 > :nth-child(2) > :nth-child(1) > [style="height: 64px;"] > .r-flex-13awgt0 > .r-justifyContent-1777fci.r-left-1d2f490 > [data-testid=header-back]').click();
+  })
+
+  it("Open Drawer", () => {
+    Cypress.on('uncaught:exception', (err, runnable) => {
+      // returning false here prevents Cypress from
+      // failing the test
+      return false
+  })
+    cy.wait(500);
+    cy.get('[data-testid=bars]').click();
+  })
+
+  it("Interact with Goals", () => {
+    cy.wait(250);
+    cy.get(':nth-child(5) > .css-cursor-18t94o4 > .r-alignItems-1awozwy > .css-view-1dbjc4n > .css-text-901oao');
+    cy.get(':nth-child(5) > .css-cursor-18t94o4 > .r-alignItems-1awozwy').click();
+    cy.wait(250);
+    cy.get('.r-borderStyle-1phboty > .css-cursor-18t94o4 > .css-view-1dbjc4n').click();
+    cy.wait(250);
+    cy.get(':nth-child(2) > :nth-child(1) > .css-view-1dbjc4n.r-paddingBottom-1mdbw0j > .css-textinput-11aywtz').type('Demo');
+    cy.get(':nth-child(3) > :nth-child(1) > .css-view-1dbjc4n.r-paddingBottom-1mdbw0j > .css-textinput-11aywtz').type('Final Grade');
+  })
+
+  it("Add a Subgoal", () => {
+    cy.get('.r-flexDirection-1d5kdc7 > :nth-child(1) > :nth-child(1) > .r-backgroundColor-1niwhzg > .css-cursor-18t94o4 > .css-view-1dbjc4n').click();
+    cy.wait(250);
+    cy.get('[data-testid=react-native-paper-dates-day-2021-5-9] > .css-view-1dbjc4n').click();
+    cy.get('[data-testid=react-native-paper-dates-save] > .css-view-1dbjc4n').click();
+    cy.wait(250);
+    cy.get('[data-testid=subgoal]').click();
+    cy.get(':nth-child(1) > :nth-child(1) > .css-view-1dbjc4n.r-paddingBottom-1mdbw0j > .css-textinput-11aywtz').type('Get an A in the class');
+    cy.wait(500);
+    cy.get('[data-testid=submit]').click();
+  })
+
+  it("Drawer SignOut", () => {
+    Cypress.on('uncaught:exception', (err, runnable) => {
+      // returning false here prevents Cypress from
+      // failing the test
+      return false
+    })
+    cy.get('.r-display-6koalj > :nth-child(2) > :nth-child(2) > :nth-child(1) > .r-minHeight-2llsf > .r-flexDirection-1d5kdc7 > :nth-child(2) > :nth-child(1) > [style="height: 64px;"] > .r-flex-13awgt0 > .r-justifyContent-1777fci.r-left-1d2f490 > [data-testid=header-back]').click();
+    // cy.get('.r-display-6koalj > :nth-child(2) > :nth-child(2) > :nth-child(1) > .r-minHeight-2llsf > .r-flexDirection-1d5kdc7 > :nth-child(2) > :nth-child(1) > [style="height: 64px;"] > .r-flex-13awgt0 > .r-justifyContent-1777fci.r-left-1d2f490 > [data-testid=header-back]').click();
+    cy.wait(250);
+    cy.get('[data-testid=bars]').click();
+    cy.wait(1000);
+    cy.get(':nth-child(6) > .css-cursor-18t94o4 > .r-alignItems-1awozwy').click()
+    cy.wait(500);
   })
 
 /*
-  it("Interact with Class Page", () => {
-    cy.scrollTo('bottom')
-    cy.get(':nth-child(7) > :nth-child(1)').click()
-  })
-
   it("Interact with a Task", () => {
     cy.get('button').contains('Rubric!').click()
     cy.wait(500)

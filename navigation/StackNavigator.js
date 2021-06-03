@@ -43,7 +43,8 @@ const MainStackNavigator = (props, signOut) => {
       headerRight: () => (
         <View style={{paddingRight:20}}>
         <Icon 
-        name='three-bars' 
+        name='three-bars'
+        testID='bars'
         size={30} 
         color='#000' 
         onPress={() => props.navigation.toggleDrawer()}
