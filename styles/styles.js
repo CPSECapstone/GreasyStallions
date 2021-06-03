@@ -11,7 +11,7 @@ const Styles = StyleSheet.create({
     backgroundColor: "#FFFFFF"
   },
   taskContainer: {
-    alignItems: 'left',
+
     alignContent: 'center',
     paddingTop: "2%",
     paddingBottom: "2%",
@@ -38,6 +38,13 @@ const Styles = StyleSheet.create({
 		flexDirection: 'row',
 		flexWrap: "wrap",
     justifyContent: 'center'
+	},
+	containerTask: {
+	  flex: 1,
+	  justifyContent: 'center',
+	  alignItems: 'center',
+    padding: 16,
+    width: '100%'
 	},
   container: {
 	  flex: 1,
