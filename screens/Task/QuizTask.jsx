@@ -2,6 +2,8 @@ import React from 'react';
 import { Button, View, Text, StyleSheet, TextInput } from 'react-native';
 import { Surface, RadioButton, Subheading, Title,  DataTable } from 'react-native-paper'
 import Styles from '../../styles/styles';
+import Color from '../../styles/colors';
+
 
 let QuizTask = function ({ title, questions, options, answers }) {
 
@@ -67,13 +69,14 @@ let QuizTask = function ({ title, questions, options, answers }) {
 
    return (
       <View style={Styles.taskContainer}>
-         <Surface style={{padding: '10px'}} elevation={3}>
+         <Surface style={{padding: 10, backgroundColor: Color.light_gray }} elevation={3}>
             <Title style={Styles.taskTitleText}>{title}</Title>
 				<DataTable>
 					{questions.length !== 1 && 
 					 <DataTable.Pagination
 					 page={currQues}
 					 numberOfPages={questions.length}
+					 style={{backgroundColor: Color.light_gray}}
 					 onPageChange={page => {
 						setCurrQues(page)
 						setValue(selectedAns[page] || undefined)
