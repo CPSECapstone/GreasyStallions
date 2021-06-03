@@ -11,6 +11,7 @@ import { ApolloProvider, useQuery, gql} from '@apollo/client';
 import ImageTask from './ImageTask';
 import  Styles  from '../../styles/styles';
 import { separateOperations } from 'graphql';
+import { GET_TASK_BY_ID } from './TaskQueries'
 import Color from '../../styles/colors';
 
 
@@ -68,6 +69,7 @@ let TaskPage = ({ route, navigation }) => {
               }
               ... on QuizBlock {
                 requiredScore
+                blockId
                 questions {
                   __typename
                   ...on FrQuestion {
@@ -94,7 +96,7 @@ let TaskPage = ({ route, navigation }) => {
     
     let currComponents = [];
   
-    const {data, error, loading} = useQuery(pulledTask); 
+    const {data, error, loading} = useQuery(GET_TASK_BY_ID, {variables:{id: id}}/* pulledTask */); 
     if (loading) {
         return <View><Text>Loading...</Text></View>
     }
@@ -103,13 +105,14 @@ let TaskPage = ({ route, navigation }) => {
     let fillComponents = () => {
         if (data.task.pages.length !== 0) {
             for (let i=0; i<data.task.pages[currPage].blocks.length;i++) {
-                currComponents.push(typeFinder(data.task.pages[currPage].blocks[i]));
+                currComponents.push(typeFinder(data.task.pages[currPage].blocks[i], 
+                  data.task.pages[currPage].blocks[i].blockId));
             }
         }
     }
 
     // finds the type of component it is and returns the correct one filled out
-    let typeFinder = (component) => {
+    let typeFinder = (component, blockKey) => {
         if (component.__typename === "TextBlock") {
             return <TextPageTask title={component.title}
              text={component.contents} size={component.fontSize}/>
@@ -117,9 +120,7 @@ let TaskPage = ({ route, navigation }) => {
             return <VideoTask title={component.title}
              id={component.videoUrl} />
         } else if (component.__typename === "QuizBlock") {
-            return <QuizTask title={component.title}
-             questions={component.questions}
-             answers={component.answers} />
+            return <QuizTask block={component} taskId={id} blockKey={blockKey}/>
         } else if (component.webpage != null) {
             return <WebpageTask webpageUrl={component.webpage} />
         } else if (component.FRQuestion != null) {

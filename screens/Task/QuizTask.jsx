@@ -1,17 +1,22 @@
 import React from 'react';
-import { Button, View, Text, StyleSheet, TextInput } from 'react-native';
+import { Button, Platform, View, Text, StyleSheet, TextInput } from 'react-native';
 import { Surface, RadioButton, Subheading, Title,  DataTable } from 'react-native-paper'
 import Styles from '../../styles/styles';
 import Color from '../../styles/colors';
+import { SAVE_FRQUESTION, SAVE_MCQUESTION, GET_TASK_BY_ID} from './TaskQueries'
+import {useMutation} from '@apollo/client';
 
 
-let QuizTask = function ({ title, questions, options, answers }) {
-
+let QuizTask = function ({ block, taskId, blockKey}) {
+	const refreshQuery = {refetchQueries: [{query: GET_TASK_BY_ID, variables: {id: taskId}}]}
    const [selectedAns, setSelectedAns] = React.useState([]);
    const [currQues, setCurrQues] = React.useState(0);
    const [value, setValue] = React.useState(); // curr answer
-   let questionOpts = [];
+	const [saveFRQuestion] = useMutation(SAVE_FRQUESTION, refreshQuery);
+	const [saveMCQuestion] = useMutation(SAVE_MCQUESTION, refreshQuery);
 
+   let questionOpts = [];
+	let { title, questions, options, answers } = block
    let updateAnswers = (newValue, idx) => {
       let temp = [...selectedAns];
       temp[idx] = newValue;
@@ -19,13 +24,30 @@ let QuizTask = function ({ title, questions, options, answers }) {
       setSelectedAns(temp);
    };
 
-  
-   const handlePaginationChange = (event, value) => {
-      setCurrQues(value);
+
+   const mcAnserChangeHandler = (questionId, answer, options) => {
+		let picked = options.find(opt => opt.description === answer)
+		saveMCQuestion(
+			{
+				variables: {
+					taskId: taskId,
+					blockId: blockKey.toString(),
+					questionId: questionId.toString(),
+					answerId: picked.id,
+				}
+			});
    };
 
-   const handleAnsChange = (event) => {
-      setValue(event.target.value);
+	const frAnserChangeHandler = (questionId, answer) => {
+		saveFRQuestion(
+			{
+				variables: {
+					taskId: taskId,
+					blockId: blockKey.toString(),
+					questionId: questionId.toString(),
+					answer: answer,
+				}
+			});
    };
 
    let show;
@@ -34,20 +56,34 @@ let QuizTask = function ({ title, questions, options, answers }) {
    const frormc = () => {
       if (questions[currQues].__typename === "McQuestion") {
          questions[currQues].options.forEach(element => {
-            questionOpts.push(
-					<View style={{"flex-direction": "row", flexWrap: "wrap"}}>
-						<RadioButton value={element.description}/>
-						<Text>{element.description}</Text>
-					</View>)
+				if(Platform.OS === 'ios'  || Platform.OS === 'android') {
+					questionOpts.push(
+						<View>
+							<Text>{element.description}</Text>
+							<RadioButton value={element.description}/>
+						</View>)
+				} else {
+					questionOpts.push(
+						<View style={{"flex-direction": "row"}}>
+							<RadioButton value={element.description}/>
+							<Text>{element.description}</Text>
+						</View>)
+				}
          });
-
          show = <>
 						<Subheading>
 							{questions[currQues].description}
 						</Subheading>
-						<RadioButton.Group  aria-label="ques" value={value} onValueChange={newValue => updateAnswers(newValue, currQues)}>
+						<RadioButton.Group  
+						 aria-label="ques" value={value} 
+						 onValueChange={newValue => {
+							 updateAnswers(newValue, currQues)
+							 mcAnserChangeHandler(
+								 questions[currQues].id, 
+								 newValue,
+								 questions[currQues].options)}}>
 							{questionOpts}
-						</RadioButton.Group >
+						</RadioButton.Group>
 					</>
       } else if (questions[currQues].__typename === "FrQuestion") {
          show = <>
@@ -55,14 +91,15 @@ let QuizTask = function ({ title, questions, options, answers }) {
 					{questions[currQues].description}
 				</Subheading>
 				<TextInput
-				label={questions[currQues].description}
-				variant="outlined"
-				onChangeText={text => setValue(text)}
-				value={value}
-				numberOfLines={4}
-				fullWidth
-				multiline
-				rows={6}/>
+				 label={questions[currQues].description}
+				 variant="outlined"
+				 onChangeText={text => setValue(text)}
+				 value={value}
+				 numberOfLines={4}
+				 onBlur={() => frAnserChangeHandler(questions[currQues].id, value)}
+				 fullWidth
+				 multiline
+				 rows={6}/>
 			</>
       }
    }
