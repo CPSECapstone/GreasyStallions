@@ -7,17 +7,25 @@ import { SAVE_FRQUESTION, SAVE_MCQUESTION, GET_TASK_BY_ID} from './TaskQueries'
 import {useMutation} from '@apollo/client';
 
 
-let QuizTask = function ({ block, taskId, blockKey}) {
+let QuizTask = function ({ block, taskId, blockKey, quesProg}) {
 	const refreshQuery = {refetchQueries: [{query: GET_TASK_BY_ID, variables: {id: taskId}}]}
-   const [selectedAns, setSelectedAns] = React.useState([]);
-   const [currQues, setCurrQues] = React.useState(0);
-   const [value, setValue] = React.useState(); // curr answer
+	let { title, questions, options, answers } = block
+	const [currQues, setCurrQues] = React.useState(0);
+	// const pullAns = quesProg ? quesProg.answers.find(elm => questions[currQues].id === elm.questionId) : null
+	console.log(questions[currQues])
+	let pullAnsr = [];
+	questions.forEach(q => pullAnsr.push(quesProg ? quesProg.answers.find(elm => q.id === elm.questionId).answer : null));
+   const [selectedAns, setSelectedAns] = React.useState( pullAnsr);
+   console.log(selectedAns)
+   const [value, setValue] = React.useState(pullAnsr ? 
+		(questions[currQues].__typename === "McQuestion" ? 
+		(pullAnsr[currQues] ? questions[currQues].options[pullAnsr[currQues]].description : undefined) : pullAnsr.answer): undefined); // curr answer
 	const [saveFRQuestion] = useMutation(SAVE_FRQUESTION, refreshQuery);
 	const [saveMCQuestion] = useMutation(SAVE_MCQUESTION, refreshQuery);
 
    let questionOpts = [];
-	let { title, questions, options, answers } = block
-   let updateAnswers = (newValue, idx) => {
+
+	let updateAnswers = (newValue, idx) => {
       let temp = [...selectedAns];
       temp[idx] = newValue;
 		setValue(newValue)
