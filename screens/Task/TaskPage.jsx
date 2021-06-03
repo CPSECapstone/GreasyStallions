@@ -42,61 +42,10 @@ let TaskPage = ({ route, navigation }) => {
     const handleClose = () => {
         setOpen(false);
     };
-
-    const pulledTask = gql
-    `query {
-        task(taskId: "${id}") {
-          id
-          requirements {
-            id
-            description
-          }
-          name
-          pages {
-            skippable
-            blocks {
-              title
-              __typename
-              ... on ImageBlock {
-                imageUrl
-              }
-              ... on TextBlock {
-                contents
-                fontSize
-              }
-              ... on VideoBlock {
-                videoUrl
-              }
-              ... on QuizBlock {
-                requiredScore
-                blockId
-                questions {
-                  __typename
-                  ...on FrQuestion {
-                    id
-                    description
-                    answer
-                  }
-                  ...on McQuestion {
-                    id
-                    description
-                    options {
-                      id
-                      description
-                    }
-                    answers
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    `;
     
     let currComponents = [];
   
-    const {data, error, loading} = useQuery(GET_TASK_BY_ID, {variables:{id: id}}/* pulledTask */); 
+    const {data, error, loading} = useQuery(GET_TASK_BY_ID, {variables:{id: id}}); 
     if (loading) {
         return <View><Text>Loading...</Text></View>
     }
@@ -120,7 +69,8 @@ let TaskPage = ({ route, navigation }) => {
             return <VideoTask title={component.title}
              id={component.videoUrl} />
         } else if (component.__typename === "QuizBlock") {
-            return <QuizTask block={component} taskId={id} blockKey={blockKey}/>
+            return <QuizTask block={component} 
+             taskId={id} blockKey={blockKey} quesProg={data.retrieveQuestionProgress}/>
         } else if (component.webpage != null) {
             return <WebpageTask webpageUrl={component.webpage} />
         } else if (component.FRQuestion != null) {
@@ -129,14 +79,19 @@ let TaskPage = ({ route, navigation }) => {
             return  <ImageTask pth={component.imageUrl} title={component.title}/> 
         }
     }
+    
 
     return (
       <ScrollView>
             <Provider>
-              <Button mode='contained' title= 'Show Rubric' onPress={() => setShow(true)} />
               <Portal>
+                <Button mode='contained'onPress={() => setShow(true)}>
+                        {'Show Rubric'}
+                </Button>
                 <Title style={Styles.taskPageTitle}>{data.task.name.toUpperCase()}</Title>
+                {console.log(data)}
                 <DataTable>
+                
                 {data.task.pages.length !== 1 && 
                   <DataTable.Pagination
                   page={currPage}
@@ -147,6 +102,10 @@ let TaskPage = ({ route, navigation }) => {
                   showFastPaginationControls
                   numberOfItemsPerPage={1}
                   />}
+                <RubricModal show={show} setShow={setShow} 
+                 reqs={data.task.requirements}
+                 taskProgress={data.retrieveTaskProgress}
+                 taskId={id}/>
                 {fillComponents()}
                 {currComponents.map((comp, idx) => {
                   return (
@@ -156,7 +115,6 @@ let TaskPage = ({ route, navigation }) => {
                   )
                 })}
               </DataTable>
-              <RubricModal/>
             </Portal>
           </Provider>
       </ScrollView>
