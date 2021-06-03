@@ -12,18 +12,26 @@ let VideoTask = function({ id, title }) {
 	}
 
 	return (
-	   <View>
-		  {getEmbeddedLink()}
-		  <Text style={styles.header}>
-			 {title}
-		  </Text>
-
-		  <WebView 
-        	originWhitelist={['*']} 
-    	    source={{ html: "<iFrame src=embeddedLink />" }} />
-
-	   </View>
+		<View>
+			<Text style={styles.header}>
+				{title}
+			</Text>
+		</View>
 	);
+
+	// return (
+	//    <View>
+	// 	  {getEmbeddedLink()}
+	// 	  <Text style={styles.header}>
+	// 		 {title}
+	// 	  </Text>
+
+	// 	  <WebView 
+    //     	originWhitelist={['*']} 
+    // 	    source={{ html: "<iFrame src='embeddedLink' />" }} />
+
+	//    </View>
+	// );
 }
 
 {/* 

@@ -100,6 +100,8 @@ let TaskPage = ({ route, navigation }) => {
             for (let i=0; i<data.task.pages[currPage - 1].blocks.length;i++) {
                 currComponents.push(typeFinder(data.task.pages[currPage - 1].blocks[i]));
             }
+            console.log(currComponents);
+
         } else {
             currComponents.push(<View/>);
         }

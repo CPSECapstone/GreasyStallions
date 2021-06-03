@@ -99,9 +99,5 @@ amplify-build-config.json
 amplify-gradle-config.json
 amplifytools.xcconfig
 .secret-*
-<<<<<<< HEAD
 
 package-lock.json
-=======
-package-lock.json
->>>>>>> d081f60bbc0170df8e26f610cb35ca470defc80d
