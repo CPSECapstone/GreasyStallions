@@ -5,6 +5,7 @@ import { Button, Text, Menu, Divider, Provider, Title, Subheading } from 'react-
 import { useNavigation } from '@react-navigation/native';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import Styles  from '../../../styles/styles.js';
+import { Ionicons } from '@expo/vector-icons';
 
 export default function MissionsView({ className }) {
     const navigation = useNavigation();
@@ -113,7 +114,7 @@ export default function MissionsView({ className }) {
                 if (crMiss.__typename === "Task") {
                     taskList.push(
                         <TouchableOpacity style={Styles.TaskListContainer} onPress={() => taskViewer(crMiss.id)}>
-                            <Text>{crMiss.name}</Text>
+                            <Text style={Styles.info}>{crMiss.name}</Text>
                         </TouchableOpacity>
                     )
                 } 
@@ -121,14 +122,14 @@ export default function MissionsView({ className }) {
             
             return (
                 <View>
-                    <Button onPress={() => setView(0)}>
-                        Back to Missions
-                    </Button>
+                    <TouchableOpacity onPress = {() => setView(0)}  style={{marginTop: 8, flexDirection:'row', justifyItems: 'center'}}>
+                        <Ionicons style = {Styles.backButton} name="md-arrow-back" size={32} color='#3467EC'/>
+                        <Text style={Styles.webTitleText}>Back</Text>
+                    </TouchableOpacity>
                     <Title style={Styles.missionTitleText}>{missName}</Title>
                     <View style={{paddingLeft: "5%"}}>
                         <View style={Styles.blueLine}/>
                     </View>
-                    <Subheading style={Styles.targetItemText}>TARGET ITEM</Subheading>
                     <ScrollView>
                         {taskList}
                     </ScrollView>
