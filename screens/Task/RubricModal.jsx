@@ -2,19 +2,58 @@ import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Surface, Title, Text, Button, Checkbox  } from 'react-native-paper';
 import Modal from 'react-native-modal';
+import { SUBMIT_TASK_PROGRESS, SUBMIT_TASK } from './TaskQueries'
+import { useMutation } from '@apollo/client';
 
-export default function RubricModal({show, setShow, reqs, taskProgress}) {
-	// const [show, setShow] = useState(false)
+
+
+export default function RubricModal({show, setShow, reqs, taskProgress, taskId}) {
 	let reqComps = [];
-	console.log(taskProgress)
-	console.log(reqs)
+
+	const [submitTaskProgess] = useMutation(SUBMIT_TASK_PROGRESS);
+	const [submitTaskMutation] = useMutation(SUBMIT_TASK)
+	const [completeIds, setCompleteIds] = useState(taskProgress ?  [...taskProgress.finishedRequirementIds] : [])
+	
+	function isComplete(reqId) {
+		return completeIds.includes(reqId);
+	}
+
+	let completeReqPress = (reqId) => {
+		if(completeIds.includes(reqId)){
+			var newCompIds = completeIds.filter(id => id !== reqId)
+			setCompleteIds(newCompIds);
+			submitTaskProgess({
+				variables: {
+					id: taskId,
+					finishedRequirements: newCompIds
+				}
+			});
+		} else {
+			setCompleteIds([...completeIds, reqId]);//this doesn't update immmediately
+			submitTaskProgess({
+				variables: {
+					id: taskId,
+					finishedRequirements: [...completeIds, reqId]
+				}
+			});
+		}
+
+	}
+	let submitTask = () => {
+		submitTaskMutation({
+			variables: {
+			  taskId: taskId
+			}});
+	}
+
 	reqs.forEach((element, idx) => {
-		console.log(element)
 		reqComps.push(
 		<Surface style={{paddingLeft: '10px', marginTop: '10px',
 		 marginRight: '5px', marginLeft: '5px',
 		 marginBottom: '10px'}}elevation={3}>
-			 <Checkbox status={true ? 'checked' : 'unchecked'}/>
+			 <Checkbox 
+			  status={isComplete(element.id) ? 'checked' : 'unchecked'}
+			  onPress={() => completeReqPress(element.id)}/>
 			 <Text>{element.description}</Text>
 		</Surface>);
   });
@@ -31,7 +70,9 @@ export default function RubricModal({show, setShow, reqs, taskProgress}) {
 					</Button>
 				</View>
 				{reqComps}
-				<Button onPress={() =>setShow(false)}>
+				<Button 
+				 disabled={reqs.length !== completeIds.length}
+				 onPress={submitTask}>
 					{"Submit"}
 				</Button>
 			</Surface>
@@ -48,4 +89,4 @@ const styles = StyleSheet.create({
 	text: {
 	  textAlign: 'center'
 	},
-  });
+});

@@ -5,6 +5,7 @@ import { Button, Text, Menu, Divider, Provider, Title, Subheading } from 'react-
 import { useNavigation } from '@react-navigation/native';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import Styles  from '../../../styles/styles.js';
+import { GET_ALL_MISSION_PROGRESS } from './MissionQueries';
 
 export default function MissionsView({ className }) {
     const navigation = useNavigation();
