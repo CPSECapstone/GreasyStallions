@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import {useQuery, gql} from '@apollo/client';
 import randomColor from 'randomcolor';
 import { Surface, Text, List, Divider,  Headline , Avatar, Button, Card, Title, Paragraph } from 'react-native-paper';
-import { ArrowLeftOutlined } from '@material-ui/icons';
 import {Ionicons} from '@expo/vector-icons';
 import Amplify, { Auth } from 'aws-amplify';
 import Styles from '../../styles/styles';
@@ -57,7 +56,7 @@ export default function InstructorHome({navigation}) {
 
 	return (
 		<ScrollView contentContainerStyle={Styles.container}>
-			{/*<CreateCourse/>*/ }
+			<CreateCourse/>
 			{courses}
 		</ScrollView>
 	)

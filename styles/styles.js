@@ -1,4 +1,3 @@
-import { BorderColor } from '@material-ui/icons';
 import {StyleSheet} from 'react-native';
 
 import Colors from './colors';
@@ -72,7 +71,6 @@ const Styles = StyleSheet.create({
 		height: 75,
     width: '100%',
 		paddingLeft: '10%',
-    paddingRight: '10%',
 		justifyContent: 'center',
 		alignSelf: 'flex-end'	
 	},

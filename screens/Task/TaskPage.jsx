@@ -131,7 +131,6 @@ let TaskPage = ({ route, navigation }) => {
 
     return (
       <ScrollView>
-        <View>
             <Provider>
               <Button mode='contained' title= 'Show Rubric' onPress={() => setShow(true)} />
               <Portal>
@@ -159,8 +158,8 @@ let TaskPage = ({ route, navigation }) => {
               <RubricModal/>
             </Portal>
           </Provider>
-      </View>
       </ScrollView>
+
     );
 }
 

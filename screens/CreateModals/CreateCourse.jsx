@@ -54,9 +54,36 @@ export default function CreateCourse()  {
 		});
     }
 
+	const Section = <View>
+						<TextInput
+							style={{maxWidth: 600, margin: 8, backgroundColor:'#d3d3d3', fontColor: '#000000'}}
+								selectionColor= '#3467EC'
+								label="Course Name:"
+								value={newName}
+								onChangeText={newName => setNewName(newName)}
+						/>
+						<TextInput
+							style={{height: 150, maxWidth: 600, margin: 8, backgroundColor:'#d3d3d3', fontColor: '#000000'}}
+								selectionColor= '#3467EC'
+								multiline
+								label="Course Description:"
+								value={newDesc}
+								onChangeText={newDesc => setNewDesc(newDesc)}
+						/>
+						<View style={{flexDirection: 'row', alignSelf: 'center'}}>
+								<Button onPress = {() => setVisible(false)}>
+									<Text>Cancel</Text>
+								</Button>
+								<Button style={{backgroundColor: '#3467EC'}}>
+									<Text style={{color: '#FFFFFF'}}>Submit</Text>
+								</Button>
+						</View>
+					</View>;
+
     return (	
-		
 		<View>
+		{ (visible == true) &&  
+			<View>
 			<TextInput
 				style={{maxWidth: 600, margin: 8, backgroundColor:'#d3d3d3', fontColor: '#000000'}}
 					selectionColor= '#3467EC'
@@ -80,7 +107,8 @@ export default function CreateCourse()  {
 						<Text style={{color: '#FFFFFF'}}>Submit</Text>
 					</Button>
 			</View>
-        </View>
+		</View>}
+		</View>
 		
 
 	)
