@@ -1,17 +1,22 @@
 import React from 'react';
-import { View, Image, StyleSheet } from 'react-native';
-import { Button, Surface, Text, Title } from 'react-native-paper';
-import  Styles  from '../../styles/styles';
+import { View, Dimensions } from 'react-native';
+import { Text } from 'react-native-paper';
+import Styles from '../../styles/styles';
+import Image from 'react-native-scalable-image';
 
 let ImageTask = function({ pth, title }) {
 
    return (
-      <View style={Styles.taskContainer}>
-         <Title style={Styles.taskTitleText}>
+    <View style = {Styles.taskContainer}>
+        <Text style={Styles.header}>
             {title}
-         </Title>
-         <Image style={{width: "75%", height: 500, resizeMode: 'contain'}} source={pth}/>
-      </View>
+        </Text>
+        <Image 
+          width= '800'
+          resizeMode= 'center'
+          source={{ uri: pth }}
+        />
+    </View>
    );
 }
 

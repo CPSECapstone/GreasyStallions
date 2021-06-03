@@ -76,7 +76,7 @@ let TaskPage = ({ route, navigation }) => {
         } else if (component.FRQuestion != null) {
             return <FreeResponseTask freeResponseQuestion={component.FRQuestion} />
         } else if (component.__typename === "ImageBlock") {
-            return  /* <ImageTask pth={component.imageUrl} title={component.title}/> */ undefined 
+            return  <ImageTask pth={component.imageUrl} title={component.title}/>
         }
     }
     
@@ -125,4 +125,3 @@ let TaskPage = ({ route, navigation }) => {
 }
 
 export default TaskPage;
-
