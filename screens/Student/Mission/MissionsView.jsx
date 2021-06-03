@@ -1,7 +1,7 @@
 import React from 'react';
 import { useQuery, gql } from "@apollo/client";
 import { View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
-import { Button, Text, Menu, Divider, Provider } from 'react-native-paper';
+import { Button, Text, Menu, Divider, Provider, Title, Subheading } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import Styles  from '../../../styles/styles.js';
@@ -11,6 +11,7 @@ export default function MissionsView({ className }) {
     const [ view, setView ] = React.useState(0); // either show all mission or
      // just one mission and the tasks that make it up
     const [ missId, setMissId ] = React.useState("");
+    const [ missName, setMissName ] = React.useState("");
 
     const MISSION_QUERY = gql
     `
@@ -49,9 +50,10 @@ export default function MissionsView({ className }) {
 	}
     `;
 
-    let clickHandler = (id) => {
+    let clickHandler = (id, name) => {
         setView(1);
         setMissId(id);
+        setMissName(name);
     }
 
     let taskViewer = (id) => {
@@ -69,7 +71,7 @@ export default function MissionsView({ className }) {
             let missions = [];
             data.courseContent.missions.forEach( mission => {
                 missions.push(
-                    <TouchableOpacity onPress={() => navigation.navigate("MissionPage", {id: mission.id})}>
+                    <TouchableOpacity onPress={() => clickHandler(mission.id, mission.name)}>
                         <AnimatedCircularProgress
                             style={Styles.circle}
                             size={150}
@@ -110,7 +112,7 @@ export default function MissionsView({ className }) {
                 let crMiss = data.mission.missionContent[i]; 
                 if (crMiss.__typename === "Task") {
                     taskList.push(
-                        <TouchableOpacity onPress={() => taskViewer(crMiss.id)}>
+                        <TouchableOpacity style={Styles.TaskListContainer} onPress={() => taskViewer(crMiss.id)}>
                             <Text>{crMiss.name}</Text>
                         </TouchableOpacity>
                     )
@@ -118,14 +120,19 @@ export default function MissionsView({ className }) {
             }
             
             return (
-                <div st>
+                <View>
                     <Button onPress={() => setView(0)}>
                         Back to Missions
                     </Button>
+                    <Title style={Styles.missionTitleText}>{missName}</Title>
+                    <View style={{paddingLeft: "5%"}}>
+                        <View style={Styles.blueLine}/>
+                    </View>
+                    <Subheading style={Styles.targetItemText}>TARGET ITEM</Subheading>
                     <ScrollView>
                         {taskList}
                     </ScrollView>
-                </div>
+                </View>
             )
         }
     }
