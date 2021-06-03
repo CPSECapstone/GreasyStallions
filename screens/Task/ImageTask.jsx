@@ -7,13 +7,13 @@ import Image from 'react-native-scalable-image';
 let ImageTask = function({ pth, title }) {
 
    return (
-    <View style = {Styles.container}>
+    <View style = {Styles.taskContainer}>
         <Text style={Styles.header}>
             {title}
         </Text>
         <Image 
-          resizeMode= 'contain' 
-          width={Dimensions.get('window').width}
+          width= '800'
+          resizeMode= 'center'
           source={{ uri: pth }}
         />
     </View>

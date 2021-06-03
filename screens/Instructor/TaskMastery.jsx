@@ -66,7 +66,7 @@ const GET_STUDENTS = gql
   ]
 
 
-  let MasteryStudentListComponent = ({students, setStudents, filter, setFilter, setShowTargetMastery, setShowObjMastery}) => {
+  let TaskMasteryComponent = ({students, setStudents, filter, setFilter, setShowTargetMastery, objSelected}) => {
     const client = useApolloClient();
 
     let fullProgress = {}
@@ -119,27 +119,41 @@ const GET_STUDENTS = gql
       return Math.floor(Math.random() * 4)
     }
 
-    let buildProgressMap = () =>{
-      studentList.forEach(stud =>{
-        let totalTasks = 0;
-        let masteredTasks = 0;
+    let buildProgressMap = (obj) =>{
+        if(obj === "Backend-Mocked Objective 1"){
+            targetList.forEach(targ =>{
+                targ.objectives[0].tasks.forEach(task =>{
+                    progressMapByStudent.set(task.taskName, task.mastery)
+                })
+            })
+        } else{
+            targetList.forEach(targ =>{
+                targ.objectives[1].tasks.forEach(task =>{
+                    progressMapByStudent.set(task.taskName, task.mastery)
+                })
+            })
+        }
+
+
+      /* studentList.forEach(stud =>{
         targetList.forEach(targ => {
           targ.objectives.forEach(obj => {
+              let objprogress=0;
+              let numtasksinobj=0;
             obj.tasks.forEach(task => {
-              totalTasks = totalTasks + 1;
+              numtasksinobj = numtasksinobj + 1;
               if(task.mastery === "MASTERED"){
-                masteredTasks = masteredTasks + 1;
+                objprogress = objprogress + 1;
               }
             })
+            progressMapByStudent.set(obj.objectiveName, {objMastery: (objprogress/numtasksinobj)})
           })
         })
-        progressMapByStudent.set(stud, {taskMastery: (masteredTasks / totalTasks)})
-      })
+      }) */
     }
 
-    let changeView = () => {
-      setShowTargetMastery(false)
-      setShowObjMastery(true)
+    let changeView = () =>{
+        setShowTargetMastery(true);
     }
 
     /* let handleChange = (event) =>{
@@ -160,33 +174,71 @@ const GET_STUDENTS = gql
     // Query to fetch student progress for this course
     getStudents()
     getMastery()
-    buildProgressMap()
+    buildProgressMap(objSelected)
+    let colorMap = new Map();
+    colorMap.set("MASTERED", {color: Colors.green, progress: 1})
+    colorMap.set("NEARLY_MASTERED", {color: Colors.yellow, progress: 0.75})
+    colorMap.set("NOT_MASTERED", {color: Colors.red, progress: 0.25})
+    colorMap.set("NOT_GRADED", {color: Colors.light_gray, progress: 0})
+    //console.log(objSelected)
+    
+    if(objSelected === "Backend-Mocked Objective 1"){
   return (
     <View style={Styles.masterycontainer}>
       <View style={{flexDirection: 'row'}}>
-      <Text style={{flex: 1, maxWidth: 200}}>Student</Text>
-          {targetList.map(targ => (
+      <Text style={Styles.masteryname}>Student</Text>
+          {targetList[0].objectives[0].tasks.map(task => (
             <View style={{flex: 1}}>
-              <Button onPress={changeView}
-              title={targ.target.targetName}
-              accessibilityLabel='switch to objective'></Button>
-            </View>
+            <Button onPress={() => {setShowTargetMastery(true)}}
+            title={task.taskName}
+            accessibilityLabel='switch to objective'></Button>
+          </View>
           ))}
-          <View style={Styles.masteryprogressbar}></View>
       </View>
       <ScrollView>
         {studentList.map(student =>(
           <View style={Styles.masteryrow}>
             <Text style={Styles.masteryname}>{student}</Text>
-            <View style={Styles.masteryprogressbar}>
-              <ProgressBar progress={progressMapByStudent.get(student).taskMastery} color={Colors.yellow} style={Styles.masterybar}></ProgressBar>
-            </View>
-            <View style={Styles.masteryprogressbar}></View>
+            {Array.from(progressMapByStudent.keys()).map(task => (
+                <View style={Styles.masteryprogressbar}>
+                <ProgressBar progress={colorMap.get(progressMapByStudent.get(task)).progress} 
+                color={colorMap.get(progressMapByStudent.get(task)).color} style={Styles.masterybar}></ProgressBar>
+              </View>
+            ))}
           </View>
         ))}
       </ScrollView>
     </View>
   )
+} else if(objSelected === "Backend-Mocked Objective 2"){
+    return (
+        <View style={Styles.masterycontainer}>
+          <View style={{flexDirection: 'row'}}>
+          <Text style={Styles.masteryname}>Student</Text>
+              {targetList[0].objectives[1].tasks.map(task => (
+                <View style={{flex: 1}}>
+                <Button onPress={() => {setShowTargetMastery(true)}}
+                title={task.taskName}
+                accessibilityLabel='switch to objective'></Button>
+              </View>
+              ))}
+          </View>
+          <ScrollView>
+            {studentList.map(student =>(
+              <View style={Styles.masteryrow}>
+                <Text style={Styles.masteryname}>{student}</Text>
+                {Array.from(progressMapByStudent.keys()).map(task => (
+                    <View style={Styles.masteryprogressbar}>
+                    <ProgressBar progress={colorMap.get(progressMapByStudent.get(task)).progress} 
+                    color={colorMap.get(progressMapByStudent.get(task)).color} style={Styles.masterybar}></ProgressBar>
+                  </View>
+                ))}
+              </View>
+            ))}
+          </ScrollView>
+        </View>
+      )
 }
+  }
 
-  export default MasteryStudentListComponent;
+  export default TaskMasteryComponent;

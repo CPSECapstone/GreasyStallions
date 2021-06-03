@@ -7,6 +7,7 @@ import makeApolloClient from './apollo';
 import { withAuthenticator } from 'aws-amplify-react-native'
 import Amplify, { Auth } from 'aws-amplify';
 import config from './amplify/config';
+import { Provider as PaperProvider } from 'react-native-paper';
 
 Amplify.configure(config);
 
