@@ -1,4 +1,13 @@
-# Apollo GraphQL Example
+# How to run Greasy Stallions Flipt(ed)
+- clone this repo
+- make sure you have npm, expo, and react-native installed (npm install ______)
+- run 'npm install' from the root directory to create the build
+- run 'npm start' ... this will run the expo server and give instructions to open the app preview in web, iOS, or Android
+
+
+
+# How to set up the Backend
+## Apollo GraphQL Example
 
 <p>
   <!-- iOS -->
@@ -12,10 +21,41 @@
 ## 🚀 How to use
 
 - Install with `yarn` or `npm install`.
-- Run `expo start` to try it out.
+- Run `expo start` in the command line while in project folder to try it out.
+- Press "w" to run web server
+- Press "i" with iOS simulator running to run iOS build
+- Press "a" with Android simulator to run android build
+
+## How to Create an Account:
+
+- contact efukumot@calpoly.edu to get an account created to test our platform
+
+## How to Submit a Bug:
+
+- If you find a bug/defect in our site please submit them here: https://forms.gle/dxDULg4aRNaNJ2Pe9 
 
 ## 📝 Notes
 
 - The Apollo configuration lies in the `apollo.js` file.
 - The file also contains an option (with commented code) to pass an authorization token to the API.
 - [Apollo Client Docs](https://www.apollographql.com/docs/react/v3.0-beta/)
+
+## Style guide
+#### Spacing
+- tabs 4 spaces
+- put spaces around = sign in assignments
+  - ex. let x = 1;
+- put spaces around operators
+  - ex. x = 1 + 1;
+- make lines < 90 chars
+- indent extended from > 90 char lines by 1 space
+
+#### Variable names
+- make meaningful variable names
+- for multiword variable names use camelCasing
+- be consistent with abreveations in variable names
+
+#### Others
+- don't leave debugging console.logs in main branch code
+
+
