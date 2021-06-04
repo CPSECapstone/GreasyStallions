@@ -43,16 +43,18 @@ const Styles = StyleSheet.create({
     padding: 16,
     width: '100%'
 	},
-  container: {
   header: {
 		alignSelf: 'flex-start',
     textAlign: 'left',
     fontSize: 28,
-		marginTop: 16
+		marginTop: 16,
+    color: '#3467EC',
+    marginLeft: 16,
 	},
 	info: {
 		alignSelf: 'flex-start',
     textAlign: 'left',
+    marginLeft: 16,
     fontSize: 18,
 		marginTop: 6
 	},
@@ -132,19 +134,18 @@ const Styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: "wrap",
     justifyContent: 'center',    
+  },
+  navbutton: {
+    margin:10,
+  },
+  list: {
+    flex: 1
     },
-    navbutton: {
-		  margin:10,
-	  },
-    list: {
-      flex: 1
-      },
-    missionlist: {
-      flexDirection: 'row',
-      flexWrap: "wrap",
-      justifyContent: 'center',    
-      },
-  
+  missionlist: {
+    flexDirection: 'row',
+    flexWrap: "wrap",
+    justifyContent: 'center',    
+  },
   TaskListContainer: { 
     paddingLeft: "8%",
     paddingTop: "1%",
