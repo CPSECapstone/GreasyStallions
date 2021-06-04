@@ -1,8 +1,8 @@
 # How to run Greasy Stallions Flipt(ed)
-- clone this repo
-- make sure you have npm, expo, and react-native installed (npm install ______)
-- run 'npm install' from the root directory to create the build
-- run 'npm start' ... this will run the expo server and give instructions to open the app preview in web, iOS, or Android
+- Clone this repo
+- Make sure you have npm, expo, and react-native installed (npm install ______)
+- Run 'npm install' from the root directory to create the build
+- Run 'npm start' ... this will run the expo server and give instructions to open the app preview in web, iOS, or Android
 
 
 
@@ -28,7 +28,7 @@
 
 ## How to Create an Account:
 
-- contact efukumot@calpoly.edu to get an account created to test our platform
+- Contact efukumot@calpoly.edu to get an account created to test our platform
 
 ## How to Submit a Bug:
 
@@ -42,20 +42,20 @@
 
 ## Style guide
 #### Spacing
-- tabs 4 spaces
-- put spaces around = sign in assignments
+- Tabs 4 spaces
+- Put spaces around = sign in assignments
   - ex. let x = 1;
-- put spaces around operators
+- Put spaces around operators
   - ex. x = 1 + 1;
-- make lines < 90 chars
-- indent extended from > 90 char lines by 1 space
+- Lines should be < 90 chars
+- Indent extended from > 90 char lines by 2 spaces
 
 #### Variable names
-- make meaningful variable names
-- for multiword variable names use camelCasing
-- be consistent with abreveations in variable names
+- Use meaningful variable names
+- Use camelCasing for multiword variable names
+- Be consistent with abbreviations in variable names
 
 #### Others
-- don't leave debugging console.logs in main branch code
+- Remove console.logs in main branch code after debugging
 
 
