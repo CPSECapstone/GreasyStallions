@@ -20,6 +20,7 @@
 
 ## 🚀 How to use
 
+- Clone this Github repo
 - Install with `yarn` or `npm install`.
 - Run `expo start` in the command line while in project folder to try it out.
 - Press "w" to run web server
